@@ -1,0 +1,67 @@
+syms x_R u(x_R)
+
+% definition of variables
+r_H0=[20.0,1.0]
+r_R0=[0,1.0]
+
+r_2=6.0
+r_1=1.2
+
+f_inv=2*x_R % [s]. x_Rが1m進むのに2秒かかる。実質tのこと。
+
+r_H=r_H0+f_inv*[-0.1,0]
+r_R=[x_R,u(x_R)]
+e=[1,diff(u)]/sqrt(1+diff(u))
+
+norm_HR=norm(r_H-r_R)
+e_dot_HR=e*(r_H-r_R).'
+
+mu_A=(r_2-r_1)/2
+mu_B=0
+
+sigma_A=1/6*(r_2-r_1)
+sigma_B=1/6*2*norm_HR
+
+
+A_bar=1/(sqrt(2*pi)*sigma_A)*exp(-(norm_HR-mu_A)^2/(2*sigma_A^2))
+B_bar=1/(sqrt(2*pi)*sigma_B)*exp(-(e_dot_HR-mu_B)^2/(2*sigma_B^2))
+
+F=A_bar*B_bar
+G=F*diff(f_inv)
+
+
+% definition of target function u(x_R)
+n=5
+alpha=sym('alpha',[1 2*n+1])
+
+theta=2*pi*(x_R-r_R0(1))/(r_H0(1)-r_R0(1))
+phi=[1;
+    cos(theta);
+    sin(theta);
+    cos(2*theta);
+    sin(2*theta);
+    cos(3*theta);
+    sin(3*theta);
+    cos(4*theta);
+    sin(4*theta);
+    cos(5*theta);
+    sin(5*theta);
+    % cos(6*theta);
+    % sin(6*theta);
+    % cos(7*theta);
+    % sin(7*theta);
+    % cos(8*theta);
+    % sin(8*theta);
+    % cos(9*theta);
+    % sin(9*theta);
+    % cos(10*theta);
+    % sin(10*theta);
+    ]
+
+u_kari=alpha*phi
+
+l=functionalDerivative(G,u)^2
+
+l=subs(l,u,u_kari)*sum(phi,2)
+
+L=int(l,[r_R0(1),r_H0(1)])
