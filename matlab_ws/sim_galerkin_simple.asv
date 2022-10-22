@@ -27,26 +27,26 @@ A_bar=1/(sqrt(2*pi)*sigma_A)*exp(-(norm_HR-mu_A)^2/(2*sigma_A^2))
 B_bar=1/(sqrt(2*pi)*sigma_B)*exp(-(e_dot_HR-mu_B)^2/(2*sigma_B^2))
 
 F=A_bar*B_bar
-F=norm_HR
-G=F*diff(f_inv)
+% F=norm_HR^2
+G=F%*diff(f_inv)
 
 
 % definition of target function u(x_R)
-n=5
+n=1
 alpha=sym('alpha',[1 2*n+1])
 
 theta=2*pi*(x_R-r_R0(1))/(r_H0(1)-r_R0(1))
 phi=[1;
     cos(theta);
     sin(theta);
-    cos(2*theta);
-    sin(2*theta);
-    cos(3*theta);
-    sin(3*theta);
-    cos(4*theta);
-    sin(4*theta);
-    cos(5*theta);
-    sin(5*theta);
+    % cos(2*theta);
+    % sin(2*theta);
+    % cos(3*theta);
+    % sin(3*theta);
+    % cos(4*theta);
+    % sin(4*theta);
+    % cos(5*theta);
+    % sin(5*theta);
     % cos(6*theta);
     % sin(6*theta);
     % cos(7*theta);
@@ -63,6 +63,23 @@ u_kari=alpha*phi
 
 l=functionalDerivative(G,u)^2
 
-l=subs(l,u,u_kari)*sum(phi,2)
+L=int(l,x_R,r_R0(1),r_H0(1))
 
-L=int(l,[r_R0(1),r_H0(1)])
+
+
+% in_int=subs(l,u,u_kari)*sum(phi)
+
+% in_int_mf=matlabFunction(in_int)
+
+% alpha1=1
+% alpha2=1
+% alpha3=1
+% % in_int_mf2=@(x_R)in_int_mf(x_R,alpha1,alpha2,alpha3)
+% in_int_mf2=@(x_R)in_int_mf(x_R,alpha1,alpha2,alpha3)
+
+% % L=integral(in_int_mf2,r_R0(1),r_H0(1))
+% fminsearch(@(alpha1,alpha2,alpha3)integral(@(x_R)in_int_mf(x_R,alpha1,alpha2,alpha3),r_R0(1),r_H0(1)),[1,1,1])
+
+
+
+% L=int(l,r_R0(1),r_H0(1),'IgnoreAnalyticConstraints',true,'IgnoreSpecialCases',true)

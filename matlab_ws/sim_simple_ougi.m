@@ -1,6 +1,4 @@
-65
-65
-4syms x_R u(x_R) r_H r_R e norm_HR e_dot_HR
+syms x_R u(x_R) r_H r_R e norm_HR e_dot_HR
 
 r_H0=[20.0,1.0]
 r_R0=[0,1.0]
