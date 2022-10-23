@@ -67,6 +67,7 @@ in_int=subs(l,u,u_kari)*sum(phi,2)
 in_int_mf=matlabFunction(in_int)
 in_int_mf2=@(x_R)in_int_mf(x_R,alpha1,alpha2,alpha3)
 
+% start integral
 L=integral(in_int_mf2,r_R0(1),r_H0(1),"ArrayValued",true)
 
 
