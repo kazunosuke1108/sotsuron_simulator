@@ -30,8 +30,9 @@ A_bar=1/(sqrt(2*pi)*sigma_A)*exp(-(norm_HR-mu_A)^2/(2*sigma_A^2)) % 扇の半径
 B_bar=1/(sqrt(2*pi)*sigma_B)*exp(-(e_dot_HR-mu_B)^2/(2*sigma_B^2)) % 扇の角度方向の正規分布の確率密度関数
 
 % F=A_bar*B_bar % 扇に人が入っていることを評価する汎関数（使用停止中）
-F=norm_HR % デバッグのために定義した仮の汎関数．x_Rとu(x_R)で表される．（使用停止中）
+% F=norm_HR % デバッグのために定義した仮の汎関数．x_Rとu(x_R)で表される．（使用停止中）
 F=e_dot_HR % デバッグのために定義した仮の汎関数．x_Rとu(x_R)とu'(x_R)で表される．
+F=u+x_R+diff(u)^2
 G=F*diff(f_inv) % t -> x_R　の変数変換
 
 
@@ -67,10 +68,11 @@ u_kari=alpha*phi % 近似解の定義
 
 l=functionalDerivative(G,u)^2 % 汎関数G，汎関数の引数uを与え，これらからなるオイラー方程式を作成する．（Symbolic必須）
 
-in_int=subs(l,u,u_kari)*sum(phi,2) % オイラー方程式に近似解を代入する．
+in_int=subs(l,u,u_kari)% オイラー方程式に近似解を代入する．
+in_int=in_int*sum(phi,2) % オイラー方程式に近似解を代入する．
 
 L=int(in_int,x_R,r_R0(1),r_H0(1)) % 全行程での誤差の累計を求める．
-% この計算の際，alphaがSymbolic変数のため，積分計算ができません．しかし，alphaは最適化変数なので，数値で置き換えることは避けたいです．
+% 解析積分なのでFに制約が出てしまう
 
 
 
