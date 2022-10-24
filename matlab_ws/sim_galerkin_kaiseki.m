@@ -1,38 +1,39 @@
+% シンボリック変数を定義
 syms x_R u(x_R)
 
 % definition of variables
-r_H0=[20.0,1.0]
-r_R0=[0,1.0]
+r_H0=[20.0,1.0] % 人間の初期位置座標
+r_R0=[0,1.0] % ロボットの初期位置座標
 
-r_2=6.0
-r_1=1.2
+r_2=6.0 % 歩容計測可能な距離の最大値（扇の外側半径）
+r_1=1.2 % 歩容計測可能な距離の最小値（扇の内側半径）
 
-f_inv=2*x_R % [s]. x_Rが1m進むのに2秒かかる。実質tのこと。
+f_inv=2*x_R % x_R=f(t)の逆関数．変数tを消すために用いられ，ある時点でのロボットのx座標から，その時刻を求める．今はロボットが0.5m/sで進むと仮定
 
-r_H=r_H0+f_inv*[-0.1,0]
-r_R=[x_R,u(x_R)]
-e=[1,diff(u)]/sqrt(1+diff(u))
+r_H=r_H0+f_inv*[-0.1,0] % 時刻f_inv(x_R)での（廊下方向）にのみ0.1m/sで進むと仮定
+r_R=[x_R,u(x_R)] % 時刻f_inv(x_R)でのボットの座標
+e=[1,diff(u)]/sqrt(1+diff(u)) % ロボットの方向ベクトル
 
-norm_HR=norm(r_H-r_R)
-e_dot_HR=e*(r_H-r_R).'
+norm_HR=norm(r_H-r_R) % 人とロボットの相対距離
+e_dot_HR=e*(r_H-r_R).' % 人とロボットの相対ベクトルと，ロボットの方向ベクトルの内積．「人とロボットの相対距離 x cos(2つのベクトルの内積)」に等しい．
 
-mu_A=(r_2-r_1)/2
-mu_B=0
+mu_A=(r_2-r_1)/2 % 扇の半径方向の正規分布の平均値
+mu_B=0 % 扇の角度方向の正規分布の平均値
 
-sigma_A=1/6*(r_2-r_1)
-sigma_B=1/6*2*norm_HR
-
-
-A_bar=1/(sqrt(2*pi)*sigma_A)*exp(-(norm_HR-mu_A)^2/(2*sigma_A^2))
-B_bar=1/(sqrt(2*pi)*sigma_B)*exp(-(e_dot_HR-mu_B)^2/(2*sigma_B^2))
-
-% F=A_bar*B_bar
-F=norm_HR
-F=e_dot_HR
-G=F*diff(f_inv)
+sigma_A=1/6*(r_2-r_1) % 扇の半径方向の正規分布の標準偏差
+sigma_B=1/6*2*norm_HR % 扇の角度方向の正規分布の標準偏差
 
 
-% definition of target function u(x_R)cccccccccccccccccccccccc
+A_bar=1/(sqrt(2*pi)*sigma_A)*exp(-(norm_HR-mu_A)^2/(2*sigma_A^2)) % 扇の半径方向の正規分布の確率密度関数
+B_bar=1/(sqrt(2*pi)*sigma_B)*exp(-(e_dot_HR-mu_B)^2/(2*sigma_B^2)) % 扇の角度方向の正規分布の確率密度関数
+
+% F=A_bar*B_bar % 扇に人が入っていることを評価する汎関数（使用停止中）
+F=norm_HR % デバッグのために定義した仮の汎関数．x_Rとu(x_R)で表される．（使用停止中）
+F=e_dot_HR % デバッグのために定義した仮の汎関数．x_Rとu(x_R)とu'(x_R)で表される．
+G=F*diff(f_inv) % t -> x_R　の変数変換
+
+
+% definition of target function u(x_R)
 n=1
 alpha=sym('alpha',[1 2*n+1])
 
