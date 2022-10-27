@@ -69,9 +69,19 @@ u_kari=alpha*phi % 近似解の定義
 l=functionalDerivative(G,u)^2 % 汎関数G，汎関数の引数uを与え，これらからなるオイラー方程式を作成する．（Symbolic必須）
 
 in_int=subs(l,u,u_kari)% オイラー方程式に近似解を代入する．
-in_int=in_int*sum(phi,2) % オイラー方程式に近似解を代入する．
+in_int=in_int*sum(phi,2) % オイラー方程式に近似解を代入する．被積分関数。
 
-L=int(in_int,x_R,r_R0(1),r_H0(1)) % 全行程での誤差の累計を求める．
+% 疑似積分
+
+dx=1
+L=0
+x_list=r_R0(1):dx:r_H0(1)
+for x_int = x_list
+    L=L+subs(in_int,x_R,x_int)
+end
+
+L=simplify(L)
+% L=int(in_int,x_R,r_R0(1),r_H0(1)) % 全行程での誤差の累計を求める．
 % 解析積分なのでFに制約が出てしまう
 
 
