@@ -6,7 +6,11 @@ th=z(3,:);
 v=u(1,:);
 omg=u(2,:);
 
-[dx; dy; dth] = autoGen_f(omg,th,v);
+size(v);
+size(th);
+dx=v.*cos(th);
+dy=v.*sin(th);
+dth=omg;
 
 dz=[dx; dy; dth];
 

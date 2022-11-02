@@ -1,0 +1,5 @@
+function p=getRobotParameters()
+
+
+
+end

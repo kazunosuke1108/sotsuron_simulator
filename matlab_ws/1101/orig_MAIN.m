@@ -61,7 +61,7 @@ problem.bounds.control.upp = [vel_max;omg_max];
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
 problem.guess.time = [0,duration];
-problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.low];
+problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.upp];
 problem.guess.control = [0 0;0 0];
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -70,7 +70,7 @@ problem.guess.control = [0 0;0 0];
 
 problem.options.nlpOpt = optimset(...
     'Display','iter',...
-    'MaxFunEvals',1e5);
+    'MaxFunEvals',1e6);
 
 % problem.options.method = 'trapezoid'; 
 problem.options.method = 'hermiteSimpson';  
@@ -81,3 +81,14 @@ problem.options.method = 'hermiteSimpson';
 
 soln = trajOpt(problem);
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+%                        Display Solution                                 %
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+n = length(soln.grid.time);
+t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
+z = soln.interp.state(t);
+u = soln.interp.control(t);
+
+%%%% Plots:
+figure(1); clf;
+plotAll(t,z,u)

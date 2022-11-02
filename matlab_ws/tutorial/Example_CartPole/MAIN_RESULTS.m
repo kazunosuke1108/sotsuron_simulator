@@ -96,6 +96,9 @@ drawCartPoleTraj(t,p1,p2,nFrame);
 
 %%%% Show the error in the collocation constraint between grid points:
 figure(5); clf;
+tGrid = soln.grid.time;
+zGrid = soln.grid.state;
+uGrid = soln.grid.control;
 
 idx = 1:2:length(tGrid);  %Only plot knot points
 cc = soln.interp.collCst(t);
