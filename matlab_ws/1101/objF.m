@@ -14,6 +14,7 @@ vec=xy_H-xy_R;
 
 norm_HR=vecnorm(vec,length(t),1);
 
-F=norm_HR.^(-1);
+% F=norm_HR.^(-1);
+F=norm_HR;
 
 end

@@ -1,7 +1,7 @@
 % orig_MAIN.m
 %
 % Solve the sotsuron problem
-% フォルダ実行場所に注意（パスの都合でcsv出力が死にうる）
+% フォルダ実行場所に注意（
 
 clc; clear;
 
@@ -24,7 +24,7 @@ r.y1=1;
 h.x0=15;
 h.y0=1;
 h.th0=pi;
-h.v=-0.05;
+h.v=-1;
 
 vel_max=0.22;
 omg_max=pi/4;
@@ -88,6 +88,7 @@ soln = trajOpt(problem);
 addpath results\
 now=datetime('now')
 filename_csv = string("results\"+datestr(now,'yymmdd_hhMMss')+".csv");
+filename_png = string("results\"+datestr(now,'yymmdd_hhMMss')+".png");
 
 % save(fullfile("C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\1101\results",filename_csv),'-regexp','x');
 % save(fullfile("C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\1101\results",filename_png),'-regexp','x');
@@ -130,8 +131,6 @@ writetable(T,filename_csv,'Encoding','UTF-8');
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                        Display Solution                                 %
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-filename_png = string("results\"+datestr(now,'yymmdd_hhMMss')+".png");
-
 n = length(soln.grid.time);
 t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
 z = soln.interp.state(t);
@@ -145,48 +144,15 @@ saveas(figure(1),filename_png)
 
 
 %%%% Animations:
+figure(2);
+
 x_plot=z(1,:);
 y_plot=z(2,:);
-theta_plot=z(3,:);
-v_plot=u(1,:);
-
-human_x=h.x0+h.v*t;
-human_y=h.y0+0*t;
-human_theta=h.th0+0*t;
-human_v=abs(h.v)+0*t;
-
-
-arrow_scale=5;
-v_plot=arrow_scale*v_plot
-
-filename_mp4 = string("results\"+datestr(now,'yymmdd_hhMMss')+".mp4");
-fig2 = figure(2); clf;
-frames(length(x_plot)) = struct('cdata', [], 'colormap', []);
-
-robot_position = plot(x_plot(1),y_plot(1),'ob');
-hold on
-arrow = quiver(x_plot(1), y_plot(1), v_plot(1)*cos(theta_plot(1)), v_plot(1)*sin(theta_plot(1)))
-hold on
-human_position = plot(human_x(1),human_y(1),'or');
-hold on
-human_arrow = quiver(human_x(1), human_y(1), human_v(1)*cos(human_theta(1)), human_v(1)*sin(human_theta(1)))
-
-% direction = plot([x_plot(1),x_plot(1)+v_plot(1)*cos(theta_plot(1))],[y_plot(1),y_plot(1)+v_plot(1)*sin(theta_plot(1))]);
+h = plot(x_plot(1),y_plot(1),'o');
 xlim([8,17]);
 ylim([0,2.5]);
 
 for i = 1:length(x_plot)
-    set(robot_position,'XData',x_plot(i),'YData',y_plot(i));
-    set(human_position,'XData',human_x(i),'YData',human_y(i));
-    % set(direction,'XData',[x_plot(i),x_plot(i)+v_plot(i)*cos(theta_plot(i))],'YData',[y_plot(i),y_plot(i)+v_plot(i)*sin(theta_plot(i))]);
-    set(arrow,'XData',x_plot(i),'YData', y_plot(i),'UData', v_plot(i)*cos(theta_plot(i)),'VData', v_plot(i)*sin(theta_plot(i)));
-    set(human_arrow,'XData',human_x(i),'YData', human_y(i),'UData', human_v(i)*cos(human_theta(i)),'VData', human_v(i)*sin(human_theta(i)));
+    dry(h,'XData',x(i),'YData',y(i));
     drawnow;
-    frames(i)=getframe(fig2);
 end
-
-video=VideoWriter(filename_mp4,'MPEG-4');
-open(video)
-writeVideo(video, frames);
-close(video)
-
