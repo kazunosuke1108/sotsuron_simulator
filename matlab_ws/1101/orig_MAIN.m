@@ -62,7 +62,7 @@ problem.bounds.control.upp = [vel_max;omg_max];
 
 problem.guess.time = [0,duration];
 problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.low];
-problem.guess.control = [0,0];
+problem.guess.control = [0 0;0 0];
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                         Solver options                                  %
