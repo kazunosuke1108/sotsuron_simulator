@@ -1,2 +1,0 @@
-datetime('now')
-datestring = datestr(datetime('now'),'yyyyMMddHHmmss')+".txt"

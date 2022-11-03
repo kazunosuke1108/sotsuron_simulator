@@ -26,6 +26,11 @@ h.y0=1;
 h.th0=pi;
 h.v=-0.05;
 
+c.r1=2.4;
+c.r2=3.5;
+c.phi=deg2rad(58)/2;
+
+
 vel_max=0.22;
 omg_max=pi/4;
 
@@ -145,9 +150,10 @@ saveas(figure(1),filename_png)
 
 
 %%%% Animations:
+
 x_plot=z(1,:);
 y_plot=z(2,:);
-theta_plot=z(3,:);
+th_plot=z(3,:);
 v_plot=u(1,:);
 
 human_x=h.x0+h.v*t;
@@ -158,6 +164,7 @@ human_v=abs(h.v)+0*t;
 
 arrow_scale=5;
 v_plot=arrow_scale*v_plot
+human_v=arrow_scale*human_v
 
 filename_mp4 = string("results\"+datestr(now,'yymmdd_hhMMss')+".mp4");
 fig2 = figure(2); clf;
@@ -165,22 +172,47 @@ frames(length(x_plot)) = struct('cdata', [], 'colormap', []);
 
 robot_position = plot(x_plot(1),y_plot(1),'ob');
 hold on
-arrow = quiver(x_plot(1), y_plot(1), v_plot(1)*cos(theta_plot(1)), v_plot(1)*sin(theta_plot(1)))
+arrow = quiver(x_plot(1), y_plot(1), v_plot(1)*cos(th_plot(1)), v_plot(1)*sin(th_plot(1)))
 hold on
 human_position = plot(human_x(1),human_y(1),'or');
 hold on
 human_arrow = quiver(human_x(1), human_y(1), human_v(1)*cos(human_theta(1)), human_v(1)*sin(human_theta(1)))
+hold on
+arc_rad=linspace(th_plot(1)-c.phi,th_plot(1)+c.phi,length(th_plot))
+r1_array=c.r1+0*t;
+r2_array=c.r2+0*t;
+arc_array_r1_x=r1_array.*cos(arc_rad)+x_plot(1)
+arc_array_r1_y=r1_array.*sin(arc_rad)+y_plot(1)
+arc_array_r2_x=r2_array.*cos(arc_rad)+x_plot(1)
+arc_array_r2_y=r2_array.*sin(arc_rad)+y_plot(1)
+arc_r1=plot(arc_array_r1_x,arc_array_r1_y,'g');
+hold on
+arc_r2=plot(arc_array_r2_x,arc_array_r2_y,'g');
+hold on
+arc_right=plot([arc_array_r1_x(1),arc_array_r2_x(1)],[arc_array_r1_y(1),arc_array_r2_y(1)],'g');
+hold on
+arc_left=plot([arc_array_r1_x(end),arc_array_r2_x(end)],[arc_array_r1_y(end),arc_array_r2_y(end)],'g');
 
-% direction = plot([x_plot(1),x_plot(1)+v_plot(1)*cos(theta_plot(1))],[y_plot(1),y_plot(1)+v_plot(1)*sin(theta_plot(1))]);
+
 xlim([8,17]);
 ylim([0,2.5]);
+daspect([1,1,1]);
+
 
 for i = 1:length(x_plot)
     set(robot_position,'XData',x_plot(i),'YData',y_plot(i));
     set(human_position,'XData',human_x(i),'YData',human_y(i));
-    % set(direction,'XData',[x_plot(i),x_plot(i)+v_plot(i)*cos(theta_plot(i))],'YData',[y_plot(i),y_plot(i)+v_plot(i)*sin(theta_plot(i))]);
-    set(arrow,'XData',x_plot(i),'YData', y_plot(i),'UData', v_plot(i)*cos(theta_plot(i)),'VData', v_plot(i)*sin(theta_plot(i)));
+    set(arrow,'XData',x_plot(i),'YData', y_plot(i),'UData', v_plot(i)*cos(th_plot(i)),'VData', v_plot(i)*sin(th_plot(i)));
     set(human_arrow,'XData',human_x(i),'YData', human_y(i),'UData', human_v(i)*cos(human_theta(i)),'VData', human_v(i)*sin(human_theta(i)));
+    arc_rad=linspace(th_plot(i)-c.phi,th_plot(i)+c.phi,length(th_plot));
+    arc_array_r1_x=r1_array.*cos(arc_rad)+x_plot(i)
+    arc_array_r1_y=r1_array.*sin(arc_rad)+y_plot(i)
+    arc_array_r2_x=r2_array.*cos(arc_rad)+x_plot(i)
+    arc_array_r2_y=r2_array.*sin(arc_rad)+y_plot(i)
+    set(arc_r1,'XData',arc_array_r1_x,'YData',arc_array_r1_y);
+    set(arc_r2,'XData',arc_array_r2_x,'YData',arc_array_r2_y);
+    set(arc_right,'XData',[arc_array_r1_x(1),arc_array_r2_x(1)],'YData',[arc_array_r1_y(1),arc_array_r2_y(1)])
+    set(arc_left,'XData',[arc_array_r1_x(end),arc_array_r2_x(end)],'YData',[arc_array_r1_y(end),arc_array_r2_y(end)])
     drawnow;
     frames(i)=getframe(fig2);
 end
