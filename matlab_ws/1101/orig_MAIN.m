@@ -3,6 +3,8 @@
 % Solve the sotsuron problem
 % フォルダ実行場所に注意（パスの都合でcsv出力が死にうる）
 
+addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole'
+
 clc; clear;
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -10,6 +12,9 @@ clc; clear;
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
 duration=120;
+
+xmin=0;
+xmax=18;
 
 ymin=0;
 ymax=2.5;
@@ -39,7 +44,8 @@ omg_max=pi/4;
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
 problem.func.dynamics=@(t,x,u)(f(x,u));
-problem.func.pathObj=@(t,x,u)(objF(x,h,t));
+% problem.func.pathObj=@(t,x,u)(objF(x,h,t));
+problem.func.pathObj=@(t,x,u)(objF_nd(x,h,t,c));
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                     Set up problem bounds                               %
@@ -163,28 +169,33 @@ human_v=abs(h.v)+0*t;
 
 
 arrow_scale=5;
-v_plot=arrow_scale*v_plot
-human_v=arrow_scale*human_v
+v_plot=arrow_scale*v_plot;
+human_v=arrow_scale*human_v;
 
 filename_mp4 = string("results\"+datestr(now,'yymmdd_hhMMss')+".mp4");
 fig2 = figure(2); clf;
 frames(length(x_plot)) = struct('cdata', [], 'colormap', []);
 
-robot_position = plot(x_plot(1),y_plot(1),'ob');
+map_x=linspace(xmin,xmax);
+map_y=linspace(ymin,ymax);
+[X,Y]=meshgrid(map_x, map_y);
+
+
+robot_position = plot(x_plot(1),y_plot(1),'ob','MarkerSize',15);
 hold on
-arrow = quiver(x_plot(1), y_plot(1), v_plot(1)*cos(th_plot(1)), v_plot(1)*sin(th_plot(1)))
+arrow = quiver(x_plot(1), y_plot(1), v_plot(1)*cos(th_plot(1)), v_plot(1)*sin(th_plot(1)));
 hold on
-human_position = plot(human_x(1),human_y(1),'or');
+human_position = plot(human_x(1),human_y(1),'or','MarkerSize',15);
 hold on
-human_arrow = quiver(human_x(1), human_y(1), human_v(1)*cos(human_theta(1)), human_v(1)*sin(human_theta(1)))
+human_arrow = quiver(human_x(1), human_y(1), human_v(1)*cos(human_theta(1)), human_v(1)*sin(human_theta(1)));
 hold on
-arc_rad=linspace(th_plot(1)-c.phi,th_plot(1)+c.phi,length(th_plot))
+arc_rad=linspace(th_plot(1)-c.phi,th_plot(1)+c.phi,length(th_plot));
 r1_array=c.r1+0*t;
 r2_array=c.r2+0*t;
-arc_array_r1_x=r1_array.*cos(arc_rad)+x_plot(1)
-arc_array_r1_y=r1_array.*sin(arc_rad)+y_plot(1)
-arc_array_r2_x=r2_array.*cos(arc_rad)+x_plot(1)
-arc_array_r2_y=r2_array.*sin(arc_rad)+y_plot(1)
+arc_array_r1_x=r1_array.*cos(arc_rad)+x_plot(1);
+arc_array_r1_y=r1_array.*sin(arc_rad)+y_plot(1);
+arc_array_r2_x=r2_array.*cos(arc_rad)+x_plot(1);
+arc_array_r2_y=r2_array.*sin(arc_rad)+y_plot(1);
 arc_r1=plot(arc_array_r1_x,arc_array_r1_y,'g');
 hold on
 arc_r2=plot(arc_array_r2_x,arc_array_r2_y,'g');
@@ -193,10 +204,10 @@ arc_right=plot([arc_array_r1_x(1),arc_array_r2_x(1)],[arc_array_r1_y(1),arc_arra
 hold on
 arc_left=plot([arc_array_r1_x(end),arc_array_r2_x(end)],[arc_array_r1_y(end),arc_array_r2_y(end)],'g');
 
-
-xlim([8,17]);
-ylim([0,2.5]);
+xlim([xmin,xmax]);
+ylim([ymin,ymax]);
 daspect([1,1,1]);
+
 
 
 for i = 1:length(x_plot)
@@ -205,14 +216,14 @@ for i = 1:length(x_plot)
     set(arrow,'XData',x_plot(i),'YData', y_plot(i),'UData', v_plot(i)*cos(th_plot(i)),'VData', v_plot(i)*sin(th_plot(i)));
     set(human_arrow,'XData',human_x(i),'YData', human_y(i),'UData', human_v(i)*cos(human_theta(i)),'VData', human_v(i)*sin(human_theta(i)));
     arc_rad=linspace(th_plot(i)-c.phi,th_plot(i)+c.phi,length(th_plot));
-    arc_array_r1_x=r1_array.*cos(arc_rad)+x_plot(i)
-    arc_array_r1_y=r1_array.*sin(arc_rad)+y_plot(i)
-    arc_array_r2_x=r2_array.*cos(arc_rad)+x_plot(i)
-    arc_array_r2_y=r2_array.*sin(arc_rad)+y_plot(i)
+    arc_array_r1_x=r1_array.*cos(arc_rad)+x_plot(i);
+    arc_array_r1_y=r1_array.*sin(arc_rad)+y_plot(i);
+    arc_array_r2_x=r2_array.*cos(arc_rad)+x_plot(i);
+    arc_array_r2_y=r2_array.*sin(arc_rad)+y_plot(i);
     set(arc_r1,'XData',arc_array_r1_x,'YData',arc_array_r1_y);
     set(arc_r2,'XData',arc_array_r2_x,'YData',arc_array_r2_y);
-    set(arc_right,'XData',[arc_array_r1_x(1),arc_array_r2_x(1)],'YData',[arc_array_r1_y(1),arc_array_r2_y(1)])
-    set(arc_left,'XData',[arc_array_r1_x(end),arc_array_r2_x(end)],'YData',[arc_array_r1_y(end),arc_array_r2_y(end)])
+    set(arc_right,'XData',[arc_array_r1_x(1),arc_array_r2_x(1)],'YData',[arc_array_r1_y(1),arc_array_r2_y(1)]);
+    set(arc_left,'XData',[arc_array_r1_x(end),arc_array_r2_x(end)],'YData',[arc_array_r1_y(end),arc_array_r2_y(end)]);
     drawnow;
     frames(i)=getframe(fig2);
 end
@@ -221,4 +232,3 @@ video=VideoWriter(filename_mp4,'MPEG-4');
 open(video)
 writeVideo(video, frames);
 close(video)
-
