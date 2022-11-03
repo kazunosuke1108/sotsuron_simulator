@@ -5,47 +5,47 @@
 
 addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
-clc; clear;
+clc; clear;%
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                     Defenition of variables                             %
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
-duration=120;
+duration=120;%
 
-xmin=0;
-xmax=18;
+xmin=0;%
+xmax=18;%
 
-ymin=0;
-ymax=2.5;
+ymin=0;%
+ymax=2.5;%
 
-r.x0=10;
-r.y0=1;
-r.th0=0;
-r.x1=15;
-r.y1=1;
-% r.th1=0;
+r.x0=10;%
+r.y0=1;%
+r.th0=0;%
+r.x1=15;%
+r.y1=1;%
+% r.th1=0;%
 
-h.x0=15;
-h.y0=1;
-h.th0=pi;
-h.v=-0.05;
+h.x0=15;%
+h.y0=1;%
+h.th0=pi;%
+h.v=-0.05;%
 
-c.r1=2.4;
-c.r2=3.5;
-c.phi=deg2rad(58)/2;
+c.r1=2.4;%
+c.r2=3.5;%
+c.phi=deg2rad(58)/2;%
 
 
-vel_max=0.22;
-omg_max=pi/4;
+vel_max=0.22;%
+omg_max=pi/4;%
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                     Set up function handles                             %
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
-problem.func.dynamics=@(t,x,u)(f(x,u));
+problem.func.dynamics=@(t,x,u)(f(x,u));%
 % problem.func.pathObj=@(t,x,u)(objF(x,h,t));
-problem.func.pathObj=@(t,x,u)(objF_nd(x,h,t,c));
+problem.func.pathObj=@(t,x,u)(objF_nd(x,h,t,c));%
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                     Set up problem bounds                               %
