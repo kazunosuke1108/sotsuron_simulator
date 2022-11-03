@@ -1,31 +1,25 @@
-ex_xR=2;
-ex_yR=3;
-ex_thR=pi/2;
-base=ones(100,100);
-ex_XR=ex_xR*base;
-ex_YR=ex_yR*base;
-ex_norm=sqrt((X-ex_XR).^2+(Y-ex_YR).^2);
-size(ex_norm)
-ex_e=[cos(ex_thR);sin(ex_thR)]
-ex_naiseki=cos(ex_thR)*(X-ex_XR)+sin(ex_thR)*(Y-ex_YR)
-size(ex_naiseki)
+filename_map_mp4 = string("results\"+datestr(now,'yymmdd_hhMMss')+"_map.mp4");
+fig3 = figure(3); clf;
+frames3(length(x_plot)) = struct('cdata', [], 'colormap', []);
+map_x=linspace(xmin,xmax);
+map_y=linspace(ymin,ymax);
+[X,Y]=meshgrid(map_x, map_y);
 
-x_R=12;
-y_R=1;
-th_R=pi/2;
+Z=objF_nd_Plot(x_plot(1),y_plot(1),th_plot(1),X,Y,c);
+func_map=contourf(X,Y,Z,10);
 
-base=ones(100,100);
-X_R=x_R*base;
-Y_R=y_R*base;
-norm_HR_mat=sqrt((X-X_R).^2+(Y-X_R).^2)
+xlim([xmin,xmax]);
+ylim([ymin,ymax]);
+daspect([1,1,1]);
 
-mu_A_mat=(c.r1+c.r2)/2;
-mu_B_mat=0;
-sgm_A_mat=1/6*(c.r2-c.r1);
-sgm_B_mat=1/6*2*norm_HR_mat; % これだけ時変
-naiseki_mat=cos(th_R)*(X-X_R)+sin(th_R)*(Y-Y_R);
-
-A_mat=pdf('Normal',norm_HR_mat,mu_A_mat,sgm_A_mat);
-B_mat=pdf('Normal',naiseki_mat,mu_B_mat,sgm_B_mat);
-F_mat=A_mat.*B_mat
-size(F_mat)
+for i = 1:length(x_plot)
+    Z=objF_nd_Plot(x_plot(i),y_plot(i),th_plot(i),X,Y,c);
+    func_map=contourf(X,Y,Z,10);
+    daspect([1,1,1]);
+    drawnow;
+    frames3(i)=getframe(fig3);
+end
+video3=VideoWriter(filename_map_mp4,'MPEG-4');
+open(video3)
+writeVideo(video3, frames3);
+close(video3)

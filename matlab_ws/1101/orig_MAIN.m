@@ -176,12 +176,9 @@ filename_mp4 = string("results\"+datestr(now,'yymmdd_hhMMss')+".mp4");
 fig2 = figure(2); clf;
 frames(length(x_plot)) = struct('cdata', [], 'colormap', []);
 
-map_x=linspace(xmin,xmax);
-map_y=linspace(ymin,ymax);
-[X,Y]=meshgrid(map_x, map_y);
-
-Z=objF_nd_Plot(x_plot(1),y_plot(1),th_plot(1),X,Y,c);
-func_map=contourf(X,Y,Z,10);
+wall_right=plot([xmin,xmax],[ymin,ymin],'k');
+hold on
+wall_left=plot([xmin,xmax],[ymax,ymax],'k');
 hold on
 robot_position = plot(x_plot(1),y_plot(1),'ob','MarkerSize',15);
 hold on
@@ -207,15 +204,12 @@ hold on
 arc_left=plot([arc_array_r1_x(end),arc_array_r2_x(end)],[arc_array_r1_y(end),arc_array_r2_y(end)],'g');
 
 xlim([xmin,xmax]);
-ylim([ymin,ymax]);
+ylim([ymin-2,ymax+2]);
 daspect([1,1,1]);
 
 
 
 for i = 1:length(x_plot)
-    Z=objF_nd_Plot(x_plot(i),y_plot(i),th_plot(i),X,Y,c);
-    hold on
-    func_map=contourf(X,Y,Z,10);
     set(robot_position,'XData',x_plot(i),'YData',y_plot(i));
     set(human_position,'XData',human_x(i),'YData',human_y(i));
     set(arrow,'XData',x_plot(i),'YData', y_plot(i),'UData', v_plot(i)*cos(th_plot(i)),'VData', v_plot(i)*sin(th_plot(i)));
@@ -240,4 +234,30 @@ close(video)
 
 filename_map_mp4 = string("results\"+datestr(now,'yymmdd_hhMMss')+"_map.mp4");
 fig3 = figure(3); clf;
-frames(length(x_plot)) = struct('cdata', [], 'colormap', []);
+frames3(length(x_plot)) = struct('cdata', [], 'colormap', []);
+map_x=linspace(xmin,xmax);
+map_y=linspace(ymin-2,ymax+2);
+[X,Y]=meshgrid(map_x, map_y);
+
+Z=objF_nd_Plot(x_plot(1),y_plot(1),th_plot(1),X,Y,c);
+func_map=contourf(X,Y,Z,10);
+colormap(bone)
+wall_right=plot([xmin,xmax],[ymin,ymin],'k');
+hold on
+wall_left=plot([xmin,xmax],[ymax,ymax],'k');
+xlim([xmin,xmax]);
+ylim([ymin-2,ymax+2]);
+daspect([1,1,1]);
+
+for i = 1:length(x_plot)
+    Z=objF_nd_Plot(x_plot(i),y_plot(i),th_plot(i),X,Y,c);
+    func_map=contourf(X,Y,Z,10);
+    colormap(bone)
+    daspect([1,1,1]);
+    drawnow;
+    frames3(i)=getframe(fig3);
+end
+video3=VideoWriter(filename_map_mp4,'MPEG-4');
+open(video3)
+writeVideo(video3, frames3);
+close(video3)
