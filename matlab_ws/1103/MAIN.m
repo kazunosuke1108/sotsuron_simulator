@@ -39,8 +39,8 @@ problem.bounds.finalTime.upp = env.tmax;
 
 problem.bounds.initialState.low = [rbt.x0;env.ymin;rbt.th0;rbt.vx0;rbt.vy0;rbt.omg0];
 problem.bounds.initialState.upp = [rbt.x0;env.ymax;rbt.th0;rbt.vx0;rbt.vy0;rbt.omg0];
-problem.bounds.finalState.low = [rbt.xF;env.ymin;rbt.th0;rbt.vx0;rbt.vy0;rbt.omg0];
-problem.bounds.finalState.upp = [rbt.xF;env.ymax;rbt.th0;rbt.vx0;rbt.vy0;rbt.omg0];
+problem.bounds.finalState.low = [rbt.xF;env.ymin;rbt.thF;rbt.vx0;rbt.vy0;rbt.omg0];
+problem.bounds.finalState.upp = [rbt.xF;env.ymax;rbt.thF;rbt.vx0;rbt.vy0;rbt.omg0];
 
 problem.bounds.state.low = [rbt.x0;rbt.y0;-Inf;rbt.vxmin;rbt.vymin;rbt.omgmin];
 problem.bounds.state.upp = [rbt.xF;rbt.yF;Inf;rbt.vxmax;rbt.vymax;rbt.omgmax];
