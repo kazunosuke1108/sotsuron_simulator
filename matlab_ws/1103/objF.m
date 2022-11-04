@@ -21,7 +21,7 @@ sgm_A=1/6*(sns.r2-sns.r1);
 sgm_B=1/6*2*norm_HR;
 
 A=pdf('Normal',norm_HR,mu_A,sgm_A);
-B=pdf('Normal',naiseki,mu_B,sgm_B);
+B=heaviside(naiseki).*pdf('Normal',naiseki,mu_B,sgm_B);
 
 J=A.*B;
 

@@ -23,7 +23,7 @@ e=[cos(z(3,:));sin(z(3,:))];
 
 % A=1/(sqrt(2*pi)*sgm_A)*exp((norm_HR-mu_A).^2/(2*sgm_A.^2))
 A=pdf('Normal',norm_HR,mu_A,sgm_A);
-B=pdf('Normal',dot(e,vec,1),mu_B,sgm_B);
+B=heaviside(dot(e,vec,1)).*pdf('Normal',dot(e,vec,1),mu_B,sgm_B);
 
 F=A.*B;
 end

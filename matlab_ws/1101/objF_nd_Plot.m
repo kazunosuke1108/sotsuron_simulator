@@ -16,7 +16,7 @@ sgm_B_mat=1/6*2*norm_HR_mat; % これだけ時変
 naiseki_mat=cos(th_R)*(X-X_R)+sin(th_R)*(Y-Y_R);
 
 A_mat=pdf('Normal',norm_HR_mat,mu_A_mat,sgm_A_mat);
-B_mat=pdf('Normal',naiseki_mat,mu_B_mat,sgm_B_mat);
+B_mat=sign(naiseki_mat).*pdf('Normal',naiseki_mat,mu_B_mat,sgm_B_mat);
 
 F=A_mat.*B_mat;
 
