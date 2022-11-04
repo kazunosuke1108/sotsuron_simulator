@@ -1,7 +1,7 @@
 function data = writePDF(problem,soln)
 
-    addpath results\
-now=datetime('now')
+addpath results\
+now=datetime('now');
 filename_csv = string("results\"+datestr(now,'yymmdd_hhMMss')+".csv");
 % save(fullfile("C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\1101\results",filename_csv),'-regexp','x');
 % save(fullfile("C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\1101\results",filename_png),'-regexp','x');
@@ -28,13 +28,11 @@ disp("soln.info.nlpTime:"+soln.info.nlpTime)
 disp("soln.info.exitFlag:"+soln.info.exitFlag)
 
 
-index=["初期時刻";"初期座標 x";"初期座標 y";"初期座標 theta";"初期座標 vx";"初期座標 vy";"初期座標 omega";"終端時刻";"終端座標 x";"終端座標 y";"終端座標 theta";"終端座標 vx";"終端座標 vy";"終端座標 omega";"状態境界 x";"状態境界 y";"状態境界 theta";"状態境界 vx";"状態境界 vy";"状態境界 omega";"制御境界 accx";"制御境界 accy";"制御境界 ang_acc";"soln.info.iterations";"soln.info.funcCount";"soln.info.constrviolation";"soln.info.stepsize";"soln.info.algorithm";"soln.info.firstorderopt";"soln.info.cgiterations";"soln.info.bestfeasible.fval";"soln.info.nlpTime";"soln.info.exitFlag"]
-value=[problem.bounds.initialTime.low+" ~ "+problem.bounds.initialTime.upp;problem.bounds.initialState.low+" ~ "+problem.bounds.initialState.upp;problem.bounds.finalTime.low+" ~ "+problem.bounds.finalTime.upp;problem.bounds.finalState.low+" ~ "+problem.bounds.finalState.upp;problem.bounds.state.low+" ~ "+problem.bounds.state.upp;problem.bounds.control.low+" ~ "+problem.bounds.control.upp;soln.info.iterations;soln.info.funcCount;soln.info.constrviolation;soln.info.stepsize;soln.info.algorithm;soln.info.firstorderopt;soln.info.cgiterations;soln.info.bestfeasible.fval;soln.info.nlpTime;soln.info.exitFlag]
+index=["初期時刻";"初期座標 x";"初期座標 y";"初期座標 theta";"初期座標 vx";"初期座標 vy";"初期座標 omega";"終端時刻";"終端座標 x";"終端座標 y";"終端座標 theta";"終端座標 vx";"終端座標 vy";"終端座標 omega";"状態境界 x";"状態境界 y";"状態境界 theta";"状態境界 vx";"状態境界 vy";"状態境界 omega";"制御境界 accx";"制御境界 accy";"制御境界 ang_acc";"soln.info.iterations";"soln.info.funcCount";"soln.info.constrviolation";"soln.info.stepsize";"soln.info.algorithm";"soln.info.firstorderopt";"soln.info.cgiterations";"soln.info.bestfeasible.fval";"soln.info.nlpTime";"soln.info.exitFlag"];
+value=[problem.bounds.initialTime.low+" ~ "+problem.bounds.initialTime.upp;problem.bounds.initialState.low+" ~ "+problem.bounds.initialState.upp;problem.bounds.finalTime.low+" ~ "+problem.bounds.finalTime.upp;problem.bounds.finalState.low+" ~ "+problem.bounds.finalState.upp;problem.bounds.state.low+" ~ "+problem.bounds.state.upp;problem.bounds.control.low+" ~ "+problem.bounds.control.upp;soln.info.iterations;soln.info.funcCount;soln.info.constrviolation;soln.info.stepsize;soln.info.algorithm;soln.info.firstorderopt;soln.info.cgiterations;soln.info.bestfeasible.fval;soln.info.nlpTime;soln.info.exitFlag];
 
-size(index)
-size(value)
 
-T=table(index,value)
+T=table(index,value);
 
 writetable(T,filename_csv,'Encoding','UTF-8');
 

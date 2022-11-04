@@ -10,6 +10,7 @@
 
 clc; clear;
 addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole'
+savename=string("results\"+datestr(now,'yymmdd_hhMMss'));
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                     Defenition of variables                             %
@@ -74,13 +75,12 @@ soln = trajOpt(problem);
 %                        Summarize conditions & results                   %
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
-writePDF(problem,soln)
+writePDF(problem,soln);
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                        Display Solution                                 %
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
-filename_png = string("results\"+datestr(now,'yymmdd_hhMMss')+".png");
 
 n = length(soln.grid.time);
 t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
@@ -89,6 +89,11 @@ u = soln.interp.control(t);
 
 %%%% Plots:
 figure(1); clf;
-pltHistory(t,z,u)
-saveas(figure(1),filename_png)
+pltHistory(t,z,u);
+savename_png = savename+".png";
+saveas(figure(1),savename_png);
 
+%%%% Animations:
+
+figure(2); clf;
+drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename);

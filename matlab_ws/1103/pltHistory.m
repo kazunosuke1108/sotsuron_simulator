@@ -13,39 +13,39 @@ acc_ang=u(3,:);
 
 
 subplot(3,3,1);
-plot(t,x)
-ylabel('x')
+plot(t,x);
+ylabel('x');
 
 subplot(3,3,2);
-plot(t,y)
-ylabel('y')
+plot(t,y);
+ylabel('y');
 
 subplot(3,3,3);
-plot(t,th)
-ylabel('th')
+plot(t,th);
+ylabel('th');
 
 subplot(3,3,4);
-plot(t,vx)
-ylabel('vel x')
+plot(t,vx);
+ylabel('vel x');
 
 subplot(3,3,5);
-plot(t,vy)
-ylabel('vel y')
+plot(t,vy);
+ylabel('vel y');
 
 subplot(3,3,6);
-plot(t,omg)
-ylabel('omega')
+plot(t,omg);
+ylabel('omega');
 
 subplot(3,3,7);
-plot(t,accx)
-ylabel('acc x')
+plot(t,accx);
+ylabel('acc x');
 
 subplot(3,3,8);
-plot(t,accy)
-ylabel('acc y')
+plot(t,accy);
+ylabel('acc y');
 
 subplot(3,3,9);
-plot(t,acc_ang)
-ylabel('angular acc')
+plot(t,acc_ang);
+ylabel('angular acc');
 
 end
