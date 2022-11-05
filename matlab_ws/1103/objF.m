@@ -15,14 +15,18 @@ norm_HR=vecnorm(vec_HR,length(vec_HR(1)),1);
 e=[cos(z(3,:));sin(z(3,:))];
 naiseki=dot(e,vec_HR,1);
 
+e_vec_th=acos(naiseki/norm_HR);
+e_vec_th=rem(e_vec_th,2*pi);
+
 mu_A=(sns.r1+sns.r2)/2;
+% mu_B=0;
 mu_B=0;
 sgm_A=1/6*(sns.r2-sns.r1);
-sgm_B=1/6*2*norm_HR;
+% sgm_B=1/6*2*norm_HR;
+sgm_B=1/6*2*sns.phi;
 
 A=pdf('Normal',norm_HR,mu_A,sgm_A);
-B=heaviside(naiseki).*pdf('Normal',naiseki,mu_B,sgm_B);
+B=pdf('Normal',e_vec_th,mu_B,sgm_B);
 
 J=A.*B;
-
 end

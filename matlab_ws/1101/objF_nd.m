@@ -15,15 +15,20 @@ vec=xy_H-xy_R;
 norm_HR=vecnorm(vec,length(t),1);
 
 mu_A=(c.r1+c.r2)/2;
+% mu_B=0;
 mu_B=0;
 sgm_A=1/6*(c.r2-c.r1);
-sgm_B=1/6*2*norm_HR; % これだけ時変
+% sgm_B=1/6*2*norm_HR; % これだけ時変
+sgm_B=1/6*2*c.phi; % これだけ時変
+
 
 e=[cos(z(3,:));sin(z(3,:))];
+e_vec_th=acos(dot(e,vec,1)/norm_HR);
 
 % A=1/(sqrt(2*pi)*sgm_A)*exp((norm_HR-mu_A).^2/(2*sgm_A.^2))
 A=pdf('Normal',norm_HR,mu_A,sgm_A);
-B=heaviside(dot(e,vec,1)).*pdf('Normal',dot(e,vec,1),mu_B,sgm_B);
+% B=heaviside(dot(e,vec,1)).*pdf('Normal',dot(e,vec,1),mu_B,sgm_B);
+B=pdf('Normal',rem(e_vec_th,2*pi),mu_B,sgm_B);
 
 F=A.*B;
 end
