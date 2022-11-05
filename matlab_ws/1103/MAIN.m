@@ -98,3 +98,6 @@ saveas(figure(1),savename_png);
 
 figure(2); clf;
 drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename);
+
+figure(3); clf;
+drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename);

@@ -241,7 +241,7 @@ map_y=linspace(ymin-2,ymax+2);
 
 Z=objF_nd_Plot(x_plot(1),y_plot(1),th_plot(1),X,Y,c);
 func_map=contourf(X,Y,Z,10);
-colormap(bone)
+% colormap(bone)
 wall_right=plot([xmin,xmax],[ymin,ymin],'k');
 hold on
 wall_left=plot([xmin,xmax],[ymax,ymax],'k');
@@ -252,7 +252,7 @@ daspect([1,1,1]);
 for i = 1:length(x_plot)
     Z=objF_nd_Plot(x_plot(i),y_plot(i),th_plot(i),X,Y,c);
     func_map=contourf(X,Y,Z,10);
-    colormap(bone)
+    % colormap(bone)
     daspect([1,1,1]);
     drawnow;
     frames3(i)=getframe(fig3);

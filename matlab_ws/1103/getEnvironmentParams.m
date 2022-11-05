@@ -1,7 +1,7 @@
 function env=getEnvironmentParams()
 
 env.tmin=0;
-env.tmax=120;
+env.tmax=60;
 
 env.xmin=0;
 env.xmax=18;
