@@ -1,6 +1,6 @@
 function hmn=getHumanParams()
 
-hmn.x0=15;
+hmn.x0=17;
 hmn.y0=1.25;
 hmn.th0=pi;
 hmn.vx0=0;

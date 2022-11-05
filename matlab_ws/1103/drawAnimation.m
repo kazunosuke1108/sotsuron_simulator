@@ -38,6 +38,10 @@ wall_right = plot([env.xmin,env.xmax],[env.ymin,env.ymin],'k');
 hold on
 wall_right = plot([env.xmin,env.xmax],[env.ymax,env.ymax],'k');
 hold on
+
+%%%%% ROI borders
+roi_rectangle = rectangle('Position', [env.roi.xmin env.roi.ymin env.roi.xmax-env.roi.xmin env.roi.ymax-env.roi.ymin],'EdgeColor','c');
+
 %%%%% Robot
 rbt_position = plot(plt_xR(1),plt_yR(1),'ob','MarkerSize',15);
 hold on
