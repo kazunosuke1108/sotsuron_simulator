@@ -40,6 +40,7 @@ daspect([1,1,1]);
 for i = 1:length(plt_xR)
     Z=objFPlot(plt_xR(i),plt_yR(i),plt_thR(i),X,Y,sns);
     func_map=contourf(X,Y,Z,10);
+    ylim([env.ymin-1,env.ymax+1]);
     daspect([1,1,1]);
     drawnow;
     frames3(i)=getframe(fig3);

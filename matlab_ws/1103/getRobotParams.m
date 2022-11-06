@@ -24,11 +24,11 @@ rbt.omgF=0;
 rbt.thFmin=-pi;
 rbt.thFmax=pi;
 
-rbt.axmax=1.5/4;
+rbt.axmax=0.15;
 rbt.axmin=-rbt.axmax;
-rbt.aymax=1.5/4;
+rbt.aymax=0.15;
 rbt.aymin=-rbt.aymax;
-rbt.aangmax=pi/8;
+rbt.aangmax=pi/4;
 rbt.aangmin=-rbt.aangmax;
 
 end

@@ -19,14 +19,14 @@ xmax=18;%
 ymin=0;%
 ymax=2.5;%
 
-r.x0=10;%
+r.x0=8;%
 r.y0=1;%
 r.th0=0;%
 r.x1=15;%
 r.y1=1;%
 % r.th1=0;%
 
-h.x0=15;%
+h.x0=17;%
 h.y0=1;%
 h.th0=pi;%
 h.v=-0.3;%
@@ -180,6 +180,7 @@ wall_right=plot([xmin,xmax],[ymin,ymin],'k');
 hold on
 wall_left=plot([xmin,xmax],[ymax,ymax],'k');
 hold on
+roi_rectangle=rectangle('Position',[10,0,5,2.5],'EdgeColor','c');
 robot_position = plot(x_plot(1),y_plot(1),'ob','MarkerSize',15);
 hold on
 arrow = quiver(x_plot(1), y_plot(1), v_plot(1)*cos(th_plot(1)), v_plot(1)*sin(th_plot(1)));
@@ -204,7 +205,7 @@ hold on
 arc_left=plot([arc_array_r1_x(end),arc_array_r2_x(end)],[arc_array_r1_y(end),arc_array_r2_y(end)],'g');
 
 xlim([xmin,xmax]);
-ylim([ymin-2,ymax+2]);
+ylim([ymin-1,ymax+1]);
 daspect([1,1,1]);
 
 
@@ -236,7 +237,7 @@ filename_map_mp4 = string("results\"+datestr(now,'yymmdd_hhMMss')+"_map.mp4");
 fig3 = figure(3); clf;
 frames3(length(x_plot)) = struct('cdata', [], 'colormap', []);
 map_x=linspace(xmin,xmax);
-map_y=linspace(ymin-2,ymax+2);
+map_y=linspace(ymin,ymax);
 [X,Y]=meshgrid(map_x, map_y);
 
 Z=objF_nd_Plot(x_plot(1),y_plot(1),th_plot(1),X,Y,c);
@@ -246,7 +247,7 @@ wall_right=plot([xmin,xmax],[ymin,ymin],'k');
 hold on
 wall_left=plot([xmin,xmax],[ymax,ymax],'k');
 xlim([xmin,xmax]);
-ylim([ymin-2,ymax+2]);
+ylim([ymin-1,ymax+1]);
 daspect([1,1,1]);
 
 for i = 1:length(x_plot)
