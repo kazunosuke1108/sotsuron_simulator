@@ -1,8 +1,8 @@
-function data = writePDF(problem,env,rbt,hmn,sns,soln)
+function data = writeCSV(problem,env,rbt,hmn,sns,soln,savename)
 
 addpath results\
 now=datetime('now');
-filename_csv = string("results\"+datestr(now,'yymmdd_hhMMss')+".csv");
+savename_csv = string(savename+".csv");
 % save(fullfile("C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\1101\results",filename_csv),'-regexp','x');
 % save(fullfile("C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\1101\results",filename_png),'-regexp','x');
 disp("計算が完了しました．実験条件を表示します．")
@@ -35,6 +35,6 @@ value=[problem.bounds.initialTime.low+" ~ "+problem.bounds.initialTime.upp;probl
 
 T=table(index,value);
 
-writetable(T,filename_csv,'Encoding','UTF-8');
+writetable(T,savename_csv,'Encoding','UTF-8');
 
 end

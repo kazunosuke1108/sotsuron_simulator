@@ -19,11 +19,11 @@ ylabel('x');
 subplot(3,3,2);
 plot(t,y);
 ylabel('y');
+title(graph_title);
 
 subplot(3,3,3);
 plot(t,th);
 ylabel('th');
-title(graph_title);
 
 subplot(3,3,4);
 plot(t,vx);

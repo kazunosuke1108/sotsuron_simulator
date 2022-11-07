@@ -84,7 +84,7 @@ for candidate = [-0.9 -0.6 -0.5 -0.4 -0.3 -0.2 -0.1]
     %                        Summarize conditions & results                   %
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     
-    writePDF(problem,env,rbt,hmn,sns,soln);
+    writeCSV(problem,env,rbt,hmn,sns,soln,savename);
     
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     %                        Display Solution                                 %
