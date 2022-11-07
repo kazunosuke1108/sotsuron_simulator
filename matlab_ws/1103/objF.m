@@ -28,5 +28,6 @@ sgm_B=1/6*2*sns.phi;
 A=pdf('Normal',norm_HR,mu_A,sgm_A);
 B=pdf('Normal',e_vec_th,mu_B,sgm_B);
 
-J=A.*B;
+J_kari=A.*B;
+J=(J_kari+1e-3).^(-1);
 end
