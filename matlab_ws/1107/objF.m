@@ -29,5 +29,5 @@ A=pdf('Normal',norm_HR,mu_A,sgm_A);
 B=pdf('Normal',e_vec_th,mu_B,sgm_B);
 
 J_kari=A.*B;
-J=(J_kari+1e-3).^(-1);
+J=(J_kari+env.objF_nonzero).^(-1);
 end

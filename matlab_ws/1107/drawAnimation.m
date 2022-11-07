@@ -1,4 +1,4 @@
-function data = drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename)
+function data = drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title)
 %%%% Parameters
 arrow_scale=5;
 arc_resolution=100;
@@ -68,6 +68,7 @@ arc_right = plot([arc_r1_x(1),arc_r2_x(1)],[arc_r1_y(1),arc_r2_y(1)],'g');
 hold on
 arc_left = plot([arc_r1_x(end),arc_r2_x(end)],[arc_r1_y(end),arc_r2_y(end)],'g');
 
+title(graph_title);
 xlim([env.xmin,env.xmax]);
 ylim([env.ymin-1,env.ymax+1]);
 daspect([1,1,1]);

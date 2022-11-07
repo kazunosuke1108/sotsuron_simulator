@@ -13,4 +13,6 @@ env.roi.xmax=15;
 env.roi.ymin=0;
 env.roi.ymax=2.5;
 
+env.objF_nonzero=1e-3;
+
 end

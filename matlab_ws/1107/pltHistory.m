@@ -1,4 +1,4 @@
-function data = pltHistory(t,z,u)
+function data = pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title)
 
 x=z(1,:);
 y=z(2,:);
@@ -23,6 +23,7 @@ ylabel('y');
 subplot(3,3,3);
 plot(t,th);
 ylabel('th');
+title(graph_title);
 
 subplot(3,3,4);
 plot(t,vx);
