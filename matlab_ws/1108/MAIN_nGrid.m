@@ -120,3 +120,4 @@ for candidate=linspace(0,60000,10) % 2*nSegment+1=離散化数　1000Hzで120s�
     clc;clf;
     clearvars -except candidate candidate2 dirname;
 end
+!git 
