@@ -2,10 +2,10 @@
 
 % version for parameter study
 
-dirname="results\1109_nGrid";
+dirname="results\1109_tmax";
 mkdir(dirname);
 
-for candidate=[6000 7000 8000 9000 10000 20000 30000 40000 50000 60000 70000 80000 90000]%linspace(0,60,1) % 2*nSegment+1=離散化数　1000Hzで120sだと，60000
+for candidate=[30 60 90 120 150 180 210 240];%linspace(0,60,1) % 2*nSegment+1=離散化数　1000Hzで120sだと，60000
     try
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
         %                     Fundamental preparation                             %
@@ -28,9 +28,8 @@ for candidate=[6000 7000 8000 9000 10000 20000 30000 40000 50000 60000 70000 800
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
         %                     Overwrite variables                                 %
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-        problem.options.hermiteSimpson.nSegment = fix(candidate)
-        hz=fix((2*candidate+1)/120);
-        graph_title="nSegment: "+candidate+" freq: "+hz+"Hz";
+        env.tmax=candidate
+        graph_title="env.tmax: "+candidate+"s";
 
 
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%

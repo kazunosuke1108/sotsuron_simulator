@@ -6,7 +6,7 @@ dirname="results\1109_nGrid";
 mkdir(dirname);
 
 for candidate=[6000 60000];%linspace(0,60,1) % 2*nSegment+1=離散化数　1000Hzで120sだと，60000
-    try
+    % try
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
         %                     Fundamental preparation                             %
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -118,10 +118,10 @@ for candidate=[6000 60000];%linspace(0,60,1) % 2*nSegment+1=離散化数　1000H
         % drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename);
         clc;clf;
         clearvars -except candidate candidate2 dirname;
-    catch
-        continue
-    end
+    % catch
+        
+    % end
 end
-!git add .
-!git commit -m "AutomaticPush: end simulation"
-!git push origin main
+% !git add .
+% !git commit -m "AutomaticPush: end simulation"
+% !git push origin main
