@@ -125,4 +125,4 @@ saveas(figure(4),savename_path);
 % clc;clf;
 % clearvars -except candidate candidate2 dirname;
 
-git_auto_push(graph_title)
+git_auto_push()
