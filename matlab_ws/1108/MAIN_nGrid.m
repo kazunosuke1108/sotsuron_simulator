@@ -5,119 +5,124 @@
 dirname="results\1108_y5"
 mkdir(dirname);
 
-for candidate=linspace(0,60000,10) % 2*nSegment+1=離散化数　1000Hzで120sだと，60000
-    if candidate==0
-        continue
+for candidate=[10 20 30 40 50 60 70 80 90 100 110 120 130 140 150 160 170 180 190 200 400 600 800 1000 2000 3000 4000 5000 6000 7000 8000 9000 10000 20000 30000 40000 50000 60000 70000 80000 90000]%linspace(0,60,1) % 2*nSegment+1=離散化数　1000Hzで120sだと，60000
+    try
+        if candidate==0
+            continue
+        end
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        %                     Fundamental preparation                             %
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+
+        % clc; clear;
+        addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole'
+        savename=string(dirname+"\"+datestr(now,'yymmdd_hhMMss'));
+
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        %                     Defenition of variables                             %
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+
+        env=getEnvironmentParams();
+        rbt=getRobotParams();
+        hmn=getHumanParams();
+        sns=getcSensorParams();
+
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        %                     Overwrite variables                                 %
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        problem.options.hermiteSimpson.nSegment = fix(candidate)
+        hz=fix((2*candidate+1)/120);
+        graph_title="nSegment: "+candidate+" freq: "+hz+"Hz";
+
+
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        %                     Set up function handles                             %
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+
+        problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
+        problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
+
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        %                     Set up problem bounds                               %
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+
+        problem.bounds.initialTime.low = env.tmin;
+        problem.bounds.initialTime.upp = env.tmin;
+        problem.bounds.finalTime.low = env.tmax;
+        problem.bounds.finalTime.upp = env.tmax;
+
+
+        problem.bounds.initialState.low = [rbt.x0;rbt.y0;rbt.th0;rbt.vx0;rbt.vy0;rbt.omg0];
+        problem.bounds.initialState.upp = [rbt.x0;rbt.y0;rbt.th0;rbt.vx0;rbt.vy0;rbt.omg0];
+        problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.vx0;rbt.vy0;rbt.omg0];
+        problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.vx0;rbt.vy0;rbt.omg0];
+
+        problem.bounds.state.low = [rbt.x0;env.ymin;rbt.thFmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
+        problem.bounds.state.upp = [rbt.xF;env.ymax;rbt.thFmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
+
+        problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin];
+        problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax];
+
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        %                    Initial guess at trajectory                          %
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        problem.guess.time = [env.tmin,env.tmax];
+        problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.upp];
+        problem.guess.control = [0,0;0,0;0,0];
+
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        %                         Solver options                                  %
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        problem.options.nlpOpt = optimset(...
+        'Display','iter',...
+        'MaxFunEvals',1e6);
+
+        % problem.options.method = 'trapezoid'; 
+        problem.options.method = 'hermiteSimpson';  
+
+
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        %                            Solve!                                       %
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+
+        soln = trajOpt(problem);
+
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        %                        Summarize conditions & results                   %
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+
+        writeCSV(problem,env,rbt,hmn,sns,soln,savename);
+
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+        %                        Display Solution                                 %
+        %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+
+
+        n = length(soln.grid.time);
+        t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
+        z = soln.interp.state(t);
+        u = soln.interp.control(t);
+
+        %%%% Plots:
+        figure(1); clf;
+        pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+        savename_png = savename+".png";
+        saveas(figure(1),savename_png);
+
+        %%%% Animation:
+
+        figure(2); clf;
+        title(graph_title)
+        drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
+
+        %%%% Potential map:
+        % figure(3); clf;
+        % drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename);
+        clc;clf;
+        clearvars -except candidate candidate2 dirname;
+    catch
     end
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-    %                     Fundamental preparation                             %
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-
-    % clc; clear;
-    addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole'
-    savename=string(dirname+"\"+datestr(now,'yymmdd_hhMMss'));
-
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-    %                     Defenition of variables                             %
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-
-    env=getEnvironmentParams();
-    rbt=getRobotParams();
-    hmn=getHumanParams();
-    sns=getcSensorParams();
-
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-    %                     Overwrite variables                                 %
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-    problem.options.hermiteSimpson.nSegment = candidate;
-    hz=fix((2*candidate+1)/120);
-    graph_title="nSegment: "+problem.custom+" freq: "+hz+"Hz";
-
-
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-    %                     Set up function handles                             %
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-
-    problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
-    problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
-
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-    %                     Set up problem bounds                               %
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-
-    problem.bounds.initialTime.low = env.tmin;
-    problem.bounds.initialTime.upp = env.tmin;
-    problem.bounds.finalTime.low = env.tmax;
-    problem.bounds.finalTime.upp = env.tmax;
-
-
-    problem.bounds.initialState.low = [rbt.x0;rbt.y0;rbt.th0;rbt.vx0;rbt.vy0;rbt.omg0];
-    problem.bounds.initialState.upp = [rbt.x0;rbt.y0;rbt.th0;rbt.vx0;rbt.vy0;rbt.omg0];
-    problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.vx0;rbt.vy0;rbt.omg0];
-    problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.vx0;rbt.vy0;rbt.omg0];
-
-    problem.bounds.state.low = [rbt.x0;env.ymin;rbt.thFmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
-    problem.bounds.state.upp = [rbt.xF;env.ymax;rbt.thFmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
-
-    problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin];
-    problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax];
-
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-    %                    Initial guess at trajectory                          %
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-    problem.guess.time = [env.tmin,env.tmax];
-    problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.upp];
-    problem.guess.control = [0,0;0,0;0,0];
-
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-    %                         Solver options                                  %
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-    problem.options.nlpOpt = optimset(...
-    'Display','iter',...
-    'MaxFunEvals',1e6);
-
-    % problem.options.method = 'trapezoid'; 
-    problem.options.method = 'hermiteSimpson';  
-
-
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-    %                            Solve!                                       %
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-
-    soln = trajOpt(problem);
-
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-    %                        Summarize conditions & results                   %
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-
-    writeCSV(problem,env,rbt,hmn,sns,soln,savename);
-
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-    %                        Display Solution                                 %
-    %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-
-
-    n = length(soln.grid.time);
-    t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
-    z = soln.interp.state(t);
-    u = soln.interp.control(t);
-
-    %%%% Plots:
-    figure(1); clf;
-    pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
-    savename_png = savename+".png";
-    saveas(figure(1),savename_png);
-
-    %%%% Animation:
-
-    figure(2); clf;
-    title(graph_title)
-    drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
-
-    %%%% Potential map:
-    % figure(3); clf;
-    % drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename);
-    clc;clf;
-    clearvars -except candidate candidate2 dirname;
 end
-!git 
+!git add .
+!git commit -m "AutomaticPush: end simulation"
+!git push origin main
