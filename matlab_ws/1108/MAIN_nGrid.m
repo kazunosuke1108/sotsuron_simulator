@@ -2,20 +2,18 @@
 
 % version for parameter study
 
-dirname="results\1108_y5"
+dirname="results\1109_nGrid";
 mkdir(dirname);
 
 for candidate=[10 20 30 40 50 60 70 80 90 100 110 120 130 140 150 160 170 180 190 200 400 600 800 1000 2000 3000 4000 5000 6000 7000 8000 9000 10000 20000 30000 40000 50000 60000 70000 80000 90000]%linspace(0,60,1) % 2*nSegment+1=離散化数　1000Hzで120sだと，60000
     try
-        if candidate==0
-            continue
-        end
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
         %                     Fundamental preparation                             %
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
         % clc; clear;
         addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole'
+        addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
         savename=string(dirname+"\"+datestr(now,'yymmdd_hhMMss'));
 
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -121,6 +119,7 @@ for candidate=[10 20 30 40 50 60 70 80 90 100 110 120 130 140 150 160 170 180 19
         clc;clf;
         clearvars -except candidate candidate2 dirname;
     catch
+        continue
     end
 end
 !git add .
