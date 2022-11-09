@@ -30,5 +30,7 @@ A=pdf('Normal',norm_HR,mu_A,sgm_A);
 % B=heaviside(dot(e,vec,1)).*pdf('Normal',dot(e,vec,1),mu_B,sgm_B);
 B=pdf('Normal',rem(e_vec_th,2*pi),mu_B,sgm_B);
 
-F=A.*B;
+F_kari=A.*B;
+
+F=(F_kari+1e-3).^(-1);
 end

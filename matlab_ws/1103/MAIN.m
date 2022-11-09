@@ -48,8 +48,8 @@ problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.vx0;rbt.vy0;rbt.om
 problem.bounds.state.low = [rbt.x0;env.ymin;rbt.thFmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
 problem.bounds.state.upp = [rbt.xF;env.ymax;rbt.thFmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
 
-problem.bounds.control.low = [-Inf;-Inf;-Inf];
-problem.bounds.control.upp = [Inf;Inf;Inf];
+problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin];
+problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax];
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                    Initial guess at trajectory                          %
