@@ -116,5 +116,5 @@ drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
 %%%% Potential map:
 % figure(3); clf;
 % drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename);
-clc;clf;
-clearvars -except candidate candidate2 dirname;
+% clc;clf;
+% clearvars -except candidate candidate2 dirname;
