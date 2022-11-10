@@ -1,6 +1,7 @@
 function rbt=getRobotParams()
 
-rbt.x0=8;
+rbt.x0=0;
+% rbt.x0=8;
 rbt.y0=1;
 rbt.th0=0;
 rbt.vx0=0;
