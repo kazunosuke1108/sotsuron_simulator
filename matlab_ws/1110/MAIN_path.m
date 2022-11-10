@@ -1,18 +1,19 @@
 % MAIN.m
 
-% official version
+% version for parameter study
 
+dirname="results\1109_path";
+mkdir(dirname);
 
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                     Fundamental preparation                             %
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
-clc; clear;
+% clc; clear;
 addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
-
-savename=string("results\"+datestr(now,'yymmdd_hhMMss'));
+savename=string(dirname+"\"+datestr(now,'yymmdd_hhMMss'));
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                     Defenition of variables                             %
@@ -22,6 +23,13 @@ env=getEnvironmentParams();
 rbt=getRobotParams();
 hmn=getHumanParams();
 sns=getcSensorParams();
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+%                     Overwrite variables                                 %
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+
+graph_title="Plot path test";
+
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                     Set up function handles                             %
@@ -68,6 +76,7 @@ problem.options.nlpOpt = optimset(...
 % problem.options.method = 'trapezoid'; 
 problem.options.method = 'hermiteSimpson';  
 
+
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                            Solve!                                       %
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -78,7 +87,7 @@ soln = trajOpt(problem);
 %                        Summarize conditions & results                   %
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
-writePDF(problem,soln);
+writeCSV(problem,env,rbt,hmn,sns,soln,savename);
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                        Display Solution                                 %
@@ -92,14 +101,28 @@ u = soln.interp.control(t);
 
 %%%% Plots:
 figure(1); clf;
-pltHistory(t,z,u);
+pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
 savename_png = savename+".png";
 saveas(figure(1),savename_png);
 
-%%%% Animations:
+%%%% Animation:
 
-figure(2); clf;
-drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename);
+% figure(2); clf;
+% title(graph_title)
+% drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
 
-figure(3); clf;
-drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename);
+%%%% Potential map:
+% figure(3); clf;
+% drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename);
+
+%%%% Path:
+figure(4); clf;
+drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title)
+savename_path = savename+"path.png";
+saveas(figure(4),savename_path);
+
+
+% clc;clf;
+% clearvars -except candidate candidate2 dirname;
+
+git_auto_push()

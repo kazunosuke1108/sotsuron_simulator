@@ -2,11 +2,11 @@
 
 % version for parameter study
 
-dirname="results\1109_nGrid";
+dirname="results\1109_tmax";
 mkdir(dirname);
 
-for candidate=[6000 60000];%linspace(0,60,1) % 2*nSegment+1=離散化数　1000Hzで120sだと，60000
-    % try
+for candidate=[30 60 90 120 150 180 210 240];%linspace(0,60,1) % 2*nSegment+1=離散化数　1000Hzで120sだと，60000
+    try
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
         %                     Fundamental preparation                             %
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -28,9 +28,8 @@ for candidate=[6000 60000];%linspace(0,60,1) % 2*nSegment+1=離散化数　1000H
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
         %                     Overwrite variables                                 %
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-        problem.options.hermiteSimpson.nSegment = fix(candidate)
-        hz=fix((2*candidate+1)/120);
-        graph_title="nSegment: "+candidate+" freq: "+hz+"Hz";
+        env.tmax=candidate
+        graph_title="env.tmax: "+candidate+"s";
 
 
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -122,6 +121,6 @@ for candidate=[6000 60000];%linspace(0,60,1) % 2*nSegment+1=離散化数　1000H
         continue
     end
 end
-% !git add .
-% !git commit -m "AutomaticPush: end simulation"
-% !git push origin main
+!git add .
+!git commit -m "AutomaticPush: end simulation"
+!git push origin main
