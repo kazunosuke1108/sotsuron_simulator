@@ -5,7 +5,7 @@
 dirname="results\1110_no_back";
 mkdir(dirname);
 
-for candidate=[-0.15] % linspace(0,60,1) % 2*nSegment+1=離散化数　1000Hzで120sだと，60000
+for candidate=[-0.15 0] % linspace(0,60,1) % 2*nSegment+1=離散化数　1000Hzで120sだと，60000
     try
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
         %                     Fundamental preparation                             %
@@ -115,6 +115,13 @@ for candidate=[-0.15] % linspace(0,60,1) % 2*nSegment+1=離散化数　1000Hzで
         %%%% Potential map:
         % figure(3); clf;
         % drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename);
+
+        %%%% Path:
+        figure(4); clf;
+        drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title)
+        savename_path = savename+"path.png";
+        saveas(figure(4),savename_path);
+
         clc;clf;
         clearvars -except candidate candidate2 dirname;
     catch
