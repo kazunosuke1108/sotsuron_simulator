@@ -5,7 +5,7 @@
 dirname="results\1110_no_back";
 mkdir(dirname);
 
-for candidate=0:0.025:0.15 % linspace(0,60,1) % 2*nSegment+1=離散化数　1000Hzで120sだと，60000
+for candidate=[-0.15] % linspace(0,60,1) % 2*nSegment+1=離散化数　1000Hzで120sだと，60000
     try
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
         %                     Fundamental preparation                             %
