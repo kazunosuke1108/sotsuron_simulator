@@ -8,8 +8,10 @@ addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\ma
 % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 savedir="results\1110_master";
 mkdir(savedir);
+savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
+mkdir(savedir);
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-graph_title="MASTER dev"
+graph_title="MASTER vxmin=0";
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
@@ -76,17 +78,18 @@ env.roi.xmax=env.roi.xmin+env.l
 current_time=num_obs*sensor_dt;
 t=linspace(current_time,t0,(t0-current_time)*sensor_fps);
 z=getRobotPath(t,rbt);
+hmn_path=getHumanPath(t,hmn);
 u=[0*t;0*t;0*t;0*t;0*t;0*t;];
 
-figure(1); clf;
-savename_2_path=savename+"_2_path.png";
-drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはないのでNaN
-saveas(figure(1),savename_2_path);
+% figure(1); clf;
+% savename_2_path=savename+"_2_path.png";
+% drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはないのでNaN
+% saveas(figure(1),savename_2_path);
 
-figure(2); clf;
-title(graph_title)
-savename_2_anim=savename+"_2_anim"
-drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
+% figure(2); clf;
+% title(graph_title)
+% savename_2_anim=savename+"_2_anim"
+% drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
 
 
 
@@ -95,16 +98,31 @@ drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
 rbt.x0=z(1,end);
 rbt.y0=z(2,end);
 rbt.th0=z(3,end);
-rbt.vx0=z(1,end);
-rbt.y0=z(2,end);
-rbt.th0=z(3,end);
+rbt.vx0=z(4,end);
+rbt.vy0=z(5,end);
+rbt.omg0=z(6,end);
+
+rbt.xF=env.roi.xmax;
+
+hmn.x0=hmn_path(1,end);
+hmn.y0=hmn_path(2,end);
+hmn.th0=hmn_path(3,end);
+hmn.vx0=hmn_path(4,end);
+hmn.vy0=hmn_path(5,end);
+hmn.omg0=hmn_path(6,end);
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.3  計測                                   %
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+% Overwrite variables
+rbt.vxmin=0;
+
+
 % Set up function handles
 problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
-problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
+% problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
+problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns));
+% problem.func.pathObj=@(t,z,u)(objF_01(t,z,u,env,rbt,hmn,sns));
 
 
 % Set up problem bounds
@@ -156,32 +174,34 @@ u = soln.interp.control(t);
 
 % Plots
 %% History
-figure(1); clf;
+figure(3); clf;
 pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
-savename_png = savename+".png";
-saveas(figure(1),savename_png);
+savename_png = savename+"_3_hist.png";
+saveas(figure(3),savename_png);
 
 %% Animation
 
-% figure(2); clf;
-% title(graph_title)
-% drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
+figure(4); clf;
+title(graph_title)
+savename_3_anim=savename+"_3_anim"
+drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
 
-%% Potential map
-% figure(3); clf;
-% drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename);
 
 %% Path:
-figure(4); clf;
+figure(5); clf;
 drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title)
-savename_path = savename+"path.png";
-saveas(figure(4),savename_path);
+savename_3_path = savename+"_3_path.png";
+saveas(figure(5),savename_3_path);
 
+%% Potential map
+% figure(6); clf;
+% savename_3_ptnt = savename+"_3_ptnt";
+% drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename_3_ptnt);
 
 % clc;clf;
 % clearvars -except candidate candidate2 dirname;
 
-git_auto_push()
+% git_auto_push()
 
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%

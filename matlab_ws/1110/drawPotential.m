@@ -1,14 +1,14 @@
 function data=drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename)
 
 %%%% Parameters
-savename_map_mp4 = savename+"map.mp4";
+savename_map_mp4 = savename+".mp4";
 
 %%%% Drawing preparation
 fig3 = figure(3); clf;
 frames3(length(z(1,:))) = struct('cdata',[],'colormap',[]);
-map_x=linspace(env.xmin,env.xmax)
-map_y=linspace(env.ymin,env.ymax)
-[X,Y]=meshgrid(map_x,map_y)
+map_x=linspace(env.roi.xmin,env.roi.xmax);
+map_y=linspace(env.roi.ymin,env.roi.ymax);
+[X,Y]=meshgrid(map_x,map_y);
 
 %%%% Get path info
 plt_xR=z(1,:);
@@ -33,14 +33,16 @@ Z=objFPlot(plt_xR(1),plt_yR(1),plt_thR(1),X,Y,sns);
 func_map=contourf(X,Y,Z,10);
 
 %%%% drawing option
-xlim([env.xmin,env.xmax]);
-ylim([env.ymin-1,env.ymax+1]);
+xlim([env.roi.xmin,env.roi.xmax]);
+ylim([env.roi.ymin-1,env.roi.ymax+1]);
 daspect([1,1,1]);
+drawnow;
 
 for i = 1:length(plt_xR)
     Z=objFPlot(plt_xR(i),plt_yR(i),plt_thR(i),X,Y,sns);
     func_map=contourf(X,Y,Z,10);
-    ylim([env.ymin-1,env.ymax+1]);
+    ylim([env.roi.ymin-1,env.roi.ymax+1]);
+    daspect([1,1,1]);
     daspect([1,1,1]);
     drawnow;
     frames3(i)=getframe(fig3);
@@ -48,5 +50,5 @@ end
 video3=VideoWriter(savename_map_mp4,'MPEG-4');
 open(video3);
 writeVideo(video3,frames3);
-close(video3)
+close(video3);
 end
