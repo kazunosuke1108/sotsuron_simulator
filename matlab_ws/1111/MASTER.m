@@ -6,12 +6,13 @@ clc; clear;
 
 addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
-savedir="results\1110_master";
+mkdir('results')
+savedir="results\1111_master";
 mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-graph_title="MASTER choose wider side";
+graph_title="MASTER sgm_(Am) extend r1 -> r2";
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
@@ -26,9 +27,12 @@ sns=getcSensorParams();
 %                     Overwrite variables                                 %
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
-
 rbt.vx0=0.15;
-rbt.vy0=0;
+rbt.vy0=0;% 何のために書いたのか忘れた
+
+% sns.phi=deg2rad(270)/2;
+% sns.r1=0.3;
+% sns.r2=8.0;
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.1  検知                                   %
@@ -114,9 +118,9 @@ hmn.omg0=hmn_path(6,end);
 rbt.xF=env.roi.xmax;
 
 %% 狭い方への進行を阻止する
-%% 人の現在地から，余裕の大きい方向を判断する
-left_clearance=env.ymax-hmn.y0;
-right_clearance=hmn.y0-env.ymin;
+% 人の現在地から，余裕の大きい方向を判断する
+left_clearance=env.kabe.ymax-hmn.y0;
+right_clearance=hmn.y0-env.kabe.ymin;
 if left_clearance>right_clearance
     env.ymin=hmn.y0;
 else
@@ -127,13 +131,13 @@ end
 %                           seq.3  計測                                   %
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 % Overwrite variables
-rbt.vxmin=0;
+rbt.vxmin=0.0;
 
 
 % Set up function handles
 problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
 % problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
-problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns));
+problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns,env.minus_power));
 % problem.func.pathObj=@(t,z,u)(objF_01(t,z,u,env,rbt,hmn,sns));
 
 
@@ -200,10 +204,10 @@ drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
 
 
 %% Path:
-figure(5); clf;
-drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title)
-savename_3_path = savename+"_3_path.png";
-saveas(figure(5),savename_3_path);
+% figure(5); clf;
+% drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title)
+% savename_3_path = savename+"_3_path.png";
+% saveas(figure(5),savename_3_path);
 
 %% Potential map
 % figure(6); clf;

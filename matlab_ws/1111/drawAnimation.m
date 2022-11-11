@@ -5,7 +5,7 @@ arc_resolution=100;
 savename_mp4 = savename+".mp4";
 
 %%%% Drawing preparation
-fig2 = figure(4); clf;
+fig2 = figure(2); clf;
 frames(length(z(1,:))) = struct('cdata',[],'colormap',[]);
 
 %%%% Get path info
@@ -34,9 +34,9 @@ plt_vH=arrow_scale*plt_vH;
 
 %%%% Initial drawing
 %%%%% Wall
-wall_right = plot([env.xmin,env.xmax],[env.ymin,env.ymin],'k');
+wall_right = plot([env.xmin,env.xmax],[env.kabe.ymin,env.kabe.ymin],'k');
 hold on
-wall_right = plot([env.xmin,env.xmax],[env.ymax,env.ymax],'k');
+wall_right = plot([env.xmin,env.xmax],[env.kabe.ymax,env.kabe.ymax],'k');
 hold on
 
 %%%%% ROI borders
@@ -67,10 +67,13 @@ arc_r2 = plot(arc_r2_x,arc_r2_y,'g');
 arc_right = plot([arc_r1_x(1),arc_r2_x(1)],[arc_r1_y(1),arc_r2_y(1)],'g');
 hold on
 arc_left = plot([arc_r1_x(end),arc_r2_x(end)],[arc_r1_y(end),arc_r2_y(end)],'g');
+hold on
+robot_path=plot(plt_xR(1),plt_yR(1),'b');
+human_path=plot(plt_xH(1),plt_yH(1),'r');
 
 title(graph_title);
 xlim([env.xmin,env.xmax]);
-ylim([env.ymin-1,env.ymax+1]);
+ylim([env.kabe.ymin-1,env.kabe.ymax+1]);
 daspect([1,1,1]);
 
 %%%% Iteration
@@ -89,6 +92,9 @@ for i = 1:length(plt_xR)
     set(arc_r2,'XData',arc_r2_x,'YData',arc_r2_y);
     set(arc_right,'XData',[arc_r1_x(1),arc_r2_x(1)],'YData',[arc_r1_y(1),arc_r2_y(1)]);
     set(arc_left,'XData',[arc_r1_x(end),arc_r2_x(end)],'YData',[arc_r1_y(end),arc_r2_y(end)]);
+    % path
+    set(robot_path,'XData',plt_xR(1:i),'YData',plt_yR(1:i));
+    set(human_path,'XData',plt_xH(1:i),'YData',plt_yH(1:i));
     drawnow;
     frames(i)=getframe(fig2);
 end

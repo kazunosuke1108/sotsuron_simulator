@@ -2,11 +2,11 @@
 
 % version for parameter study
 
-dirname="results\1107_rbt_x0y0"
+dirname="results\1110_rbt_x0y0";
 mkdir(dirname)
-for candidate = [11 12 13 14 15]
-    for candidate2 =[0 0.5 1.0 1.5 2.0 2.5]
-        try
+for candidate = [0 4 8 12]
+    for candidate2 =[0 1 2 3]
+        % try
             % if and(candidate ==4, candidate2==1.0)
             %     continue
             % end
@@ -16,7 +16,7 @@ for candidate = [11 12 13 14 15]
 
             % clc; clear;
             addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole'
-            addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
+            % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
             savename=string(dirname+"\"+datestr(now,'yymmdd_hhMMss'));
 
@@ -32,9 +32,11 @@ for candidate = [11 12 13 14 15]
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                     Overwrite variables                                 %
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+            env.ymin=-2.5;
             rbt.x0=candidate
             rbt.y0=candidate2
-            graph_title="rbt.x0="+string(candidate)+" rbt.y0="+string(candidate2);
+
+            graph_title="ymin=-2.5 rbt.x0="+string(candidate)+" rbt.y0="+string(candidate2);
             
             
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -119,9 +121,9 @@ for candidate = [11 12 13 14 15]
             %%%% Potential map:
             % figure(3); clf;
             % drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename);
-        catch
-            continue
-        end
+        % catch
+        %     continue
+        % end
         clc;clf;
         clearvars -except candidate candidate2 dirname;
     end
