@@ -12,7 +12,7 @@ mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-graph_title="wrond side turn caused by constraint? rbt.thF=+-3/2*pi";
+graph_title="initial position: move y & phi direction";
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
@@ -29,8 +29,6 @@ sns=getSensorParams();
 
 rbt.vx0=0.15;
 rbt.vy0=0;
-rbt.thFmin=-3/2*pi;
-rbt.thFmax=3/2*pi;
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.1  検知                                   %
@@ -74,8 +72,12 @@ env.roi.xmin=rbt.vx0*t0-env.l;
 env.roi.xmax=env.roi.xmin+env.L;
 
 %% y方向回避動作
-rbt.vy0=-sns.r1/t0;
+avoid_dist=3
 
+rbt.vy0=-avoid_dist/t0;
+
+%% phi方向照準動作
+rbt.omg0=atan(avoid_dist/(env.L-env.l))/t0;
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.2  移動                                   %
@@ -87,10 +89,10 @@ z=getRobotPath(t,rbt);
 hmn_path=getHumanPath(t,hmn);
 u=[0*t;0*t;0*t;0*t;0*t;0*t;];
 
-figure(1); clf;
-savename_2_path=savename+"_2_path.png";
-drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはないのでNaN
-saveas(figure(1),savename_2_path);
+% figure(1); clf;
+% savename_2_path=savename+"_2_path.png";
+% drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはないのでNaN
+% saveas(figure(1),savename_2_path);
 
 figure(2); clf;
 title(graph_title);
@@ -208,10 +210,10 @@ drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
 
 
 %% Path:
-figure(5); clf;
-drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
-savename_3_path = savename+"_3_path.png";
-saveas(figure(5),savename_3_path);
+% figure(5); clf;
+% drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
+% savename_3_path = savename+"_3_path.png";
+% saveas(figure(5),savename_3_path);
 
 %% Potential map
 % figure(6); clf;
@@ -221,7 +223,7 @@ saveas(figure(5),savename_3_path);
 clc;clf;
 clearvars -except candidate candidate2 dirname;
 
-git_auto_push()
+% git_auto_push()
 
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
