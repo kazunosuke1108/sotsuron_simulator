@@ -12,7 +12,7 @@ mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-graph_title="wrond side turn caused by constraint? rbt.thF=+-2*pi";
+graph_title="wrond side turn caused by constraint? rbt.thF=+-3/2*pi";
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
@@ -29,8 +29,8 @@ sns=getSensorParams();
 
 rbt.vx0=0.15;
 rbt.vy0=0;
-rbt.thFmin=-2*pi;
-rbt.thFmax=2*pi;
+rbt.thFmin=-3/2*pi;
+rbt.thFmax=3/2*pi;
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.1  検知                                   %
@@ -72,6 +72,9 @@ t0=(hmn_path(1,num_obs)-env.L+env.l)/(abs(hmn.vx)+abs(rbt.vx0));
 %% ROIを決定
 env.roi.xmin=rbt.vx0*t0-env.l;
 env.roi.xmax=env.roi.xmin+env.L;
+
+%% y方向回避動作
+rbt.vy0=-sns.r1/t0;
 
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
