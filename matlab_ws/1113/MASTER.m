@@ -12,7 +12,7 @@ mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-graph_title="TEST RUN: - - in anim";
+graph_title="avoid in 143652 was strange...";
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
@@ -21,7 +21,7 @@ graph_title="TEST RUN: - - in anim";
 env=getEnvironmentParams();
 rbt=getRobotParams();
 hmn=getHumanParams();
-sns=getcSensorParams();
+sns=getSensorParams();
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                     Overwrite variables                                 %
@@ -88,7 +88,7 @@ saveas(figure(1),savename_2_path);
 
 figure(2); clf;
 title(graph_title)
-savename_2_anim=savename+"_2_anim"
+savename_2_anim=savename+"_2_anim";
 drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
 
 
@@ -197,7 +197,7 @@ saveas(figure(3),savename_png);
 
 figure(4); clf;
 title(graph_title)
-savename_3_anim=savename+"_3_anim"
+savename_3_anim=savename+"_3_anim";
 drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
 
 
