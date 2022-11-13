@@ -1,3 +1,2 @@
-figure(6); clf;
-savename_3_ptnt = savename+"_3_ptnt";
-drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename_3_ptnt);
+mod(7/2*pi,2*pi)
+3/2*pi

@@ -20,6 +20,7 @@ env.roi.ymax=env.ymax;
 
 env.objF_nonzero=1e-3;
 env.minus_power=1;
+env.edge_power=0.1;
 
 env.r_prh=0.8;
 

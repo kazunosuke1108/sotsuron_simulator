@@ -12,7 +12,7 @@ mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-graph_title="initial position: move y & phi direction";
+graph_title="objF if edge_power=0.1 fix naiseki ./";
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
@@ -94,10 +94,10 @@ u=[0*t;0*t;0*t;0*t;0*t;0*t;];
 % drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはないのでNaN
 % saveas(figure(1),savename_2_path);
 
-figure(2); clf;
-title(graph_title);
-savename_2_anim=savename+"_2_anim";
-drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
+% figure(2); clf;
+% title(graph_title);
+% savename_2_anim=savename+"_2_anim";
+% drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
 
 
 
@@ -141,7 +141,9 @@ rbt.xF=env.roi.xmax;
 % Set up function handles
 problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
 % problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
-problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns,env.minus_power));
+% problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns,env.minus_power));
+% problem.func.pathObj=@(t,z,u)(objF_sgmd(t,z,u,env,rbt,hmn,sns,env.edge_power));
+problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns,env.edge_power));
 % problem.func.pathObj=@(t,z,u)(objF_01(t,z,u,env,rbt,hmn,sns));
 
 

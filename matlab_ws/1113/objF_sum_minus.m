@@ -15,14 +15,12 @@ norm_HR=vecnorm(vec_HR,length(vec_HR(1)),1);
 e=[cos(z(3,:));sin(z(3,:))];
 naiseki=dot(e,vec_HR,1);
 
-e_vec_th=acos(naiseki/norm_HR);
+e_vec_th=acos(naiseki./norm_HR);
 e_vec_th=rem(e_vec_th,2*pi);
 
 mu_A=(sns.r1+sns.r2)/2;
-% mu_B=0;
 mu_B=0;
 sgm_A=1/6*(sns.r2-sns.r1);
-% sgm_B=1/6*2*norm_HR;
 sgm_B=1/6*2*sns.phi;
 
 A=pdf('Normal',norm_HR,mu_A,sgm_A);
@@ -30,11 +28,14 @@ B=pdf('Normal',e_vec_th,mu_B,sgm_B);
 
 % mu_Am=(0+sns.r1)/2;
 mu_Am=0;
+mu_B_2pi=2*pi;
 sgm_Am=1/6*(sns.r1-0);
+sgm_B_2pi=1/6*2*sns.phi;
 % sgm_Am=1/6*(sns.r2-0);
 
 Am=pdf('Normal',norm_HR,mu_Am,sgm_Am);
-J_kari=(A-minus_power*Am).*B;
+B_2pi=pdf('Normal',e_vec_th,mu_B_2pi,sgm_B_2pi);
+J_kari=(A-minus_power*Am).*(B+B_2pi);
 
 
 J=(J_kari+env.objF_nonzero).^(-1);
