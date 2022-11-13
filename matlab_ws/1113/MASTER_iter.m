@@ -70,11 +70,11 @@ for candidate=[-0.3 -0.6 -0.9 -1.2]
 
         % ROI変更
         %% 計測開始時刻を決定
-        t0=(hmn_path(1,num_obs)-env.l)/(abs(hmn.vx)+abs(rbt.vx0));
+        t0=(hmn_path(1,num_obs)-env.L+env.l)/(abs(hmn.vx)+abs(rbt.vx0));
 
         %% ROIを決定
-        env.roi.xmin=rbt.vx0*t0
-        env.roi.xmax=env.roi.xmin+env.l
+        env.roi.xmin=rbt.vx0*t0-env.l;
+        env.roi.xmax=env.roi.xmin+env.L;
 
 
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%

@@ -11,9 +11,10 @@ env.ymax=2.5;
 env.kabe.ymin=env.ymin;
 env.kabe.ymax=env.ymax;
 
-env.l=5;
-env.roi.xmin=10;
-env.roi.xmax=env.roi.xmin+env.l;
+env.L=5;
+env.l=1;
+env.roi.xmin=10-env.l;
+env.roi.xmax=env.roi.xmin+env.L;
 env.roi.ymin=env.ymin;
 env.roi.ymax=env.ymax;
 

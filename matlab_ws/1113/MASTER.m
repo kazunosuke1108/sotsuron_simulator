@@ -12,7 +12,7 @@ mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-graph_title="rbt.vy0=-0.10";
+graph_title="TEST RUN: initial xR inside ROI";
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
@@ -28,7 +28,7 @@ sns=getSensorParams();
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
 rbt.vx0=0.15;
-rbt.vy0=-0.10;
+rbt.vy0=0;
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.1  検知                                   %
@@ -65,11 +65,11 @@ hmn.vy=hmn_vel(2);
 
 % ROI変更
 %% 計測開始時刻を決定
-t0=(hmn_path(1,num_obs)-env.l)/(abs(hmn.vx)+abs(rbt.vx0));
+t0=(hmn_path(1,num_obs)-env.L+env.l)/(abs(hmn.vx)+abs(rbt.vx0));
 
 %% ROIを決定
-env.roi.xmin=rbt.vx0*t0;
-env.roi.xmax=env.roi.xmin+env.l;
+env.roi.xmin=rbt.vx0*t0-env.l;
+env.roi.xmax=env.roi.xmin+env.L;
 
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -209,9 +209,9 @@ savename_3_path = savename+"_3_path.png";
 saveas(figure(5),savename_3_path);
 
 %% Potential map
-figure(6); clf;
-savename_3_ptnt = savename+"_3_ptnt";
-drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename_3_ptnt);
+% figure(6); clf;
+% savename_3_ptnt = savename+"_3_ptnt";
+% drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename_3_ptnt);
 
 clc;clf;
 clearvars -except candidate candidate2 dirname;
