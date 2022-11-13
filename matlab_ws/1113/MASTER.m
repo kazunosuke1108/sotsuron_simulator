@@ -12,7 +12,7 @@ mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-graph_title="objF sgmd evaluate 2pi fix sgmd*sgmd -> +";
+graph_title="best? if 0.1";
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
@@ -144,8 +144,8 @@ rbt.xF=env.roi.xmax;
 problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
 % problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
 % problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns,env.minus_power));
-problem.func.pathObj=@(t,z,u)(objF_sgmd(t,z,u,env,rbt,hmn,sns,env.objF_sgmd_edge_power));
-% problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns,env.objF_if_edge_a));
+% problem.func.pathObj=@(t,z,u)(objF_sgmd(t,z,u,env,rbt,hmn,sns,env.objF_sgmd_edge_power));
+problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns,env.objF_if_edge_a));
 % problem.func.pathObj=@(t,z,u)(objF_01(t,z,u,env,rbt,hmn,sns));
 
 

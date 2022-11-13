@@ -11,11 +11,11 @@ savedir="results\1113_mns_not_div";
 mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
-for candidate =[1 5 9]
-    for candidate2=[1 5 9]
+for candidate =[0.01 0.05 0.1 0.2 0.5 0.75 1.0 2 3]
+    for candidate2=[1]
         try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="objF sgmd >=0/ objF_sgmd_edge_power"+candidate+" objF_sgmd_edge_power_phi="+candidate2;
+            graph_title="objF if objF_if_edge_a="+candidate;
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -32,7 +32,7 @@ for candidate =[1 5 9]
 
             rbt.vx0=0.15;
             rbt.vy0=0;
-            env.objF_sgmd_edge_power_r=candidate;
+            env.objF_if_edge_a=candidate;
             env.objF_sgmd_edge_power_phi=candidate2;
 
 
@@ -233,11 +233,11 @@ for candidate =[1 5 9]
         catch
             continue
         end
-        % git_auto_push()
-
-
+        
+        
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
         %                           seq.4  離脱                                   %
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     end
 end
+git_auto_push()
