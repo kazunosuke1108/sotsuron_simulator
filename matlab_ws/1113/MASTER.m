@@ -12,7 +12,7 @@ mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-graph_title="MASTER sgm_(Am) extend r1 -> r2";
+graph_title="TEST RUN: - - in anim";
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
@@ -81,15 +81,15 @@ z=getRobotPath(t,rbt);
 hmn_path=getHumanPath(t,hmn);
 u=[0*t;0*t;0*t;0*t;0*t;0*t;];
 
-% figure(1); clf;
-% savename_2_path=savename+"_2_path.png";
-% drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはないのでNaN
-% saveas(figure(1),savename_2_path);
+figure(1); clf;
+savename_2_path=savename+"_2_path.png";
+drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはないのでNaN
+saveas(figure(1),savename_2_path);
 
-% figure(2); clf;
-% title(graph_title)
-% savename_2_anim=savename+"_2_anim"
-% drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
+figure(2); clf;
+title(graph_title)
+savename_2_anim=savename+"_2_anim"
+drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
 
 
 
@@ -185,6 +185,8 @@ z = soln.interp.state(t);
 u = soln.interp.control(t);
 
 % Plots
+%% add score to fig name
+graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
 %% History
 figure(3); clf;
 pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
@@ -200,20 +202,20 @@ drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
 
 
 %% Path:
-% figure(5); clf;
-% drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title)
-% savename_3_path = savename+"_3_path.png";
-% saveas(figure(5),savename_3_path);
+figure(5); clf;
+drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title)
+savename_3_path = savename+"_3_path.png";
+saveas(figure(5),savename_3_path);
 
 %% Potential map
-% figure(6); clf;
-% savename_3_ptnt = savename+"_3_ptnt";
-% drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename_3_ptnt);
+figure(6); clf;
+savename_3_ptnt = savename+"_3_ptnt";
+drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename_3_ptnt);
 
-% clc;clf;
-% clearvars -except candidate candidate2 dirname;
+clc;clf;
+clearvars -except candidate candidate2 dirname;
 
-% git_auto_push()
+git_auto_push()
 
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%

@@ -68,7 +68,12 @@ arc_right = plot([arc_r1_x(1),arc_r2_x(1)],[arc_r1_y(1),arc_r2_y(1)],'g');
 hold on
 arc_left = plot([arc_r1_x(end),arc_r2_x(end)],[arc_r1_y(end),arc_r2_y(end)],'g');
 hold on
+arc_right_helper=plot([plt_xR(1),arc_r1_x(1)],[plt_yR(1),arc_r1_y(1)],'--g')
+hold on
+arc_left_helper=plot([plt_xR(1),arc_r1_x(end)],[plt_yR(1),arc_r1_y(end)],'--g')
+hold on
 robot_path=plot(plt_xR(1),plt_yR(1),'b');
+hold on
 human_path=plot(plt_xH(1),plt_yH(1),'r');
 
 title(graph_title);
@@ -92,6 +97,8 @@ for i = 1:length(plt_xR)
     set(arc_r2,'XData',arc_r2_x,'YData',arc_r2_y);
     set(arc_right,'XData',[arc_r1_x(1),arc_r2_x(1)],'YData',[arc_r1_y(1),arc_r2_y(1)]);
     set(arc_left,'XData',[arc_r1_x(end),arc_r2_x(end)],'YData',[arc_r1_y(end),arc_r2_y(end)]);
+    set(arc_right_helper,'XData',[plt_xR(i),arc_r1_x(1)],'YData',[plt_yR(i),arc_r1_y(1)]);
+    set(arc_left_helper,'XData',[plt_xR(i),arc_r1_x(end)],'YData',[plt_yR(i),arc_r1_y(end)]);
     % path
     set(robot_path,'XData',plt_xR(1:i),'YData',plt_yR(1:i));
     set(human_path,'XData',plt_xH(1:i),'YData',plt_yH(1:i));
