@@ -7,12 +7,12 @@ clc; clear;
 addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole';
 % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 mkdir('results');
-savedir="results\1111_master";
+savedir="results\1113";
 mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-graph_title="objF if edge_power=0.1 fix naiseki ./";
+graph_title="objF sgmd current best? use / not - objF_sgmd_edge_power=3";
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
@@ -29,6 +29,8 @@ sns=getSensorParams();
 
 rbt.vx0=0.15;
 rbt.vy0=0;
+% env.edge_power=2;
+
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.1  検知                                   %
@@ -142,8 +144,8 @@ rbt.xF=env.roi.xmax;
 problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
 % problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
 % problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns,env.minus_power));
-% problem.func.pathObj=@(t,z,u)(objF_sgmd(t,z,u,env,rbt,hmn,sns,env.edge_power));
-problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns,env.edge_power));
+problem.func.pathObj=@(t,z,u)(objF_sgmd(t,z,u,env,rbt,hmn,sns,env.objF_sgmd_edge_power));
+% problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns,env.objF_if_edge_a));
 % problem.func.pathObj=@(t,z,u)(objF_01(t,z,u,env,rbt,hmn,sns));
 
 
