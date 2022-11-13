@@ -9,7 +9,8 @@ rbt.vy0=0;
 rbt.omg0=0;
 
 rbt.vxmax=0.15;
-rbt.vxmin=-rbt.vxmax;
+% rbt.vxmin=-rbt.vxmax;
+rbt.vxmin=0;
 rbt.vymax=0.15;
 rbt.vymin=-rbt.vymax;
 rbt.omgmax=pi/4;

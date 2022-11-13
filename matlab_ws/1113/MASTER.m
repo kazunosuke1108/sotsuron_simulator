@@ -4,15 +4,15 @@
 
 clc; clear;
 
-addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole'
+addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole';
 % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
-mkdir('results')
+mkdir('results');
 savedir="results\1111_master";
 mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-graph_title="avoid in 143652 was strange...";
+graph_title="rbt.vy0=-0.10";
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
@@ -28,7 +28,7 @@ sns=getSensorParams();
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
 rbt.vx0=0.15;
-rbt.vy0=0;% 何のために書いたのか忘れた
+rbt.vy0=-0.10;
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.1  検知                                   %
@@ -45,7 +45,7 @@ hmn_path=getHumanPath(t,hmn);
 rbt_path=getRobotPath(t,rbt);
 
 % 歩行速度推定
-num_obs=5 % 移動平均に使用するフレーム数
+num_obs=5; % 移動平均に使用するフレーム数
 
 vel_list=[];
 relative_path=hmn_path(1:2,:)-rbt_path(1:2,:);
@@ -58,17 +58,18 @@ for i = 2:num_obs
     vel_list=[vel_list vel];
     observed_old=observed;
 end
-vel=mean(vel_list,2);
-hmn.vx=vel(1);
-hmn.vy=vel(2);
+relative_vel=mean(vel_list,2);
+hmn_vel=relative_vel+[rbt.vx0;rbt.vy0];
+hmn.vx=hmn_vel(1);
+hmn.vy=hmn_vel(2);
 
 % ROI変更
 %% 計測開始時刻を決定
 t0=(hmn_path(1,num_obs)-env.l)/(abs(hmn.vx)+abs(rbt.vx0));
 
 %% ROIを決定
-env.roi.xmin=rbt.vx0*t0
-env.roi.xmax=env.roi.xmin+env.l
+env.roi.xmin=rbt.vx0*t0;
+env.roi.xmax=env.roi.xmin+env.l;
 
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -87,7 +88,7 @@ drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはない
 saveas(figure(1),savename_2_path);
 
 figure(2); clf;
-title(graph_title)
+title(graph_title);
 savename_2_anim=savename+"_2_anim";
 drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
 
@@ -127,7 +128,7 @@ rbt.xF=env.roi.xmax;
 %                           seq.3  計測                                   %
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 % Overwrite variables
-rbt.vxmin=0.0;
+% rbt.vxmin=0.0; % <== default  
 
 
 % Set up function handles
@@ -196,14 +197,14 @@ saveas(figure(3),savename_png);
 %% Animation
 
 figure(4); clf;
-title(graph_title)
+title(graph_title);
 savename_3_anim=savename+"_3_anim";
 drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
 
 
 %% Path:
 figure(5); clf;
-drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title)
+drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
 savename_3_path = savename+"_3_path.png";
 saveas(figure(5),savename_3_path);
 
