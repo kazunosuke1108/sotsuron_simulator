@@ -63,6 +63,6 @@ function J=objF_if(t,z,u,env,rbt,hmn,sns,objF_if_edge_a)
     p_ans=p_ans+p_1+p_2+p_3;
     
     J_kari=r_ans.*p_ans;
-    J=(J_kari+env.objF_nonzero).^(-1);
-    % J=-J_kari;
+    % J=(J_kari+env.objF_nonzero).^(-1);
+    J=-J_kari;
 end

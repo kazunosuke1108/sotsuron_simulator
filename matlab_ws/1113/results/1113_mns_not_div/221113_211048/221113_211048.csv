@@ -1,0 +1,35 @@
+index,value
+初期時刻,0 ~ 0
+初期座標 x,4.3186 ~ 4.3186
+初期座標 y,-2 ~ -2
+初期座標 theta,0.6435 ~ 0.6435
+初期座標 vx,0.15 ~ 0.15
+初期座標 vy,-0.1042 ~ -0.1042
+初期座標 omega,0.022351 ~ 0.022351
+終端時刻,90 ~ 90
+終端座標 x,8.3186 ~ 8.3186
+終端座標 y,1 ~ 1
+終端座標 theta,-3.1416 ~ 3.1416
+終端座標 vx,0.15 ~ 0.15
+終端座標 vy,-0.1042 ~ -0.1042
+終端座標 omega,0.022351 ~ 0.022351
+状態境界 x,4.3186 ~ 8.3186
+状態境界 y,-2.5 ~ 2.5
+状態境界 theta,-3.1416 ~ 3.1416
+状態境界 vx,0 ~ 0.15
+状態境界 vy,-0.15 ~ 0.15
+状態境界 omega,-0.7854 ~ 0.7854
+制御境界 accx,-0.15 ~ 0.15
+制御境界 accy,-0.15 ~ 0.15
+制御境界 ang_acc,-0.7854 ~ 0.7854
+非零のための下駄,0.001
+soln.info.iterations,24
+soln.info.funcCount,18376
+soln.info.constrviolation,2.4e-15
+soln.info.stepsize,4.2607e-10
+soln.info.algorithm,interior-point
+soln.info.firstorderopt,3.643
+soln.info.cgiterations,49
+soln.info.bestfeasible.fval,18.9593
+soln.info.nlpTime,3.2285
+soln.info.exitFlag,2
