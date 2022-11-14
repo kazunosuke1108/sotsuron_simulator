@@ -11,7 +11,7 @@ savedir="results\1113_mns_not_div";
 mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
-for candidate =[0.7 0.8 0.9 1.1 1.2 1.3]
+for candidate =[0.11 0.12 0.13]
     for candidate2=[1]
         try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
