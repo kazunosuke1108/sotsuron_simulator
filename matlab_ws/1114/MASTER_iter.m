@@ -164,8 +164,8 @@ for candidate =[0.4 0.5 0.6]
             problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.vx0;rbt.vy0;rbt.omg0];
             problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.vx0;rbt.vy0;rbt.omg0];
 
-            problem.bounds.state.low = [rbt.x0;env.ymin;rbt.thFmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
-            problem.bounds.state.upp = [rbt.xF;env.ymax;rbt.thFmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
+            problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thFmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
+            problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thFmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
 
             problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin];
             problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax];
@@ -210,7 +210,6 @@ for candidate =[0.4 0.5 0.6]
             saveas(figure(3),savename_png);
 
             %% Animation
-
             figure(4); clf;
             title(graph_title);
             savename_3_anim=savename+"_3_anim";
@@ -233,8 +232,6 @@ for candidate =[0.4 0.5 0.6]
         catch
             continue
         end
-        
-        
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
         %                           seq.4  離脱                                   %
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%

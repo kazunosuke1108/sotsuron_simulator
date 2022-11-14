@@ -1,4 +1,4 @@
-function J=objF_sum_minus(t,z,u,env,rbt,hmn,sns,minus_power)
+function J=objF_sum_minus(t,z,u,env,rbt,hmn,sns)
 % hmn_path: array_like z
 % z: [6,n]
 % vec_HR: [2,n]
@@ -36,7 +36,7 @@ sgm_B_2pi=1/6*2*sns.phi;
 
 Am=pdf('Normal',norm_HR,mu_Am,sgm_Am);
 B_2pi=pdf('Normal',e_vec_th,mu_B_2pi,sgm_B_2pi);
-J_kari=(A-minus_power*Am).*(B+B_2pi);
+J_kari=(A-env.objF_minus_power*Am).*(B+B_2pi);
 
 
 % J=(J_kari+env.objF_nonzero).^(-1);

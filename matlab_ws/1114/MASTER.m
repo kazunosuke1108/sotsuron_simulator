@@ -7,12 +7,13 @@ clc; clear;
 addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole';
 % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 mkdir('results');
-savedir="results\1113_mns_not_div";
+savedir="results\1114_new_bc";
 mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
+
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-graph_title="objF sgmd r3 p10";
+graph_title="TEST RUN objF if time="+candidate;
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
@@ -29,6 +30,7 @@ sns=getSensorParams();
 
 rbt.vx0=0.15;
 rbt.vy0=0;
+env.tmax=candidate;
 % env.edge_power=2;
 
 
@@ -55,10 +57,10 @@ size(relative_path);
 observed_old=relative_path(:,1);
 
 for i = 2:num_obs
-    observed=relative_path(:,i);
-    vel=(observed-observed_old)/sensor_dt;
-    vel_list=[vel_list vel];
-    observed_old=observed;
+observed=relative_path(:,i);
+vel=(observed-observed_old)/sensor_dt;
+vel_list=[vel_list vel];
+observed_old=observed;
 end
 relative_vel=mean(vel_list,2);
 hmn_vel=relative_vel+[rbt.vx0;rbt.vy0];
@@ -143,9 +145,9 @@ rbt.xF=env.roi.xmax;
 % Set up function handles
 problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
 % problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
-% problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns,env.minus_power));
-problem.func.pathObj=@(t,z,u)(objF_sgmd(t,z,u,env,rbt,hmn,sns));
-% problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns));
+% problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns));
+% problem.func.pathObj=@(t,z,u)(objF_sgmd(t,z,u,env,rbt,hmn,sns));
+problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns));
 % problem.func.pathObj=@(t,z,u)(objF_01(t,z,u,env,rbt,hmn,sns));
 
 
@@ -160,8 +162,8 @@ problem.bounds.initialState.upp = [rbt.x0;rbt.y0;rbt.th0;rbt.vx0;rbt.vy0;rbt.omg
 problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.vx0;rbt.vy0;rbt.omg0];
 problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.vx0;rbt.vy0;rbt.omg0];
 
-problem.bounds.state.low = [rbt.x0;env.ymin;rbt.thFmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
-problem.bounds.state.upp = [rbt.xF;env.ymax;rbt.thFmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
+problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thFmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
+problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thFmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
 
 problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin];
 problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax];
@@ -225,8 +227,7 @@ drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
 % drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename_3_ptnt);
 
 clc;clf;
-clearvars -except candidate candidate2 dirname;
-
+clearvars -except candidate candidate2 savedir;
 % git_auto_push()
 
 
