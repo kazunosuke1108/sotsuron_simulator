@@ -11,11 +11,11 @@ savedir="results\1113_mns_not_div";
 mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
-for candidate =[0.01 0.02 0.03]
+for candidate =[0.4 0.5 0.6]
     for candidate2=[1]
         try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="objF if objF_if_edge_a="+candidate;
+            graph_title="objF if objF_if_edge_a_phi="+candidate;
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %

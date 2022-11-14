@@ -23,7 +23,7 @@ env.minus_power=1;
 env.objF_sgmd_edge_power_r=3;
 env.objF_sgmd_edge_power_phi=10;
 env.objF_if_edge_a_r=0.1;
-env.objF_if_edge_a_phi=0.02;
+env.objF_if_edge_a_phi=0.5;
 
 env.r_prh=0.8;
 
