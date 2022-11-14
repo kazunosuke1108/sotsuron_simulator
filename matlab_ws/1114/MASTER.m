@@ -12,7 +12,7 @@ mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-graph_title="objF sgmd r3 p30";
+graph_title="objF sgmd r3 p10";
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
