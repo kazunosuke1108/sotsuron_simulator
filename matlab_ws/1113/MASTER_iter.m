@@ -33,7 +33,7 @@ for candidate =[0.01 0.05 0.1 0.2 0.5 0.75 1.0 2 3]
             rbt.vx0=0.15;
             rbt.vy0=0;
             env.objF_if_edge_a=candidate;
-            env.objF_sgmd_edge_power_phi=candidate2;
+            % env.objF_sgmd_edge_power_phi=candidate2;
 
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -148,8 +148,8 @@ for candidate =[0.01 0.05 0.1 0.2 0.5 0.75 1.0 2 3]
             problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns,env.minus_power));
-            problem.func.pathObj=@(t,z,u)(objF_sgmd(t,z,u,env,rbt,hmn,sns));
-            % problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns,env.objF_if_edge_a));
+            % problem.func.pathObj=@(t,z,u)(objF_sgmd(t,z,u,env,rbt,hmn,sns));
+            problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns,env.objF_if_edge_a));
             % problem.func.pathObj=@(t,z,u)(objF_01(t,z,u,env,rbt,hmn,sns));
 
 

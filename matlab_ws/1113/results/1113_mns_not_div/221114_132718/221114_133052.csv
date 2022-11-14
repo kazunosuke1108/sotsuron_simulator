@@ -23,13 +23,13 @@ index,value
 制御境界 accy,-0.15 ~ 0.15
 制御境界 ang_acc,-0.7854 ~ 0.7854
 非零のための下駄,0.001
-soln.info.iterations,751
-soln.info.funcCount,550618
-soln.info.constrviolation,1.0083e-15
-soln.info.stepsize,1.5841e-10
+soln.info.iterations,37
+soln.info.funcCount,27942
+soln.info.constrviolation,1.988e-15
+soln.info.stepsize,2.6913e-10
 soln.info.algorithm,interior-point
-soln.info.firstorderopt,0.21224
-soln.info.cgiterations,2434
-soln.info.bestfeasible.fval,82.2554
-soln.info.nlpTime,102.3972
+soln.info.firstorderopt,5.225259943183323e+18
+soln.info.cgiterations,107
+soln.info.bestfeasible.fval,-78429357858.3275
+soln.info.nlpTime,5.5875
 soln.info.exitFlag,2
