@@ -11,7 +11,7 @@ savedir="results\1113_mns_not_div";
 mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
-for candidate =[0.14 0.15 0.16 0.17 0.18 0.19 0.2]
+for candidate =[0.01 0.02 0.03]
     for candidate2=[1]
         try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
@@ -32,7 +32,7 @@ for candidate =[0.14 0.15 0.16 0.17 0.18 0.19 0.2]
 
             rbt.vx0=0.15;
             rbt.vy0=0;
-            env.objF_if_edge_a=candidate;
+            env.objF_if_edge_a_phi=candidate;
             % env.objF_sgmd_edge_power_phi=candidate2;
 
 
@@ -149,7 +149,7 @@ for candidate =[0.14 0.15 0.16 0.17 0.18 0.19 0.2]
             % problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns,env.minus_power));
             % problem.func.pathObj=@(t,z,u)(objF_sgmd(t,z,u,env,rbt,hmn,sns));
-            problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns,env.objF_if_edge_a));
+            problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF_01(t,z,u,env,rbt,hmn,sns));
 
 

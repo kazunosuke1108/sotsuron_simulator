@@ -1,6 +1,6 @@
-function J=objF_if(t,z,u,env,rbt,hmn,sns,objF_if_edge_a)
+function J=objF_if(t,z,u,env,rbt,hmn,sns)
 
-    % objF_if_edge_a は小さいほど傾斜がきつくなる
+    % env.objF_if_edge_a_r は小さいほど傾斜がきつくなる
 
     phi_powerup=1/5;
     
@@ -16,49 +16,49 @@ function J=objF_if(t,z,u,env,rbt,hmn,sns,objF_if_edge_a)
     e_vec_th=acos(naiseki./norm_HR);
     e_vec_th=rem(e_vec_th,2*pi);
     
-    r_11=norm_HR<sns.r1-objF_if_edge_a;
+    r_11=norm_HR<sns.r1-env.objF_if_edge_a_r;
     r_1=r_11;
-    r_21=norm_HR>=sns.r1-objF_if_edge_a;
-    r_22=norm_HR<sns.r1+objF_if_edge_a;
+    r_21=norm_HR>=sns.r1-env.objF_if_edge_a_r;
+    r_22=norm_HR<sns.r1+env.objF_if_edge_a_r;
     r_2=r_21.*r_22;
-    r_31=norm_HR>=sns.r1+objF_if_edge_a;
-    r_32=norm_HR<sns.r2-objF_if_edge_a;
+    r_31=norm_HR>=sns.r1+env.objF_if_edge_a_r;
+    r_32=norm_HR<sns.r2-env.objF_if_edge_a_r;
     r_3=r_31.*r_32;
-    r_41=norm_HR>=sns.r2-objF_if_edge_a;
-    r_42=norm_HR<sns.r2+objF_if_edge_a;
+    r_41=norm_HR>=sns.r2-env.objF_if_edge_a_r;
+    r_42=norm_HR<sns.r2+env.objF_if_edge_a_r;
     r_4=r_41.*r_42;
     
     r_1=-1*r_1;
-    r_2=(1/objF_if_edge_a*norm_HR-sns.r1/objF_if_edge_a).*r_2;
+    r_2=(1/env.objF_if_edge_a_r*norm_HR-sns.r1/env.objF_if_edge_a_r).*r_2;
     r_3=1*r_3;
-    r_4=(-1/objF_if_edge_a*norm_HR+sns.r2/objF_if_edge_a).*r_4;
+    r_4=(-1/env.objF_if_edge_a_r*norm_HR+sns.r2/env.objF_if_edge_a_r).*r_4;
     r_ans=r_1+r_2+r_3+r_4;
     
     
-    p_11=e_vec_th>=-sns.phi-objF_if_edge_a/phi_powerup;
-    p_12=e_vec_th<-sns.phi+objF_if_edge_a/phi_powerup;
+    p_11=e_vec_th>=-sns.phi-env.objF_if_edge_a_phi;
+    p_12=e_vec_th<-sns.phi+env.objF_if_edge_a_phi;
     p_1=p_11.*p_12;
-    p_21=e_vec_th>=-sns.phi+objF_if_edge_a/phi_powerup;
-    p_22=e_vec_th<sns.phi-objF_if_edge_a/phi_powerup;
+    p_21=e_vec_th>=-sns.phi+env.objF_if_edge_a_phi;
+    p_22=e_vec_th<sns.phi-env.objF_if_edge_a_phi;
     p_2=p_21.*p_22;
-    p_31=e_vec_th>=sns.phi-objF_if_edge_a/phi_powerup;
-    p_32=e_vec_th<sns.phi+objF_if_edge_a/phi_powerup;
+    p_31=e_vec_th>=sns.phi-env.objF_if_edge_a_phi;
+    p_32=e_vec_th<sns.phi+env.objF_if_edge_a_phi;
     p_3=p_31.*p_32;
     
-    p_alpha=0.5*phi_powerup/objF_if_edge_a;
-    p_1=((p_alpha*e_vec_th)-p_alpha*(-sns.phi-objF_if_edge_a/phi_powerup)).*p_1;
+    p_alpha=0.5*phi_powerup/env.objF_if_edge_a_r;
+    p_1=((p_alpha*e_vec_th)-p_alpha*(-sns.phi-env.objF_if_edge_a_phi)).*p_1;
     p_2=1*p_2;
-    p_3=(-(p_alpha*e_vec_th)-p_alpha*(sns.phi+objF_if_edge_a/phi_powerup)).*p_3;
+    p_3=(-(p_alpha*e_vec_th)-p_alpha*(sns.phi+env.objF_if_edge_a_phi)).*p_3;
     p_ans=p_1+p_2+p_3;
 
-    p_11=e_vec_th>=2*pi-sns.phi-objF_if_edge_a/phi_powerup;
-    p_12=e_vec_th<2*pi-sns.phi+objF_if_edge_a/phi_powerup;
+    p_11=e_vec_th>=2*pi-sns.phi-env.objF_if_edge_a_phi;
+    p_12=e_vec_th<2*pi-sns.phi+env.objF_if_edge_a_phi;
     p_1=p_11.*p_12;
-    p_21=e_vec_th>=2*pi-sns.phi+objF_if_edge_a/phi_powerup;
-    p_22=e_vec_th<2*pi+sns.phi-objF_if_edge_a/phi_powerup;
+    p_21=e_vec_th>=2*pi-sns.phi+env.objF_if_edge_a_phi;
+    p_22=e_vec_th<2*pi+sns.phi-env.objF_if_edge_a_phi;
     p_2=p_21.*p_22;
-    p_31=e_vec_th>=2*pi+sns.phi-objF_if_edge_a/phi_powerup;
-    p_32=e_vec_th<2*pi+sns.phi+objF_if_edge_a/phi_powerup;
+    p_31=e_vec_th>=2*pi+sns.phi-env.objF_if_edge_a_phi;
+    p_32=e_vec_th<2*pi+sns.phi+env.objF_if_edge_a_phi;
     p_3=p_31.*p_32;
     p_ans=p_ans+p_1+p_2+p_3;
     
