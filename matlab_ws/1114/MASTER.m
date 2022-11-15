@@ -4,8 +4,8 @@
 
 clc; clear;
 
-addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole';
-% addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
+% addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole';
+addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 mkdir('results');
 savedir="results\1114_new_bc";
 mkdir(savedir);
@@ -13,7 +13,7 @@ savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
 
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-graph_title="TEST RUN objF if time="+candidate;
+graph_title="TEST RUN objF";
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
@@ -30,7 +30,6 @@ sns=getSensorParams();
 
 rbt.vx0=0.15;
 rbt.vy0=0;
-env.tmax=candidate;
 % env.edge_power=2;
 
 
