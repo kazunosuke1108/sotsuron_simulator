@@ -52,19 +52,20 @@ function J=objF_if(t,z,u,env,rbt,hmn,sns)
     p_21=deg_diff>=sns.phi-env.objF_if_edge_a_phi;
     p_22=deg_diff<sns.phi+env.objF_if_edge_a_phi;
     p_2=p_21.*p_22;
-    p_31=deg_diff>=pi-sns.phi-env.objF_if_edge_a_phi;
-    p_32=deg_diff<pi-sns.phi+env.objF_if_edge_a_phi;
-    p_3=p_31.*p_32;
-    p_41=deg_diff>=pi-sns.phi+env.objF_if_edge_a_phi;
-    p_4=p_41;
+    % p_31=deg_diff>=pi-sns.phi-env.objF_if_edge_a_phi;
+    % p_32=deg_diff<pi-sns.phi+env.objF_if_edge_a_phi;
+    % p_3=p_31.*p_32;
+    % p_41=deg_diff>=pi-sns.phi+env.objF_if_edge_a_phi;
+    % p_4=p_41;
     
     p_alpha=1/(2*env.objF_if_edge_a_phi);
     p_1=1*p_1;
     % p_1=((p_alpha*deg_diff)-p_alpha*(-sns.phi-env.objF_if_edge_a_phi)).*p_1;
     p_2=(-p_alpha.*deg_diff+(sns.phi+env.objF_if_edge_a_phi)/(2*env.objF_if_edge_a_phi)).*p_2;
-    p_3=(p_alpha.*deg_diff+(sns.phi+env.objF_if_edge_a_phi-pi)/(2*env.objF_if_edge_a_phi)).*p_3;
-    p_4=1*p_4;
-    p_ans=p_1+p_2+p_3+p_4;
+    % p_3=(p_alpha.*deg_diff+(sns.phi+env.objF_if_edge_a_phi-pi)/(2*env.objF_if_edge_a_phi)).*p_3;
+    % p_4=1*p_4;
+    p_ans=p_1+p_2;
+    % p_ans=p_1+p_2+p_3+p_4;
     
     J_kari=r_ans.*p_ans;
     J=(J_kari+env.objF_nonzero).^(-1);

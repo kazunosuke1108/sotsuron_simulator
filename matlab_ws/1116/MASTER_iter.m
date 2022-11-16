@@ -15,7 +15,7 @@ for candidate =[NaN]
     for candidate2=[NaN]
         % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="DEV debug .* .*(+) 2pi";
+            graph_title="DEV degdiff if";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -148,7 +148,7 @@ for candidate =[NaN]
             % Set up function handles
             problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
-            % problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns,env.minus_power));
+            % problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF_sgmd(t,z,u,env,rbt,hmn,sns));
             problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF_01(t,z,u,env,rbt,hmn,sns));
@@ -181,6 +181,10 @@ for candidate =[NaN]
             % Solver options
             problem.options.nlpOpt = optimset(...
             'Display','iter',...
+            'MaxIter',1e3,... % 可能な反復の最大数 (正の整数)
+            'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
+            'TolX',1e-10,... % x に関する許容誤差 (正のスカラー)
+            'TolCon',1e-8,... % 制約違反に関する許容誤差 (正のスカラー)
             'MaxFunEvals',1e6);
 
             % problem.options.method = 'trapezoid'; 
