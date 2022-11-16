@@ -15,7 +15,7 @@ mkdir(savedir);
 %     for candidate2=[NaN]
 for candidate =[0 1 2 3]
     for candidate2=[0 1 2 3]
-        % try
+        try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
             graph_title="function consists of multiple linear func.";
 
