@@ -16,8 +16,8 @@ success_xH=plt_xH.*footprint;
 success_yH=plt_yH.*footprint;
 
 success_array=[success_xH;success_yH];
-idx=success_array(1,:)==0 & success_array(2,:)==0;
-success_array=success_array(:,~idx);
+% idx=success_array(1,:)==0 & success_array(2,:)==0;
+% success_array=success_array(:,~idx);
 
 %%%%% Wall
 wall_right = plot([env.xmin,env.xmax],[env.kabe.ymin,env.kabe.ymin],'k');

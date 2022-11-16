@@ -33,6 +33,7 @@ for candidate =[NaN]
             rbt.vx0=0.15;
             rbt.vy0=0;
             hmn.vx=-0.6;
+            % phi=0.5radらしいよ
 
 
 
@@ -78,7 +79,7 @@ for candidate =[NaN]
             env.roi.xmax=env.roi.xmin+env.L;
 
             %% y方向回避動作
-            avoid_dist=3
+            avoid_dist=3;
 
             rbt.vy0=-avoid_dist/t0;
 
@@ -192,7 +193,6 @@ for candidate =[NaN]
 
             % Summarize conditions & results
             writeCSV(problem,env,rbt,hmn,sns,soln,savename);
-            getFootprint(t,z,u,env,rbt,hmn,sns,soln)
 
 
             % Display Solution
@@ -228,7 +228,7 @@ for candidate =[NaN]
             % savename_3_ptnt = savename+"_3_ptnt";
             % drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename_3_ptnt);
 
-            clc;clf;
+            % clc;clf;
             % clearvars -except candidate candidate2 savedir;
         % catch
         %     continue
@@ -238,4 +238,4 @@ for candidate =[NaN]
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     end
 end
-git_auto_push()
+% git_auto_push()

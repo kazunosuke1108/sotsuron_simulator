@@ -1,7 +1,31 @@
-test_x=[0 0 1 0 0.1]
-test_y=[1 0 1 1 1]
-for i = 1:length(test_x)
-    if not(test_x(i)==0 & test_y(i)==0)
-        disp(test_x(i)+" "+test_y(i))
-    end
+atan(-10000)
+
+function footprint=getFootprint(t,z,u,env,rbt,hmn,sns,soln)
+    % 各離散時刻において，人が扇の中に入っていれば1,そうでなければ0を返す．これを[1,n]のリストで与える．
+
+    hmn_path=getHumanPath(t,hmn);
+    rbt_path=z;
+    
+    vec_HR=[hmn_path(1,:);hmn_path(2,:)]-[rbt_path(1,:);rbt_path(2,:)];
+    e=[cos(z(3,:));sin(z(3,:))];
+    vec_HR=(vecnorm(vec_HR,length(vec_HR(1)),1)-hmn.sizer)./vecnorm(vec_HR,length(vec_HR(1)),1).*vec_HR;   
+    norm_HR=vecnorm(vec_HR,length(vec_HR(1)),1);
+    % norm_HR=norm_HR-(hmn.sizer);
+
+    deg_diff=atan(vec_HR(2,:)./vec_HR(1,:))-z(3,:);
+    deg_diff=rem(deg_diff,2*pi)
+
+    footprint=ones(1,length(t));
+    norm_checker1=norm_HR>=sns.r1;
+    norm_checker2=norm_HR<sns.r2;
+    deg_checker11=deg_diff<=sns.phi;
+    deg_checker12=deg_diff>=-sns.phi;
+    deg_checker1=deg_checker11.*deg_checker12;
+    deg_checker21=deg_diff<-2*pi+sns.phi;
+    deg_checker22=deg_diff>2*pi-sns.phi;
+    % deg_checker2=deg_diff>-sns.phi;
+
+    % footprint=footprint.*(norm_checker1.*norm_checker2.*(deg_checker1+deg_checker2));
+    footprint=footprint.*(norm_checker1.*norm_checker2.*(deg_checker1+deg_checker2));
 end
+

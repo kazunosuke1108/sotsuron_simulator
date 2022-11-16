@@ -91,6 +91,7 @@ daspect([1,1,1]);
 
 %%%% Iteration
 for i = 1:length(plt_xR)
+    title("frame: "+i+" "+graph_title)
     set(rbt_position,'XData',plt_xR(i),'YData',plt_yR(i));
     set(hmn_position,'XData',plt_xH(i),'YData',plt_yH(i));
     set(rbt_direction,'XData',plt_xR(i),'YData',plt_yR(i),'UData',plt_vxR(i),'VData',plt_vyR(i));
