@@ -7,15 +7,15 @@ clc; clear;
 addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole';
 % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 mkdir('results');
-savedir="results\1116_hmn_vx";
+savedir="results\1116_debug";
 mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
-for candidate =[0.3 0.4 0.5 0.6 0.7]
-    for candidate2=[0.05 0.1 0.15 0.2 0.25]
+for candidate =[0.5]
+    for candidate2=[0.1]
         try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="objF hmn.vx0=-0.6 if r="+candidate2+" phi="+candidate;
+            graph_title="DEV debug";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -194,6 +194,7 @@ for candidate =[0.3 0.4 0.5 0.6 0.7]
 
             % Summarize conditions & results
             writeCSV(problem,env,rbt,hmn,sns,soln,savename);
+            getFootprint(t,z,u,env,rbt,hmn,sns,soln)
 
 
             % Display Solution
@@ -230,7 +231,7 @@ for candidate =[0.3 0.4 0.5 0.6 0.7]
             % drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename_3_ptnt);
 
             clc;clf;
-            clearvars -except candidate candidate2 savedir;
+            % clearvars -except candidate candidate2 savedir;
         catch
             continue
         end
