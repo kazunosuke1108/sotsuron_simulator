@@ -11,8 +11,8 @@ savedir="results\1116_debug";
 mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
-for candidate =[0.5]
-    for candidate2=[0.1]
+for candidate =[NaN]
+    for candidate2=[NaN]
         try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
             graph_title="DEV debug";
@@ -33,9 +33,7 @@ for candidate =[0.5]
             rbt.vx0=0.15;
             rbt.vy0=0;
             hmn.vx=-0.6;
-            env.objF_if_edge_a_phi=candidate;
-            env.objF_if_edge_a_r=candidate2;
-            % env.objF_sgmd_edge_power_phi=candidate2;
+
 
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -220,10 +218,10 @@ for candidate =[0.5]
 
 
             %% Path:
-            % figure(5); clf;
-            % drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
-            % savename_3_path = savename+"_3_path.png";
-            % saveas(figure(5),savename_3_path);
+            figure(5); clf;
+            drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
+            savename_3_path = savename+"_3_path.png";
+            saveas(figure(5),savename_3_path);
 
             %% Potential map
             % figure(6); clf;

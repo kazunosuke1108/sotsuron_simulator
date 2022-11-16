@@ -11,6 +11,14 @@ hmn_path=getHumanPath(t,hmn);
 plt_xH=hmn_path(1,:);
 plt_yH=hmn_path(2,:);
 
+footprint=getFootprint(t,z,u,env,rbt,hmn,sns,soln);
+success_xH=plt_xH.*footprint;
+success_yH=plt_yH.*footprint;
+
+success_array=[success_xH;success_yH];
+idx=success_array(1,:)==0 & success_array(2,:)==0;
+success_array=success_array(~idx,:)
+
 %%%%% Wall
 wall_right = plot([env.xmin,env.xmax],[env.kabe.ymin,env.kabe.ymin],'k');
 hold on
@@ -24,6 +32,9 @@ hold on
 %%%%% Human
 hmn_position = plot(plt_xH,plt_yH,'r');
 hold on
+
+%%%%% footprint
+hmn_footprint = plot(success_array(1,:),success_array(2,:),'or');
 
 %%%%% Robot path
 rbt_position = plot(plt_xR,plt_yR,'b');
