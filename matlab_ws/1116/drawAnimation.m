@@ -32,6 +32,12 @@ plt_vyH=arrow_scale*plt_vyH;
 plt_vR=arrow_scale*plt_vR;
 plt_vH=arrow_scale*plt_vH;
 
+%%%% footprint
+footprint=getFootprint(t,z,u,env,rbt,hmn,sns,soln);
+success_xH=plt_xH.*footprint;
+success_yH=plt_yH.*footprint;
+
+
 %%%% Initial drawing
 %%%%% Wall
 wall_right = plot([env.xmin,env.xmax],[env.kabe.ymin,env.kabe.ymin],'k');
@@ -75,6 +81,8 @@ hold on
 robot_path=plot(plt_xR(1),plt_yR(1),'b');
 hold on
 human_path=plot(plt_xH(1),plt_yH(1),'r');
+hold on
+footprint_plot=plot(success_xH(1),success_yH(1),'or');
 
 title(graph_title);
 xlim([env.xmin,env.xmax]);
@@ -104,6 +112,10 @@ for i = 1:length(plt_xR)
     set(human_path,'XData',plt_xH(1:i),'YData',plt_yH(1:i));
     drawnow;
     frames(i)=getframe(fig2);
+    if not(success_xH(i)==0 & success_yH(i)==0)
+        hold on
+        plot(success_xH(i),success_yH(i),'or');
+    end
 end
 
 video2=VideoWriter(savename_mp4,'MPEG-4');
