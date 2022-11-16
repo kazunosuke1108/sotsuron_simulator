@@ -7,15 +7,17 @@ clc; clear;
 addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole';
 % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 mkdir('results');
-savedir="results\1116_debug";
+savedir="results\1116_night_nd";
 mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
-for candidate =[NaN]
-    for candidate2=[NaN]
+% for candidate =[NaN]
+%     for candidate2=[NaN]
+for candidate =[0 1 2 3]
+    for candidate2=[0 1 2 3]
         % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="DEV degdiff if";
+            graph_title="function consists of normal distribution";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -33,6 +35,8 @@ for candidate =[NaN]
             rbt.vx0=0.15;
             rbt.vy0=0;
             hmn.vx=-0.6;
+            env.l=candidate;
+            env.avoid_dist=candidate2;
             % phi=0.5radらしいよ
 
 
@@ -79,12 +83,12 @@ for candidate =[NaN]
             env.roi.xmax=env.roi.xmin+env.L;
 
             %% y方向回避動作
-            avoid_dist=3;
+            % env.avoid_dist=3;
 
-            rbt.vy0=-avoid_dist/t0;
+            rbt.vy0=-env.avoid_dist/t0;
 
             %% phi方向照準動作
-            rbt.omg0=atan(avoid_dist/(env.L-env.l))/t0;
+            rbt.omg0=atan(env.avoid_dist/(env.L-env.l))/t0;
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.2  移動                                   %
@@ -96,15 +100,15 @@ for candidate =[NaN]
             hmn_path=getHumanPath(t,hmn);
             u=[0*t;0*t;0*t;0*t;0*t;0*t;];
 
-            % figure(1); clf;
-            % savename_2_path=savename+"_2_path.png";
-            % drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはないのでNaN
-            % saveas(figure(1),savename_2_path);
+            figure(1); clf;
+            savename_2_path=savename+"_2_path.png";
+            drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはないのでNaN
+            saveas(figure(1),savename_2_path);
 
-            % figure(2); clf;
-            % title(graph_title);
-            % savename_2_anim=savename+"_2_anim";
-            % drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
+            figure(2); clf;
+            title(graph_title);
+            savename_2_anim=savename+"_2_anim";
+            drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
 
 
 
@@ -143,14 +147,14 @@ for candidate =[NaN]
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             % Overwrite variables
             % rbt.vxmin=0.0; % <== default  
-
+            
 
             % Set up function handles
             problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
-            % problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns));
+            problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF_sgmd(t,z,u,env,rbt,hmn,sns));
-            problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns));
+            % problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF_01(t,z,u,env,rbt,hmn,sns));
 
 
@@ -232,14 +236,14 @@ for candidate =[NaN]
             % savename_3_ptnt = savename+"_3_ptnt";
             % drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename_3_ptnt);
 
-            % clc;clf;
-            % clearvars -except candidate candidate2 savedir;
-        % catch
-        %     continue
-        % end
+            clc;clf;
+            clearvars -except candidate candidate2 savedir;
+        catch
+            continue
+        end
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
         %                           seq.4  離脱                                   %
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     end
 end
-% git_auto_push()
+git_auto_push()

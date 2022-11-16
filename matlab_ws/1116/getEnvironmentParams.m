@@ -11,6 +11,8 @@ env.ymax=2.5;
 env.kabe.ymin=env.ymin;
 env.kabe.ymax=env.ymax;
 
+
+env.avoid_dist=3;
 env.L=5;
 env.l=1;
 env.roi.xmin=10-env.l;

@@ -6,8 +6,10 @@ rbt_path=z;
 
 vec_HR=[hmn_path(1,:);hmn_path(2,:)]-[rbt_path(1,:);rbt_path(2,:)];
 e=[cos(z(3,:));sin(z(3,:))];
-vec_HR=(vecnorm(vec_HR,length(vec_HR(1)),1)-hmn.sizer)./vecnorm(vec_HR,length(vec_HR(1)),1).*vec_HR;   
-norm_HR=vecnorm(vec_HR,length(vec_HR(1)),1);
+% norm_HR=vecnorm(vec_HR,length(vec_HR(1)),1);
+norm_HR=sqrt(vec_HR(1,:).^2+vec_HR(2,:).^2);
+vec_HR=(norm_HR-hmn.sizer)./norm_HR.*vec_HR;
+norm_HR=sqrt(vec_HR(1,:).^2+vec_HR(2,:).^2);
 % norm_HR=norm_HR-(hmn.sizer);
 
 naiseki=dot(e,vec_HR,1);

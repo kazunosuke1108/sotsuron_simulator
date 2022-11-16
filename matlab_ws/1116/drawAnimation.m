@@ -36,7 +36,7 @@ plt_vH=arrow_scale*plt_vH;
 footprint=getFootprint(t,z,u,env,rbt,hmn,sns,soln);
 success_xH=plt_xH.*footprint;
 success_yH=plt_yH.*footprint;
-
+fp_ratio=nnz(footprint)/length(footprint);
 
 %%%% Initial drawing
 %%%%% Wall
@@ -91,7 +91,7 @@ daspect([1,1,1]);
 
 %%%% Iteration
 for i = 1:length(plt_xR)
-    title("frame: "+i+" "+graph_title)
+    title("frame: "+i+" "+graph_title+" fpratio="+fp_ratio)
     set(rbt_position,'XData',plt_xR(i),'YData',plt_yR(i));
     set(hmn_position,'XData',plt_xH(i),'YData',plt_yH(i));
     set(rbt_direction,'XData',plt_xR(i),'YData',plt_yR(i),'UData',plt_vxR(i),'VData',plt_vyR(i));
