@@ -15,7 +15,7 @@ for candidate =[NaN]
     for candidate2=[NaN]
         % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="DEV debug .* +(+)";
+            graph_title="DEV debug .* .*(+) 2pi";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
