@@ -31,5 +31,5 @@ soln.info.algorithm,interior-point
 soln.info.firstorderopt,200102191.1554
 soln.info.cgiterations,69
 soln.info.bestfeasible.fval,81369.1833
-soln.info.nlpTime,1.7771
+soln.info.nlpTime,1.9293
 soln.info.exitFlag,2

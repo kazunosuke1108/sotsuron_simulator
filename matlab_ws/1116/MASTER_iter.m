@@ -13,7 +13,7 @@ savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
 for candidate =[NaN]
     for candidate2=[NaN]
-        try
+        % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
             graph_title="DEV debug";
 
@@ -230,9 +230,9 @@ for candidate =[NaN]
 
             clc;clf;
             % clearvars -except candidate candidate2 savedir;
-        catch
-            continue
-        end
+        % catch
+        %     continue
+        % end
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
         %                           seq.4  離脱                                   %
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
