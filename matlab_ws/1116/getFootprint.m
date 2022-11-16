@@ -29,5 +29,5 @@ function footprint=getFootprint(t,z,u,env,rbt,hmn,sns,soln)
     deg_checker2=e_vec_th>-sns.phi;
 
     % footprint=footprint.*(norm_checker1.*norm_checker2.*(deg_checker1+deg_checker2));
-    footprint=footprint.*(norm_checker1.*norm_checker2+(deg_checker1.*deg_checker2));
+    footprint=footprint.*(norm_checker1.*norm_checker2.*(deg_checker1+deg_checker2));
 end
