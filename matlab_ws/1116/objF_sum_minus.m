@@ -11,7 +11,7 @@ rbt_path=z;
 
 vec_HR=[hmn_path(1,:);hmn_path(2,:)]-[rbt_path(1,:);rbt_path(2,:)];
 norm_HR=vecnorm(vec_HR,length(vec_HR(1)),1);
-norm_HR=norm_HR-(rbt.sizer+hmn.sizer);
+norm_HR=norm_HR-(hmn.sizer);
 
 e=[cos(z(3,:));sin(z(3,:))];
 naiseki=dot(e,vec_HR,1);
