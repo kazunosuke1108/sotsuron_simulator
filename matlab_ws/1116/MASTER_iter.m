@@ -5,19 +5,20 @@
 clc; clear;
 
 addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole';
+addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
 % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 mkdir('results');
-savedir="results\1116_night_nd";
+savedir="results\1118_remotetest";
 mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
 % for candidate =[NaN]
 %     for candidate2=[NaN]
-for candidate =[0 1 2 3]
-    for candidate2=[0 1 2 3]
+for candidate =[1]
+    for candidate2=[1]
         try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="function consists of normal distribution";
+            graph_title="remote test";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
