@@ -8,7 +8,7 @@ clc; clear;
 % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
 addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 mkdir('results');
-savedir="results\1120_initial";
+savedir="results\1120_compensate_fix";
 mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
@@ -18,7 +18,7 @@ for candidate =[1]
     for candidate2=[1]
         try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="new default of initial position";
+            graph_title="compensate before";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -96,15 +96,15 @@ for candidate =[1]
             hmn_path=getHumanPath(t,hmn);
             u=[0*t;0*t;0*t;0*t;0*t;0*t;];
 
-            figure(1); clf;
-            savename_2_path=savename+"_2_path.png";
-            drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはないのでNaN
-            saveas(figure(1),savename_2_path);
+            % figure(1); clf;
+            % savename_2_path=savename+"_2_path.png";
+            % drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはないのでNaN
+            % saveas(figure(1),savename_2_path);
 
-            figure(2); clf;
-            title(graph_title);
-            savename_2_anim=savename+"_2_anim";
-            drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
+            % figure(2); clf;
+            % title(graph_title);
+            % savename_2_anim=savename+"_2_anim";
+            % drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
 
 
 
@@ -148,9 +148,9 @@ for candidate =[1]
             % Set up function handles
             problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
-            problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns));
+            % problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF_sgmd(t,z,u,env,rbt,hmn,sns));
-            % problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns));
+            problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF_01(t,z,u,env,rbt,hmn,sns));
 
 
@@ -222,10 +222,10 @@ for candidate =[1]
 
 
             %% Path:
-            figure(5); clf;
-            drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
-            savename_3_path = savename+"_3_path.png";
-            saveas(figure(5),savename_3_path);
+            % figure(5); clf;
+            % drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
+            % savename_3_path = savename+"_3_path.png";
+            % saveas(figure(5),savename_3_path);
 
             %% Potential map
             % figure(6); clf;
