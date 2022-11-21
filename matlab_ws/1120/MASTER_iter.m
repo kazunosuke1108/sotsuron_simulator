@@ -18,7 +18,7 @@ for candidate =[1]
     for candidate2=[1]
         % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="objF line";
+            graph_title="score restriction: only in roi";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -102,9 +102,9 @@ for candidate =[1]
             % saveas(figure(1),savename_2_path);
 
             % figure(2); clf;
-            % title(graph_title);
-            % savename_2_anim=savename+"_2_anim";
-            % drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
+            title(graph_title);
+            savename_2_anim=savename+"_2_anim";
+            drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
 
 
 

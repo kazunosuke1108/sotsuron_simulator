@@ -32,16 +32,19 @@ function footprint=getFootprint(t,z,u,env,rbt,hmn,sns,soln)
     % deg_diff=rem(deg_diff,2*pi)
     % e_vec_th=rem(e_vec_th,2*pi);
 
-    footprint=ones(1,length(t));
-    norm_checker1=norm_HR>=sns.r1;
-    norm_checker2=norm_HR<sns.r2;
+    norm_checker11=norm_HR>=sns.r1;
+    norm_checker12=norm_HR<sns.r2;
+    norm_checker1=norm_checker11.*norm_checker12;
     deg_checker11=deg_diff>=-sns.phi;
     deg_checker12=deg_diff<=sns.phi;
     deg_checker1=deg_checker11.*deg_checker12;
+    roi_checker11=hmn_path(1,:)>=env.roi.xmin;
+    roi_checker12=hmn_path(1,:)<=env.roi.xmax;
+    roi_checker1=roi_checker11.*roi_checker12;
     % deg_checker21=deg_diff>=pi-sns.phi;
     % deg_checker22=deg_diff<pi;%+sns.phi;
     % deg_checker2=deg_checker21.*deg_checker22;
 
-    footprint=footprint.*(norm_checker1.*norm_checker2.*(deg_checker1));
+    footprint=roi_checker1.*norm_checker1.*deg_checker1;
     % footprint=footprint.*(norm_checker1.*norm_checker2.*(deg_checker1+deg_checker2));
 end
