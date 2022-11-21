@@ -36,7 +36,10 @@ plt_vH=arrow_scale*plt_vH;
 footprint=getFootprint(t,z,u,env,rbt,hmn,sns,soln);
 success_xH=plt_xH.*footprint;
 success_yH=plt_yH.*footprint;
-fp_ratio=nnz(footprint)/length(footprint);
+roi_checker11=plt_xH>=env.roi.xmin;
+roi_checker12=plt_xH<=env.roi.xmax;
+roi_checker1=roi_checker11.*roi_checker12;
+fp_ratio=nnz(footprint)/nnz(roi_checker1);
 
 %%%% Initial drawing
 %%%%% Wall
