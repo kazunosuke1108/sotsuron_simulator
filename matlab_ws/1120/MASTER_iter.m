@@ -27,7 +27,7 @@ for candidate =[1]
             env=getEnvironmentParams();
             rbt=getRobotParams();
             hmn=getHumanParams();
-            sns=getSensorParams();
+            sns=getSensorParams(sns);
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                     Overwrite variables                                 %

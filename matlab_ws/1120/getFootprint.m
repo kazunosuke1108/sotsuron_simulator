@@ -24,7 +24,9 @@ function footprint=getFootprint(t,z,u,env,rbt,hmn,sns,soln)
     
     % deg_diff=acos(e_vec_th) % 入力:-1~1, 出力:0~pi
     deg_HR=atan(vec_HR(2,:)./vec_HR(1,:));
-    deg_compensate=deg_HR<0;
+    % deg_compensate=deg_HR<0;
+    % deg_HR=deg_HR+pi*deg_compensate;
+    deg_compensate=vec_HR(1,:)<0;
     deg_HR=deg_HR+pi*deg_compensate;
     deg_diff=deg_HR-z(3,:);
     % deg_diff=rem(deg_diff,2*pi)

@@ -1,6 +1,7 @@
-function hmn=getHumanParams()
+function hmn=getHumanParams(sns)
 
 hmn.sizer=0.3;
+hmn.sizep=atan(hmn.sizer/(sns.r1+hmn.sizer));
 
 hmn.x0=17;
 hmn.y0=1;
