@@ -16,7 +16,7 @@ mkdir(savedir);
 %     for candidate2=[NaN]
 for candidate =[1]
     for candidate2=[1]
-        try
+        % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
             graph_title="objF line";
 
@@ -25,9 +25,9 @@ for candidate =[1]
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
             env=getEnvironmentParams();
+            sns=getSensorParams();
             rbt=getRobotParams();
-            hmn=getHumanParams();
-            sns=getSensorParams(sns);
+            hmn=getHumanParams(sns);
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                     Overwrite variables                                 %
@@ -234,9 +234,9 @@ for candidate =[1]
 
             clc;clf;
             clearvars -except candidate candidate2 savedir;
-        catch
-            continue
-        end
+        % catch
+        %     continue
+        % end
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
         %                           seq.4  離脱                                   %
         %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
