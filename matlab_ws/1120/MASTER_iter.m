@@ -18,7 +18,7 @@ for candidate =[1]
     for candidate2=[1]
         try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="compensate after";
+            graph_title="objF line";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -150,8 +150,8 @@ for candidate =[1]
             % problem.func.pathObj=@(t,z,u)(objF(t,z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF_sum_minus(t,z,u,env,rbt,hmn,sns));
             % problem.func.pathObj=@(t,z,u)(objF_sgmd(t,z,u,env,rbt,hmn,sns));
-            problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns));
-            % problem.func.pathObj=@(t,z,u)(objF_01(t,z,u,env,rbt,hmn,sns));
+            % problem.func.pathObj=@(t,z,u)(objF_if(t,z,u,env,rbt,hmn,sns));
+            problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
 
 
             % Set up problem bounds

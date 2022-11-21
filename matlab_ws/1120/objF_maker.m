@@ -57,16 +57,24 @@ score_p3=-1/hmn.sizep*(deg_diff-sns.phi).*p_3;
 
 % まとめ
 score_p=score_p1+score_p2+score_p3;
-plot(deg_diff,score_p)
+% plot(deg_diff,score_p)
+
 %% penalty
 % 底辺
 pe_11=norm_HR>=0;
 pe_12=norm_HR<sns.r1;
 pe_1=pe_11.*pe_12;
 
-% 上り
-p_21=norm_HR>=sns.r1;
-p_22=norm_HR<sns.phi-hmn.sizep;
-p_2=p_21.*p_22;
+score_pe1=-1.*pe_1;
 
-% 傾斜
+% 上り
+pe_21=norm_HR>=sns.r1;
+pe_22=norm_HR<sns.r1+2*hmn.sizer;
+pe_2=pe_21.*pe_22;
+
+score_pe2=1/(2*hmn.sizer)*(norm_HR-(sns.r1+2*hmn.sizer)).*pe_2;
+
+% まとめ
+score_pe=score_pe1+score_pe2;
+score_ans=score_r.*score_p+score_pe;
+plot(deg_diff,score_p)
