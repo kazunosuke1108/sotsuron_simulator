@@ -18,7 +18,7 @@ for candidate =[1]
     for candidate2=[1]
         % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="HSRC no initial";
+            graph_title="HSRC env.L=8";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -43,7 +43,7 @@ for candidate =[1]
             env.xmax=20;
             hmn.x0=20;
             env.avoid_dist=0;
-            % env.L=10;
+            env.L=8;
             % env.l=2.5;
             rbt.vx0=0.56;
             rbt.vy0=0;
@@ -96,8 +96,8 @@ for candidate =[1]
             rbt.vy0=-env.avoid_dist/t0;
 
             %% phi方向照準動作
-            rbt.omg0=(atan(env.avoid_dist/(env.L-env.l))+sns.phi-hmn.sizep)/t0;
-            % rbt.omg0=(atan(env.avoid_dist/(env.L-env.l)))/t0;
+            % rbt.omg0=(atan(env.avoid_dist/(env.L-env.l))+sns.phi-hmn.sizep)/t0;
+            rbt.omg0=(atan(env.avoid_dist/(env.L-env.l)))/t0;
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.2  移動                                   %
