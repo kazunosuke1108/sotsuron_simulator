@@ -18,7 +18,7 @@ for candidate =[1]
     for candidate2=[1]
         % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="env.avoid_dist=0 env.L=8";
+            graph_title="env.avoid_dist=0 env.L=13";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -33,7 +33,7 @@ for candidate =[1]
             %                     Overwrite variables                                 %
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             env.avoid_dist=0;
-            env.L=8;
+            env.L=13;
             rbt.vx0=0.15;
             rbt.vy0=0;
             % hmn.vx=-0.6;
