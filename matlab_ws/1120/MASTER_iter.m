@@ -8,7 +8,7 @@ addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\ma
 % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
 % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 mkdir('results');
-savedir="results\1124_init_position";
+savedir="results\1124_HSRC";
 mkdir(savedir);
 savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
 mkdir(savedir);
@@ -18,7 +18,7 @@ for candidate =[1]
     for candidate2=[1]
         % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="hmn.x0=20 env.l=2.5 rbt.th0 rightside";
+            graph_title="HSRC no initial";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -32,12 +32,20 @@ for candidate =[1]
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                     Overwrite variables                                 %
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
+            % HSRC
+            rbt.vxmax=0.56;
+            rbt.vxmin=0;
+            rbt.vymax=0.56;
+            rbt.vymin=-rbt.vymax;
+            rbt.omgmax=pi/2;
+            rbt.omgmin=-rbt.omgmax;
+            
             env.xmax=20;
             hmn.x0=20;
-            % env.avoid_dist=0;
+            env.avoid_dist=0;
             % env.L=10;
-            env.l=2.5;
-            rbt.vx0=0.15;
+            % env.l=2.5;
+            rbt.vx0=0.56;
             rbt.vy0=0;
             % hmn.vx=-0.6;
 
