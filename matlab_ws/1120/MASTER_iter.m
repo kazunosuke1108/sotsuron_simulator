@@ -18,7 +18,7 @@ for candidate =[1]
     for candidate2=[1]
         % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="HSRB 0.9";
+            graph_title="HSRB l=0 avoid=3";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -42,8 +42,8 @@ for candidate =[1]
             
             env.xmax=20;
             hmn.x0=20;
-            env.avoid_dist=0;
-            env.L=10;
+            env.avoid_dist=3;
+            % env.L=10;
             % env.l=2.5;
             rbt.vx0=0.15;
             rbt.vy0=0;
