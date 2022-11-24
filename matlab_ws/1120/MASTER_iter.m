@@ -18,7 +18,7 @@ for candidate =[1]
     for candidate2=[1]
         % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="HSRB l=0 avoid=3";
+            graph_title="HSRC";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -32,20 +32,20 @@ for candidate =[1]
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                     Overwrite variables                                 %
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-            % HSRC
-            % rbt.vxmax=0.56;
-            % rbt.vxmin=0;
-            % rbt.vymax=0.56;
-            % rbt.vymin=-rbt.vymax;
-            % rbt.omgmax=pi/2;
-            % rbt.omgmin=-rbt.omgmax;
+            % HSR TOKYO2020
+            rbt.vxmax=0.56;
+            rbt.vxmin=0;
+            rbt.vymax=0.56;
+            rbt.vymin=-rbt.vymax;
+            rbt.omgmax=pi;
+            rbt.omgmin=-rbt.omgmax;
             
             env.xmax=20;
             hmn.x0=20;
-            env.avoid_dist=3;
-            % env.L=10;
+            env.avoid_dist=0;
+            env.L=10;
             % env.l=2.5;
-            rbt.vx0=0.15;
+            rbt.vx0=0.56;
             rbt.vy0=0;
             hmn.vx=-0.6;
 
