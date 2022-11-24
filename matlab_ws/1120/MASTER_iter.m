@@ -18,7 +18,7 @@ for candidate =[1]
     for candidate2=[1]
         % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="env.xmax=20 env.L=10 env.l=2 disable score_area";
+            graph_title="env.xmax=20";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -34,7 +34,7 @@ for candidate =[1]
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             env.xmax=20;
             % env.avoid_dist=0;
-            env.L=10;
+            % env.L=10;
             env.l=2;
             rbt.vx0=0.15;
             rbt.vy0=0;

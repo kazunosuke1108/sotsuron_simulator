@@ -86,10 +86,10 @@ function J=objF_line(t,z,u,env,rbt,hmn,sns)
     score_pe=score_pe1+score_pe2+score_r;
 
     %% 計測領域外のスコアをゼロとする．（ペナルティを0にすることはしない）
-    % area_11=hmn_path(1,:)>=env.roi.xmin;
-    % area_12=hmn_path(1,:)<=env.roi.xmax;
-    % score_area=area_11.*area_12;
-    score_area=1;
+    area_11=hmn_path(1,:)>=env.roi.xmin;
+    area_12=hmn_path(1,:)<=env.roi.xmax;
+    score_area=area_11.*area_12;
+
     %% J
     J_kari=score_area.*score_r.*score_p+score_pe;
 
