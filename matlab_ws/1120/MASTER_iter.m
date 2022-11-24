@@ -18,7 +18,7 @@ for candidate =[1]
     for candidate2=[1]
         % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="env.xmax=20 env.avoid_dist=0 env.L=10";
+            graph_title="env.xmax=20 env.avoid_dist=0 env.L=10 env.l=4";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -33,8 +33,9 @@ for candidate =[1]
             %                     Overwrite variables                                 %
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             env.xmax=20;
-            env.avoid_dist=0;
+            % env.avoid_dist=0;
             env.L=10;
+            env.l=4;
             rbt.vx0=0.15;
             rbt.vy0=0;
             % hmn.vx=-0.6;
@@ -104,10 +105,10 @@ for candidate =[1]
             % drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはないのでNaN
             % saveas(figure(1),savename_2_path);
 
-            % figure(2); clf;
-            % title(graph_title);
-            % savename_2_anim=savename+"_2_anim";
-            % drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
+            figure(2); clf;
+            title(graph_title);
+            savename_2_anim=savename+"_2_anim";
+            drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
 
 
 
