@@ -18,7 +18,7 @@ for candidate =[1]
     for candidate2=[1]
         % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="hmn.x0=20 env.l=2.5 deg_HR compensate fix";
+            graph_title="hmn.x0=20 env.l=2.5 rbt.th0 rightside";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -106,10 +106,10 @@ for candidate =[1]
             % drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはないのでNaN
             % saveas(figure(1),savename_2_path);
 
-            % figure(2); clf;
-            % title(graph_title);
-            % savename_2_anim=savename+"_2_anim";
-            % drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
+            figure(2); clf;
+            title(graph_title);
+            savename_2_anim=savename+"_2_anim";
+            drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
 
 
 
