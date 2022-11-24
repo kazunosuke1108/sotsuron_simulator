@@ -18,7 +18,7 @@ for candidate =[1]
     for candidate2=[1]
         % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="hmn.x0=20 env.l=2.5";
+            graph_title="hmn.x0=20 env.l=2.5 deg_HR compensate fix";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -88,8 +88,8 @@ for candidate =[1]
             rbt.vy0=-env.avoid_dist/t0;
 
             %% phi方向照準動作
-            % rbt.omg0=(atan(env.avoid_dist/(env.L-env.l))+sns.phi-hmn.sizep)/t0;
-            rbt.omg0=(atan(env.avoid_dist/(env.L-env.l)))/t0;
+            rbt.omg0=(atan(env.avoid_dist/(env.L-env.l))+sns.phi-hmn.sizep)/t0;
+            % rbt.omg0=(atan(env.avoid_dist/(env.L-env.l)))/t0;
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.2  移動                                   %
@@ -106,10 +106,10 @@ for candidate =[1]
             % drawPath(t,z,u,env,rbt,hmn,sns,NaN,savename_2_path,graph_title); % solnはないのでNaN
             % saveas(figure(1),savename_2_path);
 
-            figure(2); clf;
-            title(graph_title);
-            savename_2_anim=savename+"_2_anim";
-            drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
+            % figure(2); clf;
+            % title(graph_title);
+            % savename_2_anim=savename+"_2_anim";
+            % drawAnimation(t,z,u,env,rbt,hmn,sns,NaN,savename_2_anim,graph_title);
 
 
 
