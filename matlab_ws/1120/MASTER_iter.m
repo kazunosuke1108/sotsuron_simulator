@@ -18,7 +18,7 @@ for candidate =[1]
     for candidate2=[1]
         % try
             savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss'));
-            graph_title="HSRC env.L=8";
+            graph_title="1.2";
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.0  環境                                   %
@@ -47,7 +47,7 @@ for candidate =[1]
             % env.l=2.5;
             rbt.vx0=0.56;
             rbt.vy0=0;
-            % hmn.vx=-0.6;
+            hmn.vx=-1.2;
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.1  検知                                   %
