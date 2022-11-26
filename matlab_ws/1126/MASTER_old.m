@@ -48,7 +48,7 @@ hmn_path=getHumanPath(t,hmn);
 rbt_path=getRobotPath(t,rbt);
 
 % 歩行速度推定
-num_obs=5; % 移動平均に使用するフレーム数
+num_obs=5; % 平均に使用するフレーム数
 
 vel_list=[];
 relative_path=hmn_path(1:2,:)-rbt_path(1:2,:);
@@ -66,21 +66,25 @@ hmn_vel=relative_vel+[rbt.vx0;rbt.vy0];
 hmn.vx=hmn_vel(1);
 hmn.vy=hmn_vel(2);
 
+
 % ROI変更
-%% 計測開始時刻を決定
-t0=(hmn_path(1,num_obs)-env.L+env.l)/(abs(hmn.vx)+abs(rbt.vx0));
+%% 現在のロボット地点＝ROI左端
+env.roi.xmin=hmn_path(1,num_obs);
+env.roi.xmax=env.roi.xmax+env.L
+% %% 計測開始時刻を決定
+% t0=(hmn_path(1,num_obs)-env.L+env.l)/(abs(hmn.vx)+abs(rbt.vx0));
 
-%% ROIを決定
-env.roi.xmin=rbt.vx0*t0-env.l;
-env.roi.xmax=env.roi.xmin+env.L;
+% %% ROIを決定
+% env.roi.xmin=rbt.vx0*t0-env.l;
+% env.roi.xmax=env.roi.xmin+env.L;
 
-%% y方向回避動作
-avoid_dist=3
+% %% y方向回避動作
+% avoid_dist=3
 
-rbt.vy0=-avoid_dist/t0;
+% rbt.vy0=-avoid_dist/t0;
 
-%% phi方向照準動作
-rbt.omg0=atan(avoid_dist/(env.L-env.l))/t0;
+% %% phi方向照準動作
+% rbt.omg0=atan(avoid_dist/(env.L-env.l))/t0;
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.2  移動                                   %
