@@ -2,7 +2,7 @@
 
 %% initialization
 clc; clear;
-
+addpath '/home/ytpc2022h/kazu_ws/sotsuron_simulator/matlab_ws/tutorial/cartPole'
 addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole';
 % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
 % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
@@ -11,15 +11,19 @@ date="1126";
 abst="DEV_anim";
 detail="";
 mkdir('results');
-savedir="results\"+date+"_"+abst;
+% savedir="results\"+date+"_"+abst;
+savedir="results/"+date+"_"+abst;
 mkdir(savedir);
-savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+detail);
+% savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+detail);
+savedir=string(savedir+"/"+datestr(now,'yymmdd_hhMMss')+"_"+detail);
 mkdir(savedir);
 
 % for ...
 
 graph_title="rbtdirection";
-savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
+% savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
+savename=string(savedir+"/"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
+
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 %                           seq.0  環境                                   %
