@@ -8,8 +8,8 @@ addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\ma
 % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
 date="1126";
-abst="FIX_hmn_vx";
-detail="tminmax";
+abst="DEV_anim";
+detail="";
 mkdir('results');
 savedir="results\"+date+"_"+abst;
 mkdir(savedir);
@@ -18,7 +18,7 @@ mkdir(savedir);
 
 % for ...
 
-graph_title="slack0.05";
+graph_title="rbtdirection";
 savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%

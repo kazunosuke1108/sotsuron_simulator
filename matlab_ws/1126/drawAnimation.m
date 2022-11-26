@@ -1,6 +1,6 @@
 function data = drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title)
 %%%% Parameters
-arrow_scale=5;
+arrow_scale=10;
 arc_resolution=100;
 savename_mp4 = savename+".mp4";
 
@@ -84,8 +84,6 @@ hold on
 robot_path=plot(plt_xR(1),plt_yR(1),'b');
 hold on
 human_path=plot(plt_xH(1),plt_yH(1),'r');
-hold on
-footprint_plot=plot(success_xH(1),success_yH(1),'or');
 
 title(graph_title);
 xlim([env.xmin,env.xmax]);
@@ -114,12 +112,16 @@ for i = 1:length(plt_xR)
     % path
     set(robot_path,'XData',plt_xR(1:i),'YData',plt_yR(1:i));
     set(human_path,'XData',plt_xH(1:i),'YData',plt_yH(1:i));
+    if not(success_xH(i)==0 | success_yH(i)==0)
+        hold on
+        plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
+    end
+    if rem(i,50)==0;
+        hold on
+        quiver(plt_xR(i),plt_yR(i),cos(plt_thR(i)),sin(plt_thR(i)),'g','LineWidth',2);
+    end
     drawnow;
     frames(i)=getframe(fig2);
-    if not(success_xH(i)==0 & success_yH(i)==0)
-        hold on
-        plot(success_xH(i),success_yH(i),'or');
-    end
 end
 
 video2=VideoWriter(savename_mp4,'MPEG-4');
