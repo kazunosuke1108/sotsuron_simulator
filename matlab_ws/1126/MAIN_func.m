@@ -188,7 +188,11 @@ function z=MAIN_func()
     saveas(figure(1),savename_png);
 
     %% Animation
-    figure(4); clf;
-    title(graph_title);
-    savename_3_anim=savename+"_3_anim";
-    drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+    % figure(2); clf;
+    % savename_3_anim=savename+"_3_anim";
+    % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+
+    figure(3); clf;
+    drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
+    savename_3_path = savename+"_3_path.png";
+    saveas(figure(3),savename_3_path);

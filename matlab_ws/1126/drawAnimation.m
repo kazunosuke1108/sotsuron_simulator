@@ -3,6 +3,7 @@ function data = drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title)
 arrow_scale=10;
 arc_resolution=100;
 savename_mp4 = savename+".mp4";
+savename_avi = savename+".avi";
 
 %%%% Drawing preparation
 fig2 = figure(2); clf;
@@ -124,7 +125,8 @@ for i = 1:length(plt_xR)
     frames(i)=getframe(fig2);
 end
 
-video2=VideoWriter(savename_mp4,'MPEG-4');
+% video2=VideoWriter(savename_mp4,'MPEG-4');
+video2=VideoWriter(savename_avi);
 open(video2);
 writeVideo(video2, frames);
 close(video2);
