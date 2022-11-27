@@ -1,15 +1,16 @@
-function z=MAIN_func()
+function result=MAIN_func()
     % MAIN.m
 
     %% initialization
     clc; clear;
     addpath '/home/ytpc2022h/kazu_ws/sotsuron_simulator/matlab_ws/tutorial/cartPole'
+    addpath '/home/ytpc2022h/catkin_ws/src/sotsuron_simulator/matlab_ws/tutorial/cartPole'
     addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
     date="1126";
-    abst="DEV_anim";
+    abst="DEV_func";
     detail="";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
@@ -21,7 +22,7 @@ function z=MAIN_func()
 
     % for ...
 
-    graph_title="rbtdirection";
+    graph_title="return";
     % savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
     savename=string(savedir+"/"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
 
@@ -196,3 +197,6 @@ function z=MAIN_func()
     drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
     savename_3_path = savename+"_3_path.png";
     saveas(figure(3),savename_3_path);
+
+    result.z=z;
+    result.t=t;
