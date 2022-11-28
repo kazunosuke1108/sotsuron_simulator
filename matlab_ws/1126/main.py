@@ -1,14 +1,13 @@
-# パス追加用にsysをインポート
+import os
 import sys
 import numpy as np
 from pprint import pprint
 # matlabAPIのパスを追加
-sys.path.append('/usr/local/MATLAB/R2022b/extern/engines/python/build/lib/')
-sys.path.append('/home/ytpc2022h/catkin_ws/src/MATLAB/R2022b/extern/engines/python/build/lib')
-sys.path.append('/home/ytpc2022h/kazu_ws/sotsuron_simulator/matlab_ws/1126')
-sys.path.append('/home/ytpc2022h/kazu_ws/sotsuron_simulator/matlab_ws/1126')
-# モジュールをインポート
+sys.path.append('/usr/local/MATLAB/R2022b/extern/engines/python/build/lib/') # local実行時
+sys.path.append(os.environ['HOME']+'/catkin_ws/src/MATLAB/R2022b/extern/engines/python/build/lib') # docker実行時
 import matlab.engine
+
+sys.path.append(os.environ['HOME']+'/kazu_ws/sotsuron_simulator/matlab_ws/1126')
 
 # matlabエンジンをスタート
 eng = matlab.engine.start_matlab()
