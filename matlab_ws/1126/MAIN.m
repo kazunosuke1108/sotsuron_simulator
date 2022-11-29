@@ -4,6 +4,8 @@
 clc; clear;
 addpath '/home/ytpc2022h/kazu_ws/sotsuron_simulator/matlab_ws/tutorial/cartPole'
 addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole';
+addpath '/home/hayashide/kazu_ws/sotsuron_simulator/matlab_ws/tutorial/cartPole';
+addpath '/home/hayashide/catkin_ws/src/sotsuron_simulator/matlab_ws/tutorial/cartPole';
 % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
 % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
@@ -188,7 +190,5 @@ savename_png = savename+"_3_hist.png";
 saveas(figure(1),savename_png);
 
 %% Animation
-figure(4); clf;
-title(graph_title);
 savename_3_anim=savename+"_3_anim";
 drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
