@@ -11,7 +11,7 @@ matlab_ws=sorted(glob(current_dir+"/sotsuron_simulator/matlab_ws/*"))
 latest_dir=matlab_ws[-4]
 os.chdir(latest_dir)
 print(os.getcwd())
-# os.system(f"python3 {latest_dir}/main.py")
+os.system(f"python3 {latest_dir}/main.py")
 
 
 
