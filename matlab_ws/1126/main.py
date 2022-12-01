@@ -5,6 +5,7 @@ from pprint import pprint
 # matlabAPIのパスを追加
 sys.path.append('/usr/local/MATLAB/R2022b/extern/engines/python/build/lib/') # local実行時
 sys.path.append(os.environ['HOME']+'/catkin_ws/src/MATLAB/R2022b/extern/engines/python/build/lib') # docker実行時
+sys.path.append("/home/hayashide/catkin_ws/src/MATLAB/R2022b/extern/bin/glnxa64")
 import matlab.engine
 
 sys.path.append(os.environ['HOME']+'/kazu_ws/sotsuron_simulator/matlab_ws/1126')
