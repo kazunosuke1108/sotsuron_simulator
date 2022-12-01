@@ -8,6 +8,8 @@ function result=MAIN_func()
     addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     addpath '/home/hayashide/kazu_ws/sotsuron_simulator/matlab_ws/tutorial/cartPole';
     addpath '/home/hayashide/catkin_ws/src/sotsuron_simulator/matlab_ws/tutorial/cartPole';
+    addpath '/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor';
+    addpath '/home/hayashide/catkin_ws/src/sotsuron_experiment/sotsuron_experiment/scripts/monitor';
 
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
@@ -47,9 +49,16 @@ function result=MAIN_func()
     % 実機
     %% jsonから人の位置・速度を取得
     %% hmn_path
+    json=jsondecode(fileread('/home/hayashide/catkin_ws/src/sotsuron_experiment/scripts/monitor/velocity.json'));
+    hmn.x0=json.z_latest+20;
+    hmn.vx=json.vel_z_ave;
+    env.roi.xmin=rbt.x0;
+    env.roi.xmax=env.roi.xmin+env.L;
+    rbt.xF=env.roi.xmax;
 
+    % json=jsondecode(fileread('/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/velocity.json'))
     % シミュレーション
-    [env sns rbt hmn]=sim_detection(rbt,hmn,sns,env)   
+    % [env sns rbt hmn]=sim_detection(rbt,hmn,sns,env);
 
     % 計測所要時間の推定
     %% ロボットの走行所要時間
