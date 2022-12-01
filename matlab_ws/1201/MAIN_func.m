@@ -14,7 +14,7 @@ function result=MAIN_func()
 
     date="1201";
     abst="DEV_pipeline";
-    detail="MAIN_fun";
+    detail="MAIN_func";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -44,7 +44,8 @@ function result=MAIN_func()
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     %                           seq.1  検知                                   %
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
-
+    % 実機
+    % シミュレーション
     % 検知
     %% 検知・速度推定用の時系列の定義
     sensor_fps=30;
