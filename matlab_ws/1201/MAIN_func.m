@@ -50,7 +50,7 @@ function result=MAIN_func()
     %% jsonから人の位置・速度を取得
     %% hmn_path
     json=jsondecode(fileread('/home/hayashide/catkin_ws/src/sotsuron_experiment/scripts/monitor/velocity.json'));
-    hmn.x0=json.z_latest+20;
+    hmn.x0=json.z_latest;
     hmn.vx=json.vel_z_ave;
     env.roi.xmin=rbt.x0;
     env.roi.xmax=env.roi.xmin+env.L;
