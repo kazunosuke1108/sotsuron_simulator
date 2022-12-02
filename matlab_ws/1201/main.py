@@ -11,7 +11,7 @@ import matlab.engine
 sys.path.append(os.environ['HOME']+'/kazu_ws/sotsuron_simulator/matlab_ws/1126')
 
 # matlabエンジンをスタート
-eng = matlab.engine.start_matlab("-softwareopengl") # softwareopenglはサポートされていないらしい
+eng = matlab.engine.start_matlab("-desktop") # softwareopenglはサポートされていないらしい
 # 自分のスクリプトに引数を渡して戻り値を変数に格納
 res = eng.MAIN_func()
 # 結果を出力

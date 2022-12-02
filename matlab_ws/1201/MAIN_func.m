@@ -117,16 +117,13 @@ function result=MAIN_func()
     soln = trajOpt(problem);
 
 
-    % Summarize conditions & results
-    save(savename+".mat");
-    % writeCSV(problem,env,rbt,hmn,sns,soln,savename);
-
+    
     % Display Solution
     n = length(soln.grid.time);
     t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
     z = soln.interp.state(t);
     u = soln.interp.control(t);
-
+    
     % Plots
     %% add score to fig name
     graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
@@ -135,12 +132,12 @@ function result=MAIN_func()
     pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
     savename_png = savename+"_3_hist.png";
     saveas(figure(1),savename_png);
-
+    
     %% Animation
     % figure(2); clf;
     % savename_3_anim=savename+"_3_anim";
     % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
-
+    
     figure(3); clf;
     drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
     savename_3_path = savename+"_3_path.png";
@@ -148,3 +145,7 @@ function result=MAIN_func()
 
     result.z=z;
     result.t=t;
+
+    % Summarize conditions & results
+    save(savename+".mat");
+    % writeCSV(problem,env,rbt,hmn,sns,soln,savename);
