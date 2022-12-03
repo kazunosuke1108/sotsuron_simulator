@@ -14,9 +14,9 @@ function result=MAIN_func()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
-    date="1201";
-    abst="DEV_pipeline";
-    detail="MAIN_func";
+    date="1203";
+    abst="PIPELINE";
+    detail="trueV0.9";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -50,13 +50,13 @@ function result=MAIN_func()
     %% jsonから人の位置・速度を取得
     %% hmn_path
     json=jsondecode(fileread('/home/hayashide/catkin_ws/src/sotsuron_experiment/scripts/monitor/velocity.json'));
-    hmn.x0=json.z_latest;
+    % json=jsondecode(fileread('/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/velocity.json'))
+    hmn.x0=json.z_linear_z;
     hmn.vx=json.z_linear_a;
     env.roi.xmin=rbt.x0;
     env.roi.xmax=env.roi.xmin+env.L;
     rbt.xF=env.roi.xmax;
 
-    % json=jsondecode(fileread('/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/velocity.json'))
     % シミュレーション
     % [env sns rbt hmn]=sim_detection(rbt,hmn,sns,env);
 
@@ -65,7 +65,7 @@ function result=MAIN_func()
     t_rbt=abs(env.L/rbt.vxmax);
     t_measure=abs(env.l/hmn.vx); % env.l=ロボットが立ち止まって人を計測したい歩行距離
     t_slack=0.05;
-    env.final_tmax=(t_rbt+t_measure)*(1-t_slack);
+    env.final_tmin=(t_rbt+t_measure)*(1-t_slack);
     env.final_tmax=(t_rbt+t_measure)*(1+t_slack);
 
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
