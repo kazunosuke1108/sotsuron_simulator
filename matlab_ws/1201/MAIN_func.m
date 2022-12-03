@@ -51,7 +51,7 @@ function result=MAIN_func()
     %% hmn_path
     json=jsondecode(fileread('/home/hayashide/catkin_ws/src/sotsuron_experiment/scripts/monitor/velocity.json'));
     hmn.x0=json.z_latest;
-    hmn.vx=json.vel_z_ave;
+    hmn.vx=json.z_linear_a;
     env.roi.xmin=rbt.x0;
     env.roi.xmax=env.roi.xmin+env.L;
     rbt.xF=env.roi.xmax;

@@ -16,10 +16,10 @@ graph_title="return";
 % savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
 savename=string(savedir+"/"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
 
-n = length(soln.grid.time);
-t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
-z = soln.interp.state(t);
-u = soln.interp.control(t);
+% n = length(soln.grid.time);
+% t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
+% z = soln.interp.state(t);
+% u = soln.interp.control(t);
 
 % Plots
 %% add score to fig name
