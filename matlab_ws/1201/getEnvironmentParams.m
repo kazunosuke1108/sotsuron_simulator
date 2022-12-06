@@ -5,8 +5,8 @@ env.init_tmax=0;
 env.final_tmin=150;
 env.final_tmax=150;
 
-env.xmin=-5;
-env.xmax=25;
+env.xmin=0;
+env.xmax=30;
 env.ymin=-2.5;
 env.ymax=2.5;
 

@@ -2,7 +2,7 @@ function rbt=getRobotParams()
 
 rbt.sizer=0.3;
 
-rbt.x0=-5;
+rbt.x0=0;
 rbt.y0=1;
 rbt.th0=0;
 rbt.vx0=0.15;

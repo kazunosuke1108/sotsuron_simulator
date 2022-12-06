@@ -3,7 +3,7 @@ function hmn=getHumanParams(sns)
 hmn.sizer=0.3;
 hmn.sizep=atan(hmn.sizer/(sns.r1+hmn.sizer));
 
-hmn.x0=25;
+hmn.x0=30;
 hmn.y0=1;
 hmn.th0=pi;
 hmn.vx0=0;

@@ -3,6 +3,7 @@ function result=MAIN_func()
 
     %% initialization
     clc; clear;
+    addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     addpath '/home/ytpc2022h/kazu_ws/sotsuron_simulator/matlab_ws/tutorial/cartPole';
     addpath '/home/ytpc2022h/catkin_ws/src/sotsuron_simulator/matlab_ws/tutorial/cartPole';
     addpath 'C:\Users\hyper\OneDrive\デスクトップ\VSCode\sotsuron_simulator\matlab_ws\tutorial\cartPole';
@@ -14,9 +15,9 @@ function result=MAIN_func()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     % addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
-    date="1203";
-    abst="PIPELINE";
-    detail="trueV0.9";
+    date="1206";
+    abst="test_data";
+    detail="v06sim";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -49,16 +50,16 @@ function result=MAIN_func()
     % 実機
     %% jsonから人の位置・速度を取得
     %% hmn_path
-    json=jsondecode(fileread('/home/hayashide/catkin_ws/src/sotsuron_experiment/scripts/monitor/velocity.json'));
-    % json=jsondecode(fileread('/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/velocity.json'))
-    hmn.x0=json.z_linear_z;
-    hmn.vx=json.z_linear_a;
-    env.roi.xmin=rbt.x0;
-    env.roi.xmax=env.roi.xmin+env.L;
-    rbt.xF=env.roi.xmax;
+    % json=jsondecode(fileread('/home/hayashide/catkin_ws/src/sotsuron_experiment/scripts/monitor/velocity.json'));
+    % % json=jsondecode(fileread('/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/velocity.json'))
+    % hmn.x0=json.z_linear_z;
+    % hmn.vx=json.z_linear_a;
+    % env.roi.xmin=rbt.x0;
+    % env.roi.xmax=env.roi.xmin+env.L;
+    % rbt.xF=env.roi.xmax;
 
     % シミュレーション
-    % [env sns rbt hmn]=sim_detection(rbt,hmn,sns,env);
+    [env sns rbt hmn]=sim_detection(rbt,hmn,sns,env);
 
     % 計測所要時間の推定
     %% ロボットの走行所要時間
@@ -134,9 +135,9 @@ function result=MAIN_func()
     saveas(figure(1),savename_png);
     
     %% Animation
-    % figure(2); clf;
-    % savename_3_anim=savename+"_3_anim";
-    % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+    figure(2); clf;
+    savename_3_anim=savename+"_3_anim";
+    drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
     
     figure(3); clf;
     drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
