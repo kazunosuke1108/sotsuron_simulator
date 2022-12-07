@@ -16,7 +16,7 @@ function result=MAIN_func()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
     date="1207";
-    abst="measured_length";
+    abst="min_norm";
     detail="";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;

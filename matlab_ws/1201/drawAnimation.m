@@ -50,6 +50,13 @@ last_success_idx=success_list(end);
 continuous_check=all(footprint(success_list)>0);
 measured_length=abs(hmn_path(1,first_success_idx)-hmn_path(1,last_success_idx));
 
+%%%% minimum norm_HR
+vec_HR=[hmn_path(1,:);hmn_path(2,:)]-[z(1,:);z(2,:)];
+e=[cos(z(3,:));sin(z(3,:))];
+norm_HR=sqrt(vec_HR(1,:).^2+vec_HR(2,:).^2);
+vec_HR=(norm_HR-hmn.sizer)./norm_HR.*vec_HR;
+norm_HR=sqrt(vec_HR(1,:).^2+vec_HR(2,:).^2);
+
 
 %%%% Initial drawing
 %%%%% Wall
@@ -102,7 +109,7 @@ daspect([1,1,1]);
 
 %%%% Iteration
 for i = 1:length(plt_xR)
-    title("frame: "+i+" "+graph_title+" measured length="+measured_length+"m"+" continuous="+continuous_check)
+    title("frame: "+i+" "+graph_title+" L="+measured_length+"m"+" continuous="+continuous_check+" min norm"+min(norm_HR)+" m")
     set(rbt_position,'XData',plt_xR(i),'YData',plt_yR(i));
     set(hmn_position,'XData',plt_xH(i),'YData',plt_yH(i));
     set(rbt_direction,'XData',plt_xR(i),'YData',plt_yR(i),'UData',plt_vxR(i),'VData',plt_vyR(i));

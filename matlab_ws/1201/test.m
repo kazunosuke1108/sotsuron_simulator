@@ -1,14 +1,11 @@
-footprint=getFootprint(t,z,u,env,rbt,hmn,sns,soln);
 hmn_path=getHumanPath(t,hmn);
+rbt_path=z;
 
-success_list=find(footprint>0,nnz(footprint));
-first_success_idx=success_list(1);
-last_success_idx=success_list(end);
+vec_HR=[hmn_path(1,:);hmn_path(2,:)]-[rbt_path(1,:);rbt_path(2,:)];
+e=[cos(z(3,:));sin(z(3,:))];
+norm_HR=sqrt(vec_HR(1,:).^2+vec_HR(2,:).^2);
+vec_HR=(norm_HR-hmn.sizer)./norm_HR.*vec_HR;
+norm_HR=sqrt(vec_HR(1,:).^2+vec_HR(2,:).^2);
 
-continuous=all(footprint(success_list)>0)
-
-hmn_path(1,first_success_idx)
-hmn_path(1,last_success_idx)
-
-observed_length=abs(hmn_path(1,first_success_idx)-hmn_path(1,last_success_idx))
+min(norm_HR)
 % 229~532
