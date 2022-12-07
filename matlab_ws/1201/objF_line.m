@@ -91,7 +91,8 @@ function J=objF_line(t,z,u,env,rbt,hmn,sns)
     score_area=area_11.*area_12;
 
     %% J
-    J_kari=score_area.*score_r.*score_p+score_pe;
+    % J_kari=score_area.*score_r.*score_p+score_pe;
+    J_kari=score_r.*score_p+score_pe;
 
     J=-J_kari;
 
