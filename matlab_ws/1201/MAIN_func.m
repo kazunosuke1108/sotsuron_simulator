@@ -15,9 +15,9 @@ function result=MAIN_func()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
-    date="1207";
-    abst="min_norm";
-    detail="";
+    date="1208";
+    abst="07304";
+    detail="2.5m5.0m05Hz";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -41,9 +41,16 @@ function result=MAIN_func()
     sns=getSensorParams();
     rbt=getRobotParams();
     hmn=getHumanParams(sns);
-
     %% overwrite variables
-    
+    %%% 07-304
+    env.ymin=0;
+    env.kabe.ymin=env.ymin;
+    env.roi.ymin=env.ymin;
+    env.xmax=5;
+    env.L=5;
+    hmn.x0=5;
+    env.l=5;
+
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     %                           seq.1  検知                                   %
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -66,9 +73,15 @@ function result=MAIN_func()
     t_rbt=abs(env.L/rbt.vxmax);
     t_measure=abs(env.l/hmn.vx); % env.l=ロボットが立ち止まって人を計測したい歩行距離
     t_slack=0.05;
-    env.final_tmin=(t_rbt+t_measure)*(1-t_slack);
-    env.final_tmax=(t_rbt+t_measure)*(1+t_slack);
+    env.estim_final_t=t_rbt+t_measure;
+    env.final_tmin=env.estim_final_t*(1-t_slack);
+    env.final_tmax=env.estim_final_t*(1+t_slack);
     
+    % 標準制御周波数の決定
+    env.hz=0.5;
+    problem.options.hermiteSimpson.nSegment=fix((env.estim_final_t*env.hz-1)/30);
+
+
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     %                           seq.2  計測                                   %
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -112,11 +125,12 @@ function result=MAIN_func()
     
     % problem.options.method = 'trapezoid'; 
     problem.options.method = 'hermiteSimpson';  
-    problem.options.hermiteSimpson.nSegment = fix(env.final_tmin)
+    % problem.options.hermiteSimpson.nSegment=10;
     
     
     % Solve!
     soln = trajOpt(problem);
+    
     
 
     
