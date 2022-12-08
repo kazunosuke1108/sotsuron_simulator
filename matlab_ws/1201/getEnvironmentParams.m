@@ -1,6 +1,6 @@
 function env=getEnvironmentParams()
 
-env.hz=4; % 制御入力周波数
+env.hz=2; % 制御入力周波数
 
 env.init_tmin=0;
 env.init_tmax=0;

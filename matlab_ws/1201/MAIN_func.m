@@ -16,8 +16,8 @@ function result=MAIN_func()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
     date="1208";
-    abst="07304";
-    detail="2.5m5.0m05Hz";
+    abst="07304v2";
+    detail="1.5m20m2Hz";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -28,7 +28,7 @@ function result=MAIN_func()
 
     % for ...
 
-    graph_title="return";
+    graph_title="test";
     % savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
     savename=string(savedir+"/"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
 
@@ -46,10 +46,16 @@ function result=MAIN_func()
     env.ymin=0;
     env.kabe.ymin=env.ymin;
     env.roi.ymin=env.ymin;
-    env.xmax=5;
-    env.L=5;
-    hmn.x0=5;
-    env.l=5;
+    env.xmax=20;
+    env.L=20;
+    hmn.x0=20;
+    hmn.y0=0.5;
+    env.l=10;
+    env.roi.xmax=env.roi.xmin+env.L;
+    rbt.y0=0.5;
+    rbt.xF=20;
+    rbt.yF=0.5;
+
 
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     %                           seq.1  検知                                   %
@@ -78,7 +84,6 @@ function result=MAIN_func()
     env.final_tmax=env.estim_final_t*(1+t_slack);
     
     % 標準制御周波数の決定
-    env.hz=0.5;
     problem.options.hermiteSimpson.nSegment=fix((env.estim_final_t*env.hz-1)/30);
 
 
