@@ -16,8 +16,8 @@ function result=MAIN_func()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
     date="1208";
-    abst="07304v2";
-    detail="1.5m20m2Hz";
+    abst="07hallv3";
+    detail="2Hz";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -47,6 +47,9 @@ function result=MAIN_func()
     env.kabe.ymin=env.ymin;
     env.roi.ymin=env.ymin;
     env.xmax=20;
+    env.ymax=1.5;
+    env.kabe.ymax=env.ymax;
+    env.roi.ymax=env.ymax;
     env.L=20;
     hmn.x0=20;
     hmn.y0=0.5;
@@ -55,6 +58,7 @@ function result=MAIN_func()
     rbt.y0=0.5;
     rbt.xF=20;
     rbt.yF=0.5;
+    env.hz=2;
 
 
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%

@@ -17,4 +17,7 @@ res = eng.MAIN_func()
 # 結果を出力
 t=np.array(res['t'])
 z=np.array(res['z'])
+
+# np.savetxt(t,"hoge/hoge/t.csv",delimiter=",")
+# np.savetxt(z,"hoge/hoge/z.csv",delimiter=",")
 eng.quit()
