@@ -34,7 +34,7 @@ plt_vR=arrow_scale*plt_vR;
 plt_vH=arrow_scale*plt_vH;
 
 %%%% footprint
-footprint=getFootprint(t,z,u,env,rbt,hmn,sns,soln);
+footprint=getFootprint(t,z,u,env,rbt,hmn,sns);
 success_xH=plt_xH.*footprint;
 success_yH=plt_yH.*footprint;
 roi_checker11=plt_xH>=env.roi.xmin;

@@ -19,7 +19,7 @@ env.kabe.ymax=env.ymax;
 
 % env.avoid_dist=0;
 env.L=20;
-env.l=10;
+env.l=5;
 % env.roi.xmin=10-env.l;
 env.roi.xmin=0;
 env.roi.xmax=env.roi.xmin+env.L;

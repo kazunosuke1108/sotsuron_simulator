@@ -11,7 +11,7 @@ hmn_path=getHumanPath(t,hmn);
 plt_xH=hmn_path(1,:);
 plt_yH=hmn_path(2,:);
 
-footprint=getFootprint(t,z,u,env,rbt,hmn,sns,soln);
+footprint=getFootprint(t,z,u,env,rbt,hmn,sns);
 success_xH=plt_xH.*footprint;
 success_yH=plt_yH.*footprint;
 
@@ -40,14 +40,14 @@ hold on
 %%%%% Robot path
 rbt_position = plot(plt_xR,plt_yR,'b');
 
-% read odometory
+% % read odometory
 
-odom=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\odom_2022-12-08-20-08-06.csv")
-odom_x=odom(:,1);
-odom_y=odom(:,2);
-odom_th=odom(:,3);
+% odom=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\odom_2022-12-08-20-08-06.csv")
+% odom_x=odom(:,1);
+% odom_y=odom(:,2);
+% odom_th=odom(:,3);
 
-odom_path=plot(odom_x,odom_y,'k')
+% odom_path=plot(odom_x,odom_y,'k')
 
 title(graph_title);
 xlim([env.xmin,env.xmax]);

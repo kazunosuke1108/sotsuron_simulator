@@ -1,4 +1,4 @@
-function footprint=getFootprint(t,z,u,env,rbt,hmn,sns,soln)
+function footprint=getFootprint(t,z,u,env,rbt,hmn,sns)
     % 各離散時刻において，人が扇の中に入っていれば1,そうでなければ0を返す．これを[1,n]のリストで与える．
 
     hmn_path=getHumanPath(t,hmn);

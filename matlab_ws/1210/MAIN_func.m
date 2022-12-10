@@ -15,9 +15,9 @@ function result=MAIN_func()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
-    date="1208";
-    abst="07hallv3";
-    detail="2Hz";
+    date="1210";
+    abst="parastd";
+    detail="2Hzslack015";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -43,22 +43,22 @@ function result=MAIN_func()
     hmn=getHumanParams(sns);
     %% overwrite variables
     %%% 07-304
-    env.ymin=0;
-    env.kabe.ymin=env.ymin;
-    env.roi.ymin=env.ymin;
-    env.xmax=20;
-    env.ymax=1.5;
-    env.kabe.ymax=env.ymax;
-    env.roi.ymax=env.ymax;
-    env.L=20;
-    hmn.x0=20;
-    hmn.y0=0.5;
-    env.l=10;
-    env.roi.xmax=env.roi.xmin+env.L;
-    rbt.y0=0.5;
-    rbt.xF=20;
-    rbt.yF=0.5;
-    env.hz=2;
+    % env.ymin=0;
+    % env.kabe.ymin=env.ymin;
+    % env.roi.ymin=env.ymin;
+    % env.xmax=20;
+    % env.ymax=1.5;
+    % env.kabe.ymax=env.ymax;
+    % env.roi.ymax=env.ymax;
+    % env.L=20;
+    % hmn.x0=20;
+    % hmn.y0=0.5;
+    % env.l=10;
+    % env.roi.xmax=env.roi.xmin+env.L;
+    % rbt.y0=0.5;
+    % rbt.xF=20;
+    % rbt.yF=0.5;
+    % env.hz=2;
 
 
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -82,7 +82,7 @@ function result=MAIN_func()
     %% ロボットの走行所要時間
     t_rbt=abs(env.L/rbt.vxmax);
     t_measure=abs(env.l/hmn.vx); % env.l=ロボットが立ち止まって人を計測したい歩行距離
-    t_slack=0.05;
+    t_slack=0.15;
     env.estim_final_t=t_rbt+t_measure;
     env.final_tmin=env.estim_final_t*(1-t_slack);
     env.final_tmax=env.estim_final_t*(1+t_slack);
