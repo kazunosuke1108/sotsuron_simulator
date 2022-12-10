@@ -109,7 +109,7 @@ daspect([1,1,1]);
 
 %%%% Iteration
 for i = 1:length(plt_xR)
-    title("frame: "+i+" "+graph_title+" L="+measured_length+"m"+" continuous="+continuous_check+" min gap"+min(norm_HR-rbt.sizer)+" m")
+    title("frame: "+i+" "+graph_title+" L="+measured_length+"m"+" continuous="+continuous_check+" min gap"+min(norm_HR)+" m")
     set(rbt_position,'XData',plt_xR(i),'YData',plt_yR(i));
     set(hmn_position,'XData',plt_xH(i),'YData',plt_yH(i));
     set(rbt_direction,'XData',plt_xR(i),'YData',plt_yR(i),'UData',plt_vxR(i),'VData',plt_vyR(i));
