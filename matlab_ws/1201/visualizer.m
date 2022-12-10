@@ -1,9 +1,9 @@
 addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
 
 
-date="1201";
-abst="DEV_pipeline";
-detail="MAIN_func";
+date="1209";
+abst="odom";
+detail="4HzH";
 mkdir('results');
 % savedir="results\"+date+"_"+abst;
 savedir="results/"+date+"_"+abst;

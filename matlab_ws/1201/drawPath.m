@@ -40,7 +40,14 @@ hold on
 %%%%% Robot path
 rbt_position = plot(plt_xR,plt_yR,'b');
 
+% read odometory
 
+odom=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\odom_2022-12-08-20-08-06.csv")
+odom_x=odom(:,1);
+odom_y=odom(:,2);
+odom_th=odom(:,3);
+
+odom_path=plot(odom_x,odom_y,'k')
 
 title(graph_title);
 xlim([env.xmin,env.xmax]);
