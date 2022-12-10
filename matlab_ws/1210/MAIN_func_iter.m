@@ -19,7 +19,7 @@ function result=MAIN_func_iter()
         for candidate2=[-2.5 -2 -1.5 -1 -0.5 0]
             try
                 date="1210";
-                abst="parastd";
+                abst="parastd4Hz";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -43,6 +43,7 @@ function result=MAIN_func_iter()
                 rbt=getRobotParams();
                 hmn=getHumanParams(sns);
                 %% overwrite variables
+                env.hz=4;
                 env.l=5;
                 env.L=candidate;
                 env.xmax=candidate;
