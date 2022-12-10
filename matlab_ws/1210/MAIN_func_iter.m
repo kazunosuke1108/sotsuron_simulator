@@ -15,22 +15,20 @@ function result=MAIN_func_iter()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
-    date="1210";
-    abst="parastd";
-    mkdir('results');
-    % savedir="results\"+date+"_"+abst;
-    savedir="results/"+date+"_"+abst;
-    mkdir(savedir);
-    for candidate=[20]
-        for candidate2=[-2.5]
+    for candidate=[5 7.5 10 12.5 15 12.5 15 17.5 20]
+        for candidate2=[-2.5 -2 -1.5 -1 -0.5 0]
             try
+                date="1210";
+                abst="parastd";
+                mkdir('results');
+                % savedir="results\"+date+"_"+abst;
+                savedir="results/"+date+"_"+abst;
+                mkdir(savedir);
                 detail="xmax"+string(candidate)+"_ymin"+string(candidate2);
                 % savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+detail);
                 savedir=string(savedir+"/"+datestr(now,'yymmdd_hhMMss')+"_"+detail);
                 mkdir(savedir);
-
                 % for ...
-
                 graph_title="test";
                 % savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
                 savename=string(savedir+"/"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
@@ -180,6 +178,8 @@ function result=MAIN_func_iter()
             catch
                 continue
             end
+            clc;clf;
+            clearvars -except candidate candidate2;
         end
     end
     git_auto_push()

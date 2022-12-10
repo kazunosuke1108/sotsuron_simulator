@@ -143,7 +143,7 @@ end
 
 % video2=VideoWriter(savename_mp4,'MPEG-4');
 video2=VideoWriter(savename_avi);
-video2.FrameRate=length(t)/fix(soln.grid.time(end))
+video2.FrameRate=length(t)/fix(soln.grid.time(end));
 open(video2);
 writeVideo(video2, frames);
 close(video2);
