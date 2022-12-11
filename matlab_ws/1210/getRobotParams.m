@@ -17,7 +17,7 @@ rbt.vymin=-rbt.vymax;
 rbt.omgmax=pi/4;
 rbt.omgmin=-rbt.omgmax;
 
-rbt.xF=25;
+rbt.xF=10;
 rbt.yF=1;
 rbt.thF=0;
 rbt.vxF=0;

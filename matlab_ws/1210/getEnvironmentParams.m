@@ -9,8 +9,8 @@ env.final_tmin=150;
 env.final_tmax=150;
 
 env.xmin=0;
-env.xmax=30;
-env.ymin=-2.5;
+env.xmax=10;
+env.ymin=-2;
 env.ymax=2.5;
 
 env.kabe.ymin=env.ymin;
@@ -18,7 +18,7 @@ env.kabe.ymax=env.ymax;
 
 
 % env.avoid_dist=0;
-env.L=20;
+env.L=10;
 env.l=5;
 % env.roi.xmin=10-env.l;
 env.roi.xmin=0;
