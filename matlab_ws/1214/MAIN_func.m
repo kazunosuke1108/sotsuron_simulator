@@ -15,9 +15,9 @@ function result=MAIN_func()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
-    date="1212";
-    abst="vxH0";
-    detail="hmn.vx0.9";
+    date="1214";
+    abst="DEV_objF";
+    detail="mourakaiseki";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -42,7 +42,6 @@ function result=MAIN_func()
     rbt=getRobotParams();
     hmn=getHumanParams(sns);
     %% overwrite variables
-    hmn.vx=-0.9;
     %%% 07-304
     % env.ymin=0;
     % env.kabe.ymin=env.ymin;
@@ -98,6 +97,7 @@ function result=MAIN_func()
     % Set up function handles
     problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
     problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
+    problem.func.pathCst=@(t,z,u)(cst_AvoidCollision(t,z,u,env,rbt,hmn,sns));
     
     % Set up problem bounds
     problem.bounds.initialTime.low = env.init_tmin;
@@ -131,7 +131,6 @@ function result=MAIN_func()
     'TolX',1e-10,... % x に関する許容誤差 (正のスカラー)
     'TolCon',1e-8,... % 制約違反に関する許容誤差 (正のスカラー)
     'MaxFunEvals',1e6);
-    
     
     % problem.options.method = 'trapezoid'; 
     problem.options.method = 'hermiteSimpson';  

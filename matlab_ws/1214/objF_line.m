@@ -92,10 +92,9 @@ function J=objF_line(t,z,u,env,rbt,hmn,sns)
 
     score_pe2=1/(2*hmn.sizer)*(norm_HR-(sns.r1+2*hmn.sizer)).*pe_2;
 
-    
-    
     % まとめ
     score_pe=score_pe1+score_pe2+score_r;
+
     %% 5m以上計測成功に対する報酬measured_score
     additional_start=env.l;
     additional_end=env.l+4*hmn.sizer;
@@ -120,6 +119,7 @@ function J=objF_line(t,z,u,env,rbt,hmn,sns)
     %% J
     % J_kari=score_area.*score_r.*score_p+score_pe;
     % J_kari=score_r.*score_p+score_pe;
+    % J_kari=score_r.*score_p;
     J_kari=score_r.*score_p+score_pe+score_m.*(score_pe+1);
     
     J=-J_kari;
