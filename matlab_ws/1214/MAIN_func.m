@@ -16,8 +16,8 @@ function result=MAIN_func()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
     date="1214";
-    abst="DEV_objF";
-    detail="mourakaiseki";
+    abst="DEV_objF_r";
+    detail="after";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
