@@ -1,9 +1,14 @@
 addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
+addpath '/home/hayashide/kazu_ws/sotsuron_simulator/matlab_ws/tutorial/cartPole'
+
+date="1214";
+abst="odom_visualizer";
+detail="7F";
+
+matpath="/home/hayashide/kazu_ws/sotsuron_simulator/matlab_ws/1210/results/1210_parastd4Hz/221210_140704_xmax10_ymin-2/221210_140704_test.mat"
+load(matpath)
 
 
-date="1209";
-abst="odom";
-detail="4HzH";
 mkdir('results');
 % savedir="results\"+date+"_"+abst;
 savedir="results/"+date+"_"+abst;
