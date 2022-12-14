@@ -1,4 +1,4 @@
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\1210\results\1210_parastd";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\1210\results\1212_slackparastudy";
 
 dirlist=dir(motherdir);
 
@@ -24,7 +24,7 @@ for n = 1:length(dirlist)
         vec_HR=(norm_HR-hmn.sizer)./norm_HR.*vec_HR;
         norm_HR=sqrt(vec_HR(1,:).^2+vec_HR(2,:).^2);
         
-        writematrix([env.xmax,env.ymin,measured_length,continuous_check,min(norm_HR),soln.info.nlpTime],motherdir+"\results2Hz.csv",'WriteMode','append');
+        writematrix([env.xmax,env.ymin,measured_length,continuous_check,min(norm_HR),soln.info.nlpTime],motherdir+"\results.csv",'WriteMode','append');
         clearvars -except motherdir dirlist matpath fullmatpath n;
     catch
         disp(string(dirlist(n).name))

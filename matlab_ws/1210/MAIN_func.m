@@ -16,8 +16,8 @@ function result=MAIN_func()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
     date="1212";
-    abst="forRinko";
-    detail="x10y2_4Hz_slackvari";
+    abst="vxH0";
+    detail="hmn.vx0.9";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -42,6 +42,7 @@ function result=MAIN_func()
     rbt=getRobotParams();
     hmn=getHumanParams(sns);
     %% overwrite variables
+    hmn.vx=-0.9;
     %%% 07-304
     % env.ymin=0;
     % env.kabe.ymin=env.ymin;
@@ -82,7 +83,7 @@ function result=MAIN_func()
     %% ロボットの走行所要時間
     t_rbt=abs(env.L/rbt.vxmax);
     t_measure=abs(env.l/hmn.vx); % env.l=ロボットが立ち止まって人を計測したい歩行距離
-    t_slack=0.3;
+    t_slack=0.05;
     env.estim_final_t=t_rbt+t_measure;
     env.final_tmin=env.estim_final_t*(1-t_slack);
     env.final_tmax=env.estim_final_t*(1+t_slack);
