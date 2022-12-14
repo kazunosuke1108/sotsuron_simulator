@@ -16,8 +16,8 @@ function result=MAIN_func()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
     date="1214";
-    abst="renew_map";
-    detail="1m_from_wall";
+    abst="dummyData";
+    detail="";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -39,9 +39,22 @@ function result=MAIN_func()
     %% load default variables
     env=getEnvironmentParams();
     sns=getSensorParams();
-    rbt=getRobotParams();
-    hmn=getHumanParams(sns);
+    rbt=getRobotParams(env);
+    hmn=getHumanParams(env,sns);
     %% overwrite variables
+    env.xmax=4;
+    env.L=4;
+    hmn.x0=env.xmax;
+    rbt.xF=env.xmax;
+    env.roi.xmax=env.roi.xmin+env.L;
+
+    env.ymin=-2;
+    env.kabe.ymin=env.ymin;
+    env.roi.ymin=env.ymin;
+    env.roi.ymin=env.ymin;
+    env.roi.ymax=env.ymax;
+
+    hmn.vx=-0.6
 
 
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%

@@ -1,4 +1,4 @@
-function rbt=getRobotParams()
+function rbt=getRobotParams(env)
 
 rbt.sizer=0.3;
 
@@ -17,7 +17,7 @@ rbt.vymin=-rbt.vymax;
 rbt.omgmax=pi/4;
 rbt.omgmin=-rbt.omgmax;
 
-rbt.xF=10;
+rbt.xF=env.xmax;
 rbt.yF=-1;
 rbt.thF=0;
 rbt.vxF=0;
