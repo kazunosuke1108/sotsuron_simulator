@@ -4,7 +4,7 @@ hmn.sizer=0.3;
 hmn.sizep=atan(hmn.sizer/(sns.r1+hmn.sizer));
 
 hmn.x0=10;
-hmn.y0=-1.5;
+hmn.y0=-1;
 hmn.th0=pi;
 hmn.vx0=0;
 hmn.vy0=0;

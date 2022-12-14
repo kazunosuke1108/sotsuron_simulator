@@ -17,7 +17,7 @@ function result=MAIN_func()
 
     date="1214";
     abst="renew_map";
-    detail="";
+    detail="1m_from_wall";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -42,7 +42,6 @@ function result=MAIN_func()
     rbt=getRobotParams();
     hmn=getHumanParams(sns);
     %% overwrite variables
-
 
 
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
