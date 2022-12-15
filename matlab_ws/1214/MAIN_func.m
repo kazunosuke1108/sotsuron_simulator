@@ -17,7 +17,7 @@ function result=MAIN_func()
 
     date="1215";
     abst="DEV_vCST";
-    detail="share_sensei_8Hz";
+    detail="share_sensei_16Hz";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -43,6 +43,7 @@ function result=MAIN_func()
     hmn=getHumanParams(env,sns);
     %% overwrite variables
     env.hz=8;
+    % hmn.vx=-1.2;
 
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     %                           seq.1  検知                                   %
