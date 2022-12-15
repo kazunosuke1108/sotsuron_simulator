@@ -54,7 +54,6 @@ function result=MAIN_func()
     env.roi.ymin=env.ymin;
     env.roi.ymax=env.ymax;
 
-    hmn.vx=-0.6
 
 
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
