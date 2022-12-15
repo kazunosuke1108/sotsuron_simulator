@@ -1,4 +1,4 @@
-function [c, ceq, cGrad, ceqGrad]=cst_AvoidCollision(t,z,u,env,rbt,hmn,sns)
+function [c, ceq, cGrad, ceqGrad]=constraint(t,z,u,env,rbt,hmn,sns)
     hmn_path=getHumanPath(t,hmn);
     rbt_path=z;
 

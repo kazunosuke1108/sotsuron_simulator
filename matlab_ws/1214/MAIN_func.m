@@ -80,7 +80,7 @@ function result=MAIN_func()
     % Set up function handles
     problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
     problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
-    problem.func.pathCst=@(t,z,u)(cst_AvoidCollision(t,z,u,env,rbt,hmn,sns));
+    problem.func.pathCst=@(t,z,u)(constraint(t,z,u,env,rbt,hmn,sns));
     
     % Set up problem bounds
     problem.bounds.initialTime.low = env.init_tmin;
