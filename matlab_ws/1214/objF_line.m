@@ -82,39 +82,39 @@ function J=objF_line(t,z,u,env,rbt,hmn,sns)
     % まとめ
     score_p=score_p1+score_p2+score_p3;
 
-    %% penalty
-    % 底辺
-    pe_11=norm_HR>=0;
-    pe_12=norm_HR<sns.r1;
-    pe_1=pe_11.*pe_12;
+    % %% penalty
+    % % 底辺
+    % pe_11=norm_HR>=0;
+    % pe_12=norm_HR<sns.r1;
+    % pe_1=pe_11.*pe_12;
 
-    score_pe1=-1.*pe_1;
+    % score_pe1=-1.*pe_1;
 
-    % 上り
-    pe_21=norm_HR>=sns.r1;
-    pe_22=norm_HR<sns.r1+2*hmn.sizer;
-    pe_2=pe_21.*pe_22;
+    % % 上り
+    % pe_21=norm_HR>=sns.r1;
+    % pe_22=norm_HR<sns.r1+2*hmn.sizer;
+    % pe_2=pe_21.*pe_22;
 
-    score_pe2=1/(2*hmn.sizer)*(norm_HR-(sns.r1+2*hmn.sizer)).*pe_2;
+    % score_pe2=1/(2*hmn.sizer)*(norm_HR-(sns.r1+2*hmn.sizer)).*pe_2;
 
-    % まとめ
-    score_pe=score_pe1+score_pe2+score_r;
+    % % まとめ
+    % score_pe=score_pe1+score_pe2+score_r;
 
-    %% 5m以上計測成功に対する報酬measured_score
-    additional_start=env.l;
-    additional_end=env.l+4*hmn.sizer;
-    if measured_length>additional_end
-        % 屋根
-        ms=1;
-    elseif measured_length>additional_start
-        %　上り
-        ms=1/(additional_end-additional_start)*(measured_length-additional_start);
-    else
-        % 底辺
-        ms=0;
-    end
+    % %% 5m以上計測成功に対する報酬measured_score
+    % additional_start=env.l;
+    % additional_end=env.l+4*hmn.sizer;
+    % if measured_length>additional_end
+    %     % 屋根
+    %     ms=1;
+    % elseif measured_length>additional_start
+    %     %　上り
+    %     ms=1/(additional_end-additional_start)*(measured_length-additional_start);
+    % else
+    %     % 底辺
+    %     ms=0;
+    % end
     
-    score_m=ms*ones(1,length(norm_HR));
+    % score_m=ms*ones(1,length(norm_HR));
     
     % %% 計測領域外のスコアをゼロとする．（ペナルティを0にすることはしない）
     % area_11=hmn_path(1,:)>=env.roi.xmin;
