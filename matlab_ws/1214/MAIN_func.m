@@ -15,9 +15,9 @@ function result=MAIN_func()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
-    date="1214";
-    abst="dummyData";
-    detail="";
+    date="1215";
+    abst="DEV_vCST";
+    detail="share_sensei_8Hz";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -42,19 +42,7 @@ function result=MAIN_func()
     rbt=getRobotParams(env);
     hmn=getHumanParams(env,sns);
     %% overwrite variables
-    env.xmax=4;
-    env.L=4;
-    hmn.x0=env.xmax;
-    rbt.xF=env.xmax;
-    env.roi.xmax=env.roi.xmin+env.L;
-
-    env.ymin=-2;
-    env.kabe.ymin=env.ymin;
-    env.roi.ymin=env.ymin;
-    env.roi.ymin=env.ymin;
-    env.roi.ymax=env.ymax;
-
-
+    env.hz=8;
 
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     %                           seq.1  検知                                   %
@@ -71,7 +59,7 @@ function result=MAIN_func()
     % rbt.xF=env.roi.xmax;
     
     % シミュレーション
-    [env sns rbt hmn]=sim_detection(rbt,hmn,sns,env);
+    % [env sns rbt hmn]=sim_detection(rbt,hmn,sns,env);
     
     % 計測所要時間の推定
     %% ロボットの走行所要時間

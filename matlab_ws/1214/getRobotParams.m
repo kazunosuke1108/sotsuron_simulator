@@ -9,10 +9,11 @@ rbt.vx0=0.15;
 rbt.vy0=0;
 rbt.omg0=0;
 
-rbt.vxmax=0.15;
+rbt.vmax=0.22
+rbt.vxmax=rbt.vmax;
 % rbt.vxmin=-rbt.vxmax;
 rbt.vxmin=0;
-rbt.vymax=0.15;
+rbt.vymax=rbt.vmax;
 rbt.vymin=-rbt.vymax;
 rbt.omgmax=pi/4;
 rbt.omgmin=-rbt.omgmax;

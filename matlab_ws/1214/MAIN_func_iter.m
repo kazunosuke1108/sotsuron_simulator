@@ -15,11 +15,11 @@ function result=MAIN_func()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
-    for candidate=[5 7.5 10 12.5 15]
-        for candidate2=[-1.5 -2 -2.5 -3 -3.5 -4 -4.5 -5]
-            date="1214";
-            abst="parameter_study_slack020";
-            detail="x"+string(candidate)+"_y"+string(abs(candidate2));
+    for candidate=[7.5 10 12.5]
+        for candidate2=[-0.3 -0.6 -0.9 -1.2]
+            date="1215";
+            abst="FIX_vx_bug_2Hz_ConTol12";
+            detail="x"+string(candidate)+"_hmnvx"+string(abs(candidate2));
             mkdir('results');
             % savedir="results\"+date+"_"+abst;
             savedir="results/"+date+"_"+abst;
@@ -50,11 +50,10 @@ function result=MAIN_func()
             rbt.xF=env.xmax;
             env.roi.xmax=env.roi.xmin+env.L;
 
-            env.ymin=candidate2;
-            env.kabe.ymin=env.ymin;
-            env.roi.ymin=env.ymin;
-            env.roi.ymin=env.ymin;
-            env.roi.ymax=env.ymax;
+            hmn.vx=candidate2;
+
+            % env.hz=4;
+
 
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
             %                           seq.1  検知                                   %
@@ -71,13 +70,13 @@ function result=MAIN_func()
             % rbt.xF=env.roi.xmax;
             
             % シミュレーション
-            [env sns rbt hmn]=sim_detection(rbt,hmn,sns,env);
+            % [env sns rbt hmn]=sim_detection(rbt,hmn,sns,env);
             
             % 計測所要時間の推定
             %% ロボットの走行所要時間
             t_rbt=abs(env.L/rbt.vxmax);
             t_measure=abs(env.l/hmn.vx); % env.l=ロボットが立ち止まって人を計測したい歩行距離
-            t_slack=0.20;
+            t_slack=0.05;
             env.estim_final_t=t_rbt+t_measure;
             env.final_tmin=env.estim_final_t*(1-t_slack);
             env.final_tmax=env.estim_final_t*(1+t_slack);
@@ -124,7 +123,7 @@ function result=MAIN_func()
             'MaxIter',1e3,... % 可能な反復の最大数 (正の整数)
             'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
             'TolX',1e-10,... % x に関する許容誤差 (正のスカラー)
-            'TolCon',1e-8,... % 制約違反に関する許容誤差 (正のスカラー)
+            'TolCon',1e-12,... % 制約違反に関する許容誤差 (正のスカラー)
             'MaxFunEvals',1e6);
             
             % problem.options.method = 'trapezoid'; 
@@ -165,6 +164,7 @@ function result=MAIN_func()
             
             result.z=z;
             result.t=t;
+
             
             % Summarize conditions & results
             save(savename+".mat");

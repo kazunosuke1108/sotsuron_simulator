@@ -1,11 +1,3 @@
-hmn_path=getHumanPath(t,hmn);
-rbt_path=z;
-
-vec_HR=[hmn_path(1,:);hmn_path(2,:)]-[rbt_path(1,:);rbt_path(2,:)];
-e=[cos(z(3,:));sin(z(3,:))];
-norm_HR=sqrt(vec_HR(1,:).^2+vec_HR(2,:).^2);
-vec_HR=(norm_HR-hmn.sizer)./norm_HR.*vec_HR;
-norm_HR=sqrt(vec_HR(1,:).^2+vec_HR(2,:).^2);
-
-min(norm_HR)
+z=[1 2 3;4 5 6]
+norm_vel=sqrt(z(1,:).^2+z(2,:).^2).'-0.22
 % 229~532
