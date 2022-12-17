@@ -1,7 +1,7 @@
 clc;clear;
 figure(1); clf;
 
-data=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\sources\track_results_1216_120.csv");
+data=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\sources\track_results_1216_090.csv");
 fps=15;
 
 t=data(:,1);
@@ -12,35 +12,44 @@ pv=(po-dansage)*fps
 vectors_p=[po];
 
 
-A=[1 1/fps;0 1];
-B=[0;1];
-C=[1 0];
-D=0;
 
-Plant = ss(A,B,C,D,-1);
-Plant.InputName = 'un';
-Plant.OutputName = 'yt';
-
-Sum = sumblk('un = u + w');
-sys = connect(Plant,Sum,{'u','w'},'yt');
-
-for Q = 0.001:0.1:0.001
+for Q = 0.001:0.001:0.001
     for R = 0.1:0.1:0.1
         N = 0;
         % disp(Q)
         % disp(R)
-        [kalmf,L,P] = kalman(sys,Q,R,N);
         % disp(L)
         estm_list=zeros(2,length(t));
         pHat_k_km1=[vectors_p(1);-0.60];
         i=1;
         for vector_p=vectors_p.'
+            try
+                fps=1/(data(i,1)-data(i-1,1));
+            catch
+                fps=15;
+            end
+            A=[1 1/fps;0 1];
+            B=[0;1];
+            C=[1 0];
+            D=0;
+            
+            Plant = ss(A,B,C,D,-1);
+            Plant.InputName = 'un';
+            Plant.OutputName = 'yt';
+            
+            Sum = sumblk('un = u + w');
+            sys = connect(Plant,Sum,{'u','w'},'yt');
+            
+            [kalmf,L,P] = kalman(sys,Q,R,N);
+            
             pHat_k_k=pHat_k_km1+L*(vector_p-C*pHat_k_km1);
             pHat_kp1_k=A*pHat_k_k;
             estm_list(:,i)=pHat_kp1_k;
             pHat_k_km1=pHat_k_k;
             pHat_k_k=pHat_kp1_k;
+
             i=i+1;
+            
         end
         plot(t,estm_list(1,:).')
         % plot(t,estm_list(2,:).')
@@ -51,12 +60,7 @@ end
 plot(t,po,'r')
 % plot(t(1:end-1),pv(2:end),'r')
 
-% best
-% Q=0.001
-% R=0.1
-
-
-saveas(figure(1),"kalman_120.png")
+saveas(figure(1),"kalman_observable_v_Q0001_R01.png")
 
 % disp(A)
 
