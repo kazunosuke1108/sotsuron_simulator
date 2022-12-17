@@ -42,13 +42,13 @@ rbt_position = plot(plt_xR,plt_yR,'b');
 
 % % read odometory
 % odom=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\odom_2022-12-14-16-08-40.csv")
-% odom=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\odom_2022-12-11-18-54-07.csv")
+odom=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\odom_2022-12-16-19-32-43.csv")
 % odom=csvread("/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/odom_2022-12-11-18-54-07.csv")
-% odom_x=odom(:,1);
-% odom_y=odom(:,2);
-% odom_th=odom(:,3);
+odom_x=odom(:,1);
+odom_y=odom(:,2);
+odom_th=odom(:,3);
 
-% odom_path=plot(odom_x,odom_y,'k')
+odom_path=plot(odom_x,odom_y,'k')
 
 title(graph_title);
 xlim([env.xmin,env.xmax]);
