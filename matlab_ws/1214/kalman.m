@@ -1,16 +1,16 @@
 clc;clear;
 figure(1); clf;
 
-data=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\sources\track_results_1216_120.csv");
+data=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\sources\track_results_1216_090.csv");
 fps=15;
 
-data=data((1:150),:)
+% data=data((1:150),:)
 
 t=data(:,1)-data(1,1);
 po=data(:,4);
-dansage=[0;data([1:length(t)-1],4)]
-size(dansage)
-pv=(po-dansage)*fps
+dansage=[0;data([1:length(t)-1],4)];
+size(dansage);
+pv=(po-dansage)*fps;
 vectors_p=[po];
 
 
@@ -26,11 +26,11 @@ Plant.OutputName = 'yt';
 Sum = sumblk('un = u + w');
 sys = connect(Plant,Sum,{'u','w'},'yt');
 
-for Q = 0.001:0.1:0.001
-    for R = 0.1:0.1:0.1
+% for Q = 0.0005:0.0001:0.0015
+%     for R = 0.0005:0.0001:0.0015
+        Q=0.001
+        R=0.001
         N = 0;
-        % disp(Q)
-        % disp(R)
         [kalmf,L,P] = kalman(sys,Q,R,N);
         % disp(L)
         estm_list=zeros(2,length(t));
@@ -47,15 +47,18 @@ for Q = 0.001:0.1:0.001
         % plot(t,estm_list(1,:).')
         plot(t,estm_list(2,:).')
         hold on
+        % disp(Q)
+        % disp(R)
+        p=polyfit(t,estm_list(1,:),1);
+        disp(p(1))
         clearvars pHat_k_km1 pHat_k_k pHat_kp1_k vector_p
-    end
-end
+%     end
+% end
 % plot(t,po,'r')
 plot(t(1:end-1),pv(2:end),'r')
 % hold on
-
-% % p=polyfit(t,estm_list(1,:),1);
-% % disp(p)
+% p=polyfit(t,estm_list(1,:),1);
+% disp(p)
 % % f = polyval(p,t);
 % % plot(t,f,'-') 
 % best
@@ -66,7 +69,7 @@ plot(t(1:end-1),pv(2:end),'r')
 % 0.90m/s 80f (15m) -1.78m/s
 % 1.20m/s 60f (15m) -1.82m/s
 
-saveas(figure(1),"kalman_120_cut150_v.png")
+saveas(figure(1),"kalman_090_v_parastudy.png")
 
 % disp(A)
 
