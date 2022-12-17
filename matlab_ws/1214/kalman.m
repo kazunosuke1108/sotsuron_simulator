@@ -4,7 +4,9 @@ figure(1); clf;
 data=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\sources\track_results_1216_120.csv");
 fps=15;
 
-t=data(:,1);
+data=data((1:150),:)
+
+t=data(:,1)-data(1,1);
 po=data(:,4);
 dansage=[0;data([1:length(t)-1],4)]
 size(dansage)
@@ -42,21 +44,29 @@ for Q = 0.001:0.1:0.001
             pHat_k_k=pHat_kp1_k;
             i=i+1;
         end
-        plot(t,estm_list(1,:).')
-        % plot(t,estm_list(2,:).')
+        % plot(t,estm_list(1,:).')
+        plot(t,estm_list(2,:).')
         hold on
         clearvars pHat_k_km1 pHat_k_k pHat_kp1_k vector_p
     end
 end
-plot(t,po,'r')
-% plot(t(1:end-1),pv(2:end),'r')
+% plot(t,po,'r')
+plot(t(1:end-1),pv(2:end),'r')
+% hold on
 
+% % p=polyfit(t,estm_list(1,:),1);
+% % disp(p)
+% % f = polyval(p,t);
+% % plot(t,f,'-') 
 % best
 % Q=0.001
 % R=0.1
 
+% 0.60m/s 150f (15m) -0.85m/s
+% 0.90m/s 80f (15m) -1.78m/s
+% 1.20m/s 60f (15m) -1.82m/s
 
-saveas(figure(1),"kalman_120.png")
+saveas(figure(1),"kalman_120_cut150_v.png")
 
 % disp(A)
 
