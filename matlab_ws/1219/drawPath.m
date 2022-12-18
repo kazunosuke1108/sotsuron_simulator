@@ -48,7 +48,7 @@ rbt_position = plot(plt_xR,plt_yR,'b');
 % odom_y=odom(:,2);
 % odom_th=odom(:,3);
 
-odom_path=plot(odom_x,odom_y,'k')
+% odom_path=plot(odom_x,odom_y,'k')
 
 title(graph_title);
 xlim([env.xmin,env.xmax]);

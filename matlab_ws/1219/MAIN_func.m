@@ -15,9 +15,9 @@ function result=MAIN_func()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
-    date="1215";
-    abst="DEV_vCST";
-    detail="share_sensei_16Hz";
+    date="1219";
+    abst="DEV_sankaku_potential";
+    detail="8Hz";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -43,7 +43,12 @@ function result=MAIN_func()
     hmn=getHumanParams(env,sns);
     %% overwrite variables
     env.hz=8;
-    % hmn.vx=-1.2;
+
+    % sns.r0=6.0;
+    % sns.r1=1.07; % 1/tan(57/2deg)
+    % sns.r2=6.0;
+    % sns.phi=43;
+    % sns.phi=deg2rad(sns.phi)/2;
 
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     %                           seq.1  検知                                   %
