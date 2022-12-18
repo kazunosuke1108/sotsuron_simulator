@@ -16,8 +16,8 @@ function result=MAIN_func()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
     date="1219";
-    abst="DEV_sankaku_potential";
-    detail="8Hz";
+    abst="matome";
+    detail="sankaku_objF_8Hz";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -45,9 +45,9 @@ function result=MAIN_func()
     env.hz=8;
 
     % sns.r0=6.0;
-    % sns.r1=1.07; % 1/tan(57/2deg)
+    % sns.r1=1.84; % 1/tan(57/2deg)
     % sns.r2=6.0;
-    % sns.phi=43;
+    % sns.phi=86;
     % sns.phi=deg2rad(sns.phi)/2;
 
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
