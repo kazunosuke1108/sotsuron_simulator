@@ -46,8 +46,7 @@ function result=MAIN_func()
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
                     %% overwrite variables
-                    env.hz=8;
-
+                    
                     env.xmax=candidate
                     env.roi.xmax=env.roi.xmin+env.L;
                     rbt.xF=env.xmax;
@@ -55,11 +54,12 @@ function result=MAIN_func()
                     env.ymin=candidate2;
                     env.kabe.ymin=env.ymin;
                     env.roi.ymin=env.ymin;
-
+                    
                     hmn.x0=env.xmax;
-
+                    
                     t_slack=candidate3;
-
+                    
+                    env.hz=8; % 
 
                     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                     %                           seq.1  検知                                   %

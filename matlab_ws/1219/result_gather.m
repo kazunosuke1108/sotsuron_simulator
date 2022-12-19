@@ -1,4 +1,4 @@
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\1219\results\1219_realsense_parameter_study_slack";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\1219\results\1219_realsense_parameter_study_5m_score";
 
 dirlist=dir(motherdir);
 
