@@ -1,14 +1,27 @@
+%% https://www.jstage.jst.go.jp/article/iscie/25/7/25_172/_pdf offset補償
+
 clc;clear;
+
+data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\kalman_stop_10.csv");
+fps=15;
+fps=15
+t=data(:,1);
+z=data(:,4);
+
+%% LPF
+cutoff=0.1; %静止より
+average=mean(z);
+z=z-average;
+[z,d]=lowpass(z,cutoff,fps);
+disp(var(z))
+
+%% Kalman Filter
+% data=data((1:150),:)
 figure(1); clf;
 
-data=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\sources\track_results_1216_090.csv");
-fps=15;
-
-% data=data((1:150),:)
-
 t=data(:,1)-data(1,1);
-po=data(:,4);
-dansage=[0;data([1:length(t)-1],4)];
+po=z
+dansage=[0;z([1:length(t)-1])];
 size(dansage);
 pv=(po-dansage)*fps;
 vectors_p=[po];
@@ -28,32 +41,34 @@ sys = connect(Plant,Sum,{'u','w'},'yt');
 
 % for Q = 0.0005:0.0001:0.0015
 %     for R = 0.0005:0.0001:0.0015
-        Q=0.001
-        R=0.001
-        N = 0;
-        [kalmf,L,P] = kalman(sys,Q,R,N);
-        % disp(L)
-        estm_list=zeros(2,length(t));
-        pHat_k_km1=[vectors_p(1);-0.60];
-        i=1;
-        for vector_p=vectors_p.'
-            pHat_k_k=pHat_k_km1+L*(vector_p-C*pHat_k_km1);
-            pHat_kp1_k=A*pHat_k_k;
-            estm_list(:,i)=pHat_kp1_k;
-            pHat_k_km1=pHat_k_k;
-            pHat_k_k=pHat_kp1_k;
-            i=i+1;
-        end
-        % plot(t,estm_list(1,:).')
-        plot(t,estm_list(2,:).')
-        hold on
-        % disp(Q)
-        % disp(R)
-        p=polyfit(t,estm_list(1,:),1);
-        disp(p(1))
-        clearvars pHat_k_km1 pHat_k_k pHat_kp1_k vector_p
-%     end
+Q=0.0029
+for R=.001:100:10000
+    N = 0;
+    [kalmf,L,P] = kalman(sys,Q,R,N);
+    % disp(L)
+    estm_list=zeros(2,length(t));
+    pHat_k_km1=[vectors_p(1);-0.60];
+    i=1;
+    for vector_p=vectors_p.'
+        pHat_k_k=pHat_k_km1+L*(vector_p-C*pHat_k_km1);
+        pHat_kp1_k=A*pHat_k_k;
+        estm_list(:,i)=pHat_kp1_k;
+        pHat_k_km1=pHat_k_k;
+        pHat_k_k=pHat_kp1_k;
+        i=i+1;
+    end
+    estm_list(1,:)=estm_list(1,:)+average;
+    % plot(t,estm_list(1,:).')
+    plot(t,estm_list(2,:).')
+    hold on
+    % disp(Q)
+    % disp(R)
+    p=polyfit(t,estm_list(1,:),1);
+    disp(p(1))
+    clearvars pHat_k_km1 pHat_k_k pHat_kp1_k vector_p
+end
 % end
+po=po+average;
 % plot(t,po,'r')
 plot(t(1:end-1),pv(2:end),'r')
 % hold on
@@ -68,8 +83,8 @@ plot(t(1:end-1),pv(2:end),'r')
 % 0.60m/s 150f (15m) -0.85m/s
 % 0.90m/s 80f (15m) -1.78m/s
 % 1.20m/s 60f (15m) -1.82m/s
-
-saveas(figure(1),"kalman_090_v_parastudy.png")
+title("Q: "+string(Q)+"  R: "+string(R))
+saveas(figure(1),"C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\kalman_lpf_tz_10.png")
 
 % disp(A)
 

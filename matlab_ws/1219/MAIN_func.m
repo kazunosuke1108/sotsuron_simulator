@@ -16,8 +16,8 @@ function result=MAIN_func()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
     date="1219";
-    abst="LRF_daikei_objF";
-    detail="180deg";
+    abst="5m_score";
+    detail="true";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -43,12 +43,17 @@ function result=MAIN_func()
     hmn=getHumanParams(env,sns);
     %% overwrite variables
     env.hz=8;
+    env.xmax=7.5
+    env.roi.xmax=env.roi.xmin+env.L;
+    rbt.xF=env.xmax;
 
-    % sns.r0=6.0;
-    % sns.r1=1.84; % 1/tan(57/2deg)
-    % sns.r2=6.0;
-    % sns.phi=180;
-    % sns.phi=deg2rad(sns.phi)/2;
+    env.ymin=-4.5;
+    env.kabe.ymin=env.ymin;
+    env.roi.ymin=env.ymin;
+
+    hmn.x0=env.xmax;
+
+    t_slack=0.20;
 
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     %                           seq.1  検知                                   %
@@ -71,7 +76,7 @@ function result=MAIN_func()
     %% ロボットの走行所要時間
     t_rbt=abs(env.L/rbt.vxmax);
     t_measure=abs(env.l/hmn.vx); % env.l=ロボットが立ち止まって人を計測したい歩行距離
-    t_slack=0.05;
+    % t_slack=0.05;
     env.estim_final_t=t_rbt+t_measure;
     env.final_tmin=env.estim_final_t*(1-t_slack);
     env.final_tmax=env.estim_final_t*(1+t_slack);

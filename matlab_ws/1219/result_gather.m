@@ -1,4 +1,4 @@
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\1214\results\1215_FIX_vx_bug_2Hz_ConTol12";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\1219\results\1219_realsense_parameter_study_slack";
 
 dirlist=dir(motherdir);
 
