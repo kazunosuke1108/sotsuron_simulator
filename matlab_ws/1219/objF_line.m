@@ -60,29 +60,29 @@ function J=objF_line(t,z,u,env,rbt,hmn,sns)
     %% phi positive
     % 上り
     p_11=deg_diff>=-sns.phi;
-    % p_12=deg_diff<-sns.phi+hmn.sizep;
-    p_12=deg_diff<0;
+    p_12=deg_diff<-sns.phi+hmn.sizep;
+    % p_12=deg_diff<0;
     p_1=p_11.*p_12;
 
-    % score_p1=1/hmn.sizep*(deg_diff+sns.phi).*p_1;
-    score_p1=1/sns.phi*(deg_diff+sns.phi).*p_1;
+    score_p1=1/hmn.sizep*(deg_diff+sns.phi).*p_1;
+    % score_p1=1/sns.phi*(deg_diff+sns.phi).*p_1;
 
     % 頂上
     p_21=deg_diff>=-sns.phi+hmn.sizep;
     p_22=deg_diff<sns.phi-hmn.sizep;
     p_2=p_21.*p_22;
 
-    % score_p2=1.*p_2;
-    score_p2=0;
+    score_p2=1.*p_2;
+    % score_p2=0;
 
     % 下り
-    % p_31=deg_diff>=sns.phi-hmn.sizep;
-    p_31=deg_diff>=0;
+    p_31=deg_diff>=sns.phi-hmn.sizep;
+    % p_31=deg_diff>=0;
     p_32=deg_diff<sns.phi;
     p_3=p_31.*p_32;
 
-    % score_p3=-1/hmn.sizep*(deg_diff-sns.phi).*p_3;
-    score_p3=-1/sns.phi*(deg_diff-sns.phi).*p_3;
+    score_p3=-1/hmn.sizep*(deg_diff-sns.phi).*p_3;
+    % score_p3=-1/sns.phi*(deg_diff-sns.phi).*p_3;
 
     % まとめ
     score_p=score_p1+score_p2+score_p3;
