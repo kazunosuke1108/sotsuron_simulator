@@ -2,7 +2,7 @@
 
 clc;clear;
 
-data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\track_results_1216_060.csv");
+data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\kalman_stop_20.csv");
 fps=15;
 t=data(:,1);
 z=data(:,4);
@@ -19,8 +19,7 @@ disp(var(z))
 figure(1); clf;
 
 t=data(:,1)-data(1,1);
-z=z+average
-po=z;
+po=z
 dansage=[0;z([1:length(t)-1])];
 size(dansage);
 pv=(po-dansage)*fps;
@@ -43,21 +42,15 @@ sys = connect(Plant,Sum,{'u','w'},'yt');
 %     for R = 0.0005:0.0001:0.0015
 
 % 10m Q=0.0029 R=10000000000
-% 15m Q=0.29827 R=
-% 20m Q=13.1298
-Q=0.29827;
-% for R=[1e-10 1e-9 1e-8 1e-7 1e-6 1e-5 1e-4 1e-3 1e-2 1e-1 1e+0 1e+1 1e+2 1e+3 1e+4 1e+5 1e+6 1e+7 1e+8 1e+9 1e+10]
+% 15m Q= R=
 
-Rcandidate=[1e+2 1e+3 1e+4 1e+5 1e+6 1e+7 1e+8 1e+9 1e+10];
-
-
-subplot(3,1,1);
-for R=Rcandidate
+Q=13.1298
+for R=10000000000
     N = 0;
     [kalmf,L,P] = kalman(sys,Q,R,N);
-
+    % disp(L)
     estm_list=zeros(2,length(t));
-    pHat_k_km1=[vectors_p(1);-0.0];
+    pHat_k_km1=[vectors_p(1);0];
     i=1;
     for vector_p=vectors_p.'
         pHat_k_k=pHat_k_km1+L*(vector_p-C*pHat_k_km1);
@@ -68,71 +61,19 @@ for R=Rcandidate
         i=i+1;
     end
     estm_list(1,:)=estm_list(1,:)+average;
-    plot(t,estm_list(1,:).','DisplayName',string(R));
-    hold on
-    clearvars pHat_k_km1 pHat_k_k pHat_kp1_k vector_p
-end
-po=po+average;
-plot(t,po,'r','LineWidth',3)
-
-subplot(3,1,2);
-for R=Rcandidate
-    N = 0;
-    [kalmf,L,P] = kalman(sys,Q,R,N);
-
-    estm_list=zeros(2,length(t));
-    pHat_k_km1=[vectors_p(1);-0.0];
-    i=1;
-    for vector_p=vectors_p.'
-        pHat_k_k=pHat_k_km1+L*(vector_p-C*pHat_k_km1);
-        pHat_kp1_k=A*pHat_k_k;
-        estm_list(:,i)=pHat_kp1_k;
-        pHat_k_km1=pHat_k_k;
-        pHat_k_k=pHat_kp1_k;
-        i=i+1;
-    end
-    estm_list(1,:)=estm_list(1,:)+average;
-    estm_list(2,:)=detrend(estm_list(2,:));
+    % plot(t,estm_list(1,:).')
     plot(t,estm_list(2,:).')
     hold on
+    % disp(Q)
+    % disp(R)
+    p=polyfit(t,estm_list(1,:),1);
+    disp(p(1))
     clearvars pHat_k_km1 pHat_k_k pHat_kp1_k vector_p
 end
-po=po+average;
-plot(t(1:end-1),pv(2:end),'r')
-
-title("Q: "+string(Q)+"  R: "+string(R))
-saveas(figure(1),"C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\1220.png")
-
-% subplot(3,1,3);
-% for R=Rcandidate
-%     N = 0;
-%     [kalmf,L,P] = kalman(sys,Q,R,N);
-
-%     estm_list=zeros(2,length(t));
-%     pHat_k_km1=[vectors_p(1);-0.9];
-%     i=1;
-%     for vector_p=vectors_p.'
-%         pHat_k_k=pHat_k_km1+L*(vector_p-C*pHat_k_km1);
-%         pHat_kp1_k=A*pHat_k_k;
-%         estm_list(:,i)=pHat_kp1_k;
-%         pHat_k_km1=pHat_k_k;
-%         pHat_k_k=pHat_kp1_k;
-%         i=i+1;
-%     end
-%     estm_list(1,:)=estm_list(1,:)+average;
-%     plot(vectors_p,estm_list(2,:).');
-%     hold on
-%     clearvars pHat_k_km1 pHat_k_k pHat_kp1_k vector_p
 % end
-% po=po+average;
-% plot(vectors_p,pv,'r')
-% xlim([13 17])
-% ylim([-1.5 1.5])
-
-
-
-% disp(mean(estm_list(2,:)))
-
+po=po+average;
+% plot(t,po,'r')
+plot(t(1:end-1),pv(2:end),'r')
 % hold on
 % p=polyfit(t,estm_list(1,:),1);
 % disp(p)
@@ -145,6 +86,8 @@ saveas(figure(1),"C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuro
 % 0.60m/s 150f (15m) -0.85m/s
 % 0.90m/s 80f (15m) -1.78m/s
 % 1.20m/s 60f (15m) -1.82m/s
+title("Q: "+string(Q)+"  R: "+string(R))
+saveas(figure(1),"C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\kalman_lpf_tv_20.png")
 
 % disp(A)
 
