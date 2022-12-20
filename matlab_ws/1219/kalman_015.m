@@ -2,7 +2,7 @@
 
 clc;clear;
 
-data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\kalman_stop_20.csv");
+data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\kalman_stop_15.csv");
 fps=15;
 fps=15
 t=data(:,1);
@@ -45,7 +45,7 @@ sys = connect(Plant,Sum,{'u','w'},'yt');
 % 10m Q=0.0029 R=10000000000
 % 15m Q= R=
 
-Q=13.1298
+Q=0.29827
 for R=10000000000
     N = 0;
     [kalmf,L,P] = kalman(sys,Q,R,N);
@@ -62,8 +62,8 @@ for R=10000000000
         i=i+1;
     end
     estm_list(1,:)=estm_list(1,:)+average;
-    % plot(t,estm_list(1,:).')
-    plot(t,estm_list(2,:).')
+    plot(t,estm_list(1,:).')
+    % plot(t,estm_list(2,:).')
     hold on
     % disp(Q)
     % disp(R)
@@ -73,8 +73,8 @@ for R=10000000000
 end
 % end
 po=po+average;
-% plot(t,po,'r')
-plot(t(1:end-1),pv(2:end),'r')
+plot(t,po,'r')
+% plot(t(1:end-1),pv(2:end),'r')
 % hold on
 % p=polyfit(t,estm_list(1,:),1);
 % disp(p)
@@ -88,7 +88,7 @@ plot(t(1:end-1),pv(2:end),'r')
 % 0.90m/s 80f (15m) -1.78m/s
 % 1.20m/s 60f (15m) -1.82m/s
 title("Q: "+string(Q)+"  R: "+string(R))
-saveas(figure(1),"C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\kalman_lpf_tv_20.png")
+saveas(figure(1),"C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\kalman_lpf_tz_15.png")
 
 % disp(A)
 

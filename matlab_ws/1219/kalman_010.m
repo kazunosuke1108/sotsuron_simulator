@@ -2,9 +2,8 @@
 
 clc;clear;
 
-data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\kalman_stop_20.csv");
+data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\kalman_stop_10.csv");
 fps=15;
-fps=15
 t=data(:,1);
 z=data(:,4);
 
@@ -42,10 +41,9 @@ sys = connect(Plant,Sum,{'u','w'},'yt');
 % for Q = 0.0005:0.0001:0.0015
 %     for R = 0.0005:0.0001:0.0015
 
-% 10m Q=0.0029 R=10000000000
-% 15m Q= R=
 
-Q=13.1298
+
+Q=0.0029
 for R=10000000000
     N = 0;
     [kalmf,L,P] = kalman(sys,Q,R,N);
@@ -88,7 +86,7 @@ plot(t(1:end-1),pv(2:end),'r')
 % 0.90m/s 80f (15m) -1.78m/s
 % 1.20m/s 60f (15m) -1.82m/s
 title("Q: "+string(Q)+"  R: "+string(R))
-saveas(figure(1),"C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\kalman_lpf_tv_20.png")
+saveas(figure(1),"C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\kalman_lpf_tv_10.png")
 
 % disp(A)
 
@@ -131,4 +129,3 @@ saveas(figure(1),"C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuro
 % subplot(212), plot(t,yt-y,'g',t,yt-ye,'r--'),
 % xlabel('Number of Samples'), ylabel('Error')
 % legend('True - measured','True - filtered')
-

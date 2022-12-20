@@ -2,7 +2,7 @@
 
 clc;clear;
 
-data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\kalman_stop_10.csv")
+data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\kalman_stop_20.csv")
 
 %% load data
 fps=15
@@ -22,5 +22,6 @@ z=z-mean(z);
 
 %% LPF
 lowpass(z,0.1,fps)
+saveas(figure(1),"C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\power_20.png")
 z=z+mean(z);
 
