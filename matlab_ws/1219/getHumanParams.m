@@ -11,6 +11,7 @@ hmn.vy0=0;
 hmn.omg0=0;
 
 hmn.vx=-0.6; % 0.3m/s = 1km/h
+hmn.vx_err=0.1;
 hmn.vy=0;
 hmn.omg=0;
 

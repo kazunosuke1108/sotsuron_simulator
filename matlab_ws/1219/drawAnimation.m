@@ -78,7 +78,10 @@ hmn_position = plot(plt_xH(1),plt_yH(1),'or','MarkerSize',15);
 hold on
 hmn_direction = quiver(plt_xH(1),plt_yH(1),plt_vxH(1),plt_vyH(1),'r');
 hold on
-
+hmn_position_err_fast=plot(plt_xH(1),plt_yH(1),'xr','MarkerSize',15);
+hold on
+hmn_position_err_slow=plot(plt_xH(1),plt_yH(1),'xr','MarkerSize',15);
+hold on
 %%%%% arc
 arc_rad = linspace(plt_thR(1)-sns.phi,plt_thR(1)+sns.phi,arc_resolution);
 arc_r1_x = sns.r1*cos(arc_rad)+plt_xR(1);
@@ -112,6 +115,8 @@ for i = 1:length(plt_xR)
     title("frame: "+i+" "+graph_title+" L="+measured_length+"m"+" continuous="+continuous_check+" min gap"+min(norm_HR)+" m")
     set(rbt_position,'XData',plt_xR(i),'YData',plt_yR(i));
     set(hmn_position,'XData',plt_xH(i),'YData',plt_yH(i));
+    set(hmn_position_err_fast,'XData',plt_xH(i)-hmn.vx_err*t(i),'YData',plt_yH(i))
+    set(hmn_position_err_slow,'XData',plt_xH(i)+hmn.vx_err*t(i),'YData',plt_yH(i))
     set(rbt_direction,'XData',plt_xR(i),'YData',plt_yR(i),'UData',plt_vxR(i),'VData',plt_vyR(i));
     set(hmn_direction,'XData',plt_xH(i),'YData',plt_yH(i),'UData',plt_vxH(i),'VData',plt_vyH(i));
 
