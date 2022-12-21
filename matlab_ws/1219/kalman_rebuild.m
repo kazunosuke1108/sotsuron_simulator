@@ -1,13 +1,13 @@
 clc;clear;clf;
 
-data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\track_results_1216_060.csv");
+data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\track_results_1216_120.csv");
 
-data=data(60:160,:);
+data=data([120:end],:);
 t=data(:,1)-data(1,1);
 z=data(:,4);
 
 % for R=[1e-10 1e-9 1e-8 1e-7 1e-6 1e-5 1e-4 1e-3 1e-2 1e-1 1e+0 1e+1 1e+2 1e+3 1e+4 1e+5 1e+6 1e+7 1e+8 1e+9 1e+10]
-for R= [1e-5 1e-4 1e-3 1e-2 1e-1 1e+0 1e+1 1e+2 1e+3 1e+4 1e+5]
+for R= [1e-10 1e-9 1e-8 1e-7 1e-6 1e-5 1e-4 1e-3 1e-2 1e-1 1e+0 1e+1 1e+2 1e+3 1e+4 1e+5 1e+6 1e+7 1e+8 1e+9 1e+10]
     %% load data
     subplot(2,1,1)
     plot(t,z,'k','LineWidth',1)
@@ -34,7 +34,7 @@ for R= [1e-5 1e-4 1e-3 1e-2 1e-1 1e+0 1e+1 1e+2 1e+3 1e+4 1e+5]
 
     %% Velocity
     % remove trend
-    estm_list(2,:)=detrend(estm_list(2,:)); % 真値は等速の仮定より，経時的な値の変動を補正する
+    % estm_list(2,:)=detrend(estm_list(2,:)); % 真値は等速の仮定より，経時的な値の変動を補正する
     subplot(2,1,2)
     plot(t,estm_list(2,:))
     hold on
