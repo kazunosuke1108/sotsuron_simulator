@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 import numpy as np
 from pprint import pprint
 # matlabAPIのパスを追加
@@ -18,6 +19,8 @@ res = eng.MAIN_func()
 t=np.array(res['t'])
 z=np.array(res['z'])
 
-# np.savetxt(t,"hoge/hoge/t.csv",delimiter=",")
-# np.savetxt(z,"hoge/hoge/z.csv",delimiter=",")
+np.savetxt(t,os.environ['HOME']+'/catkin_ws/sotsuron_experiment/exp_data/dev/t.csv',delimiter=",")
+np.savetxt(z,os.environ['HOME']+'/catkin_ws/sotsuron_experiment/exp_data/dev/z.csv',delimiter=",")
+np.savetxt(t,os.environ['HOME']+f'/catkin_ws/sotsuron_experiment/exp_data/log/t_{time.time()}.csv',delimiter=",")
+np.savetxt(z,os.environ['HOME']+f'/catkin_ws/sotsuron_experiment/exp_data/log/z_{time.time()}.csv',delimiter=",")
 eng.quit()

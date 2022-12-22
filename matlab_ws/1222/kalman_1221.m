@@ -10,7 +10,7 @@ data=data([i:end],:);
 
 estm_history=[]
 
-for i = 100:length(data(:,1))
+for i = length(data(:,1))
     partial_data=data([1:i],:);
 
     t=partial_data(:,1)-partial_data(1,1);
@@ -20,12 +20,12 @@ for i = 100:length(data(:,1))
     cutoff=0.001;
     fps=15;
     z_lpf=LPF(z,cutoff,fps);
-    cutframe=5;
+    cutframe=1;
     z_lpf=z_lpf(cutframe:end-cutframe);
     t_lpf=t(cutframe:end-cutframe);
 
     % for Q=[0.001 0.002 0.003 0.004]
-    for Q=0.0004
+    for Q=[0.001 0.002 0.003 0.004]
         for R= 1e-20
                 %% load data
                 subplot(3,1,1)
@@ -38,7 +38,7 @@ for i = 100:length(data(:,1))
 
                 %% Kalman Filter
                 pv0=0;
-                Q=0.0041133;
+                % Q=0.0041133;
                 % R=1e+9;
                 N=0;
                 % estm_list=kalman_filter(po,pv0,Q,R,N);
@@ -160,9 +160,6 @@ function estm_list=kalman_filter(po,pv0,Q,R,N)
 end
 
 function estm_list=kalman_filter_ohmori(po,pv0,Q,R,N)
-    %% variables
-    po=po;
-    
     %% system data
     fps=15;
     A=[1 1/fps;0 1];

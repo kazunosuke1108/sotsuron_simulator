@@ -16,8 +16,8 @@ function result=MAIN_func()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
     date="1222";
-    abst="go_back_allowed";
-    detail="hmnvx120_no_back";
+    abst="DEV_publish_time";
+    detail="no_anim";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -57,15 +57,17 @@ function result=MAIN_func()
 
     t_slack=0.30;
 
-    env.hz=abs(hmn.vx)*40/3;
-
+    
     % rbt.vxmin=-rbt.vxmax;
-
+    
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     %                           seq.1  検知                                   %
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     % 実機
     %% jsonから人の位置・速度を取得
+    [env.dist_zed_hmn,hmn.vx]=getHumanVelocity();
+    tic;
+    env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/abs(hmn.vx);
     %% hmn_path
     % json=jsondecode(fileread('/home/hayashide/catkin_ws/src/sotsuron_experiment/scripts/monitor/velocity.json'));
     % % json=jsondecode(fileread('/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/velocity.json'))
@@ -88,6 +90,7 @@ function result=MAIN_func()
     env.final_tmax=env.estim_final_t*(1+t_slack);
     
     % 標準制御周波数の決定
+    % env.hz=abs(hmn.vx)*40/3;
     problem.options.hermiteSimpson.nSegment=fix((env.estim_final_t*env.hz-1)/30);
 
 
@@ -153,24 +156,35 @@ function result=MAIN_func()
     %% add score to fig name
     graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
     %% History
-    figure(1); clf;
-    pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
-    savename_png = savename+"_3_hist.png";
-    saveas(figure(1),savename_png);
+    % figure(1); clf;
+    % pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+    % savename_png = savename+"_3_hist.png";
+    % saveas(figure(1),savename_png);
     
-    %% Animation
-    figure(2); clf;
-    savename_3_anim=savename+"_3_anim";
-    drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+    % %% Animation
+    % figure(2); clf;
+    % savename_3_anim=savename+"_3_anim";
+    % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
     
-    figure(3); clf;
-    drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
-    savename_3_path = savename+"_3_path.png";
-    saveas(figure(3),savename_3_path);
+    % figure(3); clf;
+    % drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
+    % savename_3_path = savename+"_3_path.png";
+    % saveas(figure(3),savename_3_path);
     
     result.z=z;
     result.t=t;
     
     % Summarize conditions & results
     save(savename+".mat");
+    start_waiting=toc;
+    while 1
+        if toc>=env.publish_time
+            disp("Publish. current time:"+string(toc)+" publish time:"+string(env.publish_time)+" calc time:"+string(soln.info.nlpTime)+" start waiting since:"+string(start_waiting))
+            break
+        else
+            if mod(toc,0.01)==0
+                disp("Waiting for publish. current time:"+string(toc)+" publish time:"+string(env.publish_time))
+            end
+        end
+    end
     % writeCSV(problem,env,rbt,hmn,sns,soln,savename);

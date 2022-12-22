@@ -1,6 +1,6 @@
 function env=getEnvironmentParams()
 
-env.hz=2; % 制御入力周波数
+env.hz=8; % 制御入力周波数
 
 env.init_tmin=0;
 env.init_tmax=0;
@@ -26,13 +26,8 @@ env.roi.xmax=env.roi.xmin+env.L;
 env.roi.ymin=env.ymin;
 env.roi.ymax=env.ymax;
 
-% env.objF_nonzero=1e-3;
-% env.objF_minus_power=1;
-% env.objF_sgmd_edge_power_r=3;
-% env.objF_sgmd_edge_power_phi=10;
-% env.objF_if_edge_a_r=0.1;
-% env.objF_if_edge_a_phi=0.5;
-
-% env.r_prh=0.8;
+env.dist_hsr_zed=15;
+env.dist_zed_hmn=1.5;
+env.publish_time=10;
 
 end
