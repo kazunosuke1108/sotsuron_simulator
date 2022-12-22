@@ -1,4 +1,4 @@
-function J=objF_line_pdf(t,z,u,env,rbt,hmn,sns)
+function J=objF_pdf(t,z,u,env,rbt,hmn,sns)
 
     % env.objF_if_edge_a_r は小さいほど傾斜がきつくなる
 
@@ -30,32 +30,36 @@ function J=objF_line_pdf(t,z,u,env,rbt,hmn,sns)
     deg_HR=deg_HR+pi*deg_compensate;
     deg_diff=deg_HR-z(3,:);
 
-    %% r positive
-    % 上り
-    r_11=norm_HR>=sns.r1;
-    % r_12=norm_HR<sns.r1+2*hmn.sizer;
-    r_12=norm_HR<(sns.r1+sns.r2)/2;
-    r_1=r_11.*r_12;
-    % score_r1=1/(2*hmn.sizer)*(norm_HR-sns.r1).*r_1;
-    score_r1=1/((sns.r1+sns.r2)/2-sns.r1)*(norm_HR-sns.r1).*r_1;
+    % %% r positive
+    % % 上り
+    % r_11=norm_HR>=sns.r1;
+    % % r_12=norm_HR<sns.r1+2*hmn.sizer;
+    % r_12=norm_HR<(sns.r1+sns.r2)/2;
+    % r_1=r_11.*r_12;
+    % % score_r1=1/(2*hmn.sizer)*(norm_HR-sns.r1).*r_1;
+    % score_r1=1/((sns.r1+sns.r2)/2-sns.r1)*(norm_HR-sns.r1).*r_1;
 
-    % 頂上
-    r_21=norm_HR>=sns.r1+2*hmn.sizer;
-    r_22=norm_HR<sns.r2-2*hmn.sizer;
-    r_2=r_21.*r_22;
-    % score_r2=1.*r_2;
-    score_r2=0;
+    % % 頂上
+    % r_21=norm_HR>=sns.r1+2*hmn.sizer;
+    % r_22=norm_HR<sns.r2-2*hmn.sizer;
+    % r_2=r_21.*r_22;
+    % % score_r2=1.*r_2;
+    % score_r2=0;
 
-    % 下り
-    % r_31=norm_HR>=sns.r2-2*hmn.sizer;
-    r_31=norm_HR>=(sns.r1+sns.r2)/2;
-    r_32=norm_HR<sns.r2;
-    r_3=r_31.*r_32;
-    % score_r3=-1/(2*hmn.sizer)*(norm_HR-sns.r2).*r_3;
-    score_r3=-1/(sns.r2-(sns.r1+sns.r2)/2)*(norm_HR-sns.r2).*r_3;
+    % % 下り
+    % % r_31=norm_HR>=sns.r2-2*hmn.sizer;
+    % r_31=norm_HR>=(sns.r1+sns.r2)/2;
+    % r_32=norm_HR<sns.r2;
+    % r_3=r_31.*r_32;
+    % % score_r3=-1/(2*hmn.sizer)*(norm_HR-sns.r2).*r_3;
+    % score_r3=-1/(sns.r2-(sns.r1+sns.r2)/2)*(norm_HR-sns.r2).*r_3;
 
-    % まとめ
-    score_r=score_r1+score_r2+score_r3;
+    % % まとめ
+    % score_r=score_r1+score_r2+score_r3;
+
+    mu_r=(sns.r1+sns.r2)/2;
+    sgm_r=1/6*2*(sns.r2-sns.r1);
+    score_r=pdf('Normal',norm_HR,,mu_r,sgm_r);
 
     % %% phi positive
     % % 上り

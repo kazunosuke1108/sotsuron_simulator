@@ -1,4 +1,4 @@
-function result=MAIN_func()
+function result=MAIN_func_iter_pdf()
     % MAIN.m
     %% initialization
     clc; clear;
@@ -16,10 +16,8 @@ function result=MAIN_func()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     for candidate=[10]%xmax
         for candidate2=[-4.5]%ymin
-            % for candidate3=-0.6:-0.01:-1.21%vx
-            for candidate3=-0.6%vx
-                % for candidate4=[0.05 0.10 0.15 0.20 0.25 0.3 0.35 0.4]%slack
-                for candidate4=[0.05]%slack
+            for candidate3=-0.6:-0.01:-1.21%vx
+                for candidate4=[0.05 0.10 0.15 0.20 0.25 0.3 0.35 0.4]%slack
                     % for candidate5=[-1 -1.5 -2 -2.5 -3]%rbt.y0
                         try
                             date="1222";

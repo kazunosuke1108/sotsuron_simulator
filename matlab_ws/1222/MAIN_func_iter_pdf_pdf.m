@@ -1,4 +1,4 @@
-function result=MAIN_func_iter()
+function result=MAIN_func_iter_pdf_pdf()
     % MAIN.m
     %% initialization
     clc; clear;
@@ -21,7 +21,7 @@ function result=MAIN_func_iter()
                     % for candidate5=[-1 -1.5 -2 -2.5 -3]%rbt.y0
                         try
                             date="1222";
-                            abst="parameter_study";
+                            abst="parameter_study_morning";
                             detail="x10_y4.5_hmnvx"+string(abs(candidate3))+"_slack"+string(candidate4);
                             mkdir('results');
                             % savedir="results\"+date+"_"+abst;
@@ -105,7 +105,8 @@ function result=MAIN_func_iter()
                             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                             % Set up function handles
                             problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
-                            problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
+                            % problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
+                            problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
                             problem.func.pathCst=@(t,z,u)(constraint(t,z,u,env,rbt,hmn,sns));
                             
                             % Set up problem bounds
