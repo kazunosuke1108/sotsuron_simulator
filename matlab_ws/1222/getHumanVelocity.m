@@ -4,15 +4,19 @@ function [position,velocity]=getHumanVelocity()
         %% load data
         try
             % data=readmatrix("path");
-            data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\track_results_1216_090.csv");
+            % data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\track_results_1216_090.csv");
+            data=readmatrix("/home/hayashide/catkin_ws/src/ytlab_hsr/ytlab_hsr_modules/exp_data/zed.csv");
         catch
             disp("getHumanVelocity: csv not found")
             pause(0.1)
             continue
         end
-        t=data(:,1)-data(1,1);
-        z=data(:,4);
-
+        try
+            t=data(:,1)-data(1,1);
+            z=data(:,4);
+        catch
+            continue
+        end
         %% estimation start criterias
         %% 位置が10m以内であるか
         isbelow10m=z(end)<=10;
