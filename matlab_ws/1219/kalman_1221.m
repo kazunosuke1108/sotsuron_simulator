@@ -1,64 +1,80 @@
 clc;clear;
 fig=figure(1);
-data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\track_results_1216_120.csv");
+data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\track_results_1216_090.csv");
 for i = 1:length(data(:,1))
     if data(i,4)<10
         break
     end
 end
 data=data([i:end],:);
-t=data(:,1)-data(1,1);
-z=data(:,4);
 
-%% LPF
-cutoff=0.001;
-fps=15;
-z_lpf=LPF(z,cutoff,fps);
-cutframe=5;
-z_lpf=z_lpf(cutframe:end-cutframe);
-t_lpf=t(cutframe:end-cutframe);
+estm_history=[]
 
-% for Q=[0.001 0.002 0.003 0.004]
-for Q=[0.001 0.002 0.003 0.004]
-    for R= [1e-20]
-            %% load data
-            subplot(2,1,1)
-            plot(t,z,'k','LineWidth',1)
-            hold on
-            
-            plot(t_lpf,z_lpf,'r','LineWidth',3)
-            hold on
-            po=z_lpf;
+for i = 100:length(data(:,1))
+    partial_data=data([1:i],:);
 
-            %% Kalman Filter
-            pv0=0;
-            Q=0.0041133;
-            % R=1e+9;
-            N=0;
-            % estm_list=kalman_filter(po,pv0,Q,R,N);
-            estm_list=kalman_filter_ohmori(po,pv0,Q,R,N);
-            % estm_list=kalman_filter_zihen(po,pv0,Q,R,N,t);
-            plot(t_lpf,estm_list(1,:))
-            hold on
-            xlabel("time [s]")
-            ylabel("position [m]")
+    t=partial_data(:,1)-partial_data(1,1);
+    z=partial_data(:,4);
 
-            %% Velocity
-            % remove trend
-            % estm_list(2,:)=detrend(estm_list(2,:)); % 真値は等速の仮定より，経時的な値の変動を補正する
-            subplot(2,1,2)
-            plot(t_lpf,estm_list(2,:))
-            hold on
-            xlabel("time [s]")
-            ylabel("velocity [m/s]")
+    %% LPF
+    cutoff=0.001;
+    fps=15;
+    z_lpf=LPF(z,cutoff,fps);
+    cutframe=5;
+    z_lpf=z_lpf(cutframe:end-cutframe);
+    t_lpf=t(cutframe:end-cutframe);
 
+    % for Q=[0.001 0.002 0.003 0.004]
+    for Q=0.0004
+        for R= 1e-20
+                %% load data
+                subplot(3,1,1)
+                plot(t,z,'k','LineWidth',1)
+                hold on
+                
+                plot(t_lpf,z_lpf,'r','LineWidth',3)
+                hold on
+                po=z_lpf;
+
+                %% Kalman Filter
+                pv0=0;
+                Q=0.0041133;
+                % R=1e+9;
+                N=0;
+                % estm_list=kalman_filter(po,pv0,Q,R,N);
+                estm_list=kalman_filter_ohmori(po,pv0,Q,R,N);
+                % estm_list=kalman_filter_zihen(po,pv0,Q,R,N,t);
+                plot(t_lpf,estm_list(1,:))
+                hold on
+                xlabel("time [s]")
+                ylabel("position [m]")
+
+                %% Velocity
+                % remove trend
+                % estm_list(2,:)=detrend(estm_list(2,:)); % 真値は等速の仮定より，経時的な値の変動を補正する
+                subplot(3,1,2)
+                plot(t_lpf,estm_list(2,:))
+                hold on
+                xlabel("time [s]")
+                ylabel("velocity [m/s]")
+
+        end
     end
+    % plot(t,-1.2*ones(1,length(t)))
+    plot(t,-0.9*ones(1,length(t)))
+    localmin=islocalmin(estm_list(2,:));
+    localmin_idx=find(localmin>0.5);
+    estm_vel=median(estm_list(2,[localmin_idx(1):localmin_idx(end)]))
+    estm_history=[estm_history estm_vel];
+
 end
-size(estm_list)
-plot(t,-1.2*ones(1,length(t)))
-% plot(t,-0.9*ones(1,length(t)))
 
+subplot(3,1,3)
+plot(1:length(estm_history),estm_history)
+estm_list(1,end)
 
+% 最後の速度をreturnするのが妥当．なるべく長時間推定したい感はある
+% 1.5m切ったら終了
 
 function z_lpf=LPF(z,cutoff,fps)
     %%% 平均を0に持っていく

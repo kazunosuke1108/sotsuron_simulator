@@ -15,9 +15,9 @@ function result=MAIN_func()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
 
-    date="1221";
-    abst="hmn_vx_err";
-    detail="010";
+    date="1222";
+    abst="go_back_allowed";
+    detail="hmnvx120_no_back";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -53,9 +53,13 @@ function result=MAIN_func()
 
     hmn.x0=env.xmax;
 
+    hmn.vx=-1.2;
+
     t_slack=0.30;
 
     env.hz=abs(hmn.vx)*40/3;
+
+    % rbt.vxmin=-rbt.vxmax;
 
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     %                           seq.1  検知                                   %
