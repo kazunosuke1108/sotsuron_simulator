@@ -59,7 +59,7 @@ function J=objF_pdf(t,z,u,env,rbt,hmn,sns)
 
     mu_r=(sns.r1+sns.r2)/2;
     sgm_r=1/6*2*(sns.r2-sns.r1);
-    score_r=pdf('Normal',norm_HR,,mu_r,sgm_r);
+    score_r=pdf('Normal',norm_HR,mu_r,sgm_r);
 
     % %% phi positive
     % % 上り

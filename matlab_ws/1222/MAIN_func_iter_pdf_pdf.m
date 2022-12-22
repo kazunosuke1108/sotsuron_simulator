@@ -21,7 +21,7 @@ function result=MAIN_func_iter_pdf_pdf()
                     % for candidate5=[-1 -1.5 -2 -2.5 -3]%rbt.y0
                         try
                             date="1222";
-                            abst="parameter_study_morning";
+                            abst="parameter_pdf_pdf";
                             detail="x10_y4.5_hmnvx"+string(abs(candidate3))+"_slack"+string(candidate4);
                             mkdir('results');
                             % savedir="results\"+date+"_"+abst;
@@ -203,8 +203,8 @@ function result=MAIN_func_iter_pdf_pdf()
                             save(savename+".mat");
                             continue
                         end
-                    % end
-                end
+                    end
+                % end
             end
         end
     end
