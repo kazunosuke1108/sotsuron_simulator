@@ -1,3 +1,1 @@
-clc;clear;
-getHumanVelocity()
-mod(6.310,0.01)==0
+-0.6:-0.01:-1.21

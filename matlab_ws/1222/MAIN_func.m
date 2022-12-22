@@ -1,6 +1,5 @@
 function result=MAIN_func()
     % MAIN.m
-
     %% initialization
     clc; clear;
     addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
@@ -11,13 +10,15 @@ function result=MAIN_func()
     addpath '/home/hayashide/catkin_ws/src/sotsuron_simulator/matlab_ws/tutorial/cartPole';
     addpath '/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor';
     addpath '/home/hayashide/catkin_ws/src/sotsuron_experiment/sotsuron_experiment/scripts/monitor';
-
-    % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
-
+    % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
+    
+    %% experiment or simulation
+    exp_mode=0
+    
     date="1222";
-    abst="DEV_publish_time";
-    detail="no_anim";
+    abst="objF_line_pdf";
+    detail="";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -57,7 +58,7 @@ function result=MAIN_func()
 
     t_slack=0.30;
 
-    
+    env.hz=abs(hmn.vx)*40/3;
     % rbt.vxmin=-rbt.vxmax;
     
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -65,9 +66,11 @@ function result=MAIN_func()
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     % 実機
     %% jsonから人の位置・速度を取得
-    [env.dist_zed_hmn,hmn.vx]=getHumanVelocity();
-    tic;
-    env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/abs(hmn.vx);
+    if exp_mode
+        [env.dist_zed_hmn,hmn.vx]=getHumanVelocity();
+        tic;
+        env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/abs(hmn.vx);
+    end
     %% hmn_path
     % json=jsondecode(fileread('/home/hayashide/catkin_ws/src/sotsuron_experiment/scripts/monitor/velocity.json'));
     % % json=jsondecode(fileread('/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/velocity.json'))
@@ -90,7 +93,6 @@ function result=MAIN_func()
     env.final_tmax=env.estim_final_t*(1+t_slack);
     
     % 標準制御周波数の決定
-    % env.hz=abs(hmn.vx)*40/3;
     problem.options.hermiteSimpson.nSegment=fix((env.estim_final_t*env.hz-1)/30);
 
 
@@ -99,7 +101,8 @@ function result=MAIN_func()
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
     % Set up function handles
     problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
-    problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
+    % problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
+    problem.func.pathObj=@(t,z,u)(objF_line_pdf(t,z,u,env,rbt,hmn,sns));
     problem.func.pathCst=@(t,z,u)(constraint(t,z,u,env,rbt,hmn,sns));
     
     % Set up problem bounds
@@ -156,34 +159,39 @@ function result=MAIN_func()
     %% add score to fig name
     graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
     %% History
-    % figure(1); clf;
-    % pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
-    % savename_png = savename+"_3_hist.png";
-    % saveas(figure(1),savename_png);
-    
-    % %% Animation
-    % figure(2); clf;
-    % savename_3_anim=savename+"_3_anim";
-    % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
-    
-    % figure(3); clf;
-    % drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
-    % savename_3_path = savename+"_3_path.png";
-    % saveas(figure(3),savename_3_path);
-    
+    if exp_mode
+        pass
+    else
+        figure(1); clf;
+        pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+        savename_png = savename+"_3_hist.png";
+        saveas(figure(1),savename_png);
+        
+        %% Animation
+        figure(2); clf;
+        savename_3_anim=savename+"_3_anim";
+        drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+        
+        figure(3); clf;
+        drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
+        savename_3_path = savename+"_3_path.png";
+        saveas(figure(3),savename_3_path);
+    end
     result.z=z;
     result.t=t;
     
     % Summarize conditions & results
     save(savename+".mat");
-    start_waiting=toc;
-    while 1
-        if toc>=env.publish_time
-            disp("Publish. current time:"+string(toc)+" publish time:"+string(env.publish_time)+" calc time:"+string(soln.info.nlpTime)+" start waiting since:"+string(start_waiting))
-            break
-        else
-            if mod(toc,0.01)==0
-                disp("Waiting for publish. current time:"+string(toc)+" publish time:"+string(env.publish_time))
+    if exp_mode
+        start_waiting=toc;
+        while 1
+            if toc>=env.publish_time
+                disp("Publish. current time:"+string(toc)+" publish time:"+string(env.publish_time)+" calc time:"+string(soln.info.nlpTime)+" start waiting since:"+string(start_waiting))
+                break
+            else
+                if mod(toc,0.01)==0
+                    disp("Waiting for publish. current time:"+string(toc)+" publish time:"+string(env.publish_time))
+                end
             end
         end
     end

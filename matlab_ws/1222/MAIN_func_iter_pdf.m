@@ -16,12 +16,14 @@ function result=MAIN_func()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     for candidate=[10]%xmax
         for candidate2=[-4.5]%ymin
-            for candidate3=-0.6:-0.01:-1.21%vx
-                for candidate4=[0.05 0.10 0.15 0.20 0.25 0.3 0.35 0.4]%slack
+            % for candidate3=-0.6:-0.01:-1.21%vx
+            for candidate3=-0.6%vx
+                % for candidate4=[0.05 0.10 0.15 0.20 0.25 0.3 0.35 0.4]%slack
+                for candidate4=[0.05]%slack
                     % for candidate5=[-1 -1.5 -2 -2.5 -3]%rbt.y0
                         try
                             date="1222";
-                            abst="parameter_study";
+                            abst="parameter_study_pdf";
                             detail="x10_y4.5_hmnvx"+string(abs(candidate3))+"_slack"+string(candidate4);
                             mkdir('results');
                             % savedir="results\"+date+"_"+abst;
@@ -105,7 +107,8 @@ function result=MAIN_func()
                             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                             % Set up function handles
                             problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
-                            problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
+                            % problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
+                            problem.func.pathObj=@(t,z,u)(objF_line_pdf(t,z,u,env,rbt,hmn,sns));
                             problem.func.pathCst=@(t,z,u)(constraint(t,z,u,env,rbt,hmn,sns));
                             
                             % Set up problem bounds
