@@ -16,8 +16,8 @@ function result=MAIN_func()
     %% experiment or simulation
     exp_mode=0
     
-    date="1222";
-    abst="objF_line_pdf";
+    date="1225";
+    abst="rebuild_whole_system";
     detail="";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
@@ -154,6 +154,8 @@ function result=MAIN_func()
     t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
     z = soln.interp.state(t);
     u = soln.interp.control(t);
+
+    z8= getz8(z);
     
     % Plots
     %% add score to fig name
