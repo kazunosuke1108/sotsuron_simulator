@@ -38,7 +38,8 @@ saveas(figure(1),savename_png);
 %% Animation
 figure(2); clf;
 savename_3_anim=savename+"_3_anim";
-drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+% drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
 
 figure(3); clf;
 drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);

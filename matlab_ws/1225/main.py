@@ -18,10 +18,13 @@ res = eng.MAIN_func()
 # 結果を出力
 t=np.array(res['t'])
 z=np.array(res['z'])
+z8=np.array(res['z8'])
 
 np.savetxt(os.environ['HOME']+'/catkin_ws/src/ytlab_hsr/ytlab_hsr_modules/exp_data/t.csv',t,delimiter=",")
 np.savetxt(os.environ['HOME']+'/catkin_ws/src/ytlab_hsr/ytlab_hsr_modules/exp_data/z.csv',z,delimiter=",")
+np.savetxt(os.environ['HOME']+'/catkin_ws/src/ytlab_hsr/ytlab_hsr_modules/exp_data/z8.csv',z8,delimiter=",")
 now=datetime.datetime.now().strftime("%y%m%d_%H%M%S")
 np.savetxt(os.environ['HOME']+f'/catkin_ws/src/ytlab_hsr/ytlab_hsr_modules/exp_data/t_{now}.csv',t,delimiter=",")
 np.savetxt(os.environ['HOME']+f'/catkin_ws/src/ytlab_hsr/ytlab_hsr_modules/exp_data/z_{now}.csv',z,delimiter=",")
+np.savetxt(os.environ['HOME']+f'/catkin_ws/src/ytlab_hsr/ytlab_hsr_modules/exp_data/z8_{now}.csv',z,delimiter=",")
 eng.quit()

@@ -16,9 +16,9 @@ function result=MAIN_func()
     %% experiment or simulation
     exp_mode=0
     
-    date="1225";
-    abst="rebuild_whole_system";
-    detail="";
+    date="1226";
+    abst="animation";
+    detail="quiver";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -29,7 +29,7 @@ function result=MAIN_func()
 
     % for ...
 
-    graph_title="test";
+    graph_title="z8";
     % savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
     savename=string(savedir+"/"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
 
@@ -56,9 +56,9 @@ function result=MAIN_func()
 
     hmn.vx=-1.2;
 
-    t_slack=0.30;
+    t_slack=0.05;
 
-    env.hz=abs(hmn.vx)*40/3;
+    % env.hz=abs(hmn.vx)*40/3;
     % rbt.vxmin=-rbt.vxmax;
     
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -147,8 +147,6 @@ function result=MAIN_func()
     soln = trajOpt(problem);
     
     
-
-    
     % Display Solution
     n = length(soln.grid.time);
     t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
@@ -172,7 +170,8 @@ function result=MAIN_func()
         %% Animation
         figure(2); clf;
         savename_3_anim=savename+"_3_anim";
-        drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+        % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+        drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
         
         figure(3); clf;
         drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
@@ -180,6 +179,7 @@ function result=MAIN_func()
         saveas(figure(3),savename_3_path);
     end
     result.z=z;
+    result.z8=z8;
     result.t=t;
     
     % Summarize conditions & results
