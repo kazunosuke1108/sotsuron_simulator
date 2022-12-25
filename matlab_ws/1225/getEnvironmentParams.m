@@ -10,7 +10,7 @@ env.final_tmax=150;
 
 env.xmin=0;
 env.xmax=10;
-env.ymin=-4;
+env.ymin=-4.5;
 env.ymax=0;
 
 env.kabe.ymin=env.ymin;

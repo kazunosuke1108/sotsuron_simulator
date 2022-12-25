@@ -17,8 +17,8 @@ function result=MAIN_func()
     exp_mode=0
     
     date="1226";
-    abst="animation";
-    detail="quiver";
+    abst="07304data";
+    detail="x4y3_vx0.9_hz_auto";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -29,7 +29,7 @@ function result=MAIN_func()
 
     % for ...
 
-    graph_title="z8";
+    graph_title="8Hz";
     % savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
     savename=string(savedir+"/"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
 
@@ -44,6 +44,7 @@ function result=MAIN_func()
     hmn=getHumanParams(env,sns);
     %% overwrite variables
 
+    % env.xmax=10;
     env.xmax=10;
     env.roi.xmax=env.roi.xmin+env.L;
     rbt.xF=env.xmax;
@@ -54,11 +55,11 @@ function result=MAIN_func()
 
     hmn.x0=env.xmax;
 
-    hmn.vx=-1.2;
+    % hmn.vx=-0.9;
 
     t_slack=0.05;
 
-    % env.hz=abs(hmn.vx)*40/3;
+    env.hz=abs(hmn.vx)*40/3;
     % rbt.vxmin=-rbt.vxmax;
     
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -70,6 +71,7 @@ function result=MAIN_func()
         [env.dist_zed_hmn,hmn.vx]=getHumanVelocity();
         tic;
         env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/abs(hmn.vx);
+        env.hz=abs(hmn.vx)*40/3;
     end
     %% hmn_path
     % json=jsondecode(fileread('/home/hayashide/catkin_ws/src/sotsuron_experiment/scripts/monitor/velocity.json'));
