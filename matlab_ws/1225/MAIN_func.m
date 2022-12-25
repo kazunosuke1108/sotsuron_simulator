@@ -14,11 +14,11 @@ function result=MAIN_func()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     
     %% experiment or simulation
-    exp_mode=0
+    exp_mode=1
     
     date="1226";
-    abst="07304data";
-    detail="x4y3_vx0.9_hz_auto";
+    abst="exp_mode";
+    detail="dist_hsr_zed125";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -45,13 +45,14 @@ function result=MAIN_func()
     %% overwrite variables
 
     % env.xmax=10;
-    env.xmax=10;
+    env.xmax=7;
     env.roi.xmax=env.roi.xmin+env.L;
     rbt.xF=env.xmax;
 
-    env.ymin=-4.5;
+    env.ymin=-3.75;
     env.kabe.ymin=env.ymin;
     env.roi.ymin=env.ymin;
+    env.dist_hsr_zed=7.5;
 
     hmn.x0=env.xmax;
 
@@ -162,23 +163,24 @@ function result=MAIN_func()
     graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
     %% History
     if exp_mode
-        pass
+        disp("exp_mode:1")
     else
-        figure(1); clf;
-        pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
-        savename_png = savename+"_3_hist.png";
-        saveas(figure(1),savename_png);
+        % figure(1); clf;
+        % pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+        % savename_png = savename+"_3_hist.png";
+        % saveas(figure(1),savename_png);
         
-        %% Animation
-        figure(2); clf;
-        savename_3_anim=savename+"_3_anim";
-        % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
-        drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+        % %% Animation
+        % figure(2); clf;
+        % savename_3_anim=savename+"_3_anim";
+        % % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+        % drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
         
-        figure(3); clf;
-        drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
-        savename_3_path = savename+"_3_path.png";
-        saveas(figure(3),savename_3_path);
+        % figure(3); clf;
+        % drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
+        % savename_3_path = savename+"_3_path.png";
+        % saveas(figure(3),savename_3_path);
+        disp("exp_mode:0")
     end
     result.z=z;
     result.z8=z8;
