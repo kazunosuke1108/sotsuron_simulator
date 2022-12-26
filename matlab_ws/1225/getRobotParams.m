@@ -5,7 +5,7 @@ rbt.sizer=0.3;
 rbt.x0=0;
 rbt.y0=-1;
 rbt.th0=0;
-rbt.vx0=0;
+rbt.vx0=0.15;
 rbt.vy0=0;
 rbt.omg0=0;
 
@@ -25,8 +25,8 @@ rbt.vxF=0;
 rbt.vyF=0;
 rbt.omgF=0;
 
-rbt.thFmin=-pi;
-rbt.thFmax=pi;
+rbt.thFmin=-pi/2;
+rbt.thFmax=pi/2;
 
 ax_scale=1;
 rbt.axmax=ax_scale*rbt.vxmax;

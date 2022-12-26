@@ -2,7 +2,7 @@ clc;clear;
 fig=figure(1);
 data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\track_results_1216_090.csv");
 for i = 1:length(data(:,1))
-    if data(i,4)<10
+    if data(i,4)<7
         break
     end
 end
@@ -10,7 +10,8 @@ data=data([i:end],:);
 
 estm_history=[]
 
-for i = length(data(:,1))
+disp(length(data(:,1)))
+for i = 50:length(data(:,1))
     partial_data=data([1:i],:);
 
     t=partial_data(:,1)-partial_data(1,1);

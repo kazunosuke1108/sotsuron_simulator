@@ -21,9 +21,9 @@ function [position,velocity]=getHumanVelocity()
         %% 位置が10m以内であるか
         isbelow10m=z(end)<=10;
         %% データ数が100個以上あるか
-        has100data=length(z)>=100;
+        hasenoughdata=length(z)>=100;
 
-        if isbelow10m && has100data
+        if isbelow10m && hasenoughdata
             %% LPF
             cutoff=0.001;
             fps=15;

@@ -17,8 +17,8 @@ function result=MAIN_func()
     exp_mode=0
     
     date="1226";
-    abst="sensorchange";
-    detail="rbtvx0010";
+    abst="LRF";
+    detail="";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -29,7 +29,7 @@ function result=MAIN_func()
 
     % for ...
 
-    graph_title="d455_090";
+    graph_title="";
     % savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
     savename=string(savedir+"/"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
 
@@ -47,23 +47,29 @@ function result=MAIN_func()
     hmn=getHumanParams(env,sns);
     %% overwrite variables
 
-    % env.xmax=10;
-    env.xmax=10;
-    env.roi.xmax=env.roi.xmin+env.L;
-    rbt.xF=env.xmax;
+    % 反転
+    % rbt.y0=-3.5;
+    % rbt.yF=rbt.y0;
+    % hmn.y0=rbt.y0;
 
-    env.ymin=-4.5;
-    env.kabe.ymin=env.ymin;
-    env.roi.ymin=env.ymin;
-    env.dist_hsr_zed=7.5;
+    % LRF ##### objF 切り替え #####
+    sns.phi=270;
+    sns.pitch=57;
+    sns.r0=8.0;
+    sns.r2=8.0;
+    sns.phi=deg2rad(sns.phi)/2;
+    sns.pitch=deg2rad(sns.pitch)/2;
+    sns.r1=1;
+    
+    env.dist_hsr_zed=13.5;
 
     hmn.x0=env.xmax;
 
-    hmn.vx=-0.9;
+    hmn.vx=-1.0;
 
     t_slack=0.05;
 
-    env.hz=8;
+    % env.hz=8;
     % env.hz=abs(hmn.vx)*40/3;
     % env.hz=abs(hmn.vx)*60/3;
     % rbt.vxmin=-rbt.vxmax;
@@ -111,7 +117,8 @@ function result=MAIN_func()
     problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
     % problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
     % problem.func.pathObj=@(t,z,u)(objF_line_pdf(t,z,u,env,rbt,hmn,sns));
-    problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
+    % problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
+    problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
     problem.func.pathCst=@(t,z,u)(constraint(t,z,u,env,rbt,hmn,sns));
     
     % Set up problem bounds
