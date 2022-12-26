@@ -17,8 +17,8 @@ function result=MAIN_func()
     exp_mode=0
     
     date="1226";
-    abst="LRF";
-    detail="";
+    abst="last_check";
+    detail="vx080";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -53,23 +53,23 @@ function result=MAIN_func()
     % hmn.y0=rbt.y0;
 
     % LRF ##### objF 切り替え #####
-    sns.phi=270;
-    sns.pitch=57;
-    sns.r0=8.0;
-    sns.r2=8.0;
-    sns.phi=deg2rad(sns.phi)/2;
-    sns.pitch=deg2rad(sns.pitch)/2;
-    sns.r1=1;
+    % sns.phi=270;
+    % sns.pitch=57;
+    % sns.r0=8.0;
+    % sns.r2=8.0;
+    % sns.phi=deg2rad(sns.phi)/2;
+    % sns.pitch=deg2rad(sns.pitch)/2;
+    % sns.r1=1;
     
     env.dist_hsr_zed=13.5;
 
     hmn.x0=env.xmax;
 
-    hmn.vx=-1.0;
+    hmn.vx=-0.8;
 
     t_slack=0.05;
 
-    % env.hz=8;
+    env.hz=8;
     % env.hz=abs(hmn.vx)*40/3;
     % env.hz=abs(hmn.vx)*60/3;
     % rbt.vxmin=-rbt.vxmax;
@@ -117,8 +117,8 @@ function result=MAIN_func()
     problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
     % problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
     % problem.func.pathObj=@(t,z,u)(objF_line_pdf(t,z,u,env,rbt,hmn,sns));
-    % problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
-    problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
+    problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
+    % problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
     problem.func.pathCst=@(t,z,u)(constraint(t,z,u,env,rbt,hmn,sns));
     
     % Set up problem bounds
