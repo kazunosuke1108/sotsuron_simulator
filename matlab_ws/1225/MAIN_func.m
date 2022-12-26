@@ -14,11 +14,11 @@ function result=MAIN_func()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     
     %% experiment or simulation
-    exp_mode=1
+    exp_mode=0
     
     date="1226";
-    abst="exp_mode";
-    detail="dist_hsr_zed125";
+    abst="fix_pitch";
+    detail="rsafety1_r1change";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -29,7 +29,7 @@ function result=MAIN_func()
 
     % for ...
 
-    graph_title="8Hz";
+    graph_title="";
     % savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
     savename=string(savedir+"/"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
 
@@ -38,6 +38,9 @@ function result=MAIN_func()
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
 
     %% load default variables
+
+    sns_name="" % d455,d435,zed,xtion
+
     env=getEnvironmentParams();
     sns=getSensorParams();
     rbt=getRobotParams(env);
@@ -45,22 +48,23 @@ function result=MAIN_func()
     %% overwrite variables
 
     % env.xmax=10;
-    env.xmax=7;
+    env.xmax=10;
     env.roi.xmax=env.roi.xmin+env.L;
     rbt.xF=env.xmax;
 
-    env.ymin=-3.75;
+    env.ymin=-4.5;
     env.kabe.ymin=env.ymin;
     env.roi.ymin=env.ymin;
     env.dist_hsr_zed=7.5;
 
     hmn.x0=env.xmax;
 
-    % hmn.vx=-0.9;
+    hmn.vx=-0.71;
 
-    t_slack=0.05;
+    t_slack=0.35;
 
     env.hz=abs(hmn.vx)*40/3;
+    % env.hz=16;
     % rbt.vxmin=-rbt.vxmax;
     
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -105,7 +109,8 @@ function result=MAIN_func()
     % Set up function handles
     problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
     % problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
-    problem.func.pathObj=@(t,z,u)(objF_line_pdf(t,z,u,env,rbt,hmn,sns));
+    % problem.func.pathObj=@(t,z,u)(objF_line_pdf(t,z,u,env,rbt,hmn,sns));
+    problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
     problem.func.pathCst=@(t,z,u)(constraint(t,z,u,env,rbt,hmn,sns));
     
     % Set up problem bounds
@@ -165,21 +170,21 @@ function result=MAIN_func()
     if exp_mode
         disp("exp_mode:1")
     else
-        % figure(1); clf;
-        % pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
-        % savename_png = savename+"_3_hist.png";
-        % saveas(figure(1),savename_png);
+        figure(1); clf;
+        pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+        savename_png = savename+"_3_hist.png";
+        saveas(figure(1),savename_png);
         
-        % %% Animation
-        % figure(2); clf;
-        % savename_3_anim=savename+"_3_anim";
-        % % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
-        % drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+        %% Animation
+        figure(2); clf;
+        savename_3_anim=savename+"_3_anim";
+        % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+        drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
         
-        % figure(3); clf;
-        % drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
-        % savename_3_path = savename+"_3_path.png";
-        % saveas(figure(3),savename_3_path);
+        figure(3); clf;
+        drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
+        savename_3_path = savename+"_3_path.png";
+        saveas(figure(3),savename_3_path);
         disp("exp_mode:0")
     end
     result.z=z;
