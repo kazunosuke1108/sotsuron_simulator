@@ -17,8 +17,8 @@ function result=MAIN_func()
     exp_mode=0
     
     date="1226";
-    abst="fix_pitch";
-    detail="rsafety1_r1change";
+    abst="sensorchange";
+    detail="rbtvx0010";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -29,7 +29,7 @@ function result=MAIN_func()
 
     % for ...
 
-    graph_title="";
+    graph_title="d455_090";
     % savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
     savename=string(savedir+"/"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
 
@@ -59,12 +59,13 @@ function result=MAIN_func()
 
     hmn.x0=env.xmax;
 
-    hmn.vx=-0.71;
+    hmn.vx=-0.9;
 
-    t_slack=0.35;
+    t_slack=0.05;
 
-    env.hz=abs(hmn.vx)*40/3;
-    % env.hz=16;
+    env.hz=8;
+    % env.hz=abs(hmn.vx)*40/3;
+    % env.hz=abs(hmn.vx)*60/3;
     % rbt.vxmin=-rbt.vxmax;
     
     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
