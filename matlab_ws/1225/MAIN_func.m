@@ -14,11 +14,11 @@ function result=MAIN_func()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     
     %% experiment or simulation
-    exp_mode=0
+    exp_mode=1
     
-    date="1226";
-    abst="last_check";
-    detail="vx080";
+    date="1227";
+    abst="exp_LRF";
+    detail="shingo";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -69,8 +69,8 @@ function result=MAIN_func()
 
     t_slack=0.05;
 
-    env.hz=8;
-    % env.hz=abs(hmn.vx)*40/3;
+    % env.hz=6;
+    env.hz=abs(hmn.vx)*40/3;
     % env.hz=abs(hmn.vx)*60/3;
     % rbt.vxmin=-rbt.vxmax;
     
@@ -83,7 +83,8 @@ function result=MAIN_func()
         [env.dist_zed_hmn,hmn.vx]=getHumanVelocity();
         tic;
         env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/abs(hmn.vx);
-        env.hz=abs(hmn.vx)*40/3;
+        env.hz=5;
+        % env.hz=abs(hmn.vx)*40/3;
     end
     %% hmn_path
     % json=jsondecode(fileread('/home/hayashide/catkin_ws/src/sotsuron_experiment/scripts/monitor/velocity.json'));
@@ -117,8 +118,8 @@ function result=MAIN_func()
     problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
     % problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
     % problem.func.pathObj=@(t,z,u)(objF_line_pdf(t,z,u,env,rbt,hmn,sns));
-    problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
-    % problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
+    % problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
+    problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
     problem.func.pathCst=@(t,z,u)(constraint(t,z,u,env,rbt,hmn,sns));
     
     % Set up problem bounds
