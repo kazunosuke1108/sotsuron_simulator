@@ -17,7 +17,7 @@ function result=MAIN_func()
     exp_mode=0
     
     date="1228";
-    abst="debug_why_slow";
+    abst="1818_rsafety_1";
     detail="";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
@@ -118,8 +118,8 @@ function result=MAIN_func()
     problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
     % problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
     % problem.func.pathObj=@(t,z,u)(objF_line_pdf(t,z,u,env,rbt,hmn,sns));
-    % problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
-    problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
+    problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
+    % problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
     problem.func.pathCst=@(t,z,u)(constraint(t,z,u,env,rbt,hmn,sns));
     
     % Set up problem bounds

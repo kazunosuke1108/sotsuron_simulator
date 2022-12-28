@@ -1,10 +1,17 @@
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\1228\results\1228_1843_rsafety_1_x12";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\1228\results";
 
 dirlist=dir(motherdir);
 
-for n = 1:length(dirlist)
+subdirlist=[dirlist(3)];
+for n = 4:length(dirlist)
+    if isfolder(fullfile(dirlist(n).folder, dirlist(n).name))
+        subdirlist=[subdirlist dirlist(n)]
+    end
+end
+
+for n = 1:length(subdirlist)
     try
-        fullpath = fullfile(dirlist(n).folder, dirlist(n).name);
+        fullpath = fullfile(subdirlist(n).folder, sdirlist(n).name);
         matpath = dir(fullpath+"\*.mat");
         fullmatpath=string(matpath.folder)+"\"+string(matpath.name);
         load(fullmatpath)

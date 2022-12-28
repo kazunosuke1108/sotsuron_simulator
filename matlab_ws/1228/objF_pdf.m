@@ -138,9 +138,9 @@ function J=objF_pdf(t,z,u,env,rbt,hmn,sns)
     %% J
     % J_kari=score_area.*score_r.*score_p+score_pe;
     % J_kari=score_r.*score_p+score_pe;
-    % J_kari=score_r.*score_p;
+    J_kari=score_r.*score_p;
     % J_kari=score_r.*score_p+score_pe+score_m.*(score_pe+1);
-    J_kari=2*score_r.*score_p+score_m;
+    % J_kari=score_r.*score_p+score_m;
     J=-J_kari;
 
 
