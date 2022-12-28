@@ -18,7 +18,7 @@ function result=MAIN_func()
             exp_mode=0
             
             date="1228";
-            abst="debug_why_slow_true_rsafety_r1";
+            abst="debug_why_slow_true_rsafety_r1_r_important";
             detail="vx_"+string(abs(candidate))+"_slack035";
             mkdir('results');
             % savedir="results\"+date+"_"+abst;
@@ -71,8 +71,8 @@ function result=MAIN_func()
             t_slack=0.35;
 
             % env.hz=6;
-            env.hz=abs(hmn.vx)*40/3;
-            % env.hz=abs(hmn.vx)*60/3;
+            % env.hz=abs(hmn.vx)*40/3;
+            env.hz=abs(hmn.vx)*80/3;
             % rbt.vxmin=-rbt.vxmax;
             
             %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
