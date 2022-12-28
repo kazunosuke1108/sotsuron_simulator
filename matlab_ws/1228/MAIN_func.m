@@ -14,11 +14,11 @@ function result=MAIN_func()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     
     %% experiment or simulation
-    exp_mode=1
+    exp_mode=0
     
-    date="1227";
-    abst="exp_LRF";
-    detail="shingo";
+    date="1228";
+    abst="debug_why_slow";
+    detail="";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
