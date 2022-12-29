@@ -1,4 +1,4 @@
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\1228\results\1229_1227_rsafety_r1";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\1228\results\1229_2334_line_pdf_top25";
 
 dirlist=dir(motherdir);
 

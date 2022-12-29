@@ -12,15 +12,15 @@ function result=MAIN_func_iter1228()
     addpath '/home/hayashide/catkin_ws/src/sotsuron_experiment/sotsuron_experiment/scripts/monitor';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
-    for candidate=[-0.6 -0.7 -0.8 -0.9 -1.0 -1.1 -1.2]
-        % for candidate2=[1e-2 1e-4 1e-6 1e-8]
+    for candidate2=[0.75 0.5 0.25 0.1 0.075 0.05 0.025]
+        for candidate=[-0.6 -0.7 -0.8 -0.9 -1.0 -1.1 -1.2]
             try
                 %% experiment or simulation
                 exp_mode=0
                 
                 date="1229";
-                abst="1227_rsafety_r1";
-                detail="vx_"+string(abs(candidate));
+                abst="2403_TolCon";
+                detail="vx_"+string(abs(candidate))+"TolCon_"+string(candidate2);
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -62,6 +62,15 @@ function result=MAIN_func_iter1228()
                 % sns.phi=deg2rad(sns.phi)/2;
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=1;
+
+                % ZED 
+                % sns.phi=110;
+                % sns.pitch=70;
+                % sns.r0=8.0;
+                % sns.r2=8.0;
+                % sns.phi=deg2rad(sns.phi)/2;
+                % sns.pitch=deg2rad(sns.pitch)/2;
+                % sns.r1=sns.h/tan(sns.pitch);
                 
                 env.dist_hsr_zed=13.5;
 
@@ -155,7 +164,7 @@ function result=MAIN_func_iter1228()
                 'MaxIter',1e3,... % 可能な反復の最大数 (正の整数)
                 'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
                 'TolX',1e-10,... % x に関する許容誤差 (正のスカラー)
-                'TolCon',1e-8,... % 制約違反に関する許容誤差 (正のスカラー)
+                'TolCon',candidate2,... % 制約違反に関する許容誤差 (正のスカラー)
                 'MaxFunEvals',1e6);
                 
                 % problem.options.method = 'trapezoid'; 
