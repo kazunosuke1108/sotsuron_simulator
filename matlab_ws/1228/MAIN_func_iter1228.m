@@ -1,4 +1,4 @@
-function result=MAIN_func()
+function result=MAIN_func_iter1228()
     % MAIN.m
     %% initialization
     clc; clear;
@@ -13,14 +13,14 @@ function result=MAIN_func()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     for candidate=[-0.6 -0.7 -0.8 -0.9 -1.0 -1.1 -1.2]
-        % for candidate2=[10.5 11 11.5 12.5]
+        % for candidate2=[1e-2 1e-4 1e-6 1e-8]
             try
                 %% experiment or simulation
                 exp_mode=0
                 
-                date="1228";
-                abst="1843_no_rsafety_fix_muA";
-                detail="vx_"+string(abs(candidate))+"_slack035";
+                date="1229";
+                abst="1227_rsafety_r1";
+                detail="vx_"+string(abs(candidate));
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;

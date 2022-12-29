@@ -9,9 +9,11 @@ function [c, ceq, cGrad, ceqGrad]=constraint(t,z,u,env,rbt,hmn,sns)
     norm_HR=sqrt(vec_HR(1,:).^2+vec_HR(2,:).^2);
 
     % 衝突回避制約1m
-    % c1=-(norm_HR-sns.r1).';
-    % c1=-(norm_HR-1).';
-    c1=-1;
+    % close_HR=norm_HR<sns.r2;
+    % c1=-((norm_HR-sns.r1).*close_HR).'-(1*(1-close_HR)).';
+    c1=-(norm_HR-sns.r1).';
+    % c1=-(norm_HR-0.5).';
+    % c1=-1;
     % 速度制約
     norm_vel=sqrt(rbt_path(4,:).^2+rbt_path(5,:).^2).'-rbt.vmax;
 
