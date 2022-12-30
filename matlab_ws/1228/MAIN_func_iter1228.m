@@ -12,15 +12,15 @@ function result=MAIN_func_iter1228()
     addpath '/home/hayashide/catkin_ws/src/sotsuron_experiment/sotsuron_experiment/scripts/monitor';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
-    for candidate2=[0.75 0.5 0.25 0.1 0.075 0.05 0.025]
-        for candidate=[-0.6 -0.7 -0.8 -0.9 -1.0 -1.1 -1.2]
+    for candidate=[-0.6 -0.7 -0.8 -0.9 -1.0 -1.1 -1.2]
+        % for candidate2=[0.75 0.5 0.25 0.1 0.075 0.05 0.025]
             try
                 %% experiment or simulation
                 exp_mode=0
                 
                 date="1229";
-                abst="2403_TolCon";
-                detail="vx_"+string(abs(candidate))+"TolCon_"+string(candidate2);
+                abst="2429_LRF";
+                detail="vx_"+string(abs(candidate));
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -55,13 +55,13 @@ function result=MAIN_func_iter1228()
                 % hmn.y0=rbt.y0;
 
                 % LRF ##### objF 切り替え #####
-                % sns.phi=270;
-                % sns.pitch=57;
-                % sns.r0=8.0;
-                % sns.r2=8.0;
-                % sns.phi=deg2rad(sns.phi)/2;
-                % sns.pitch=deg2rad(sns.pitch)/2;
-                % sns.r1=1;
+                sns.phi=270;
+                sns.pitch=57;
+                sns.r0=8.0;
+                sns.r2=8.0;
+                sns.phi=deg2rad(sns.phi)/2;
+                sns.pitch=deg2rad(sns.pitch)/2;
+                sns.r1=1;
 
                 % ZED 
                 % sns.phi=110;
@@ -130,8 +130,8 @@ function result=MAIN_func_iter1228()
                 problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
                 % problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
                 % problem.func.pathObj=@(t,z,u)(objF_line_pdf(t,z,u,env,rbt,hmn,sns));
-                problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
-                % problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
+                % problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
+                problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
                 problem.func.pathCst=@(t,z,u)(constraint(t,z,u,env,rbt,hmn,sns));
                 
                 % Set up problem bounds
@@ -164,7 +164,7 @@ function result=MAIN_func_iter1228()
                 'MaxIter',1e3,... % 可能な反復の最大数 (正の整数)
                 'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
                 'TolX',1e-10,... % x に関する許容誤差 (正のスカラー)
-                'TolCon',candidate2,... % 制約違反に関する許容誤差 (正のスカラー)
+                'TolCon',1e-8,... % 制約違反に関する許容誤差 (正のスカラー)
                 'MaxFunEvals',1e6);
                 
                 % problem.options.method = 'trapezoid'; 
