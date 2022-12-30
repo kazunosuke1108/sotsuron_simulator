@@ -102,17 +102,17 @@ function J=objF_pdf(t,z,u,env,rbt,hmn,sns)
     % pe_12=norm_HR<sns.r1;
     % pe_1=pe_11.*pe_12;
 
-    % score_pe1=-1.*pe_1;
+    % score_pe1=-2.*pe_1;
 
     % % 上り
     % pe_21=norm_HR>=sns.r1;
     % pe_22=norm_HR<sns.r1+2*hmn.sizer;
     % pe_2=pe_21.*pe_22;
 
-    % score_pe2=1/(2*hmn.sizer)*(norm_HR-(sns.r1+2*hmn.sizer)).*pe_2;
+    % score_pe2=2/(2*hmn.sizer)*(norm_HR-(sns.r1+2*hmn.sizer)).*pe_2;
 
-    % % まとめ
-    % score_pe=score_pe1+score_pe2+score_r;
+    % % % まとめ
+    % score_pe=score_pe1+score_pe2;
 
     %% 5m以上計測成功に対する報酬measured_score
     additional_start=env.l;

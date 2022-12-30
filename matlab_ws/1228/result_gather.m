@@ -1,4 +1,4 @@
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\1228\results\1229_2334_line_pdf_top25";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\1228\results\1230_1019_xtion";
 
 dirlist=dir(motherdir);
 
@@ -26,7 +26,7 @@ for n = 1:length(dirlist)
         furikaeri=max(z(3,:));
         yukkuri=min(z(4,:));
         
-        writematrix([env.xmax,env.ymin,hmn.vx,t_slack,measured_length,continuous_check,min(norm_HR),soln.info.nlpTime,furikaeri,yukkuri],motherdir+"\results.csv",'WriteMode','append');
+        writematrix([env.xmax,env.ymin,hmn.vx,t_slack,measured_length,continuous_check,min(norm_HR),soln.info.nlpTime,furikaeri,yukkuri,soln.info.exitFlag],motherdir+"\results.csv",'WriteMode','append');
         clearvars -except motherdir dirlist matpath fullmatpath n;
     catch
         disp(string(dirlist(n).name))

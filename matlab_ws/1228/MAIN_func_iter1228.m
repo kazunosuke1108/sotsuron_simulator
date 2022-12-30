@@ -18,8 +18,8 @@ function result=MAIN_func_iter1228()
                 %% experiment or simulation
                 exp_mode=0
                 
-                date="1229";
-                abst="2429_LRF";
+                date="1230";
+                abst="";
                 detail="vx_"+string(abs(candidate));
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
@@ -28,7 +28,6 @@ function result=MAIN_func_iter1228()
                 % savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+detail);
                 savedir=string(savedir+"/"+datestr(now,'yymmdd_hhMMss')+"_"+detail);
                 mkdir(savedir);
-
                 % for ...
 
                 graph_title="";
@@ -55,13 +54,31 @@ function result=MAIN_func_iter1228()
                 % hmn.y0=rbt.y0;
 
                 % LRF ##### objF 切り替え #####
-                sns.phi=270;
-                sns.pitch=57;
-                sns.r0=8.0;
-                sns.r2=8.0;
-                sns.phi=deg2rad(sns.phi)/2;
-                sns.pitch=deg2rad(sns.pitch)/2;
-                sns.r1=1;
+                % sns.phi=270;
+                % sns.pitch=57;
+                % sns.r0=8.0;
+                % sns.r2=8.0;
+                % sns.phi=deg2rad(sns.phi)/2;
+                % sns.pitch=deg2rad(sns.pitch)/2;
+                % sns.r1=1;
+
+                % RealSense D435 
+                % sns.phi=91.2;
+                % sns.pitch=65.5;
+                % sns.r0=6.0;
+                % sns.r2=6.0;
+                % sns.phi=deg2rad(sns.phi)/2;
+                % sns.pitch=deg2rad(sns.pitch)/2;
+                % sns.r1=sns.h/tan(sns.pitch);
+
+                % Xtion PRO LIVE 
+                % sns.phi=58;
+                % sns.pitch=45;
+                % sns.r0=3.5;
+                % sns.r2=3.5;
+                % sns.phi=deg2rad(sns.phi)/2;
+                % sns.pitch=deg2rad(sns.pitch)/2;
+                % sns.r1=sns.h/tan(sns.pitch);
 
                 % ZED 
                 % sns.phi=110;
@@ -130,8 +147,8 @@ function result=MAIN_func_iter1228()
                 problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
                 % problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
                 % problem.func.pathObj=@(t,z,u)(objF_line_pdf(t,z,u,env,rbt,hmn,sns));
-                % problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
-                problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
+                problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
+                % problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
                 problem.func.pathCst=@(t,z,u)(constraint(t,z,u,env,rbt,hmn,sns));
                 
                 % Set up problem bounds
