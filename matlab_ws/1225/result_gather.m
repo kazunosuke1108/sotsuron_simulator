@@ -1,4 +1,5 @@
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\1222\results\1222_parameter_study";
+% motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\1222\results\1222_parameter_study";
+motherdir="/home/hayashide/kazu_ws/sotsuron_simulator/matlab_ws/1225/results/1227_sim";
 
 dirlist=dir(motherdir);
 
@@ -16,7 +17,7 @@ for n = 1:length(dirlist)
         last_success_idx=success_list(end);
         continuous_check=all(footprint(first_success_idx:last_success_idx)>0);
         hmn_path=getHumanPath(t,hmn);
-        measured_length=abs(hmn_path(1,first_success_idx)-hmn_path(1,last_success_idx));
+        measured_length=abs(hmn_path(1,first_success_idx)-hmn_path(1,last_success_idx))
         
         vec_HR=[hmn_path(1,:);hmn_path(2,:)]-[z(1,:);z(2,:)];
         e=[cos(z(3,:));sin(z(3,:))];

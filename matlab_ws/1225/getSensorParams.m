@@ -1,6 +1,6 @@
 function sns=getSensorParams()
 
-    sns.h=0.8;
+    sns.h=1.0;
     
     sns.phi=86;
     % sns.phi=58;

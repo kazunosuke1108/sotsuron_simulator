@@ -17,8 +17,8 @@ function result=MAIN_func()
     exp_mode=1
     
     date="1227";
-    abst="exp_LRF";
-    detail="shingo";
+    abst="sim";
+    detail="d455_060";
     mkdir('results');
     % savedir="results\"+date+"_"+abst;
     savedir="results/"+date+"_"+abst;
@@ -47,10 +47,14 @@ function result=MAIN_func()
     hmn=getHumanParams(env,sns);
     %% overwrite variables
 
+    env.xmax=10;
+    rbt.xF=env.xmax;
+    hmn.x0=env.xmax;
+
     % 反転
-    % rbt.y0=-3.5;
-    % rbt.yF=rbt.y0;
-    % hmn.y0=rbt.y0;
+    rbt.y0=-3.5;
+    rbt.yF=rbt.y0;
+    hmn.y0=rbt.y0;
 
     % LRF ##### objF 切り替え #####
     % sns.phi=270;
@@ -65,12 +69,12 @@ function result=MAIN_func()
 
     hmn.x0=env.xmax;
 
-    hmn.vx=-0.8;
+    hmn.vx=-0.6;
 
-    t_slack=0.05;
+    t_slack=0.35;
 
-    % env.hz=6;
-    env.hz=abs(hmn.vx)*40/3;
+    env.hz=8;
+    % env.hz=abs(hmn.vx)*40/3;
     % env.hz=abs(hmn.vx)*60/3;
     % rbt.vxmin=-rbt.vxmax;
     
@@ -80,10 +84,11 @@ function result=MAIN_func()
     % 実機
     %% jsonから人の位置・速度を取得
     if exp_mode
-        [env.dist_zed_hmn,hmn.vx]=getHumanVelocity();
-        tic;
-        env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/abs(hmn.vx);
-        env.hz=5;
+        disp("mushi")
+        % [env.dist_zed_hmn,hmn.vx]=getHumanVelocity();
+        % tic;
+        % env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/abs(hmn.vx);
+        % env.hz=5;
         % env.hz=abs(hmn.vx)*40/3;
     end
     %% hmn_path
@@ -118,8 +123,8 @@ function result=MAIN_func()
     problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
     % problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
     % problem.func.pathObj=@(t,z,u)(objF_line_pdf(t,z,u,env,rbt,hmn,sns));
-    % problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
-    problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
+    problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
+    % problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
     problem.func.pathCst=@(t,z,u)(constraint(t,z,u,env,rbt,hmn,sns));
     
     % Set up problem bounds
@@ -177,7 +182,7 @@ function result=MAIN_func()
     graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
     %% History
     if exp_mode
-        disp("exp_mode:1")
+        disp(exp_mode)
     else
         figure(1); clf;
         pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
