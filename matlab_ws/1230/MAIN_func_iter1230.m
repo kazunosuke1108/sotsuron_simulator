@@ -1,4 +1,4 @@
-function result=MAIN_func_iter1228()
+function result=MAIN_func()
     % MAIN.m
     %% initialization
     clc; clear;
@@ -13,14 +13,13 @@ function result=MAIN_func_iter1228()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     for candidate=[-0.6 -0.7 -0.8 -0.9 -1.0 -1.1 -1.2]
-        % for candidate2=[0.75 0.5 0.25 0.1 0.075 0.05 0.025]
+        for candidate2=[-0.5 -1.5 -2.5 -3.5]
             try
                 %% experiment or simulation
                 exp_mode=0
-                
                 date="1230";
-                abst="";
-                detail="vx_"+string(abs(candidate));
+                abst="vx_"+string(abs(candidate))+"_hmny0_"+string(abs(candidate2));
+                detail="realsenseD455_noAvoidCollisions";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -28,6 +27,7 @@ function result=MAIN_func_iter1228()
                 % savedir=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+detail);
                 savedir=string(savedir+"/"+datestr(now,'yymmdd_hhMMss')+"_"+detail);
                 mkdir(savedir);
+
                 % for ...
 
                 graph_title="";
@@ -51,7 +51,7 @@ function result=MAIN_func_iter1228()
                 % 反転
                 % rbt.y0=-3.5;
                 % rbt.yF=rbt.y0;
-                % hmn.y0=rbt.y0;
+                hmn.y0=candidate2;
 
                 % LRF ##### objF 切り替え #####
                 % sns.phi=270;
@@ -91,8 +91,7 @@ function result=MAIN_func_iter1228()
                 
                 env.dist_hsr_zed=13.5;
 
-                env.xmax=10;
-
+                hmn.x0=env.xmax;
 
                 hmn.vx=candidate;
 
@@ -100,7 +99,7 @@ function result=MAIN_func_iter1228()
 
                 % env.hz=6;
                 env.hz=abs(hmn.vx)*40/3;
-                % env.hz=abs(hmn.vx)*80/3;
+                % env.hz=abs(hmn.vx)*60/3;
                 % rbt.vxmin=-rbt.vxmax;
                 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -244,10 +243,10 @@ function result=MAIN_func_iter1228()
                         end
                     end
                 end
+                % writeCSV(problem,env,rbt,hmn,sns,soln,savename);
             catch
                 save(savename+".mat");
                 continue
             end
         end
-        % writeCSV(problem,env,rbt,hmn,sns,soln,savename);
     end
