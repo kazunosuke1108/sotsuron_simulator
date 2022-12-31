@@ -33,26 +33,26 @@ function J=objF_line(t,z,u,env,rbt,hmn,sns)
     %% r positive
     % 上り
     r_11=norm_HR>=sns.r1;
-    % r_12=norm_HR<sns.r1+2*hmn.sizer;
-    r_12=norm_HR<(sns.r1+sns.r2)/2;
+    r_12=norm_HR<sns.r1+1*hmn.sizer;
+    % r_12=norm_HR<(sns.r1+sns.r2)/2;
     r_1=r_11.*r_12;
-    % score_r1=1/(2*hmn.sizer)*(norm_HR-sns.r1).*r_1;
-    score_r1=1/((sns.r1+sns.r2)/2-sns.r1)*(norm_HR-sns.r1).*r_1;
+    score_r1=1/(1*hmn.sizer)*(norm_HR-sns.r1).*r_1;
+    % score_r1=1/((sns.r1+sns.r2)/2-sns.r1)*(norm_HR-sns.r1).*r_1;
 
     % 頂上
-    r_21=norm_HR>=sns.r1+2*hmn.sizer;
-    r_22=norm_HR<sns.r2-2*hmn.sizer;
+    r_21=norm_HR>=sns.r1+1*hmn.sizer;
+    r_22=norm_HR<sns.r2-1*hmn.sizer;
     r_2=r_21.*r_22;
-    % score_r2=1.*r_2;
-    score_r2=0;
+    score_r2=1.*r_2;
+    % score_r2=0;
 
     % 下り
-    % r_31=norm_HR>=sns.r2-2*hmn.sizer;
-    r_31=norm_HR>=(sns.r1+sns.r2)/2;
+    r_31=norm_HR>=sns.r2-1*hmn.sizer;
+    % r_31=norm_HR>=(sns.r1+sns.r2)/2;
     r_32=norm_HR<sns.r2;
     r_3=r_31.*r_32;
-    % score_r3=-1/(2*hmn.sizer)*(norm_HR-sns.r2).*r_3;
-    score_r3=-1/(sns.r2-(sns.r1+sns.r2)/2)*(norm_HR-sns.r2).*r_3;
+    score_r3=-1/(1*hmn.sizer)*(norm_HR-sns.r2).*r_3;
+    % score_r3=-1/(sns.r2-(sns.r1+sns.r2)/2)*(norm_HR-sns.r2).*r_3;
 
     % まとめ
     score_r=score_r1+score_r2+score_r3;
@@ -60,29 +60,29 @@ function J=objF_line(t,z,u,env,rbt,hmn,sns)
     %% phi positive
     % 上り
     p_11=deg_diff>=-sns.phi;
-    % p_12=deg_diff<-sns.phi+hmn.sizep;
-    p_12=deg_diff<0;
+    p_12=deg_diff<-sns.phi+4*hmn.sizep;
+    % p_12=deg_diff<0;
     p_1=p_11.*p_12;
 
-    % score_p1=1/hmn.sizep*(deg_diff+sns.phi).*p_1;
-    score_p1=1/sns.phi*(deg_diff+sns.phi).*p_1;
+    score_p1=1/4*hmn.sizep*(deg_diff+sns.phi).*p_1;
+    % score_p1=1/sns.phi*(deg_diff+sns.phi).*p_1;
 
     % 頂上
-    p_21=deg_diff>=-sns.phi+hmn.sizep;
-    p_22=deg_diff<sns.phi-hmn.sizep;
+    p_21=deg_diff>=-sns.phi+4*hmn.sizep;
+    p_22=deg_diff<sns.phi-4*hmn.sizep;
     p_2=p_21.*p_22;
 
-    % score_p2=1.*p_2;
-    score_p2=0;
+    score_p2=1.*p_2;
+    % score_p2=0;
 
     % 下り
-    % p_31=deg_diff>=sns.phi-hmn.sizep;
-    p_31=deg_diff>=0;
+    p_31=deg_diff>=sns.phi-4*hmn.sizep;
+    % p_31=deg_diff>=0;
     p_32=deg_diff<sns.phi;
     p_3=p_31.*p_32;
 
-    % score_p3=-1/hmn.sizep*(deg_diff-sns.phi).*p_3;
-    score_p3=-1/sns.phi*(deg_diff-sns.phi).*p_3;
+    score_p3=-1/4*hmn.sizep*(deg_diff-sns.phi).*p_3;
+    % score_p3=-1/sns.phi*(deg_diff-sns.phi).*p_3;
 
     % まとめ
     score_p=score_p1+score_p2+score_p3;
@@ -129,9 +129,9 @@ function J=objF_line(t,z,u,env,rbt,hmn,sns)
     %% J
     % J_kari=score_area.*score_r.*score_p+score_pe;
     % J_kari=score_r.*score_p+score_pe;
-    % J_kari=score_r.*score_p;
+    J_kari=score_r.*score_p;
     % J_kari=score_r.*score_p+score_pe+score_m.*(score_pe+1);
-    J_kari=score_r.*score_p+score_m;
+    % J_kari=score_r.*score_p+score_m;
     
     J=-J_kari;
 
