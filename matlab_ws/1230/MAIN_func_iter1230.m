@@ -12,14 +12,14 @@ function result=MAIN_func()
     addpath '/home/hayashide/catkin_ws/src/sotsuron_experiment/sotsuron_experiment/scripts/monitor';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
-    for candidate=[-0.6 -0.7 -0.8 -0.9 -1.0 -1.1 -1.2]
-        for candidate2=[-0.5 -1.5 -2.5 -3.5]
+    for candidate2=[-0.5 -1.5 -2.5 -3.5]
+        for candidate=[-0.6 -0.7 -0.8 -0.9 -1.0 -1.1 -1.2]
             try
                 %% experiment or simulation
                 exp_mode=0
                 date="1230";
-                abst="vx_"+string(abs(candidate))+"_hmny0_"+string(abs(candidate2));
-                detail="realsenseD455_noAvoidCollisions";
+                abst="parameter_study_no_back";
+                detail="vx_"+string(abs(candidate))+"_hmny0_"+string(abs(candidate2));
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -52,6 +52,7 @@ function result=MAIN_func()
                 % rbt.y0=-3.5;
                 % rbt.yF=rbt.y0;
                 hmn.y0=candidate2;
+                rbt.vxmin=0;
 
                 % LRF ##### objF 切り替え #####
                 % sns.phi=270;
