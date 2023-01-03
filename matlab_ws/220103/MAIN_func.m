@@ -17,8 +17,8 @@ function result=MAIN_func()
     %         try
                 %% experiment or simulation
                 exp_mode=0
-                date="1230";
-                abst="";
+                date="220103";
+                abst="normal_test_run";
                 detail="";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
@@ -144,6 +144,7 @@ function result=MAIN_func()
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                 % Set up function handles
                 problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
+                % problem.func.dynamics=@(t,z,u)(dynamics_diff_2_wheel(z,u,env,rbt,hmn,sns));
                 % problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
                 % problem.func.pathObj=@(t,z,u)(objF_line_pdf(t,z,u,env,rbt,hmn,sns));
                 problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
@@ -200,6 +201,7 @@ function result=MAIN_func()
 
                 z8= getz8(z);
                 
+                save(savename+".mat");
                 % Plots
                 %% add score to fig name
                 graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
@@ -228,8 +230,9 @@ function result=MAIN_func()
                 result.z8=z8;
                 result.t=t;
                 
-                % Summarize conditions & results
                 save(savename+".mat");
+                
+                % Summarize conditions & results
                 if exp_mode
                     start_waiting=toc;
                     while 1
