@@ -12,14 +12,14 @@ function result=MAIN_func()
     addpath '/home/hayashide/catkin_ws/src/sotsuron_experiment/sotsuron_experiment/scripts/monitor';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
-    % for candidate2=[-0.5 -1.5 -2.5 -3.5]
-        for candidate=[-0.6 -0.7 -0.8 -0.9 -1.0 -1.1 -1.2]
-            % try
+    for candidate2=-0.5:-0.1:-4.0
+        for candidate=-0.6:-0.01:-1.2
+            try
                 %% experiment or simulation
                 exp_mode=0
-                date="1231";
-                abst="objF_line_realsense";
-                detail="vx_"+string(abs(candidate));
+                date="220103";
+                abst="parameter_study_d455";
+                detail="hmny0_"+string(abs(candidate2))+"_vx_"+string(abs(candidate));
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -51,8 +51,8 @@ function result=MAIN_func()
                 % 反転
                 % rbt.y0=-3.5;
                 % rbt.yF=rbt.y0;
-                % hmn.y0=candidate2;
-                rbt.vxmin=0;
+                hmn.y0=candidate2;
+                % rbt.vxmin=0;
 
                 % LRF ##### objF 切り替え #####
                 % sns.phi=270;
@@ -208,22 +208,23 @@ function result=MAIN_func()
                 if exp_mode
                     disp("exp_mode:1")
                 else
-                    figure(1); clf;
-                    pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
-                    savename_png = savename+"_3_hist.png";
-                    saveas(figure(1),savename_png);
+                    disp("parameter_study : omit plot")
+                    % figure(1); clf;
+                    % pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+                    % savename_png = savename+"_3_hist.png";
+                    % saveas(figure(1),savename_png);
                     
                     %% Animation
-                    figure(2); clf;
-                    savename_3_anim=savename+"_3_anim";
-                    % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
-                    drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+                    % figure(2); clf;
+                    % savename_3_anim=savename+"_3_anim";
+                    % % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+                    % drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
                     
-                    figure(3); clf;
-                    drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
-                    savename_3_path = savename+"_3_path.png";
-                    saveas(figure(3),savename_3_path);
-                    disp("exp_mode:0")
+                    % figure(3); clf;
+                    % drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
+                    % savename_3_path = savename+"_3_path.png";
+                    % saveas(figure(3),savename_3_path);
+                    % disp("exp_mode:0")
                 end
                 result.z=z;
                 result.z8=z8;
@@ -245,9 +246,11 @@ function result=MAIN_func()
                     end
                 end
                 % writeCSV(problem,env,rbt,hmn,sns,soln,savename);
-            % catch
-            %     save(savename+".mat");
-            %     continue
-            % end
+            catch
+                save(savename+".mat");
+                continue
+            end
         end
-    % end
+        git_auto_push();
+    end
+end
