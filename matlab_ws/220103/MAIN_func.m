@@ -18,7 +18,7 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0
                 date="220103";
-                abst="normal_test_run";
+                abst="xmax7_rbty15hmny25";
                 detail="";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
@@ -91,9 +91,14 @@ function result=MAIN_func()
                 
                 env.dist_hsr_zed=13.5;
 
-                hmn.x0=env.xmax;
+                env.xmax=7;
+                rbt=getRobotParams(env);
+                hmn=getHumanParams(env,sns);
 
                 hmn.vx=-0.8;
+                hmn.y0=-1.5;
+                rbt.y0=-2.5;
+                rbt.yF=rbt.y0;
 
                 t_slack=0.35;
 
