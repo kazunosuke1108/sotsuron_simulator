@@ -251,6 +251,5 @@ function result=MAIN_func()
                 continue
             end
         end
-        git_auto_push();
     end
 end
