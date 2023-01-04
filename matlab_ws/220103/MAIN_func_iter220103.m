@@ -1,4 +1,4 @@
-function result=MAIN_func()
+function result=MAIN_func_iter220103()
     % MAIN.m
     %% initialization
     clc; clear;
@@ -17,8 +17,8 @@ function result=MAIN_func()
             try
                 %% experiment or simulation
                 exp_mode=0
-                date="220104";
-                abst="parameter_study_LRF";
+                date="230104";
+                abst="parameter_study_D455_x7y4";
                 detail="hmny0_"+string(abs(candidate2))+"_vx_"+string(abs(candidate));
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
@@ -48,6 +48,13 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
                 %% overwrite variables
 
+                env.xmax=7;
+                env.ymin=-4.0;
+                env.roi.ymin=env.ymin;
+                env.kabe.ymin=env.ymin;
+                rbt=getRobotParams(env);
+                hmn=getHumanParams(env,sns);
+
                 % 反転
                 % rbt.y0=-3.5;
                 % rbt.yF=rbt.y0;
@@ -55,13 +62,13 @@ function result=MAIN_func()
                 % rbt.vxmin=0;
 
                 % LRF ##### objF 切り替え #####
-                sns.phi=270;
-                sns.pitch=57;
-                sns.r0=8.0;
-                sns.r2=8.0;
-                sns.phi=deg2rad(sns.phi)/2;
-                sns.pitch=deg2rad(sns.pitch)/2;
-                sns.r1=1;
+                % sns.phi=270;
+                % sns.pitch=57;
+                % sns.r0=8.0;
+                % sns.r2=8.0;
+                % sns.phi=deg2rad(sns.phi)/2;
+                % sns.pitch=deg2rad(sns.pitch)/2;
+                % sns.r1=1;
 
                 % RealSense D435 
                 % sns.phi=91.2;
@@ -147,8 +154,8 @@ function result=MAIN_func()
                 problem.func.dynamics=@(t,z,u)(dynamics(z,u,env,rbt,hmn,sns));
                 % problem.func.pathObj=@(t,z,u)(objF_line(t,z,u,env,rbt,hmn,sns));
                 % problem.func.pathObj=@(t,z,u)(objF_line_pdf(t,z,u,env,rbt,hmn,sns));
-                % problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
-                problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
+                problem.func.pathObj=@(t,z,u)(objF_pdf(t,z,u,env,rbt,hmn,sns));
+                % problem.func.pathObj=@(t,z,u)(objF_LRF(t,z,u,env,rbt,hmn,sns));
                 problem.func.pathCst=@(t,z,u)(constraint(t,z,u,env,rbt,hmn,sns));
                 
                 % Set up problem bounds
