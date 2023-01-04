@@ -7,3 +7,5 @@ matlab_ws/1219/results/1219_realsense_parameter_study_5m_score
 matlab_ws/1219/results/1219_realsense_parameter_study_hmn_vx
 matlab_ws/1219/results/1219_realsense_parameter_study_slack
 *.mp4
+matlab_ws/220103/results/220103_parameter_study_d455/*/*.mat
+matlab_ws/220103/results/220104_parameter_study_LRF/*/*.mat
