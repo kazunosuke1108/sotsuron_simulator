@@ -101,6 +101,9 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
 
                 hmn.vx=-0.8;
+                hmn.y0=-1.5;
+                rbt.y0=-2.5;
+                rbt.yF=rbt.y0;
 
                 t_slack=0.35;
 
