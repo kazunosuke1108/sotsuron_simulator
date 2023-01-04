@@ -17,7 +17,7 @@ function result=MAIN_func()
             try
                 %% experiment or simulation
                 exp_mode=0
-                date="220103";
+                date="220104";
                 abst="parameter_study_LRF";
                 detail="hmny0_"+string(abs(candidate2))+"_vx_"+string(abs(candidate));
                 mkdir('results');
