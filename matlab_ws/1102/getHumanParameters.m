@@ -1,4 +1,0 @@
-function p=getHumanParameters()
-
-
-end

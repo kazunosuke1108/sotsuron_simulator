@@ -1,5 +1,0 @@
-function p=getEnvParameters()
-
-
-    
-end
