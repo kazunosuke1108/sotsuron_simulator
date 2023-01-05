@@ -12,15 +12,15 @@ function result=MAIN_func()
     addpath '/home/hayashide/catkin_ws/src/sotsuron_experiment/sotsuron_experiment/scripts/monitor';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
-    % for candidate=[-0.8 -0.9 -1.0 -1.1]
+    for candidate=[-0.6 -0.8 -1.0 -1.2]
     %     for candidate2=[-0.5 -1.5 -2.5 -3.5]
-            % try
+            try
                 %% experiment or simulation
                 exp_mode=0
-                LRF_mode=0 % 0:d455 1:LRF
+                LRF_mode=1 % 0:d455 1:LRF
                 date="230105";
-                abst="parameter_study_07_d455";
-                detail="vx_080";
+                abst="07_LRF";
+                detail="vx_"+string(abs(candidate));
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -106,7 +106,7 @@ function result=MAIN_func()
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-0.6;
+                hmn.vx=candidate;
                 hmn.y0=0;
                 rbt.y0=0;
                 rbt.yF=rbt.y0;
@@ -266,9 +266,9 @@ function result=MAIN_func()
                     end
                 end
                 % writeCSV(problem,env,rbt,hmn,sns,soln,savename);
-        %     catch
-        %         save(savename+".mat");
-        %         continue
-        %     end
-        % end
+            catch
+                save(savename+".mat");
+                continue
+            end
+        end
     % end
