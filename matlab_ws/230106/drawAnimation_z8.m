@@ -138,7 +138,7 @@ for i = 1:length(plt_xR)
     % path
     set(robot_path,'XData',plt_xR(1:i),'YData',plt_yR(1:i));
     set(human_path,'XData',plt_xH(1:i),'YData',plt_yH(1:i));
-    if not(success_xH(i)==0 | success_yH(i)==0)
+    if footprint(i)==1
         hold on
         plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
     end

@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
-                date="230105";
-                abst="parameter_study_07_d455";
-                detail="vx_080";
+                date="230106";
+                abst="if_230";
+                detail="d";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -95,9 +95,9 @@ function result=MAIN_func()
 
                 hmn.x0=env.xmax;
                 
-                env.xmax=7;
-                env.ymin=-2.5;
-                env.ymax=1.0;
+                env.xmax=10;
+                env.ymin=-0.6;
+                env.ymax=2.3;
                 env.roi.ymin=env.ymin;
                 env.kabe.ymin=env.ymin;
                 env.kabe.ymax=env.ymax;
@@ -108,7 +108,10 @@ function result=MAIN_func()
 
                 hmn.vx=-0.6;
                 hmn.y0=0;
+
+                % rbt.vxmin=0;
                 rbt.y0=0;
+                rbt.xF=10;
                 rbt.yF=rbt.y0;
 
                 t_slack=0.35;
@@ -130,21 +133,13 @@ function result=MAIN_func()
                     env.hz=5;
                     % env.hz=abs(hmn.vx)*40/3;
                 end
-                %% hmn_path
-                % json=jsondecode(fileread('/home/hayashide/catkin_ws/src/sotsuron_experiment/scripts/monitor/velocity.json'));
-                % % json=jsondecode(fileread('/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/velocity.json'))
-                % hmn.x0=json.z_linear_z;
-                % hmn.vx=json.z_linear_a;
-                % env.roi.xmin=rbt.x0;
-                % env.roi.xmax=env.roi.xmin+env.L;
-                % rbt.xF=env.roi.xmax;
-                
-                % シミュレーション
-                % [env sns rbt hmn]=sim_detection(rbt,hmn,sns,env);
-                
+
                 % 計測所要時間の推定
                 %% ロボットの走行所要時間
-                t_rbt=abs(env.L/rbt.vxmax);
+                % t_rbt=abs(env.L/rbt.vxmax);
+                % disp(t_rbt)
+                % disp(t_rbt)
+                t_rbt=abs((rbt.xF-rbt.x0)/rbt.vxmax);
                 t_measure=abs(env.l/hmn.vx); % env.l=ロボットが立ち止まって人を計測したい歩行距離
                 % t_slack=0.05;
                 env.estim_final_t=t_rbt+t_measure;
