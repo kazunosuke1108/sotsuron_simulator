@@ -1,4 +1,4 @@
-function result=MAIN_func_iter0106()
+function result=MAIN_func()
     % MAIN.m
     %% initialization
     clc; clear;
@@ -12,19 +12,20 @@ function result=MAIN_func_iter0106()
     addpath '/home/hayashide/catkin_ws/src/sotsuron_experiment/sotsuron_experiment/scripts/monitor';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
-    for candidate3=[2.0 2.3 2.5]
-        for candidate2=[0 1]
-            for candidate=[-0.6 -0.7 -0.8 -0.9 -1.0 -1.1 -1.2]
+    for candidate2=[0 1]
+        for candidate3=0.5:0.1:3.5
+            for candidate=-0.6:-0.01:-1.2
                 try
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=candidate2 % 0:d455 1:LRF
-                    date="230106";
-                    abst="accfix_7F_"+string(candidate3);
+                    date="230107";
                     if LRF_mode
-                        detail="L_vx"+string(abs(candidate));
+                        abst="0000_parameter_study_LRF";
+                        detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        detail="d_vx"+string(abs(candidate));
+                        abst="0000_parameter_study_d455";
+                        detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
                     % savedir="results\"+date+"_"+abst;
@@ -101,8 +102,8 @@ function result=MAIN_func_iter0106()
                     hmn.x0=env.xmax;
                     
                     env.xmax=10;
-                    env.ymin=-0.5;
-                    env.ymax=candidate3;
+                    env.ymin=0;
+                    env.ymax=4;
                     env.roi.ymin=env.ymin;
                     env.kabe.ymin=env.ymin;
                     env.kabe.ymax=env.ymax;
@@ -112,10 +113,10 @@ function result=MAIN_func_iter0106()
                     hmn=getHumanParams(env,sns);
 
                     hmn.vx=candidate;
-                    hmn.y0=0;
+                    hmn.y0=candidate3;
 
                     % rbt.vxmin=0;
-                    rbt.y0=0;
+                    rbt.y0=1;
                     rbt.xF=10;
                     rbt.yF=rbt.y0;
 

@@ -19,8 +19,8 @@ function result=MAIN_func()
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230106";
-                abst="if_230";
-                detail="d";
+                abst="acc_fix";
+                detail="scale050";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -106,7 +106,7 @@ function result=MAIN_func()
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-0.6;
+                hmn.vx=-1.2;
                 hmn.y0=0;
 
                 % rbt.vxmin=0;
