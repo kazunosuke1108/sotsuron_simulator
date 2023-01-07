@@ -25,8 +25,8 @@ rbt.vxF=0;
 rbt.vyF=0;
 rbt.omgF=0;
 
-rbt.thFmin=-pi/2;
-rbt.thFmax=pi/2;
+rbt.thFmin=-pi;
+rbt.thFmax=pi;
 
 ax_scale=0.5;
 rbt.axmax=ax_scale*rbt.vxmax;

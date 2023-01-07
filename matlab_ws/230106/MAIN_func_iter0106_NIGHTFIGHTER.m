@@ -1,4 +1,4 @@
-function result=MAIN_func()
+function result=MAIN_func_iter0106_NIGHTFIGHTER()
     % MAIN.m
     %% initialization
     clc; clear;
@@ -13,8 +13,8 @@ function result=MAIN_func()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     for candidate2=[0 1]
-        for candidate3=0.5:0.1:3.5
-            for candidate=-0.6:-0.01:-1.2
+        for candidate3=0.5:0.25:3.5
+            for candidate=-0.6:-0.05:-1.2
                 try
                     %% experiment or simulation
                     exp_mode=0
@@ -229,21 +229,21 @@ function result=MAIN_func()
                     if exp_mode
                         disp("exp_mode:1")
                     else
-                        figure(1); clf;
-                        pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
-                        savename_png = savename+"_3_hist.png";
-                        saveas(figure(1),savename_png);
+                        % figure(1); clf;
+                        % pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+                        % savename_png = savename+"_3_hist.png";
+                        % saveas(figure(1),savename_png);
                         
-                        %% Animation
-                        figure(2); clf;
-                        savename_3_anim=savename+"_3_anim";
-                        % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
-                        drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+                        % %% Animation
+                        % figure(2); clf;
+                        % savename_3_anim=savename+"_3_anim";
+                        % % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+                        % drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
                         
-                        figure(3); clf;
-                        drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
-                        savename_3_path = savename+"_3_path.png";
-                        saveas(figure(3),savename_3_path);
+                        % figure(3); clf;
+                        % drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
+                        % savename_3_path = savename+"_3_path.png";
+                        % saveas(figure(3),savename_3_path);
                         disp("exp_mode:0")
                     end
                     result.z=z;
