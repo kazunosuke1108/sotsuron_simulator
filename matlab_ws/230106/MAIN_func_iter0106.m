@@ -19,8 +19,8 @@ function result=MAIN_func_iter0106()
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=candidate2 % 0:d455 1:LRF
-                    date="230106";
-                    abst="accfix_7F_"+string(candidate3);
+                    date="230107";
+                    abst="7F_"+string(candidate3);
                     if LRF_mode
                         detail="L_vx"+string(abs(candidate));
                     else
@@ -181,8 +181,8 @@ function result=MAIN_func_iter0106()
                     problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.vx0;rbt.vy0;rbt.omg0];
                     problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.vx0;rbt.vy0;rbt.omg0];
                     
-                    problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thFmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
-                    problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thFmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
+                    problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
+                    problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
                     
                     problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin];
                     problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax];

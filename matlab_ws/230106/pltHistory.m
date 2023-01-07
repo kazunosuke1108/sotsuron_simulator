@@ -35,10 +35,10 @@ title(graph_title);
 subplot(3,3,3);
 plot(t,th,'k');
 hold on
-plot(t,rbt.thFmin*ones(size(t)),'r');
+plot(t,rbt.thmin*ones(size(t)),'r');
 hold on
-plot(t,rbt.thFmax*ones(size(t)),'r');
-ylim([rbt.thFmin-pi/10,rbt.thFmax+pi/10]);
+plot(t,rbt.thmax*ones(size(t)),'r');
+ylim([rbt.thmin-pi/10,rbt.thmax+pi/10]);
 ylabel('th');
 
 subplot(3,3,4);

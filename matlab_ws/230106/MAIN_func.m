@@ -19,7 +19,7 @@ function result=MAIN_func()
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230106";
-                abst="acc_fix";
+                abst="thmin_fix";
                 detail="scale050";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
@@ -96,8 +96,8 @@ function result=MAIN_func()
                 hmn.x0=env.xmax;
                 
                 env.xmax=10;
-                env.ymin=-0.6;
-                env.ymax=2.3;
+                env.ymin=-0.5;
+                env.ymax=4;
                 env.roi.ymin=env.ymin;
                 env.kabe.ymin=env.ymin;
                 env.kabe.ymax=env.ymax;
@@ -106,7 +106,7 @@ function result=MAIN_func()
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-1.2;
+                hmn.vx=-0.6;
                 hmn.y0=0;
 
                 % rbt.vxmin=0;
@@ -176,8 +176,8 @@ function result=MAIN_func()
                 problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.vx0;rbt.vy0;rbt.omg0];
                 problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.vx0;rbt.vy0;rbt.omg0];
                 
-                problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thFmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
-                problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thFmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
+                problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
+                problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
                 
                 problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin];
                 problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax];
