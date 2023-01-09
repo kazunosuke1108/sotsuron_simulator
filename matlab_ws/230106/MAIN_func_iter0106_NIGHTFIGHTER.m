@@ -19,12 +19,12 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=candidate2 % 0:d455 1:LRF
-                    date="230107";
+                    date="230108";
                     if LRF_mode
-                        abst="1340_parameter_study_LRF";
+                        abst="1425_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1340_parameter_study_d455";
+                        abst="1425_parameter_study_d455";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -108,6 +108,15 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     env.kabe.ymin=env.ymin;
                     env.kabe.ymax=env.ymax;
                     env.roi.ymax=env.ymax;
+
+                    rbt.vmax=0.22
+                    rbt.vxmax=rbt.vmax/sqrt(2);
+                    rbt.vxmin=-rbt.vxmax;
+                    % rbt.vxmin=0;
+                    rbt.vymax=rbt.vmax/sqrt(2);
+                    rbt.vymin=-rbt.vymax;
+                    rbt.omgmax=pi/4;
+                    rbt.omgmin=-rbt.omgmax;
 
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);

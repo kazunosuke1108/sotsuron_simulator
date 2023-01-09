@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
-                date="230106";
-                abst="thmin_fix";
-                detail="scale050";
+                date="230108";
+                abst="TolCon_compare";
+                detail="1em12";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -96,7 +96,7 @@ function result=MAIN_func()
                 hmn.x0=env.xmax;
                 
                 env.xmax=10;
-                env.ymin=-0.5;
+                env.ymin=0;
                 env.ymax=4;
                 env.roi.ymin=env.ymin;
                 env.kabe.ymin=env.ymin;
@@ -107,10 +107,10 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
 
                 hmn.vx=-0.6;
-                hmn.y0=0;
+                hmn.y0=1;
 
                 % rbt.vxmin=0;
-                rbt.y0=0;
+                rbt.y0=1;
                 rbt.xF=10;
                 rbt.yF=rbt.y0;
 
@@ -195,7 +195,7 @@ function result=MAIN_func()
                 'MaxIter',1e3,... % 可能な反復の最大数 (正の整数)
                 'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
                 'TolX',1e-10,... % x に関する許容誤差 (正のスカラー)
-                'TolCon',1e-8,... % 制約違反に関する許容誤差 (正のスカラー)
+                'TolCon',1e-12,... % 制約違反に関する許容誤差 (正のスカラー)
                 'MaxFunEvals',1e6);
                 
                 % problem.options.method = 'trapezoid'; 
