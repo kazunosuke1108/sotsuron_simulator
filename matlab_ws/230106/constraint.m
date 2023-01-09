@@ -13,13 +13,14 @@ function [c, ceq, cGrad, ceqGrad]=constraint(t,z,u,env,rbt,hmn,sns)
     % c1=-((norm_HR-sns.r1).*close_HR).'-(1*(1-close_HR)).';
     % c1=-(norm_HR-sns.r1).';
     % c1=-(norm_HR-0.5).';
-    c1=-1;
+    % c1=-1;
     % 速度制約
     norm_vel=sqrt(rbt_path(4,:).^2+rbt_path(5,:).^2).'-rbt.vmax;
 
 
-    c=[c1;
-    norm_vel];
+    % c=[c1;
+    % norm_vel];
+    c=[norm_vel];
     ceq=[];
 
     cGrad=0;

@@ -19,12 +19,12 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=candidate2 % 0:d455 1:LRF
-                    date="230109";
+                    date="230110";
                     if LRF_mode
-                        abst="1435_parameter_study_LRF";
+                        abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1435_parameter_study_d455";
+                        abst="0000_parameter_study_d455";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -113,14 +113,14 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
 
-                    rbt.vmax=0.22
-                    rbt.vxmax=rbt.vmax/sqrt(2);
-                    rbt.vxmin=-rbt.vxmax;
-                    % rbt.vxmin=0;
-                    rbt.vymax=rbt.vmax/sqrt(2);
-                    rbt.vymin=-rbt.vymax;
-                    rbt.omgmax=pi/4;
-                    rbt.omgmin=-rbt.omgmax;
+                    % rbt.vmax=0.22
+                    % rbt.vxmax=rbt.vmax/sqrt(2);
+                    % rbt.vxmin=-rbt.vxmax;
+                    % % rbt.vxmin=0;
+                    % rbt.vymax=rbt.vmax/sqrt(2);
+                    % rbt.vymin=-rbt.vymax;
+                    % rbt.omgmax=pi/4;
+                    % rbt.omgmin=-rbt.omgmax;
 
                     hmn.vx=candidate;
                     hmn.y0=candidate3;
