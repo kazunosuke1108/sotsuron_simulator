@@ -14,17 +14,17 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     for candidate2=[0 1]
         for candidate3=0.5:0.25:3.5
-            for candidate=-0.6:-0.05:-1.0
+            for candidate=-0.6:-0.05:-1.2
                 try
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=candidate2 % 0:d455 1:LRF
                     date="230110";
                     if LRF_mode
-                        abst="2200_parameter_study_LRF";
+                        abst="2300_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="2200_parameter_study_d455";
+                        abst="2300_parameter_study_d455";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -101,7 +101,8 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
 
                     hmn.x0=env.xmax;
                     
-                    env.xmax=10;
+                    env.l=15;
+                    env.xmax=15;
                     env.ymin=0;
                     env.ymax=4;
                     env.roi.ymin=env.ymin;
@@ -113,7 +114,7 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
 
-                    % rbt.vmax=0.22
+                    rbt.vmax=0.18;
                     % rbt.vxmax=rbt.vmax/sqrt(2);
                     % rbt.vxmin=-rbt.vxmax;
                     % % rbt.vxmin=0;
@@ -127,7 +128,7 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
 
                     % rbt.vxmin=0;
                     rbt.y0=1;
-                    rbt.xF=10;
+                    % rbt.xF=10;
                     rbt.yF=rbt.y0;
 
                     t_slack=0.35;
@@ -192,21 +193,25 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.vx0;rbt.vy0;rbt.omg0];
                     problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.vx0;rbt.vy0;rbt.omg0];
                     
-                    problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
-                    problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
-                 
+                    % problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
+                    % problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
+
+                    problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;-0.18;-0.18;rbt.omgmin];
+                    problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;0.18;0.18;rbt.omgmax];
+                    
                     problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin];
                     problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax];
                     
                     
-                    temp=[2;3.5;0;0;0;0]
                     % Initial guess at trajectory
+                    temp=[0;3.5;0;0;0;0]
                     problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,((problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2+(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2)/2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                     problem.guess.state = [problem.bounds.initialState.low,temp,problem.bounds.finalState.upp];
                     problem.guess.control = [0,0,0;0,0,0;0,0,0];
                     % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                     % problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.upp];
                     % problem.guess.control = [0,0;0,0;0,0];
+                    
                     
                     % Solver options
                     problem.options.nlpOpt = optimset(...
