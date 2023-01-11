@@ -95,7 +95,7 @@ function result=MAIN_func()
 
                 hmn.x0=env.xmax;
                 
-                env.L=15;
+                env.L=20;
                 env.xmax=env.L;
                 env.ymin=0;
                 env.ymax=4;
