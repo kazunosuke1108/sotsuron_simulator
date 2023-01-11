@@ -109,7 +109,7 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
 
                 hmn.vx=-1.2;
-                hmn.y0=1.5;
+                hmn.y0=1.25;
 
                 % rbt.vxmin=0;
                 rbt.y0=1;
@@ -187,7 +187,7 @@ function result=MAIN_func()
                 
                 
                 % Initial guess at trajectory
-                slack=0.2;
+                slack=0.1;
                 disp_keep=hmn.y0+hmn.personal_r+rbt.sizer+slack;
                 if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack*2
                     y_temp=hmn.y0+hmn.personal_r+rbt.sizer+slack;
@@ -201,11 +201,14 @@ function result=MAIN_func()
                 end
                 
                 t_temp=env.L/hmn.vx;
+                t_temp2=problem.bounds.finalTime.low-t_temp;
 
-                temp=[0;y_temp;0;0;0;0]
-                problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
-                problem.guess.state = [problem.bounds.initialState.low,temp,problem.bounds.finalState.upp];
-                problem.guess.control = [0,0,0;0,0,0;0,0,0];
+                temp=[0;y_temp;-pi/2;0;0;0]
+                temp2=[rbt.xF;y_temp;-pi/2;0;0;0]
+                problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,t_temp2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                problem.guess.state = [problem.bounds.initialState.low,temp,temp2,problem.bounds.finalState.upp];
+                problem.guess.control = [0,0,0,0;0,0,0,0;0,0,0,0];
+                % problem.guess.control = [0,0,0;0,0,0;0,0,0];
                 % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                 % problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.upp];
                 % problem.guess.control = [0,0;0,0;0,0];
