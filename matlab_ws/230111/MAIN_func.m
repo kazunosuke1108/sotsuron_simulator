@@ -20,11 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230111";
                 abst="initial_guess";
-<<<<<<< HEAD
-                detail="DEV_1.5true_1.2";
-=======
                 detail="DEV_2_1.2";
->>>>>>> fe23ad75daccaba3c73ce938bde2e39792ce87b8
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -115,7 +111,7 @@ function result=MAIN_func()
                 % hmn.personal_r=sns.r1;
 
                 hmn.vx=-1.2;
-                hmn.y0=1.5;
+                hmn.y0=1.0;
                 hmn.personal_r=1.2;
 
                 % rbt.vxmin=0;
@@ -186,11 +182,11 @@ function result=MAIN_func()
                 problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.vx0;rbt.vy0;rbt.omg0];
                 problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.vx0;rbt.vy0;rbt.omg0];
                 
-                problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;-0.17;-0.17;rbt.omgmin];
-                problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;0.17;0.17;rbt.omgmax];
+                problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.vxmin_actual;rbt.vymin_actual;rbt.omgmin_actual];
+                problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.vxmax_actual;rbt.vymax_actual;rbt.omgmax_actual];
                 
-                problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin];
-                problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax];
+                problem.bounds.control.low = [rbt.axmin_actual;rbt.aymin_actual;rbt.aangmin_actual];
+                problem.bounds.control.upp = [rbt.axmax_actual;rbt.aymax_actual;rbt.aangmax_actual];
                 
                 
                 % Initial guess at trajectory
