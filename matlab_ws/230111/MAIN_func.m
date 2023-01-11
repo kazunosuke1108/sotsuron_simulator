@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230111";
                 abst="initial_guess";
-                detail="DEV_2_1.2";
+                detail="DEV_1.5_0.8";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -110,15 +110,14 @@ function result=MAIN_func()
 
                 % hmn.personal_r=sns.r1;
 
-                hmn.vx=-1.2;
-                hmn.y0=1.0;
-                hmn.personal_r=1.2;
+                hmn.vx=-0.85;
+                hmn.y0=1.5;
+                % hmn.personal_r=1.2;
 
                 % rbt.vxmin=0;
                 rbt.y0=1;
                 % rbt.xF=10;
                 rbt.yF=rbt.y0;
-                rbt.vmax=0.18;
 
                 t_slack=0.35;
 
@@ -184,7 +183,7 @@ function result=MAIN_func()
                 
                 problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.vxmin_actual;rbt.vymin_actual;rbt.omgmin_actual];
                 problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.vxmax_actual;rbt.vymax_actual;rbt.omgmax_actual];
-                
+
                 problem.bounds.control.low = [rbt.axmin_actual;rbt.aymin_actual;rbt.aangmin_actual];
                 problem.bounds.control.upp = [rbt.axmax_actual;rbt.aymax_actual;rbt.aangmax_actual];
                 
