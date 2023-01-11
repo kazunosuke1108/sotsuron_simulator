@@ -13,7 +13,7 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     for candidate2=[0 1]
-        for candidate3=0.5:0.25:2.0
+        for candidate3=2.0:0.25:3.6
             for candidate=-0.6:-0.05:-1.21
                 try
                     %% experiment or simulation
