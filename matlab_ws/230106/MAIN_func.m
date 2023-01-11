@@ -18,8 +18,8 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
-                date="230108";
-                abst="TolCon_compare";
+                date="230110";
+                abst="initial_guess";
                 detail="1em12";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
@@ -95,7 +95,8 @@ function result=MAIN_func()
 
                 hmn.x0=env.xmax;
                 
-                env.xmax=10;
+                env.l=15;
+                env.xmax=15;
                 env.ymin=0;
                 env.ymax=4;
                 env.roi.ymin=env.ymin;
@@ -106,13 +107,14 @@ function result=MAIN_func()
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-0.6;
+                hmn.vx=-1.2;
                 hmn.y0=1;
 
                 % rbt.vxmin=0;
                 rbt.y0=1;
                 rbt.xF=10;
                 rbt.yF=rbt.y0;
+                rbt.vmax=0.18;
 
                 t_slack=0.35;
 
@@ -176,17 +178,21 @@ function result=MAIN_func()
                 problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.vx0;rbt.vy0;rbt.omg0];
                 problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.vx0;rbt.vy0;rbt.omg0];
                 
-                problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
-                problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
+                problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;-0.18;-0.18;rbt.omgmin];
+                problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;0.18;0.18;rbt.omgmax];
                 
                 problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin];
                 problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax];
                 
                 
                 % Initial guess at trajectory
-                problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
-                problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.upp];
-                problem.guess.control = [0,0;0,0;0,0];
+                temp=[0;3.5;0;0;0;0]
+                problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,(1*(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2+(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2)/2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                problem.guess.state = [problem.bounds.initialState.low,temp,problem.bounds.finalState.upp];
+                problem.guess.control = [0,0,0;0,0,0;0,0,0];
+                % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                % problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.upp];
+                % problem.guess.control = [0,0;0,0;0,0];
                 
                 
                 % Solver options
