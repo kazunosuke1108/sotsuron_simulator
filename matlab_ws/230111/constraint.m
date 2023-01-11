@@ -11,7 +11,7 @@ function [c, ceq, cGrad, ceqGrad]=constraint(t,z,u,env,rbt,hmn,sns)
     % 衝突回避制約1m
     close_HR=norm_HR<sns.r2;
     % c1=-((norm_HR-sns.r1).*close_HR).'-(1*(1-close_HR)).';
-    c1=-(norm_HR-sns.r1).';
+    c1=-(norm_HR-hmn.personal_r).';
     % c1=-(norm_HR-0.5).';
     % c1=-1;
     % 速度制約
