@@ -1,9 +1,9 @@
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230106\results\230108_TolCon_compare";
-
-dirlist=dir(motherdir);
+motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230106\results\230106_7F_2";
+addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
+dirlist=dir(motherdir)
 
 for n = 1:length(dirlist)
-    try
+    % try
         fullpath = fullfile(dirlist(n).folder, dirlist(n).name);
         matpath = dir(fullpath+"\*.mat");
         fullmatpath=string(matpath.folder)+"\"+string(matpath.name);
@@ -135,10 +135,10 @@ for n = 1:length(dirlist)
             
             writematrix(result_matrix,motherdir+"\results.csv",'WriteMode','append');
             clearvars -except motherdir dirlist matpath fullmatpath n;
-            catch
-                disp(string(dirlist(n).name))
-                continue
-            end
+            %catch
+            %    disp(string(dirlist(n).name))
+            %    continue
+            %end
             
             
         end
