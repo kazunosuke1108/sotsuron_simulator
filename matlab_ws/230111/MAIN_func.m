@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230111";
                 abst="initial_guess";
-                detail="DEV";
+                detail="DEV_1.5";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -108,7 +108,7 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
 
                 hmn.vx=-1.2;
-                hmn.y0=1;
+                hmn.y0=1.5;
 
                 % rbt.vxmin=0;
                 rbt.y0=1;
@@ -186,10 +186,23 @@ function result=MAIN_func()
                 
                 
                 % Initial guess at trajectory
+                slack=0.1;
+                disp_keep=hmn.y0+hmn.personal_r+rbt.sizer+slack;
+                if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack*2
+                    y_temp=hmn.y0+hmn.personal_r+rbt.sizer+slack;
+                    disp("avoid upper")
+                else
+                    y_temp=hmn.y0-hmn.personal_r-rbt.sizer-slack
+                    if y_temp>rbt.y0
+                        y_temp=rbt.y0
+                    disp("avoid lower")
+                    end
+                end
                 
+                t_temp=env.L/hmn.vx;
 
-                temp=[0;3.5;0;0;0;0]
-                problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,(1*(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2+(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2)/2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                temp=[0;y_temp;0;0;0;0]
+                problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                 problem.guess.state = [problem.bounds.initialState.low,temp,problem.bounds.finalState.upp];
                 problem.guess.control = [0,0,0;0,0,0;0,0,0];
                 % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
