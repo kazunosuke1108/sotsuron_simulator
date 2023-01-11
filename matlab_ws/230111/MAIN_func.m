@@ -111,7 +111,7 @@ function result=MAIN_func()
                 % hmn.personal_r=sns.r1;
 
                 hmn.vx=-1.2;
-                hmn.y0=2;
+                hmn.y0=3.0;
                 hmn.personal_r=1.2;
 
                 % rbt.vxmin=0;
