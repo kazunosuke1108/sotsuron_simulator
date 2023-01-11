@@ -70,14 +70,16 @@ hold on
 roi_rectangle = rectangle('Position', [env.roi.xmin env.roi.ymin env.roi.xmax-env.roi.xmin env.roi.ymax-env.roi.ymin],'EdgeColor','c');
 
 %%%%% Robot
-rbt_position = plot(plt_xR(1),plt_yR(1),'ob','MarkerSize',15);
+% rbt_position = plot(plt_xR(1),plt_yR(1),'ob','MarkerSize',15);
+rbt_position=plot(plt_xR(1)+rbt.sizer*cos(0:0.01:2*pi),plt_yR(1)+rbt.sizer*sin(0:0.01:2*pi),'b');
 hold on
 rbt_base_direction = quiver(plt_xR(1),plt_yR(1),cos(plt_thR(1)),sin(plt_thR(1)),'b');
 hold on
 rbt_vel_direction = quiver(plt_xR(1),plt_yR(1),plt_vxR(1),plt_vyR(1),'b');
 hold on
 %%%%% Human
-hmn_position = plot(plt_xH(1),plt_yH(1),'or','MarkerSize',15);
+% hmn_position = plot(plt_xH(1),plt_yH(1),'or','MarkerSize',15);
+hmn_position=plot(plt_xH(1)+hmn.sizer*cos(0:0.01:2*pi),plt_yH(1)+hmn.sizer*sin(0:0.01:2*pi),'r');
 hold on
 hmn_direction = quiver(plt_xH(1),plt_yH(1),plt_vxH(1),plt_vyH(1),'r');
 hold on
@@ -118,8 +120,8 @@ daspect([1,1,1]);
 %%%% Iteration
 for i = 1:length(plt_xR)
     title("frame: "+i+" "+graph_title+" L="+measured_length+"m"+" continuous="+continuous_check+" min gap"+min(norm_HR)+" m")
-    set(rbt_position,'XData',plt_xR(i),'YData',plt_yR(i));
-    set(hmn_position,'XData',plt_xH(i),'YData',plt_yH(i));
+    set(rbt_position,'XData',plt_xR(i)+rbt.sizer*cos(0:0.01:2*pi),'YData',plt_yR(i)+rbt.sizer*sin(0:0.01:2*pi));
+    set(hmn_position,'XData',plt_xH(i)+hmn.sizer*cos(0:0.01:2*pi),'YData',plt_yH(i)+hmn.sizer*sin(0:0.01:2*pi));
     % set(hmn_position_err_fast,'XData',plt_xH(i)-hmn.vx_err*t(i),'YData',plt_yH(i))
     % set(hmn_position_err_slow,'XData',plt_xH(i)+hmn.vx_err*t(i),'YData',plt_yH(i))
     set(rbt_base_direction,'XData',plt_xR(i),'YData',plt_yR(i),'UData',cos(plt_thR(i)),'VData',sin(plt_thR(i)));

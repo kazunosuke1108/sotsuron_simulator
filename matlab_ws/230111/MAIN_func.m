@@ -96,7 +96,7 @@ function result=MAIN_func()
                 hmn.x0=env.xmax;
                 
                 env.L=15;
-                env.xmax=15;
+                env.xmax=env.L;
                 env.ymin=0;
                 env.ymax=4;
                 env.roi.xmax=env.roi.xmin+env.L;
@@ -108,8 +108,10 @@ function result=MAIN_func()
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
+                % hmn.personal_r=sns.r1;
+
                 hmn.vx=-1.2;
-                hmn.y0=1.25;
+                hmn.y0=1.5;
 
                 % rbt.vxmin=0;
                 rbt.y0=1;
@@ -200,15 +202,18 @@ function result=MAIN_func()
                     end
                 end
                 
-                t_temp=env.L/hmn.vx;
-                t_temp2=problem.bounds.finalTime.low-t_temp;
+                t_temp=env.L/abs(hmn.vx+rbt.vx0);
+                x_temp=rbt.vx0*t_temp
+                % t_temp2=problem.bounds.finalTime.low-t_temp;
 
-                temp=[0;y_temp;-pi/2;0;0;0]
-                temp2=[rbt.xF;y_temp;-pi/2;0;0;0]
-                problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,t_temp2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
-                problem.guess.state = [problem.bounds.initialState.low,temp,temp2,problem.bounds.finalState.upp];
-                problem.guess.control = [0,0,0,0;0,0,0,0;0,0,0,0];
-                % problem.guess.control = [0,0,0;0,0,0;0,0,0];
+                temp=[x_temp;y_temp;-pi/2;0;0;0]
+                % temp2=[rbt.xF;y_temp;0;0;0;0]
+                problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,t_temp2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                problem.guess.state = [problem.bounds.initialState.low,temp,problem.bounds.finalState.upp];
+                % problem.guess.state = [problem.bounds.initialState.low,temp,temp2,problem.bounds.finalState.upp];
+                problem.guess.control = [0,0,0;0,0,0;0,0,0];
+                % problem.guess.control = [0,0,0,0;0,0,0,0;0,0,0,0];
                 % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                 % problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.upp];
                 % problem.guess.control = [0,0;0,0;0,0];
