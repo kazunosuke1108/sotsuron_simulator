@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230111";
                 abst="initial_guess";
-                detail="DEV_1.5";
+                detail="DEV_1.5true_1.2";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -112,6 +112,7 @@ function result=MAIN_func()
 
                 hmn.vx=-1.2;
                 hmn.y0=1.5;
+                hmn.personal_r=1.2;
 
                 % rbt.vxmin=0;
                 rbt.y0=1;
