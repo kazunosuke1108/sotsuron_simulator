@@ -204,10 +204,10 @@ function result=MAIN_func()
                 end
                 
                 t_temp=env.L/abs(hmn.vx+rbt.vx0);
-                x_temp=rbt.vx0*t_temp
+                x_temp=rbt.vx0*t_temp;
                 % t_temp2=problem.bounds.finalTime.low-t_temp;
 
-                temp=[x_temp;y_temp;-pi/2;0;0;0]
+                temp=[x_temp;y_temp;-pi/2;0;0;0];
                 % temp2=[rbt.xF;y_temp;0;0;0;0]
                 problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                 % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,t_temp2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];

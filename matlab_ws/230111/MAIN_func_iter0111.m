@@ -188,7 +188,6 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     problem.bounds.control.low = [rbt.axmin_actual;rbt.aymin_actual;rbt.aangmin_actual];
                     problem.bounds.control.upp = [rbt.axmax_actual;rbt.aymax_actual;rbt.aangmax_actual];
                     
-                    
                     % Initial guess at trajectory
                     slack=0.1;
                     disp_keep=hmn.y0+hmn.personal_r+rbt.sizer+slack;
