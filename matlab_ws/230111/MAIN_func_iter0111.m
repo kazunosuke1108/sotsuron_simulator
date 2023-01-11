@@ -99,8 +99,6 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     
                     env.dist_hsr_zed=13.5;
 
-                    hmn.x0=env.xmax;
-                    
                     env.L=20;
                     env.xmax=env.L;
                     env.ymin=0;
@@ -114,8 +112,6 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
 
-                    rbt.vmax=0.18;
-                    
                     hmn.vx=candidate;
                     hmn.y0=candidate3;
 
@@ -186,11 +182,11 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.vx0;rbt.vy0;rbt.omg0];
                     problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.vx0;rbt.vy0;rbt.omg0];
                     
-                    problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;-0.17;-0.17;rbt.omgmin];
-                    problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;0.17;0.17;rbt.omgmax];
+                    problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.vxmin_actual;rbt.vymin_actual;rbt.omgmin_actual];
+                    problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.vxmax_actual;rbt.vymax_actual;rbt.omgmax_actual];
                     
-                    problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin];
-                    problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax];
+                    problem.bounds.control.low = [rbt.axmin_actual;rbt.aymin_actual;rbt.aangmin_actual];
+                    problem.bounds.control.upp = [rbt.axmax_actual;rbt.aymax_actual;rbt.aangmax_actual];
                     
                     
                     % Initial guess at trajectory
