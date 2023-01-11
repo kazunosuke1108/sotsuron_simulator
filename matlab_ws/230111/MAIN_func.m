@@ -186,7 +186,7 @@ function result=MAIN_func()
                 
                 
                 % Initial guess at trajectory
-                slack=0.1;
+                slack=0.2;
                 disp_keep=hmn.y0+hmn.personal_r+rbt.sizer+slack;
                 if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack*2
                     y_temp=hmn.y0+hmn.personal_r+rbt.sizer+slack;
