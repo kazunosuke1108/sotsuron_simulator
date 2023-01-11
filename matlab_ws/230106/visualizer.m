@@ -1,14 +1,14 @@
 addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
 % addpath '/home/hayashide/kazu_ws/sotsuron_simulator/matlab_ws/tutorial/cartPole'
 
-matpath="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230106\results\230109_1435_parameter_study_d455\230109_143343_d_hmny0_0.5_vx0.6\230109_143343_.mat";
+matpath="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230106\results\230110_2330_parameter_study_d455\230111_033915_d_hmny0_2.25_vx0.6\230111_033915_.mat";
 % matpath="/home/hayashide/kazu_ws/sotsuron_simulator/matlab_ws/1210/results/1210_parastd4Hz/221210_140704_xmax10_ymin-2/221210_140704_test.mat"
 load(matpath)
 
 
-date="230105";
+date="230110";2.
 abst="visualizer";
-detail="230105_000709_hmny0_0";
+detail="230111_033915_";
 mkdir('results');
 savedir="results\"+date+"_"+abst;
 % savedir="results/"+date+"_"+abst;
@@ -28,7 +28,11 @@ savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
 
 % Plots
 %% add score to fig name
-graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
+try
+    graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
+catch
+    graph_title="error"
+end
 %% History
 figure(1); clf;
 pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
