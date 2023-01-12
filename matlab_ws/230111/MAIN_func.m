@@ -18,8 +18,8 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
-                date="230111";
-                abst="initial_guess";
+                date="230112";
+                abst="ytpc2022h";
                 detail="DEV_1.5_0.8";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
