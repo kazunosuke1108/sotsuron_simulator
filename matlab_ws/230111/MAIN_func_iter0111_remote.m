@@ -12,19 +12,19 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
     addpath '/home/hayashide/catkin_ws/src/sotsuron_experiment/sotsuron_experiment/scripts/monitor';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
-    for candidate2=[0]
-        for candidate3=3.25:0.25:3.6
+    for candidate2=[0 1]
+        for candidate3=2.0:0.25:3.6
             for candidate=-0.6:-0.05:-1.21
                 try
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=candidate2 % 0:d455 1:LRF
-                    date="230111";
+                    date="2022h_230112";
                     if LRF_mode
-                        abst="2330_parameter_study_LRF";
+                        abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="2330_parameter_study_d455";
+                        abst="0000_parameter_study_d455";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
