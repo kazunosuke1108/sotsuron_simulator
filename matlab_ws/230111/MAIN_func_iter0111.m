@@ -51,7 +51,7 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
 
                     env=getEnvironmentParams();
                     sns=getSensorParams();
-                    rbt=getRobotParams(env);
+                    rbt=getRobotParams(env);==
                     hmn=getHumanParams(env,sns);
                     %% overwrite variables
 
