@@ -20,10 +20,10 @@ rbt.vymin=-rbt.vymax;
 rbt.omgmax=pi/4;
 rbt.omgmin=-rbt.omgmax;
 
-rbt.vmax_actual=rbt.vmax-0.04;
-rbt.vxmax_actual=rbt.vmax_actual-0.01;
+rbt.vmax_actual=rbt.vmax-0.06;
+rbt.vxmax_actual=rbt.vmax-0.05;
 rbt.vxmin_actual=-rbt.vxmax_actual;
-rbt.vymax_actual=rbt.vmax_actual-0.01;
+rbt.vymax_actual=rbt.vmax-0.05;
 rbt.vymin_actual=-rbt.vymax_actual;
 % rbt.vxmin=0;
 rbt.omgmax_actual=rbt.omgmax-0.17;
