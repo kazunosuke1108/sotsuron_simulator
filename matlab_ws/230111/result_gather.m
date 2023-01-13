@@ -1,8 +1,8 @@
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230111\results\230111_2330_parameter_study_d455";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230111\results\2022h_230112_0000_parameter_study_d455";
 
 dirlist=dir(motherdir);
 
-for n = 1:length(dirlist)
+for n = 3:length(dirlist)
     try
         fullpath = fullfile(dirlist(n).folder, dirlist(n).name);
         matpath = dir(fullpath+"\*.mat");
@@ -133,7 +133,7 @@ for n = 1:length(dirlist)
             writematrix(result_matrix,motherdir+"\results.csv",'WriteMode','append');
             clearvars -except motherdir dirlist matpath fullmatpath n;
             catch
-                disp(string(dirlist(n).name))
+                disp(fullmatpath)
                 continue
             end
             

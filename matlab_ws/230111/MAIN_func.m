@@ -110,8 +110,8 @@ function result=MAIN_func()
 
                 % hmn.personal_r=sns.r1;
 
-                hmn.vx=-0.85;
-                hmn.y0=1.5;
+                hmn.vx=-1.15;
+                hmn.y0=1.25;
                 % hmn.personal_r=1.2;
 
                 % rbt.vxmin=0;

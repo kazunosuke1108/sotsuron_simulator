@@ -12,7 +12,7 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
     addpath '/home/hayashide/catkin_ws/src/sotsuron_experiment/sotsuron_experiment/scripts/monitor';
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
-    for candidate2=[0 1]
+    for candidate2=[0]
         for candidate3=0.5:0.25:2.0
             for candidate=-0.6:-0.05:-1.21
                 try
@@ -51,7 +51,7 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
 
                     env=getEnvironmentParams();
                     sns=getSensorParams();
-                    rbt=getRobotParams(env);==
+                    rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
                     %% overwrite variables
 
@@ -99,7 +99,7 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     
                     env.dist_hsr_zed=13.5;
 
-                    env.L=20;
+                    env.L=30;
                     env.xmax=env.L;
                     env.ymin=0;
                     env.ymax=4;
