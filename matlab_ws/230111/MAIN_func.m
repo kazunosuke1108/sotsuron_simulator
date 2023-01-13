@@ -19,8 +19,8 @@ function result=MAIN_func()
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230112";
-                abst="ytpc2022h";
-                detail="DEV_1.5_0.8";
+                abst="plot_v_vector";
+                detail="DEV";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -110,8 +110,8 @@ function result=MAIN_func()
 
                 % hmn.personal_r=sns.r1;
 
-                hmn.vx=-1.15;
-                hmn.y0=1.25;
+                hmn.vx=-1.2;
+                hmn.y0=1;
                 % hmn.personal_r=1.2;
 
                 % rbt.vxmin=0;

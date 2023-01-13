@@ -1,6 +1,7 @@
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230111\results\2022h_230112_0000_parameter_study_d455";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230111\results\2022h_230112_1200_parameter_study_d455";
 
 dirlist=dir(motherdir);
+figure(1); clf;
 
 for n = 3:length(dirlist)
     try
@@ -128,8 +129,11 @@ for n = 3:length(dirlist)
             hmn.y0
             ];
             
-            
-            
+            pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+            if n ~= length(dirlist)
+                hold on
+            end
+            saveas(figure(1),motherdir+"\results.png");
             writematrix(result_matrix,motherdir+"\results.csv",'WriteMode','append');
             clearvars -except motherdir dirlist matpath fullmatpath n;
             catch

@@ -19,12 +19,12 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=candidate2 % 0:d455 1:LRF
-                    date="2021c_230112";
+                    date="2020e_230114";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="0000_parameter_study_d455";
+                        abst="0000_parameter_study_d455_100";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -99,7 +99,7 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     
                     env.dist_hsr_zed=13.5;
 
-                    env.L=30;
+                    env.L=20;
                     env.xmax=env.L;
                     env.ymin=0;
                     env.ymax=4;
