@@ -1,7 +1,9 @@
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230111\results\2020e_230114_0000_parameter_study_d455_100";
+clc;clear;
+
+motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230111\results\230111_2330_parameter_study_d455";
 
 dirlist=dir(motherdir);
-figure(1); clf;
+%figure(1); clf;
 
 for n = 3:length(dirlist)
     try
@@ -10,13 +12,23 @@ for n = 3:length(dirlist)
         fullmatpath=string(matpath.folder)+"\"+string(matpath.name);
         load(fullmatpath)
         footprint=getFootprint(t,z,u,env,rbt,hmn,sns);
+        hmn_path=getHumanPath(t,hmn);
 
         %%%%% how long measured?
         success_list=find(footprint>0,nnz(footprint));
         first_success_idx=success_list(1);
         last_success_idx=success_list(end);
         continuous_check=all(footprint(first_success_idx:last_success_idx)>0);
-        hmn_path=getHumanPath(t,hmn);
+        i=1;
+        for success = success_list(1:end-1)
+            if success+1==success_list(i+1)
+                last_success_idx=success;
+            else
+                last_success_idx=success;
+                break
+            end
+            i=i+1;
+        end
         measured_length=abs(hmn_path(1,first_success_idx)-hmn_path(1,last_success_idx));
         
         vec_HR=[hmn_path(1,:);hmn_path(2,:)]-[z(1,:);z(2,:)];
@@ -129,10 +141,10 @@ for n = 3:length(dirlist)
             hmn.y0
             ];
             
-            pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
-            if n ~= length(dirlist)
-                hold on
-            end
+            %pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+            %if n ~= length(dirlist)
+            %    hold on
+            %end
             saveas(figure(1),motherdir+"\results.png");
             writematrix(result_matrix,motherdir+"\results.csv",'WriteMode','append');
             clearvars -except motherdir dirlist matpath fullmatpath n;
@@ -142,4 +154,4 @@ for n = 3:length(dirlist)
             end
             
             
-        end
+end
