@@ -44,10 +44,14 @@ roi_checker1=roi_checker11.*roi_checker12;
 fp_ratio=nnz(footprint)/nnz(roi_checker1);
 
 %%%%% how long measured?
-success_list=find(footprint>0,nnz(footprint));
-first_success_idx=success_list(1);
-last_success_idx=success_list(end);
-
+try
+    success_list=find(footprint>0,nnz(footprint));
+    first_success_idx=success_list(1);
+    last_success_idx=success_list(end);
+catch
+    first_success_idx=1;
+    last_success_idx=1;
+end
 continuous_check=all(footprint(first_success_idx:last_success_idx)>0);
 measured_length=abs(hmn_path(1,first_success_idx)-hmn_path(1,last_success_idx));
 

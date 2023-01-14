@@ -18,8 +18,8 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
-                date="230112";
-                abst="plot_v_vector";
+                date="230114";
+                abst="Grad";
                 detail="DEV";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
@@ -93,8 +93,6 @@ function result=MAIN_func()
                 
                 env.dist_hsr_zed=13.5;
 
-                hmn.x0=env.xmax;
-                
                 env.L=20;
                 env.xmax=env.L;
                 env.ymin=0;
@@ -108,11 +106,8 @@ function result=MAIN_func()
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                % hmn.personal_r=sns.r1;
-
                 hmn.vx=-1.2;
                 hmn.y0=1;
-                % hmn.personal_r=1.2;
 
                 % rbt.vxmin=0;
                 rbt.y0=1;
@@ -187,26 +182,27 @@ function result=MAIN_func()
                 problem.bounds.control.low = [rbt.axmin_actual;rbt.aymin_actual;rbt.aangmin_actual];
                 problem.bounds.control.upp = [rbt.axmax_actual;rbt.aymax_actual;rbt.aangmax_actual];
                 
-                
                 % Initial guess at trajectory
                 slack=0.1;
                 disp_keep=hmn.y0+hmn.personal_r+rbt.sizer+slack;
                 if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack*2
                     y_temp=hmn.y0+hmn.personal_r+rbt.sizer+slack;
+                    th_temp=-pi/2;
                     disp("avoid upper")
                 else
-                    y_temp=hmn.y0-hmn.personal_r-rbt.sizer-slack
+                    y_temp=hmn.y0-hmn.personal_r-rbt.sizer-slack;
                     if y_temp>rbt.y0
                         y_temp=rbt.y0
-                    disp("avoid lower")
                     end
+                    disp("avoid lower")
+                    th_temp=pi/2;    
                 end
                 
                 t_temp=env.L/abs(hmn.vx+rbt.vx0);
                 x_temp=rbt.vx0*t_temp;
                 % t_temp2=problem.bounds.finalTime.low-t_temp;
 
-                temp=[x_temp;y_temp;-pi/2;0;0;0];
+                temp=[x_temp;y_temp;th_temp;0;0;0];
                 % temp2=[rbt.xF;y_temp;0;0;0;0]
                 problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                 % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,t_temp2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];

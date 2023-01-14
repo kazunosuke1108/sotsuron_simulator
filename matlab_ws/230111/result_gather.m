@@ -1,4 +1,4 @@
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230111\results\2022h_230112_1200_parameter_study_d455";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230111\results\2020e_230114_0000_parameter_study_d455_100";
 
 dirlist=dir(motherdir);
 figure(1); clf;
