@@ -91,18 +91,6 @@ function result=MAIN_func()
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
                 
-                env.dist_hsr_zed=13.5;
-
-                env.L=30;
-                env.xmax=env.L;
-                env.ymin=0;
-                env.ymax=5;
-                env.roi.xmax=env.roi.xmin+env.L;
-                env.roi.ymin=env.ymin;
-                env.kabe.ymin=env.ymin;
-                env.kabe.ymax=env.ymax;
-                env.roi.ymax=env.ymax;
-
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
@@ -116,10 +104,7 @@ function result=MAIN_func()
 
                 t_slack=0.35;
 
-                % env.hz=6;
                 env.hz=abs(hmn.vx)*40/3;
-                % env.hz=abs(hmn.vx)*60/3;
-                % rbt.vxmin=-rbt.vxmax;
                 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                 %                           seq.1  検知                                   %
@@ -137,8 +122,6 @@ function result=MAIN_func()
                 % 計測所要時間の推定
                 %% ロボットの走行所要時間
                 % t_rbt=abs(env.L/rbt.vxmax);
-                % disp(t_rbt)
-                % disp(t_rbt)
                 t_rbt=abs((rbt.xF-rbt.x0)/rbt.vxmax);
                 t_measure=abs(env.l/hmn.vx); % env.l=ロボットが立ち止まって人を計測したい歩行距離
                 % t_slack=0.05;
@@ -244,7 +227,11 @@ function result=MAIN_func()
                 save(savename+".mat");
                 % Plots
                 %% add score to fig name
-                graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
+                try
+                    graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
+                catch
+                    graph_title=graph_title+" J= not bestfeasible"
+                end
                 %% History
                 if exp_mode
                     disp("exp_mode:1")
