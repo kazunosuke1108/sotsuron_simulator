@@ -19,8 +19,8 @@ function result=MAIN_func()
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230114";
-                abst="Grad";
-                detail="After_vxmin0";
+                abst="below5";
+                detail="y_5_y0_225";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -54,7 +54,7 @@ function result=MAIN_func()
                 % rbt.yF=rbt.y0;
                 % hmn.y0=candidate2;
 
-                % LRF ##### objF 切り替え #####
+                % LRF #### objF 切り替え #####
                 if LRF_mode
                     sns.phi=270;
                     sns.pitch=57;
@@ -93,10 +93,10 @@ function result=MAIN_func()
                 
                 env.dist_hsr_zed=13.5;
 
-                env.L=20;
+                env.L=30;
                 env.xmax=env.L;
                 env.ymin=0;
-                env.ymax=4;
+                env.ymax=5;
                 env.roi.xmax=env.roi.xmin+env.L;
                 env.roi.ymin=env.ymin;
                 env.kabe.ymin=env.ymin;
@@ -107,7 +107,7 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
 
                 hmn.vx=-1.2;
-                hmn.y0=1.5;
+                hmn.y0=2.25;
 
                 % rbt.vxmin=0;
                 rbt.y0=1;
@@ -183,9 +183,8 @@ function result=MAIN_func()
                 problem.bounds.control.upp = [rbt.axmax_actual;rbt.aymax_actual;rbt.aangmax_actual];
                 
                 % Initial guess at trajectory
-                slack=0.1;
-                disp_keep=hmn.y0+hmn.personal_r+rbt.sizer+slack;
-                if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack*2
+                slack=0.3;
+                if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack
                     y_temp=hmn.y0+hmn.personal_r+rbt.sizer+slack;
                     th_temp=-pi/2;
                     disp("avoid upper")
