@@ -21,10 +21,10 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     LRF_mode=candidate2 % 0:d455 1:LRF
                     date="2020e_230114";
                     if LRF_mode
-                        abst="0900_parameter_study_LRF";
+                        abst="1500_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="0900_parameter_study_d455_nolcon";
+                        abst="1500_parameter_study_d455_30";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -97,18 +97,6 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     % sns.pitch=deg2rad(sns.pitch)/2;
                     % sns.r1=sns.h/tan(sns.pitch);
                     
-                    env.dist_hsr_zed=13.5;
-
-                    env.L=20;
-                    env.xmax=env.L;
-                    env.ymin=0;
-                    env.ymax=4;
-                    env.roi.xmax=env.roi.xmin+env.L;
-                    env.roi.ymin=env.ymin;
-                    env.kabe.ymin=env.ymin;
-                    env.kabe.ymax=env.ymax;
-                    env.roi.ymax=env.ymax;
-
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
 
@@ -122,10 +110,7 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
 
                     t_slack=0.35;
 
-                    % env.hz=6;
                     env.hz=abs(hmn.vx)*40/3;
-                    % env.hz=abs(hmn.vx)*60/3;
-                    % rbt.vxmin=-rbt.vxmax;
                     
                     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                     %                           seq.1  検知                                   %
@@ -143,8 +128,6 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     % 計測所要時間の推定
                     %% ロボットの走行所要時間
                     % t_rbt=abs(env.L/rbt.vxmax);
-                    % disp(t_rbt)
-                    % disp(t_rbt)
                     t_rbt=abs((rbt.xF-rbt.x0)/rbt.vxmax);
                     t_measure=abs(env.l/hmn.vx); % env.l=ロボットが立ち止まって人を計測したい歩行距離
                     % t_slack=0.05;
@@ -189,9 +172,8 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     problem.bounds.control.upp = [rbt.axmax_actual;rbt.aymax_actual;rbt.aangmax_actual];
                     
                 % Initial guess at trajectory
-                slack=0.1;
-                disp_keep=hmn.y0+hmn.personal_r+rbt.sizer+slack;
-                if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack*2
+                slack=0.3;
+                if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack
                     y_temp=hmn.y0+hmn.personal_r+rbt.sizer+slack;
                     th_temp=-pi/2;
                     disp("avoid upper")
@@ -204,14 +186,15 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     th_temp=pi/2;    
                 end
                 
+                % t_temp1=env.L/abs(hmn.vx+rbt.vx0)-1/hmn.vx;
                 t_temp=env.L/abs(hmn.vx+rbt.vx0);
                 x_temp=rbt.vx0*t_temp;
                 % t_temp2=problem.bounds.finalTime.low-t_temp;
 
                 temp=[x_temp;y_temp;th_temp;0;0;0];
-                % temp2=[rbt.xF;y_temp;0;0;0;0]
+                % temp2=[rbt.xF;y_temp;th_temp;0;0;0]
                 problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
-                % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,t_temp2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp1,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                 problem.guess.state = [problem.bounds.initialState.low,temp,problem.bounds.finalState.upp];
                 % problem.guess.state = [problem.bounds.initialState.low,temp,temp2,problem.bounds.finalState.upp];
                 problem.guess.control = [0,0,0;0,0,0;0,0,0];
@@ -250,7 +233,11 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     save(savename+".mat");
                     % Plots
                     %% add score to fig name
-                    graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
+                    try
+                        graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
+                    catch
+                        graph_title=graph_title+" J= not bestfeasible"
+                    end
                     %% History
                     if exp_mode
                         disp("exp_mode:1")
