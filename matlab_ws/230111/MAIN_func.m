@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230114";
                 abst="Grad";
-                detail="DEV";
+                detail="After_vxmin0";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -107,7 +107,7 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
 
                 hmn.vx=-1.2;
-                hmn.y0=1;
+                hmn.y0=1.5;
 
                 % rbt.vxmin=0;
                 rbt.y0=1;
@@ -198,14 +198,15 @@ function result=MAIN_func()
                     th_temp=pi/2;    
                 end
                 
+                % t_temp1=env.L/abs(hmn.vx+rbt.vx0)-1/hmn.vx;
                 t_temp=env.L/abs(hmn.vx+rbt.vx0);
                 x_temp=rbt.vx0*t_temp;
                 % t_temp2=problem.bounds.finalTime.low-t_temp;
 
                 temp=[x_temp;y_temp;th_temp;0;0;0];
-                % temp2=[rbt.xF;y_temp;0;0;0;0]
+                % temp2=[rbt.xF;y_temp;th_temp;0;0;0]
                 problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
-                % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,t_temp2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp1,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                 problem.guess.state = [problem.bounds.initialState.low,temp,problem.bounds.finalState.upp];
                 % problem.guess.state = [problem.bounds.initialState.low,temp,temp2,problem.bounds.finalState.upp];
                 problem.guess.control = [0,0,0;0,0,0;0,0,0];
