@@ -21,10 +21,10 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     LRF_mode=candidate2 % 0:d455 1:LRF
                     date="2022h_230114";
                     if LRF_mode
-                        abst="1500_parameter_study_LRF";
+                        abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1500_parameter_study_d455_30";
+                        abst="0000_parameter_study_d455";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -171,20 +171,30 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     problem.bounds.control.low = [rbt.axmin_actual;rbt.aymin_actual;rbt.aangmin_actual];
                     problem.bounds.control.upp = [rbt.axmax_actual;rbt.aymax_actual;rbt.aangmax_actual];
                     
-                    % Initial guess at trajectory
+                % Initial guess at trajectory
+
                 slack=0.3;
-                if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack
-                        y_temp=hmn.y0+hmn.personal_r+rbt.sizer+slack;
-                        th_temp=-pi/2;
-                        disp("avoid upper")
-                    else
-                        y_temp=hmn.y0-hmn.personal_r-rbt.sizer-slack;
-                        if y_temp>rbt.y0
-                            y_temp=rbt.y0
-                        end
-                        disp("avoid lower")
-                        th_temp=pi/2;    
-                    end
+                if abs(env.ymax-hmn.y0)>=abs(hmn.y0-env.ymin)
+                    disp("avoid upper")
+                    y_temp=hmn.y0+hmn.personal_r+slack+rbt.sizer;
+                    th_temp=-pi/2;
+                else
+                    disp("avoid lower")
+                    y_temp=hmn.y0-hmn.personal_r-slack-rbt.sizer;
+                    th_temp=pi/2;
+                end
+                % if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack
+                %     y_temp=hmn.y0+hmn.personal_r+rbt.sizer+slack;
+                %     th_temp=-pi/2;
+                %     disp("avoid upper")
+                % else
+                %     y_temp=hmn.y0-hmn.personal_r-rbt.sizer-slack;
+                %     if y_temp>rbt.y0
+                %         y_temp=rbt.y0
+                %     end
+                %     disp("avoid lower")
+                %     th_temp=pi/2;    
+                % end
                     
                     % t_temp1=env.L/abs(hmn.vx+rbt.vx0)-1/hmn.vx;
                     t_temp=env.L/abs(hmn.vx+rbt.vx0);

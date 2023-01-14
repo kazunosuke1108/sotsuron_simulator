@@ -91,21 +91,21 @@ function result=MAIN_func()
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
 
-                env.L=10;
-                env.xmax=env.L;
-                env.roi.xmax=env.roi.xmin+env.L;
-                env.ymax=3;
-                env.kabe.ymax=env.ymax;
-                env.roi.ymax=env.ymax;
+                % env.L=10;
+                % env.xmax=env.L;
+                % env.roi.xmax=env.roi.xmin+env.L;
+                % env.ymax=3;
+                % env.kabe.ymax=env.ymax;
+                % env.roi.ymax=env.ymax;
                 
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-0.6;
-                hmn.y0=0.5;
+                hmn.vx=-0.9;
+                hmn.y0=1.0;
 
                 % rbt.vxmin=0;
-                rbt.y0=0.5;
+                rbt.y0=2.5;
                 % rbt.xF=10;
                 rbt.yF=rbt.y0;
 
@@ -173,19 +173,29 @@ function result=MAIN_func()
                 problem.bounds.control.upp = [rbt.axmax_actual;rbt.aymax_actual;rbt.aangmax_actual];
                 
                 % Initial guess at trajectory
+
                 slack=0.3;
-                if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack
-                    y_temp=hmn.y0+hmn.personal_r+rbt.sizer+slack;
-                    th_temp=-pi/2;
+                if abs(env.ymax-hmn.y0)>=abs(hmn.y0-env.ymin)
                     disp("avoid upper")
+                    y_temp=hmn.y0+hmn.personal_r+slack+rbt.sizer;
+                    th_temp=-pi/2;
                 else
-                    y_temp=hmn.y0-hmn.personal_r-rbt.sizer-slack;
-                    if y_temp>rbt.y0
-                        y_temp=rbt.y0
-                    end
                     disp("avoid lower")
-                    th_temp=pi/2;    
+                    y_temp=hmn.y0-hmn.personal_r-slack-rbt.sizer;
+                    th_temp=pi/2;
                 end
+                % if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack
+                %     y_temp=hmn.y0+hmn.personal_r+rbt.sizer+slack;
+                %     th_temp=-pi/2;
+                %     disp("avoid upper")
+                % else
+                %     y_temp=hmn.y0-hmn.personal_r-rbt.sizer-slack;
+                %     if y_temp>rbt.y0
+                %         y_temp=rbt.y0
+                %     end
+                %     disp("avoid lower")
+                %     th_temp=pi/2;    
+                % end
                 
                 % t_temp1=env.L/abs(hmn.vx+rbt.vx0)-1/hmn.vx;
                 t_temp=env.L/abs(hmn.vx+rbt.vx0);
@@ -208,7 +218,7 @@ function result=MAIN_func()
                 % Solver options
                 problem.options.nlpOpt = optimset(...
                 'Display','iter',...
-                'MaxIter',1e3,... % 可能な反復の最大数 (正の整数)
+                'MaxIter',500,... % 可能な反復の最大数 (正の整数)
                 'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
                 'TolX',1e-10,... % x に関する許容誤差 (正のスカラー)
                 'TolCon',1e-12,... % 制約違反に関する許容誤差 (正のスカラー)

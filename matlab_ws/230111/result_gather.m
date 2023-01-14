@@ -1,9 +1,9 @@
 clc;clear;
 
-motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230111\results\230111_2330_parameter_study_d455";
+motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230111\results\2020e_230114_1500_parameter_study_d455_30";
 
 dirlist=dir(motherdir);
-%figure(1); clf;
+figure(1); clf;
 
 for n = 3:length(dirlist)
     try
@@ -141,10 +141,10 @@ for n = 3:length(dirlist)
             hmn.y0
             ];
             
-            %pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
-            %if n ~= length(dirlist)
-            %    hold on
-            %end
+            pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+            if n ~= length(dirlist)
+               hold on
+            end
             saveas(figure(1),motherdir+"\results.png");
             writematrix(result_matrix,motherdir+"\results.csv",'WriteMode','append');
             clearvars -except motherdir dirlist matpath fullmatpath n;

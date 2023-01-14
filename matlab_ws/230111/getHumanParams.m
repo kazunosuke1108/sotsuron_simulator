@@ -5,7 +5,7 @@ hmn.sizep=atan(hmn.sizer/(sns.r1+hmn.sizer));
 hmn.personal_r=1.2;
 
 hmn.x0=env.xmax;
-hmn.y0=1;
+hmn.y0=2.5;
 hmn.th0=pi;
 hmn.vx0=0;
 hmn.vy0=0;

@@ -3,7 +3,7 @@ function rbt=getRobotParams(env)
 rbt.sizer=0.3;
 
 rbt.x0=0;
-rbt.y0=1;
+rbt.y0=2.5;
 rbt.th0=0;
 rbt.vx0=0.15;
 rbt.vy0=0;
@@ -33,7 +33,7 @@ rbt.omgmax_actual=rbt.omgmax-0.17;
 rbt.omgmin_actual=-rbt.omgmax_actual;
 
 rbt.xF=env.xmax;
-rbt.yF=1;
+rbt.yF=2.5;
 rbt.thF=0;
 rbt.vxF=0;
 rbt.vyF=0;

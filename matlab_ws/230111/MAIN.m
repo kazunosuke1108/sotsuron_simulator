@@ -4,4 +4,4 @@ res=MAIN_func();
 % res=MAIN_func_iter0111_remote();
 % res=MAIN_func_iter0106_NIGHTFIGHTER();
 % result_gather();
-% git_auto_push()
+% git_auto_push()3.608145
