@@ -21,10 +21,10 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     LRF_mode=candidate2 % 0:d455 1:LRF
                     date="2020e_230114";
                     if LRF_mode
-                        abst="0000_parameter_study_LRF";
+                        abst="0900_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="0000_parameter_study_d455_100";
+                        abst="0900_parameter_study_d455_nolcon";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -60,7 +60,7 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     % rbt.yF=rbt.y0;
                     % hmn.y0=candidate2;
 
-                    % LRF ##### objF 切り替え #####
+                    % LRF #### objF 切り替え #####
                     if LRF_mode
                         sns.phi=270;
                         sns.pitch=57;

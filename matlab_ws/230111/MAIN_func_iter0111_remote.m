@@ -21,10 +21,10 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     LRF_mode=candidate2 % 0:d455 1:LRF
                     date="2022h_230114";
                     if LRF_mode
-                        abst="0000_parameter_study_LRF";
+                        abst="0900_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="0000_parameter_study_d455_100";
+                        abst="0900_parameter_study_d455_nolcon";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -193,20 +193,22 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     disp_keep=hmn.y0+hmn.personal_r+rbt.sizer+slack;
                     if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack*2
                         y_temp=hmn.y0+hmn.personal_r+rbt.sizer+slack;
+                        th_temp=-pi/2;
                         disp("avoid upper")
                     else
-                        y_temp=hmn.y0-hmn.personal_r-rbt.sizer-slack
+                        y_temp=hmn.y0-hmn.personal_r-rbt.sizer-slack;
                         if y_temp>rbt.y0
                             y_temp=rbt.y0
-                        disp("avoid lower")
                         end
+                        disp("avoid lower")
+                        th_temp=pi/2;    
                     end
                     
                     t_temp=env.L/abs(hmn.vx+rbt.vx0);
-                    x_temp=rbt.vx0*t_temp
+                    x_temp=rbt.vx0*t_temp;
                     % t_temp2=problem.bounds.finalTime.low-t_temp;
-
-                    temp=[x_temp;y_temp;-pi/2;0;0;0]
+    
+                    temp=[x_temp;y_temp;th_temp;0;0;0];
                     % temp2=[rbt.xF;y_temp;0;0;0;0]
                     problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                     % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,t_temp2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
