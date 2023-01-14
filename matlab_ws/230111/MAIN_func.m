@@ -19,8 +19,8 @@ function result=MAIN_func()
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230114";
-                abst="below5";
-                detail="y_5_y0_225";
+                abst="7F";
+                detail="hmny0_050";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -90,15 +90,22 @@ function result=MAIN_func()
                 % sns.phi=deg2rad(sns.phi)/2;
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
+
+                env.L=10;
+                env.xmax=env.L;
+                env.roi.xmax=env.roi.xmin+env.L;
+                env.ymax=3;
+                env.kabe.ymax=env.ymax;
+                env.roi.ymax=env.ymax;
                 
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-1.2;
-                hmn.y0=2.25;
+                hmn.vx=-0.6;
+                hmn.y0=0.5;
 
                 % rbt.vxmin=0;
-                rbt.y0=1;
+                rbt.y0=0.5;
                 % rbt.xF=10;
                 rbt.yF=rbt.y0;
 
