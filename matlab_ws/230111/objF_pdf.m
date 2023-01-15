@@ -6,16 +6,16 @@ function J=objF_pdf(t,z,u,env,rbt,hmn,sns)
     hmn_path=getHumanPath(t,hmn);
     rbt_path=z;
 
-    footprint=getFootprint(t,z,u,env,rbt,hmn,sns); % 各時刻で足跡を取得出来たら1,ダメだったら0が返される
-    if nnz(footprint)>0
-        success_list=find(footprint>0,nnz(footprint));
-        first_success_idx=success_list(1);
-        last_success_idx=success_list(end);
-        continuous_check=all(footprint(first_success_idx:last_success_idx)>0);
-        measured_length=abs(hmn_path(1,first_success_idx)-hmn_path(1,last_success_idx));
-    else
-        measured_length=0;
-    end    
+    % footprint=getFootprint(t,z,u,env,rbt,hmn,sns); % 各時刻で足跡を取得出来たら1,ダメだったら0が返される
+    % if nnz(footprint)>0
+    %     success_list=find(footprint>0,nnz(footprint));
+    %     first_success_idx=success_list(1);
+    %     last_success_idx=success_list(end);
+    %     continuous_check=all(footprint(first_success_idx:last_success_idx)>0);
+    %     measured_length=abs(hmn_path(1,first_success_idx)-hmn_path(1,last_success_idx));
+    % else
+    %     measured_length=0;
+    % end    
     vec_HR=[hmn_path(1,:);hmn_path(2,:)]-[rbt_path(1,:);rbt_path(2,:)];
     e=[cos(z(3,:));sin(z(3,:))];
     norm_HR=sqrt(vec_HR(1,:).^2+vec_HR(2,:).^2);
@@ -26,8 +26,9 @@ function J=objF_pdf(t,z,u,env,rbt,hmn,sns)
 
     e_vec_th=naiseki./norm_HR;
     deg_HR=atan(vec_HR(2,:)./vec_HR(1,:));
-    deg_compensate=vec_HR(1,:)<0;
-    deg_HR=deg_HR+pi*deg_compensate;
+    deg_compensate1=vec_HR(1,:)<0 & vec_HR(2,:)>0;
+    deg_compensate2=vec_HR(1,:)<0 & vec_HR(2,:)<0;
+    deg_HR=deg_HR+pi*deg_compensate1-pi*deg_compensate2;
     deg_diff=deg_HR-z(3,:);
 
     % %% r positive
@@ -115,20 +116,20 @@ function J=objF_pdf(t,z,u,env,rbt,hmn,sns)
     % score_pe=score_pe1+score_pe2;
 
     %% 5m以上計測成功に対する報酬measured_score
-    additional_start=env.l;
-    additional_end=env.l+4*hmn.sizer;
-    if measured_length>additional_end
-        % 屋根
-        ms=1;
-    elseif measured_length>additional_start
-        %　上り
-        ms=1/(additional_end-additional_start)*(measured_length-additional_start);
-    else
-        % 底辺
-        ms=0;
-    end
+    % additional_start=env.l;
+    % additional_end=env.l+4*hmn.sizer;
+    % if measured_length>additional_end
+    %     % 屋根
+    %     ms=1;
+    % elseif measured_length>additional_start
+    %     %　上り
+    %     ms=1/(additional_end-additional_start)*(measured_length-additional_start);
+    % else
+    %     % 底辺
+    %     ms=0;
+    % end
     
-    score_m=ms*ones(1,length(norm_HR));
+    % score_m=ms*ones(1,length(norm_HR));
     
     % %% 計測領域外のスコアをゼロとする．（ペナルティを0にすることはしない）
     % area_11=hmn_path(1,:)>=env.roi.xmin;

@@ -1,4 +1,6 @@
 function env=getEnvironmentParams()
+env.L=30;
+env.l=5;
 
 env.hz=8; % 制御入力周波数
 
@@ -9,17 +11,15 @@ env.final_tmin=150;
 env.final_tmax=150;
 
 env.xmin=0;
-env.xmax=10;
-env.ymin=-4.5;
-env.ymax=0;
+env.xmax=env.L;
+env.ymin=0;
+env.ymax=5;
 
 env.kabe.ymin=env.ymin;
 env.kabe.ymax=env.ymax;
 
 
 % env.avoid_dist=0;
-env.L=10;
-env.l=5;
 % env.roi.xmin=10-env.l;
 env.roi.xmin=0;
 env.roi.xmax=env.roi.xmin+env.L;

@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
-                date="230112";
-                abst="ytpc2022h";
-                detail="DEV_1.5_0.8";
+                date="230115";
+                abst="constraint";
+                detail="1e3times_true";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -54,7 +54,7 @@ function result=MAIN_func()
                 % rbt.yF=rbt.y0;
                 % hmn.y0=candidate2;
 
-                % LRF ##### objF 切り替え #####
+                % LRF #### objF 切り替え #####
                 if LRF_mode
                     sns.phi=270;
                     sns.pitch=57;
@@ -90,41 +90,28 @@ function result=MAIN_func()
                 % sns.phi=deg2rad(sns.phi)/2;
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
-                
-                env.dist_hsr_zed=13.5;
 
-                hmn.x0=env.xmax;
-                
                 env.L=20;
                 env.xmax=env.L;
-                env.ymin=0;
-                env.ymax=4;
                 env.roi.xmax=env.roi.xmin+env.L;
-                env.roi.ymin=env.ymin;
-                env.kabe.ymin=env.ymin;
+                env.ymax=5;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
-
+                
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                % hmn.personal_r=sns.r1;
+                hmn.vx=-1.2;
+                hmn.y0=1.0;
 
-                hmn.vx=-1.15;
-                hmn.y0=1.25;
-                % hmn.personal_r=1.2;
-
-                % rbt.vxmin=0;
-                rbt.y0=1;
+                rbt.vx0=0.1;
+                rbt.y0=2.5;
                 % rbt.xF=10;
                 rbt.yF=rbt.y0;
 
                 t_slack=0.35;
 
-                % env.hz=6;
                 env.hz=abs(hmn.vx)*40/3;
-                % env.hz=abs(hmn.vx)*60/3;
-                % rbt.vxmin=-rbt.vxmax;
                 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                 %                           seq.1  検知                                   %
@@ -142,9 +129,7 @@ function result=MAIN_func()
                 % 計測所要時間の推定
                 %% ロボットの走行所要時間
                 % t_rbt=abs(env.L/rbt.vxmax);
-                % disp(t_rbt)
-                % disp(t_rbt)
-                t_rbt=abs((rbt.xF-rbt.x0)/rbt.vxmax);
+                t_rbt=abs((rbt.xF-rbt.x0)/rbt.vx0);
                 t_measure=abs(env.l/hmn.vx); % env.l=ロボットが立ち止まって人を計測したい歩行距離
                 % t_slack=0.05;
                 env.estim_final_t=t_rbt+t_measure;
@@ -187,29 +172,40 @@ function result=MAIN_func()
                 problem.bounds.control.low = [rbt.axmin_actual;rbt.aymin_actual;rbt.aangmin_actual];
                 problem.bounds.control.upp = [rbt.axmax_actual;rbt.aymax_actual;rbt.aangmax_actual];
                 
-                
                 % Initial guess at trajectory
-                slack=0.1;
-                disp_keep=hmn.y0+hmn.personal_r+rbt.sizer+slack;
-                if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack*2
-                    y_temp=hmn.y0+hmn.personal_r+rbt.sizer+slack;
+
+                slack=0.3;
+                if abs(env.ymax-hmn.y0)>=abs(hmn.y0-env.ymin)
                     disp("avoid upper")
+                    y_temp=hmn.y0+hmn.personal_r+slack+rbt.sizer;
+                    th_temp=-pi/2;
                 else
-                    y_temp=hmn.y0-hmn.personal_r-rbt.sizer-slack
-                    if y_temp>rbt.y0
-                        y_temp=rbt.y0
                     disp("avoid lower")
-                    end
+                    y_temp=hmn.y0-hmn.personal_r-slack-rbt.sizer;
+                    th_temp=pi/2;
                 end
+                % if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack
+                %     y_temp=hmn.y0+hmn.personal_r+rbt.sizer+slack;
+                %     th_temp=-pi/2;
+                %     disp("avoid upper")
+                % else
+                %     y_temp=hmn.y0-hmn.personal_r-rbt.sizer-slack;
+                %     if y_temp>rbt.y0
+                %         y_temp=rbt.y0
+                %     end
+                %     disp("avoid lower")
+                %     th_temp=pi/2;    
+                % end
                 
+                % t_temp1=env.L/abs(hmn.vx+rbt.vx0)-1/hmn.vx;
                 t_temp=env.L/abs(hmn.vx+rbt.vx0);
                 x_temp=rbt.vx0*t_temp;
                 % t_temp2=problem.bounds.finalTime.low-t_temp;
 
-                temp=[x_temp;y_temp;-pi/2;0;0;0];
-                % temp2=[rbt.xF;y_temp;0;0;0;0]
+                temp=[x_temp;y_temp;th_temp;0;0;0];
+                % temp2=[rbt.xF;y_temp;th_temp;0;0;0]
                 problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
-                % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,t_temp2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp1,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                 problem.guess.state = [problem.bounds.initialState.low,temp,problem.bounds.finalState.upp];
                 % problem.guess.state = [problem.bounds.initialState.low,temp,temp2,problem.bounds.finalState.upp];
                 problem.guess.control = [0,0,0;0,0,0;0,0,0];
@@ -222,7 +218,7 @@ function result=MAIN_func()
                 % Solver options
                 problem.options.nlpOpt = optimset(...
                 'Display','iter',...
-                'MaxIter',1e3,... % 可能な反復の最大数 (正の整数)
+                'MaxIter',500,... % 可能な反復の最大数 (正の整数)
                 'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
                 'TolX',1e-10,... % x に関する許容誤差 (正のスカラー)
                 'TolCon',1e-12,... % 制約違反に関する許容誤差 (正のスカラー)
@@ -248,7 +244,11 @@ function result=MAIN_func()
                 save(savename+".mat");
                 % Plots
                 %% add score to fig name
-                graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
+                try
+                    graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
+                catch
+                    graph_title=graph_title+" J= not bestfeasible"
+                end
                 %% History
                 if exp_mode
                     disp("exp_mode:1")
