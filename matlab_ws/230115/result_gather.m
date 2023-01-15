@@ -1,6 +1,6 @@
 clc;clear;
 
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230115\results\2022h_230115_1300_parameter_study_d455_rapid_fixObjF";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230115\results\2022h_230115_1300_parameter_study_d455_rapid_1e5";
 
 dirlist=dir(motherdir);
 figure(1); clf;
