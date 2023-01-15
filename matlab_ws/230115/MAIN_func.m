@@ -19,8 +19,8 @@ function result=MAIN_func()
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230115";
-                abst="omg";
-                detail="pi_8";
+                abst="nigate";
+                detail="row2";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -104,7 +104,7 @@ function result=MAIN_func()
                 hmn.vx=-1.2;
                 hmn.y0=2.5;
 
-                rbt.vx0=0.1;
+                rbt.vx0=0.11;
                 rbt.y0=2.5;
                 % rbt.xF=10;
                 rbt.yF=rbt.y0;

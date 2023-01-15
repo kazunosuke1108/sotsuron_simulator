@@ -20,7 +20,7 @@ rbt.vymin=-rbt.vymax;
 rbt.omgmax=pi/8;
 rbt.omgmin=-rbt.omgmax;
 
-% rbt.vmax_actual=rbt.vmax-0.06;
+rbt.vmax_actual=rbt.vmax-0.05;
 rbt.vxmax_actual=rbt.vmax-0.05;
 % rbt.vxmax_actual=rbt.vmax-0.07;
 % rbt.vxmin_actual=-rbt.vxmax_actual;
@@ -29,7 +29,7 @@ rbt.vymax_actual=rbt.vmax-0.05;
 % rbt.vymax_actual=rbt.vmax-0.07;
 rbt.vymin_actual=-rbt.vymax_actual;
 % rbt.vxmin=0;
-rbt.omgmax_actual=rbt.omgmax;
+rbt.omgmax_actual=rbt.omgmax-0.1;
 % rbt.omgmax_actual=rbt.omgmax-0.17;
 rbt.omgmin_actual=-rbt.omgmax_actual;
 
