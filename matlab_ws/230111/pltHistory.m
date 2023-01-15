@@ -19,7 +19,8 @@ plot(t,env.roi.xmin*ones(size(t)),'r');
 hold on
 plot(t,env.roi.xmax*ones(size(t)),'r');
 ylim([env.roi.xmin-1,env.roi.xmax+1]);
-ylabel('x');
+xlabel('t [s]');
+ylabel('x [m]');
 
 subplot(4,3,2);
 plot(t,y,'k');
@@ -28,7 +29,8 @@ plot(t,env.roi.ymin*ones(size(t)),'r');
 hold on
 plot(t,env.roi.ymax*ones(size(t)),'r');
 ylim([env.roi.ymin-0.5,env.roi.ymax+0.5]);
-ylabel('y');
+xlabel('t [s]');
+ylabel('y [m]');
 
 title(graph_title);
 
@@ -39,7 +41,8 @@ plot(t,rbt.thmin*ones(size(t)),'r');
 hold on
 plot(t,rbt.thmax*ones(size(t)),'r');
 ylim([rbt.thmin-pi/10,rbt.thmax+pi/10]);
-ylabel('th');
+xlabel('t [s]');
+ylabel('theta [rad]');
 
 subplot(4,3,4);
 plot(t,vx,'k');
@@ -48,7 +51,8 @@ plot(t,rbt.vxmin*ones(size(t)),'r');
 hold on
 plot(t,rbt.vxmax*ones(size(t)),'r');
 ylim([rbt.vxmin-0.015,rbt.vxmax+0.015]);
-ylabel('vel x');
+xlabel('t [s]');
+ylabel('velocity x [m/s]');
 
 subplot(4,3,5);
 plot(t,vy,'k');
@@ -57,7 +61,8 @@ plot(t,rbt.vymin*ones(size(t)),'r');
 hold on
 plot(t,rbt.vymax*ones(size(t)),'r');
 ylim([rbt.vymin-0.015,rbt.vymax+0.015]);
-ylabel('vel y');
+xlabel('t [s]');
+ylabel('velocity y [m/s]');
 
 subplot(4,3,6);
 plot(t,omg,'k');
@@ -66,7 +71,8 @@ plot(t,rbt.omgmin*ones(size(t)),'r');
 hold on
 plot(t,rbt.omgmax*ones(size(t)),'r');
 ylim([rbt.omgmin-pi/40,rbt.omgmax+pi/40]);
-ylabel('omega');
+xlabel('t [s]');
+ylabel('omega [rad/s]');
 
 subplot(4,3,7);
 plot(t,accx,'k');
@@ -75,7 +81,8 @@ plot(t,rbt.axmin*ones(size(t)),'r');
 hold on
 plot(t,rbt.axmax*ones(size(t)),'r');
 ylim([rbt.axmin-0.015,rbt.axmax+0.015]);
-ylabel('acc x');
+xlabel('t [s]');
+ylabel('acceleration x [m/s^2]');
 
 subplot(4,3,8);
 plot(t,accy,'k');
@@ -84,7 +91,8 @@ plot(t,rbt.aymin*ones(size(t)),'r');
 hold on
 plot(t,rbt.aymax*ones(size(t)),'r');
 ylim([rbt.aymin-0.015,rbt.aymax+0.015]);
-ylabel('acc y');
+xlabel('t [s]');
+ylabel('acceleration y [m/s^2]');
 
 subplot(4,3,9);
 plot(t,acc_ang,'k');
@@ -93,7 +101,8 @@ plot(t,rbt.aangmin*ones(size(t)),'r');
 hold on
 plot(t,rbt.aangmax*ones(size(t)),'r');
 ylim([rbt.aangmin-pi/40,rbt.aangmax+pi/40]);
-ylabel('angular acc');
+xlabel('t [s]');
+ylabel('angular acceleration [rad/s^2]');
 
 subplot(4,3,10);
 v=sqrt(z(4,:).^2+z(5,:).^2);
@@ -103,6 +112,7 @@ plot(t,-rbt.vmax*ones(size(t)),'r');
 hold on
 plot(t,rbt.vmax*ones(size(t)),'r');
 ylim([-rbt.vmax-0.05,rbt.vmax+0.05]);
-ylabel('velocity norm');
+xlabel('t [s]');
+ylabel('velocity norm [m/s]');
 
 end
