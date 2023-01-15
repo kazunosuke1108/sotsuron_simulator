@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230114";
                 abst="7F";
-                detail="hmny0_050";
+                detail="rbtvx0_010";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -101,10 +101,10 @@ function result=MAIN_func()
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-0.9;
+                hmn.vx=-1.2;
                 hmn.y0=1.0;
 
-                % rbt.vxmin=0;
+                rbt.vx0=0.1;
                 rbt.y0=2.5;
                 % rbt.xF=10;
                 rbt.yF=rbt.y0;
@@ -129,7 +129,7 @@ function result=MAIN_func()
                 % 計測所要時間の推定
                 %% ロボットの走行所要時間
                 % t_rbt=abs(env.L/rbt.vxmax);
-                t_rbt=abs((rbt.xF-rbt.x0)/rbt.vxmax);
+                t_rbt=abs((rbt.xF-rbt.x0)/0.1);
                 t_measure=abs(env.l/hmn.vx); % env.l=ロボットが立ち止まって人を計測したい歩行距離
                 % t_slack=0.05;
                 env.estim_final_t=t_rbt+t_measure;
