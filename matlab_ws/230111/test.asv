@@ -1,4 +1,0 @@
-clc;clear;
-
-matpath="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230111\results\230114_below5\230114_140105_y_5_y0_225\230114_140105_.mat"
-load(matpath)
