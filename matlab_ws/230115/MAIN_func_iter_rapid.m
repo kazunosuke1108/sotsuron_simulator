@@ -15,7 +15,7 @@ function result=MAIN_func_iter_rapid()
     for candidate2=[0]
         for candidate3=0.5:0.5:4.6
             for candidate=-0.6:-0.2:-1.21
-                try
+                % try
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=candidate2 % 0:d455 1:LRF
@@ -290,10 +290,10 @@ function result=MAIN_func_iter_rapid()
                         end
                     end
                     % writeCSV(problem,env,rbt,hmn,sns,soln,savename);
-                catch
-                    save(savename+".mat");
-                    continue
-                end
+                % catch
+                %     save(savename+".mat");
+                %     continue
+                % end
             end
         end
     end
