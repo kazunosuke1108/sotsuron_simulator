@@ -21,10 +21,10 @@ function result=MAIN_func_iter_rapid()
                     LRF_mode=candidate2 % 0:d455 1:LRF
                     date="2022h_230115";
                     if LRF_mode
-                        abst="1000_parameter_study_LRF";
+                        abst="1300_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1000_parameter_study_d455_rapid";
+                        abst="1300_parameter_study_d455_rapid_offset";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
