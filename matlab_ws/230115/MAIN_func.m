@@ -19,8 +19,8 @@ function result=MAIN_func()
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230115";
-                abst="constraint";
-                detail="1e3times_true";
+                abst="omg";
+                detail="pi_8";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
