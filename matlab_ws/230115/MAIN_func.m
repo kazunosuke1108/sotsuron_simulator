@@ -101,8 +101,8 @@ function result=MAIN_func()
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-0.6;
-                hmn.y0=0.5;
+                hmn.vx=-1.2;
+                hmn.y0=2.5;
 
                 rbt.vx0=0.11;
                 rbt.y0=2.5;
