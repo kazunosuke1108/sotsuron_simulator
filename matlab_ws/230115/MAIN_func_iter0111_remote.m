@@ -13,13 +13,13 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     for candidate2=[0]
-        for candidate3=2.0:0.25:4.6
+        for candidate3=2.5:0.25:4.6
             for candidate=-0.6:-0.05:-1.21
                 try
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=candidate2 % 0:d455 1:LRF
-                    date="2022h_230114";
+                    date="2022h_230116";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
@@ -100,13 +100,15 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
 
+                    rbt.vx0=0.15;
+
                     hmn.vx=candidate;
                     hmn.y0=candidate3;
 
                     % rbt.vxmin=0;
-                    rbt.y0=1;
-                    % rbt.xF=10;
-                    rbt.yF=rbt.y0;
+                    % rbt.y0=1;
+                    % % rbt.xF=10;
+                    % rbt.yF=rbt.y0;
 
                     t_slack=0.35;
 
@@ -128,7 +130,7 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     % 計測所要時間の推定
                     %% ロボットの走行所要時間
                     % t_rbt=abs(env.L/rbt.vxmax);
-                    t_rbt=abs((rbt.xF-rbt.x0)/rbt.vxmax);
+                    t_rbt=abs((rbt.xF-rbt.x0)/rbt.vx0);
                     t_measure=abs(env.l/hmn.vx); % env.l=ロボットが立ち止まって人を計測したい歩行距離
                     % t_slack=0.05;
                     env.estim_final_t=t_rbt+t_measure;

@@ -13,13 +13,13 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     for candidate2=[0]
-        for candidate3=0.5:0.25:2.0
+        for candidate3=0.5:0.25:2.5
             for candidate=-0.6:-0.05:-1.21
                 try
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=candidate2 % 0:d455 1:LRF
-                    date="2020e_230115";
+                    date="2021c_230116";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
@@ -100,13 +100,15 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
 
+                    rbt.vx0=0.15;
+                    
                     hmn.vx=candidate;
                     hmn.y0=candidate3;
 
                     % rbt.vxmin=0;
-                    rbt.y0=1;
-                    % rbt.xF=10;
-                    rbt.yF=rbt.y0;
+                    % rbt.y0=1;
+                    % % rbt.xF=10;
+                    % rbt.yF=rbt.y0;
 
                     t_slack=0.35;
 
@@ -128,7 +130,7 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     % 計測所要時間の推定
                     %% ロボットの走行所要時間
                     % t_rbt=abs(env.L/rbt.vxmax);
-                    t_rbt=abs((rbt.xF-rbt.x0)/rbt.vxmax);
+                    t_rbt=abs((rbt.xF-rbt.x0)/rbt.vx0);
                     t_measure=abs(env.l/hmn.vx); % env.l=ロボットが立ち止まって人を計測したい歩行距離
                     % t_slack=0.05;
                     env.estim_final_t=t_rbt+t_measure;
@@ -195,24 +197,24 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                 %     disp("avoid lower")
                 %     th_temp=pi/2;    
                 % end
-                
-                % t_temp1=env.L/abs(hmn.vx+rbt.vx0)-1/hmn.vx;
-                t_temp=env.L/abs(hmn.vx+rbt.vx0);
-                x_temp=rbt.vx0*t_temp;
-                % t_temp2=problem.bounds.finalTime.low-t_temp;
+                    
+                    % t_temp1=env.L/abs(hmn.vx+rbt.vx0)-1/hmn.vx;
+                    t_temp=env.L/abs(hmn.vx+rbt.vx0);
+                    x_temp=rbt.vx0*t_temp;
+                    % t_temp2=problem.bounds.finalTime.low-t_temp;
+    
+                    temp=[x_temp;y_temp;th_temp;0;0;0];
+                    % temp2=[rbt.xF;y_temp;th_temp;0;0;0]
+                    problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                    % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp1,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                    problem.guess.state = [problem.bounds.initialState.low,temp,problem.bounds.finalState.upp];
+                    % problem.guess.state = [problem.bounds.initialState.low,temp,temp2,problem.bounds.finalState.upp];
+                    problem.guess.control = [0,0,0;0,0,0;0,0,0];
+                    % problem.guess.control = [0,0,0,0;0,0,0,0;0,0,0,0];
+                    % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                    % problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.upp];
+                    % problem.guess.control = [0,0;0,0;0,0];
 
-                temp=[x_temp;y_temp;th_temp;0;0;0];
-                % temp2=[rbt.xF;y_temp;th_temp;0;0;0]
-                problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
-                % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp1,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
-                problem.guess.state = [problem.bounds.initialState.low,temp,problem.bounds.finalState.upp];
-                % problem.guess.state = [problem.bounds.initialState.low,temp,temp2,problem.bounds.finalState.upp];
-                problem.guess.control = [0,0,0;0,0,0;0,0,0];
-                % problem.guess.control = [0,0,0,0;0,0,0,0;0,0,0,0];
-                % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
-                % problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.upp];
-                % problem.guess.control = [0,0;0,0;0,0];
- 
                     
                     % Solver options
                     problem.options.nlpOpt = optimset(...
