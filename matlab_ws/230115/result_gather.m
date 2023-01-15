@@ -1,11 +1,6 @@
 clc;clear;
 
-<<<<<<< HEAD
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230115\results\2022h_230115_2100_parameter_study_d455_rapid_0045";
-=======
-motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230115\results\2020e_230115_1300_parameter_study_d455_rapid_1e5_no_offset";
->>>>>>> e39d455f68a74193bb37258053727341d9c931e3
-
+motherdir=""
 dirlist=dir(motherdir);
 figure(1); clf;
 
