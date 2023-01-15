@@ -26,8 +26,10 @@ function J=objF_line_pdf(t,z,u,env,rbt,hmn,sns)
 
     e_vec_th=naiseki./norm_HR;
     deg_HR=atan(vec_HR(2,:)./vec_HR(1,:));
-    deg_compensate=vec_HR(1,:)<0;
-    deg_HR=deg_HR+pi*deg_compensate;
+    deg_HR=atan(vec_HR(2,:)./vec_HR(1,:));
+    deg_compensate1=vec_HR(1,:)<0 & vec_HR(2,:)>0;
+    deg_compensate2=vec_HR(1,:)<0 & vec_HR(2,:)<0;
+    deg_HR=deg_HR+pi*deg_compensate1-pi*deg_compensate2;
     deg_diff=deg_HR-z(3,:);
 
     %% r positive
