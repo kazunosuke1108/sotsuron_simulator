@@ -24,7 +24,7 @@ function result=MAIN_func_iter_rapid()
                         abst="1300_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1300_parameter_study_d455_rapid_fixObjF";
+                        abst="1300_parameter_study_d455_rapid_1e5";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
