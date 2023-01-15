@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
-                date="230114";
-                abst="7F";
-                detail="rbtvx0_010";
+                date="230115";
+                abst="constraint";
+                detail="1e3times_true";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -91,12 +91,12 @@ function result=MAIN_func()
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
 
-                % env.L=10;
-                % env.xmax=env.L;
-                % env.roi.xmax=env.roi.xmin+env.L;
-                % env.ymax=3;
-                % env.kabe.ymax=env.ymax;
-                % env.roi.ymax=env.ymax;
+                env.L=20;
+                env.xmax=env.L;
+                env.roi.xmax=env.roi.xmin+env.L;
+                env.ymax=5;
+                env.kabe.ymax=env.ymax;
+                env.roi.ymax=env.ymax;
                 
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
@@ -129,7 +129,7 @@ function result=MAIN_func()
                 % 計測所要時間の推定
                 %% ロボットの走行所要時間
                 % t_rbt=abs(env.L/rbt.vxmax);
-                t_rbt=abs((rbt.xF-rbt.x0)/0.1);
+                t_rbt=abs((rbt.xF-rbt.x0)/rbt.vx0);
                 t_measure=abs(env.l/hmn.vx); % env.l=ロボットが立ち止まって人を計測したい歩行距離
                 % t_slack=0.05;
                 env.estim_final_t=t_rbt+t_measure;
