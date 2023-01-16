@@ -29,7 +29,7 @@ rbt.vymax_actual=rbt.vmax-0.05;
 % rbt.vymax_actual=rbt.vmax-0.07;
 rbt.vymin_actual=-rbt.vymax_actual;
 % rbt.vxmin=0;
-rbt.omgmax_actual=rbt.omgmax-0.1;
+rbt.omgmax_actual=rbt.omgmax-0.05%-0.1;
 % rbt.omgmax_actual=rbt.omgmax-0.17;
 rbt.omgmin_actual=-rbt.omgmax_actual;
 
