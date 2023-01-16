@@ -14,7 +14,7 @@ function result=MAIN_func_iter_rapid()
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     for candidate2=[0]
         % for candidate3=0.5:0.5:4.6
-        for candidate3=2.0:0.5:3.1
+        for candidate3=2.0:0.5:2.6
             % for candidate=-0.6:-0.2:-1.21
             for candidate=[-1.2]
                 try
@@ -26,7 +26,7 @@ function result=MAIN_func_iter_rapid()
                         abst="1300_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1630_parameter_study_d455_rapid_personal_omg0105_1e3";
+                        abst="1330_parameter_study_d455_rapid_personal_omg010_1e3";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
