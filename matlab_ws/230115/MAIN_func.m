@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
-                date="230115";
-                abst="nigate";
-                detail="row2";
+                date="230116";
+                abst="fastest";
+                detail="vx120_y025";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -105,13 +105,13 @@ function result=MAIN_func()
                 hmn.y0=2.5;
 
                 rbt.vx0=0.11;
-                rbt.y0=2.5;
+                % rbt.y0=2.5;
                 % rbt.xF=10;
-                rbt.yF=rbt.y0;
+                % rbt.yF=rbt.y0;
 
                 t_slack=0.35;
 
-                env.hz=abs(hmn.vx)*40/3;
+                env.hz=abs(hmn.vx)*50/3;
                 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                 %                           seq.1  検知                                   %
@@ -222,7 +222,7 @@ function result=MAIN_func()
                 'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
                 'TolX',1e-10,... % x に関する許容誤差 (正のスカラー)
                 'TolCon',1e-12,... % 制約違反に関する許容誤差 (正のスカラー)
-                'MaxFunEvals',1e6);
+                'MaxFunEvals',1e7);
                 
                 % problem.options.method = 'trapezoid'; 
                 problem.options.method = 'hermiteSimpson';  
