@@ -1,6 +1,6 @@
 clc;clear;
 
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230115\results\2021i_230116_0000_parameter_study_d455_rapid_vx010";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230115\results\2022h_230116_1000_parameter_study_d455_rapid_vx010_omg_only_stronger";
 dirlist=dir(motherdir);
 figure(1); clf;
 
@@ -151,6 +151,5 @@ for n = 3:length(dirlist)
                 disp(fullmatpath)
                 continue
             end
-            
             
 end
