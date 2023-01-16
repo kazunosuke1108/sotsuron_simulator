@@ -21,12 +21,12 @@ function result=MAIN_func_iter_rapid()
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=0 % 0:d455 1:LRF
-                    date="2022h_230116";
+                    date="2020e_230116";
                     if LRF_mode
                         abst="1300_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1330_parameter_study_d455_rapid_personal_slc_040";
+                        abst="1330_parameter_study_d455_rapid_personal_slc_040_vx015";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -102,7 +102,7 @@ function result=MAIN_func_iter_rapid()
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
 
-                    rbt.vx0=0.11
+                    rbt.vx0=0.15;
 
                     hmn.vx=candidate;
                     hmn.y0=candidate3;
