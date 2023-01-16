@@ -13,10 +13,10 @@ function result=MAIN_func_iter_rapid()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     for candidate2=[0]
-        % for candidate3=0.5:0.5:4.6
-        for candidate3=2.0:0.5:2.6
-            % for candidate=-0.6:-0.2:-1.21
-            for candidate=[-1.2]
+        for candidate3=0.5:0.5:4.6
+        % for candidate3=2.5:0.5:2.6
+            for candidate=-0.6:-0.2:-1.21
+            % for candidate=[-0.8]
                 try
                     %% experiment or simulation
                     exp_mode=0
@@ -26,7 +26,7 @@ function result=MAIN_func_iter_rapid()
                         abst="1300_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1330_parameter_study_d455_rapid_vx011_omg010_1e3";
+                        abst="1830_parameter_study_d455_rapid_HZ_50";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -114,7 +114,7 @@ function result=MAIN_func_iter_rapid()
 
                     t_slack=0.35;
 
-                    env.hz=abs(hmn.vx)*40/3;
+                    env.hz=abs(hmn.vx)*50/3;
                     
                     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                     %                           seq.1  検知                                   %
@@ -225,7 +225,7 @@ function result=MAIN_func_iter_rapid()
                     'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
                     'TolX',1e-10,... % x に関する許容誤差 (正のスカラー)
                     'TolCon',1e-12,... % 制約違反に関する許容誤差 (正のスカラー)
-                    'MaxFunEvals',1e6);
+                    'MaxFunEvals',1e7);
                     
                     % problem.options.method = 'trapezoid'; 
                     problem.options.method = 'hermiteSimpson';  
