@@ -219,7 +219,7 @@ function result=MAIN_func_iter_rapid()
                     % Solver options
                     problem.options.nlpOpt = optimset(...
                     'Display','iter',...
-                    'MaxIter',1e3,... % 可能な反復の最大数 (正の整数)
+                    'MaxIter',500,... % 可能な反復の最大数 (正の整数)
                     'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
                     'TolX',1e-10,... % x に関する許容誤差 (正のスカラー)
                     'TolCon',1e-12,... % 制約違反に関する許容誤差 (正のスカラー)
