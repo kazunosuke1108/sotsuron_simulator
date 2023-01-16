@@ -1,14 +1,14 @@
 addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
 % addpath '/home/hayashide/kazu_ws/sotsuron_simulator/matlab_ws/tutorial/cartPole'
 
-matpath="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230115\results\2022h_230116_1000_parameter_study_d455_rapid_vx010_omg_only_stronger\230116_114838_d_hmny0_2.5_vx1.2\230116_114838_.mat";
+matpath="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230115\results\2020e_230116_1330_parameter_study_d455_rapid_personal_slc_035\230116_134551_d_hmny0_2.5_vx1.2\230116_134551_.mat";
 % matpath="/home/hayashide/kazu_ws/sotsuron_simulator/matlab_ws/1210/results/1210_parastd4Hz/221210_140704_xmax10_ymin-2/221210_140704_test.mat"
 load(matpath)
 
 
-date="230115";
+date="230116";
 abst="visualizer";
-detail="230116_114838_";
+detail="230116_133444_";
 mkdir('results');
 savedir="results\"+date+"_"+abst;
 % savedir="results/"+date+"_"+abst;

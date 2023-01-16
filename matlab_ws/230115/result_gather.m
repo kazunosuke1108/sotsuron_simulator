@@ -1,11 +1,11 @@
 clc;clear;
 
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230115\results\2022h_230116_1000_parameter_study_d455_rapid_vx010_omg_only_stronger";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230115\results\2020e_230116_1330_parameter_study_d455_rapid_personal_slc_035";
 dirlist=dir(motherdir);
 figure(1); clf;
 
 for n = 3:length(dirlist)
-    try
+    % try
         fullpath = fullfile(dirlist(n).folder, dirlist(n).name);
         matpath = dir(fullpath+"\*.mat");
         fullmatpath=string(matpath.folder)+"\"+string(matpath.name);
@@ -147,9 +147,9 @@ for n = 3:length(dirlist)
             saveas(figure(1),motherdir+"\results.png");
             writematrix(result_matrix,motherdir+"\results.csv",'WriteMode','append');
             clearvars -except motherdir dirlist matpath fullmatpath n;
-            catch
-                disp(fullmatpath)
-                continue
-            end
+            % catch
+                % disp(fullmatpath)
+                % continue
+            % end
             
 end

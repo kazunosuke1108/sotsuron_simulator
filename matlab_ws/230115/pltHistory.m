@@ -115,4 +115,19 @@ ylim([-rbt.vmax-0.05,rbt.vmax+0.05]);
 xlabel('t [s]');
 ylabel('velocity norm [m/s]');
 
+subplot(4,3,11);
+rbt_path=z;
+hmn_path=getHumanPath(t,hmn);
+vec_HR=[hmn_path(1,:);hmn_path(2,:)]-[rbt_path(1,:);rbt_path(2,:)];
+norm_HR=sqrt(vec_HR(1,:).^2+vec_HR(2,:).^2);
+vec_HR=(norm_HR-hmn.sizer)./norm_HR.*vec_HR;
+norm_HR=sqrt(vec_HR(1,:).^2+vec_HR(2,:).^2);
+plot(t,norm_HR,'k');
+hold on
+plot(t,0*ones(size(t)),'r');
+hold on
+plot(t,hmn.personal_r*ones(size(t)),'r');
+ylim([hmn.personal_r-0.2,2]);
+xlabel('t [s]');
+ylabel('distance [m]');
 end
