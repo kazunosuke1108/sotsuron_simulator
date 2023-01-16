@@ -1,4 +1,4 @@
-function result=MAIN_func_iter0106_NIGHTFIGHTER()
+function result=MAIN_func_iter0117()
     % MAIN.m
     %% initialization
     clc; clear;
@@ -13,18 +13,18 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     for candidate2=[0]
-        for candidate3=0.5:0.25:2.5
-            for candidate=-0.6:-0.05:-1.21
+        for candidate3=0.5:0.5:2.5
+            for candidate=-0.6:-0.1:-1.21
                 try
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=candidate2 % 0:d455 1:LRF
-                    date="2021c_230116";
+                    date="2020e_230117";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="0000_parameter_study_d455";
+                        abst="0000_parameter_study_d455_omg005";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -100,7 +100,7 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
 
-                    rbt.vx0=0.15;
+                    rbt.vx0=0.11;
                     
                     hmn.vx=candidate;
                     hmn.y0=candidate3;
@@ -112,7 +112,7 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
 
                     t_slack=0.35;
 
-                    env.hz=abs(hmn.vx)*40/3;
+                    env.hz=abs(hmn.vx)*50/3;
                     
                     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                     %                           seq.1  検知                                   %
@@ -219,11 +219,11 @@ function result=MAIN_func_iter0106_NIGHTFIGHTER()
                     % Solver options
                     problem.options.nlpOpt = optimset(...
                     'Display','iter',...
-                    'MaxIter',1e3,... % 可能な反復の最大数 (正の整数)
+                    'MaxIter',500,... % 可能な反復の最大数 (正の整数)
                     'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
                     'TolX',1e-10,... % x に関する許容誤差 (正のスカラー)
                     'TolCon',1e-12,... % 制約違反に関する許容誤差 (正のスカラー)
-                    'MaxFunEvals',1e6);
+                    'MaxFunEvals',1e7);
                     
                     % problem.options.method = 'trapezoid'; 
                     problem.options.method = 'hermiteSimpson';  
