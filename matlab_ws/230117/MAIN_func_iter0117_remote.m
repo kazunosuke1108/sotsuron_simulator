@@ -24,7 +24,7 @@ function result=MAIN_func_iter0117_remote()
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="0000_parameter_study_d455_omg005";
+                        abst="0900_parameter_study_d455_omg01";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
