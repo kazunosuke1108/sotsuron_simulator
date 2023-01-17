@@ -94,7 +94,7 @@ function result=MAIN_func()
                 env.L=10;
                 env.xmax=env.L;
                 env.roi.xmax=env.roi.xmin+env.L;
-                env.ymax=3;
+                env.ymax=2.7;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
@@ -105,7 +105,7 @@ function result=MAIN_func()
                 hmn.y0=0.5;
 
                 rbt.vx0=0.11;
-                rbt.y0=1.5;
+                rbt.y0=0.5;
                 % rbt.xF=10;
                 rbt.yF=rbt.y0;
 
