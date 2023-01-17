@@ -1,6 +1,6 @@
 clc;clear;
 
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230117\results\2021c_230117_0000_parameter_study_d455_omg005";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230117\final_results";
 dirlist=dir(motherdir);
 figure(1); clf;
 
@@ -18,6 +18,7 @@ for n = 3:length(dirlist)
         first_success_idx=success_list(1);
         last_success_idx=success_list(end);
         continuous_check=all(footprint(first_success_idx:last_success_idx)>0);
+
         i=1;
         for success = success_list(1:end-1)
             if success+1==success_list(i+1)
