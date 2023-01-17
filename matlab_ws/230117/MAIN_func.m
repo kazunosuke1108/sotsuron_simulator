@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
-                date="230116";
-                abst="fastest";
-                detail="vx120_y025";
+                date="230117";
+                abst="check";
+                detail="vx090_y025";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -101,7 +101,7 @@ function result=MAIN_func()
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-1.2;
+                hmn.vx=-0.9;
                 hmn.y0=2.5;
 
                 rbt.vx0=0.11;
