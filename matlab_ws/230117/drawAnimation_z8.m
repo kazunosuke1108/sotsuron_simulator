@@ -6,7 +6,7 @@ savename_mp4 = savename+".mp4";
 savename_avi = savename+".avi";
 
 %%%% Drawing preparation
-fig2 = figure(2); clf;
+fig2 = figure('units','pixels','position',[0 0 500 200]); clf;
 frames(length(z(1,:))) = struct('cdata',[],'colormap',[]);
 
 %%%% Get path info
@@ -116,14 +116,16 @@ robot_path=plot(plt_xR(1),plt_yR(1),'b');
 hold on
 human_path=plot(plt_xH(1),plt_yH(1),'r');
 
-title(graph_title);
+% title(graph_title);
 xlim([env.xmin,env.xmax]);
 ylim([env.kabe.ymin-1,env.kabe.ymax+1]);
+xlabel("x [m]")
+ylabel("y [m]")
 daspect([1,1,1]);
 
 %%%% Iteration
 for i = 1:length(plt_xR)
-    title("frame: "+i+" "+graph_title+" L="+measured_length+"m"+" continuous="+continuous_check+" min gap"+min(norm_HR)+" m")
+    % title("frame: "+i+" "+graph_title+" L="+measured_length+"m"+" continuous="+continuous_check+" min gap"+min(norm_HR)+" m")
     set(rbt_position,'XData',plt_xR(i)+rbt.sizer*cos(0:0.01:2*pi),'YData',plt_yR(i)+rbt.sizer*sin(0:0.01:2*pi));
     set(hmn_position,'XData',plt_xH(i)+hmn.sizer*cos(0:0.01:2*pi),'YData',plt_yH(i)+hmn.sizer*sin(0:0.01:2*pi));
     % set(hmn_position_err_fast,'XData',plt_xH(i)-hmn.vx_err*t(i),'YData',plt_yH(i))
@@ -154,9 +156,24 @@ for i = 1:length(plt_xR)
     if rem(i,50)==0;
         hold on
         quiver(plt_xR(i),plt_yR(i),cos(plt_phR(i)+plt_thR(i)),sin(plt_phR(i)+plt_thR(i)),'g','LineWidth',2);
+        % hold on
+        % plot(arc_r1_x,arc_r1_y,'g');
+        % hold on
+        % plot(arc_r2_x,arc_r2_y,'g');
+        % hold on
+        % plot([arc_r1_x(1),arc_r2_x(1)],[arc_r1_y(1),arc_r2_y(1)],'g');
+        % hold on
+        % plot([arc_r1_x(end),arc_r2_x(end)],[arc_r1_y(end),arc_r2_y(end)],'g');
+        % hold on
+        % plot([plt_xR(1),arc_r1_x(1)],[plt_yR(1),arc_r1_y(1)],'--g');
+        % hold on
+        % plot([plt_xR(1),arc_r1_x(end)],[plt_yR(1),arc_r1_y(end)],'--g');
     end
     drawnow;
     frames(i)=getframe(fig2);
+    if (rem(i,50)==0 & i<=500) | i==700 | i==900 | i==1500 | i==3000
+        saveas(fig2,savename+"_"+string(t(i))+".png")
+    end
 end
 
 video2=VideoWriter(savename_mp4,'MPEG-4');
