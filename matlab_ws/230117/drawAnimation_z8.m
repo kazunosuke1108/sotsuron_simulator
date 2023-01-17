@@ -171,9 +171,9 @@ for i = 1:length(plt_xR)
     end
     drawnow;
     frames(i)=getframe(fig2);
-    if (rem(i,50)==0 & i<=500) | i==700 | i==900 | i==1500 | i==3000
-        saveas(fig2,savename+"_"+string(t(i))+".png")
-    end
+    % if (rem(i,50)==0 & i<=500) | i==700 | i==900 | i==1500 | i==3000
+    %     saveas(fig2,savename+"_"+string(t(i))+".png")
+    % end
 end
 
 video2=VideoWriter(savename_mp4,'MPEG-4');

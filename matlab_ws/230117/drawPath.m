@@ -104,7 +104,8 @@ for i = 1:length(plt_xR)
     end
 end
 
-title(graph_title);
+title("human velocity: "+string(hmn.vx)+"m/s  human position y: "+string(hmn.y0)+"m");
+% title(graph_title);
 xlim([env.xmin,env.xmax]);
 ylim([env.kabe.ymin-1,env.kabe.ymax+1]);
 daspect([1,1,1]);
