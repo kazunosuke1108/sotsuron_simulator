@@ -39,14 +39,14 @@ hmn_position = plot(plt_xH,plt_yH,'r');
 hold on
 
 %%%%% footprint
-hmn_footprint = plot(success_array(1,:),success_array(2,:),'or');
-hold on
+% hmn_footprint = plot(success_array(1,:),success_array(2,:),'or');
+% hold on
 
 %%%%% Robot path
 rbt_position = plot(plt_xR,plt_yR,'b');
 
 % % read odometory
-% odom=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\odom_2022-12-14-16-08-40.csv")
+odom=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\20230117_d_060_1_Hayashide.csv")
 % odom=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\odom_2022-12-16-19-32-43.csv")
 % odom=csvread("/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/odom_2022-12-11-18-54-07.csv")
 % odom_x=odom(:,1);
@@ -78,6 +78,28 @@ robot_path=plot(plt_xR(1),plt_yR(1),'b');
 hold on
 human_path=plot(plt_xH(1),plt_yH(1),'r');
 
+%%%%% how long measured?
+try
+    success_list=find(footprint>0,nnz(footprint));
+    first_success_idx=success_list(1);
+    last_success_idx=success_list(end);
+    i=1;
+    for success = success_list(1:end-1)
+        if success+1==success_list(i+1)
+            last_success_idx=success;
+        else
+            last_success_idx=success;
+            break
+        end
+        i=i+1;
+    end
+catch
+    first_success_idx=1;
+    last_success_idx=1;
+end
+continuous_check=all(footprint(first_success_idx:last_success_idx)>0);
+measured_length=abs(hmn_path(1,first_success_idx)-hmn_path(1,last_success_idx));
+
 for i = 1:length(plt_xR)
 
     arc_rad = linspace(plt_phR(i)+plt_thR(i)-sns.phi,plt_phR(i)+plt_thR(i)+sns.phi,arc_resolution);
@@ -95,8 +117,10 @@ for i = 1:length(plt_xR)
     set(robot_path,'XData',plt_xR(1:i),'YData',plt_yR(1:i));
     set(human_path,'XData',plt_xH(1:i),'YData',plt_yH(1:i));
     if footprint(i)==1
-        hold on
-        plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
+        if success_yH(i)>0.1
+            hold on
+            plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
+        end
     end
     if rem(i,50)==0;
         hold on
@@ -104,10 +128,12 @@ for i = 1:length(plt_xR)
     end
 end
 
-title("human velocity: "+string(hmn.vx)+"m/s  human position y: "+string(hmn.y0)+"m");
+title("velocity: "+string(hmn.vx)+"m/s  position y: "+string(hmn.y0)+"m  measured: "+string(measured_length)+"m");
 % title(graph_title);
 xlim([env.xmin,env.xmax]);
 ylim([env.kabe.ymin-1,env.kabe.ymax+1]);
+xlabel("x [m]")
+ylabel("y [m]")
 daspect([1,1,1]);
 
 

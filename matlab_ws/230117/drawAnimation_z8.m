@@ -48,6 +48,16 @@ try
     success_list=find(footprint>0,nnz(footprint));
     first_success_idx=success_list(1);
     last_success_idx=success_list(end);
+    i=1;
+    for success = success_list(1:end-1)
+        if success+1==success_list(i+1)
+            last_success_idx=success;
+        else
+            last_success_idx=success;
+            break
+        end
+        i=i+1;
+    end
 catch
     first_success_idx=1;
     last_success_idx=1;
@@ -151,7 +161,8 @@ for i = 1:length(plt_xR)
     set(human_path,'XData',plt_xH(1:i),'YData',plt_yH(1:i));
     if footprint(i)==1
         hold on
-        plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
+        if success_yH(i)>0.1
+            plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
     end
     if rem(i,50)==0;
         hold on
