@@ -24,10 +24,11 @@ b=bar(x,mean_data)
 b(1).FaceColor=[1,0,0];
 b(2).FaceColor=[0,0,1];
 b(3).FaceColor=[0,1,0];
-legend("VICON: truth","HSR: raw","HSR: odometry compensated",'Location','northwest','FontSize',5);
+legend("               .","               .","               .",'Location','southeast','FontSize',15,'TextColor','w');
+% legend("VICON: truth","HSR: raw","HSR: odometry compensated",'Location','northwestoutside','FontSize',10);
 xlabel("experiment number")
 ylabel("mean of position y [m]")
-title("mean of position y")
+% title("mean of position y")
 exportgraphics(fig1,"C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\results\0108\results\analysis\mean_"+string(type)+".png",'Resolution',500);
 
 fig1=figure(1);clf;
@@ -35,10 +36,11 @@ b=bar(x,std_data)
 b(1).FaceColor=[1,0,0];
 b(2).FaceColor=[0,0,1];
 b(3).FaceColor=[0,1,0];
-legend("VICON: truth","HSR: raw","HSR: odometry compensated",'Location','northwest','FontSize',5);
+legend("               .","               .","               .",'Location','northwest','FontSize',15,'TextColor','w');
+% legend("VICON: truth","HSR: raw","HSR: odometry compensated",'Location','northwestoutside','FontSize',10);
 xlabel("experiment number")
-ylabel("std of position y [m]")
-title("standard deviation of position y")
+ylabel("standard deviation of position y [m]")
+% title("standard deviation of position y")
 exportgraphics(fig1,"C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\results\0108\results\analysis\std_"+string(type)+".png",'Resolution',500);
 
 fig1=figure(1);clf;
@@ -46,10 +48,11 @@ b=bar(x,skew_data)
 b(1).FaceColor=[1,0,0];
 b(2).FaceColor=[0,0,1];
 b(3).FaceColor=[0,1,0];
-legend("VICON: truth","HSR: raw","HSR: odometry compensated",'Location','northwest','FontSize',5);
+legend("               .","               .","               .",'Location','north','FontSize',15,'TextColor','w');
+% legend("VICON: truth","HSR: raw","HSR: odometry compensated",'Location','northwestoutside','FontSize',10);
 xlabel("experiment number")
 ylabel("skewness of position y")
-title("skewness of position y")
+% title("skewness of position y")
 exportgraphics(fig1,"C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\results\0108\results\analysis\skew_"+string(type)+".png",'Resolution',500);
 
 
@@ -58,8 +61,8 @@ b=bar(x,kurtosis_data)
 b(1).FaceColor=[1,0,0];
 b(2).FaceColor=[0,0,1];
 b(3).FaceColor=[0,1,0];
-legend("VICON: truth","HSR: raw","HSR: odometry compensated",'Location','northwest','FontSize',5);
+legend("               .","               .","               .",'Location','northwest','FontSize',15,'TextColor','w');
 xlabel("experiment number")
 ylabel("kurtosis of position y")
-title("kurtosis of position y")
+% title("kurtosis of position y")
 exportgraphics(fig1,"C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\results\0108\results\analysis\kurtosis_"+string(type)+".png",'Resolution',500);

@@ -1,6 +1,6 @@
 function data = drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename,graph_title)
 %%%% Parameters
-arrow_scale=10;
+arrow_scale=5;
 arc_resolution=100;
 savename_mp4 = savename+".mp4";
 savename_avi = savename+".avi";
@@ -87,7 +87,7 @@ roi_rectangle = rectangle('Position', [env.roi.xmin env.roi.ymin env.roi.xmax-en
 % rbt_position = plot(plt_xR(1),plt_yR(1),'ob','MarkerSize',15);
 rbt_position=plot(plt_xR(1)+rbt.sizer*cos(0:0.01:2*pi),plt_yR(1)+rbt.sizer*sin(0:0.01:2*pi),'b');
 hold on
-rbt_base_direction = quiver(plt_xR(1),plt_yR(1),cos(plt_thR(1)),sin(plt_thR(1)),'b');
+rbt_base_direction = quiver(plt_xR(1),plt_yR(1),cos(plt_thR(1)),sin(plt_thR(1)),'k');
 hold on
 rbt_vel_direction = quiver(plt_xR(1),plt_yR(1),plt_vxR(1),plt_vyR(1),'b');
 hold on
@@ -179,9 +179,9 @@ for i = 1:length(plt_xR)
             plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
         end
     end
-    if rem(i,50)==0;
+    if (rem(i,30)==0 & i<=240) |i==1 | i==300 | i==400 | i==600 % rem(i,50)==0;
         hold on
-        quiver(plt_xR(i),plt_yR(i),cos(plt_phR(i)+plt_thR(i)),sin(plt_phR(i)+plt_thR(i)),'g','LineWidth',2);
+        quiver(plt_xR(i),plt_yR(i),cos(plt_phR(i)+plt_thR(i)),sin(plt_phR(i)+plt_thR(i)),'g','LineWidth',0.5);
         % hold on
         % plot(arc_r1_x,arc_r1_y,'g');
         % hold on

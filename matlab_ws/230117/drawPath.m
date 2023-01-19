@@ -49,12 +49,12 @@ rbt_position = plot(plt_xR,plt_yR,'b');
 odom=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\20230117_d_060_1_Hayashide.csv")
 % odom=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\odom_2022-12-16-19-32-43.csv")
 % odom=csvread("/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/odom_2022-12-11-18-54-07.csv")
-odom_x=odom(:,1)-odom(1,1);
-odom_y=odom(:,2)-odom(1,2)+0.5;
-odom_th=odom(:,3)-odom(1,3);
+% odom_x=odom(:,1)-odom(1,1);
+% odom_y=odom(:,2)-odom(1,2)+0.5;
+% odom_th=odom(:,3)-odom(1,3);
 
-odm_idx=find(odom_x<8);
-odom_path=plot(odom_x(odm_idx),odom_y(odm_idx),'k','LineWidth',5)
+% odm_idx=find(odom_x<8);
+% odom_path=plot(odom_x(odm_idx),odom_y(odm_idx),'k','LineWidth',5)
 
 %%%%% arc
 arc_rad = linspace(plt_phR(1)+plt_thR(1)-sns.phi,plt_phR(1)+plt_thR(1)+sns.phi,arc_resolution);
@@ -125,7 +125,7 @@ for i = 1:length(plt_xR)
     end
     if rem(i,50)==0;
         hold on
-        quiver(plt_xR(i),plt_yR(i),cos(plt_phR(i)+plt_thR(i)),sin(plt_phR(i)+plt_thR(i)),'g','LineWidth',1);
+        quiver(plt_xR(i),plt_yR(i),cos(plt_phR(i)+plt_thR(i)),sin(plt_phR(i)+plt_thR(i)),'g','LineWidth',0.5);
     end
 end
 
