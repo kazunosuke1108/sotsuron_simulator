@@ -6,7 +6,7 @@ savename_mp4 = savename+".mp4";
 savename_avi = savename+".avi";
 
 %%%% Drawing preparation
-fig2 = figure(2); clf;
+fig2 = figure('units','pixels','position',[0 0 400 200]); clf;
 frames(length(z(1,:))) = struct('cdata',[],'colormap',[]);
 
 %%%% Get path info
@@ -101,7 +101,7 @@ hold on
 % hold on
 % hmn_position_err_slow=plot(plt_xH(1),plt_yH(1),'xr','MarkerSize',15);
 % hold on
-hmn_personal_area=plot(plt_xH(1)+hmn.personal_r*cos(0:0.01:2*pi),plt_yH(1)+hmn.personal_r*sin(0:0.01:2*pi),'r');
+hmn_personal_area=plot(plt_xH(1)+hmn.personal_r*cos(0:0.01:2*pi),plt_yH(1)+hmn.personal_r*sin(0:0.01:2*pi),'m');
 hold on
 %%%%% arc
 arc_rad = linspace(plt_phR(1)+plt_thR(1)-sns.phi,plt_phR(1)+plt_thR(1)+sns.phi,arc_resolution);
@@ -126,16 +126,29 @@ robot_path=plot(plt_xR(1),plt_yR(1),'b');
 hold on
 human_path=plot(plt_xH(1),plt_yH(1),'r');
 
-title(graph_title);
+% title(graph_title);
 xlim([env.xmin,env.xmax]);
 ylim([env.kabe.ymin-1,env.kabe.ymax+1]);
 xlabel("x [m]")
 ylabel("y [m]")
 daspect([1,1,1]);
+odom=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\20230117_d_060_1_Hayashide.csv")
+% odom=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\odom_2022-12-16-19-32-43.csv")
+% odom=csvread("/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/odom_2022-12-11-18-54-07.csv")
+odom_x=odom(:,1)-odom(1,1);
+odom_y=odom(:,2)-odom(1,2)+0.5;
+odom_th=odom(:,3)-odom(1,3);
 
+odm_idx=find(odom_x<8);
+ratio=3%length(odom_x)/length(plt_xR);
+% hold on
+% odom_path=plot(odom_x(1),odom_y(1),'k','LineWidth',5)
 %%%% Iteration
+
+saveas(fig2,savename+"_"+string(t(1))+".png")
+
 for i = 1:length(plt_xR)
-    title("frame: "+i+" "+graph_title+" L="+measured_length+"m"+" continuous="+continuous_check+" min gap"+min(norm_HR)+" m")
+    % title("frame: "+i+" "+graph_title+" L="+measured_length+"m"+" continuous="+continuous_check+" min gap"+min(norm_HR)+" m")
     set(rbt_position,'XData',plt_xR(i)+rbt.sizer*cos(0:0.01:2*pi),'YData',plt_yR(i)+rbt.sizer*sin(0:0.01:2*pi));
     set(hmn_position,'XData',plt_xH(i)+hmn.sizer*cos(0:0.01:2*pi),'YData',plt_yH(i)+hmn.sizer*sin(0:0.01:2*pi));
     % set(hmn_position_err_fast,'XData',plt_xH(i)-hmn.vx_err*t(i),'YData',plt_yH(i))
@@ -144,6 +157,7 @@ for i = 1:length(plt_xR)
     set(rbt_vel_direction,'XData',plt_xR(i),'YData',plt_yR(i),'UData',plt_vxR(i),'VData',plt_vyR(i));
     set(hmn_direction,'XData',plt_xH(i),'YData',plt_yH(i),'UData',plt_vxH(i),'VData',plt_vyH(i));
     set(hmn_personal_area,'XData',plt_xH(i)+hmn.personal_r*cos(0:0.01:2*pi),'YData',plt_yH(i)+hmn.personal_r*sin(0:0.01:2*pi));
+    % set(odom_path,'XData',odom_x(1:round(i*ratio)),'YData',odom_y(1:round(i*ratio)))
 
     arc_rad = linspace(plt_phR(i)+plt_thR(i)-sns.phi,plt_phR(i)+plt_thR(i)+sns.phi,arc_resolution);
     arc_r1_x = sns.r1*cos(arc_rad)+plt_xR(i);
@@ -183,9 +197,9 @@ for i = 1:length(plt_xR)
     end
     drawnow;
     frames(i)=getframe(fig2);
-    % if (rem(i,50)==0 & i<=500) | i==700 | i==900 | i==1500 | i==3000
-    %     saveas(fig2,savename+"_"+string(t(i))+".png")
-    % end
+    if (rem(i,30)==0 & i<=240) |i==1 | i==300 | i==400 | i==600
+        saveas(fig2,savename+"_"+string(t(i))+".png")
+    end
 end
 
 video2=VideoWriter(savename_mp4,'MPEG-4');

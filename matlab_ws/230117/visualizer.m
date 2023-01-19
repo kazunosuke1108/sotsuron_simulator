@@ -6,9 +6,9 @@ matpath="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230117\
 load(matpath)
 
 
-date="230117";
+date="230118";
 abst="visualizer";
-detail="230117_111714_";
+detail="230117_220927_";
 mkdir('results');
 savedir="results\"+date+"_"+abst;
 % savedir="results/"+date+"_"+abst;
@@ -42,7 +42,7 @@ saveas(figure(1),savename_png);
 %% Animation
 figure(2); clf;
 savename_3_anim=savename+"_3_anim";
-% drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+% % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
 drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
 
 figure(3); clf;
