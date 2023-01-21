@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230121";
                 abst="no_geta";
-                detail="";
+                detail="y0_1_50hz";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -102,7 +102,7 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
 
                 hmn.vx=-1.2;
-                hmn.y0=2.5;
+                hmn.y0=1.0;
 
                 rbt.vx0=0.11;
                 rbt.y0=2.5;
@@ -111,7 +111,7 @@ function result=MAIN_func()
 
                 t_slack=0.35;
 
-                env.hz=abs(hmn.vx)*50/3;
+                env.hz=50;%abs(hmn.vx)*60/3;
                 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                 %                           seq.1  検知                                   %
