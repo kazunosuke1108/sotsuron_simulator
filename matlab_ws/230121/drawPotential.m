@@ -1,5 +1,5 @@
 clc;clear;
-matpath="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230115\results\230115_constraint\230115_142355_1e3times_true\230115_142355_.mat"
+matpath="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\230121_no_geta\230121_124038_y0_1\230121_124038_.mat";
 
 load(matpath)
 
@@ -79,64 +79,29 @@ arc_right_helper=plot([plt_xR(1),arc_r1_x(1)],[plt_yR(1),arc_r1_y(1)],'--g');
 hold on
 arc_left_helper=plot([plt_xR(1),arc_r1_x(end)],[plt_yR(1),arc_r1_y(end)],'--g');
 
-pbaspect([1 1 1])
+pbaspect([1 1 0.5])
 xlim([-2,7])
 ylim([-2,7])
 xlabel("x (hallway direction) [m]")
 ylabel("y [m]")
 zlabel("value of object function")
-exportgraphics(fig,"C:\Users\林出和之\OneDrive - keio.jp\4年秋 研究室\[06] 卒論\potential.png",'Resolution',300)
-% function data=drawPotential(t,z,u,env,rbt,hmn,sns,soln,savename)
+exportgraphics(fig,"C:\Users\hayashide\OneDrive - keio.jp\4年秋 研究室\[06] 卒論\本文\potential.png",'Resolution',300)
 
-% %%%% Parameters
-% savename_map_mp4 = savename+".mp4";
+fig=figure(5);clf;
+r=0:0.01:8;
+score_r=pdf('Normal',r,mu_r,sgm_r);
+phi=-pi/2:0.01:pi/2;
+score_p=pdf('Normal',phi,mu_phi,sgm_phi);
 
-% %%%% Drawing preparation
-% fig3 = figure(3); clf;
-% frames3(length(z(1,:))) = struct('cdata',[],'colormap',[]);
-% map_x=linspace(env.roi.xmin,env.roi.xmax);
-% map_y=linspace(env.roi.ymin,env.roi.ymax);
-% [X,Y]=meshgrid(map_x,map_y);
-
-% %%%% Get path info
-% plt_xR=z(1,:);
-% plt_yR=z(2,:);
-% plt_thR=z(3,:);
-% plt_vxR=z(4,:);
-% plt_vyR=z(5,:);
-% plt_vR=sqrt(plt_vxR.^2+plt_vyR.^2);
-
-% hmn_path=getHumanPath(t,hmn);
-
-% plt_xH=hmn_path(1,:);
-% plt_yH=hmn_path(2,:);
-% plt_thH=hmn_path(3,:);
-% plt_vxH=hmn_path(4,:);
-% plt_vyH=hmn_path(5,:);
-% plt_vH=sqrt(plt_vxH.^2+plt_vyH.^2);
-
-
-% %%%% Get map info
-% Z=objFPlot(plt_xR(1),plt_yR(1),plt_thR(1),X,Y,sns);
-% func_map=contourf(X,Y,Z,10);
-
-% %%%% drawing option
-% xlim([env.roi.xmin,env.roi.xmax]);
-% ylim([env.roi.ymin-1,env.roi.ymax+1]);
-% daspect([1,1,1]);
-% drawnow;
-
-% for i = 1:length(plt_xR)
-%     Z=objFPlot(plt_xR(i),plt_yR(i),plt_thR(i),X,Y,sns);
-%     func_map=contourf(X,Y,Z,10);
-%     ylim([env.roi.ymin-1,env.roi.ymax+1]);
-%     daspect([1,1,1]);
-%     daspect([1,1,1]);
-%     drawnow;
-%     frames3(i)=getframe(fig3);
-% end
-% video3=VideoWriter(savename_map_mp4,'MPEG-4');
-% open(video3);
-% writeVideo(video3,frames3);
-% close(video3);
-% end
+fig=figure(5);clf;
+plot(r,score_r);
+xlabel("distance r [m]");
+ylabel("Object function F_r[k]");
+daspect([1 1 1]);
+exportgraphics(fig,"C:\Users\hayashide\OneDrive - keio.jp\4年秋 研究室\[06] 卒論\本文\F_r.png",'Resolution',300)
+fig=figure(5);clf;
+plot(phi,score_p);
+xlabel("direction phi [rad]");
+ylabel("Object function F_{phi}[k]");
+daspect([1 1 1]);
+exportgraphics(fig,"C:\Users\hayashide\OneDrive - keio.jp\4年秋 研究室\[06] 卒論\本文\F_p.png",'Resolution',300)
