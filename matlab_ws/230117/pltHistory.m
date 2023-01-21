@@ -33,9 +33,15 @@ xlabel('t [s]');
 ylabel('y [m]');
 
 title(graph_title);
-
+vx_check=hmn.vx==-1.0 || hmn.vx==-1.1;
+y0_check=hmn.y0==1.5 || hmn.y0==3.5;
 subplot(4,3,3);
-plot(t,th,'k');
+
+if vx_check && y0_check
+    plot(t,th,'m','LineWidth',2);
+else
+    plot(t,th,'k');
+end
 hold on
 plot(t,rbt.thmin*ones(size(t)),'r');
 hold on
