@@ -20,16 +20,16 @@ rbt.vymin=-rbt.vymax;
 rbt.omgmax=pi/8;
 rbt.omgmin=-rbt.omgmax;
 
-rbt.vmax_actual=rbt.vmax-0.05;
-rbt.vxmax_actual=rbt.vmax-0.05;
+rbt.vmax_actual=rbt.vmax%-0.05;
+rbt.vxmax_actual=rbt.vmax%-0.05;
 % rbt.vxmax_actual=rbt.vmax-0.07;
-% rbt.vxmin_actual=-rbt.vxmax_actual;
-rbt.vxmin_actual=0;
-rbt.vymax_actual=rbt.vmax-0.05;
+rbt.vxmin_actual=-rbt.vxmax_actual;
+% rbt.vxmin_actual=0;
+rbt.vymax_actual=rbt.vmax%-0.05;
 % rbt.vymax_actual=rbt.vmax-0.07;
 rbt.vymin_actual=-rbt.vymax_actual;
 % rbt.vxmin=0;
-rbt.omgmax_actual=rbt.omgmax-0.1;
+rbt.omgmax_actual=rbt.omgmax%-0.1;
 % rbt.omgmax_actual=rbt.omgmax-0.17;
 rbt.omgmin_actual=-rbt.omgmax_actual;
 
@@ -52,11 +52,11 @@ rbt.aymin=-rbt.aymax;
 rbt.aangmax=rbt.omgmax;
 rbt.aangmin=-rbt.aangmax;
 
-rbt.axmax_actual=rbt.axmax-0.03;
+rbt.axmax_actual=rbt.axmax%-0.03;
 rbt.axmin_actual=-rbt.axmax_actual;
-rbt.aymax_actual=rbt.aymax-0.03;
+rbt.aymax_actual=rbt.aymax%-0.03;
 rbt.aymin_actual=-rbt.aymax_actual;
-rbt.aangmax_actual=rbt.aangmax-0.1;
+rbt.aangmax_actual=rbt.aangmax%-0.1;
 rbt.aangmin_actual=-rbt.aangmax_actual;
 
 
