@@ -1,4 +1,5 @@
 addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
+addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230117\final_results';
 % addpath '/home/hayashide/kazu_ws/sotsuron_simulator/matlab_ws/tutorial/cartPole'
 
 matpath="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230117\results\230117_7F\230117_220927_vx060_y050\230117_220927_.mat";
@@ -6,7 +7,7 @@ matpath="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230117\
 load(matpath)
 
 
-date="230120";
+date="230121";
 abst="visualizer";
 detail="230117_220927_";
 mkdir('results');
