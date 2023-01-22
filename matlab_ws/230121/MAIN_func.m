@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0 % 0:d455 1:LRF
                 date="230121";
                 abst="no_geta";
-                detail="y0_1_50hz";
+                detail="L25";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -91,7 +91,7 @@ function result=MAIN_func()
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
 
-                env.L=20;
+                env.L=25;
                 env.xmax=env.L;
                 env.roi.xmax=env.roi.xmin+env.L;
                 env.ymax=5;
@@ -111,7 +111,7 @@ function result=MAIN_func()
 
                 t_slack=0.35;
 
-                env.hz=50;%abs(hmn.vx)*60/3;
+                env.hz=abs(hmn.vx)*50/3;
                 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                 %                           seq.1  検知                                   %
