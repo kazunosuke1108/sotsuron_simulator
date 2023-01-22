@@ -91,7 +91,7 @@ function result=MAIN_func()
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
 
-                env.L=10;
+                env.L=20;
                 env.xmax=env.L;
                 env.roi.xmax=env.roi.xmin+env.L;
                 env.ymax=2.7;
