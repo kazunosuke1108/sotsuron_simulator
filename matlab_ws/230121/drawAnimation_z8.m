@@ -132,15 +132,15 @@ ylim([env.kabe.ymin-1,env.kabe.ymax+1]);
 xlabel("x [m]")
 ylabel("y [m]")
 daspect([1,1,1]);
-odom=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\20230117_d_060_1_Hayashide.csv")
-% odom=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\odom_2022-12-16-19-32-43.csv")
-% odom=csvread("/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/odom_2022-12-11-18-54-07.csv")
-odom_x=odom(:,1)-odom(1,1);
-odom_y=odom(:,2)-odom(1,2)+0.5;
-odom_th=odom(:,3)-odom(1,3);
+% odom=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\20230117_d_060_1_Hayashide.csv")
+% % odom=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\odom_2022-12-16-19-32-43.csv")
+% % odom=csvread("/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/odom_2022-12-11-18-54-07.csv")
+% odom_x=odom(:,1)-odom(1,1);
+% odom_y=odom(:,2)-odom(1,2)+0.5;
+% odom_th=odom(:,3)-odom(1,3);
 
-odm_idx=find(odom_x<8);
-ratio=3%length(odom_x)/length(plt_xR);
+% odm_idx=find(odom_x<8);
+% ratio=3%length(odom_x)/length(plt_xR);
 % hold on
 % odom_path=plot(odom_x(1),odom_y(1),'k','LineWidth',5)
 %%%% Iteration
