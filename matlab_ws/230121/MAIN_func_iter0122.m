@@ -1,4 +1,4 @@
-function result=MAIN_func_iter0117_remote()
+function result=MAIN_func_iter0122()
     % MAIN.m
     %% initialization
     clc; clear;
@@ -13,18 +13,18 @@ function result=MAIN_func_iter0117_remote()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     for candidate2=[0]
-        for candidate3=2.5:0.5:4.6
+        for candidate3=0.5:0.5:2.5
             for candidate=-0.6:-0.1:-1.21
                 try
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=candidate2 % 0:d455 1:LRF
-                    date="2021c_230117";
+                    date="2022h_230122";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="0900_parameter_study_d455_omg01";
+                        abst="1800_parameter_study_d455_no_offset";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -101,7 +101,7 @@ function result=MAIN_func_iter0117_remote()
                     hmn=getHumanParams(env,sns);
 
                     rbt.vx0=0.11;
-
+                    
                     hmn.vx=candidate;
                     hmn.y0=candidate3;
 
@@ -112,7 +112,7 @@ function result=MAIN_func_iter0117_remote()
 
                     t_slack=0.35;
 
-                    env.hz=abs(hmn.vx)*50/3;
+                    env.hz=abs(hmn.vx)*60/3;
                     
                     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                     %                           seq.1  検知                                   %
@@ -176,13 +176,14 @@ function result=MAIN_func_iter0117_remote()
                 % Initial guess at trajectory
 
                 slack=0.3;
+                circle_r=hmn.personal_r+slack+rbt.sizer
                 if abs(env.ymax-hmn.y0)>=abs(hmn.y0-env.ymin)
                     disp("avoid upper")
-                    y_temp=hmn.y0+hmn.personal_r+slack+rbt.sizer;
+                    y_temp=hmn.y0+circle_r;
                     th_temp=-pi/2;
                 else
                     disp("avoid lower")
-                    y_temp=hmn.y0-hmn.personal_r-slack-rbt.sizer;
+                    y_temp=hmn.y0-circle_r;
                     th_temp=pi/2;
                 end
                 % if hmn.y0-env.ymin<hmn.personal_r+rbt.sizer*2+slack
@@ -197,23 +198,29 @@ function result=MAIN_func_iter0117_remote()
                 %     disp("avoid lower")
                 %     th_temp=pi/2;    
                 % end
-                    
-                    % t_temp1=env.L/abs(hmn.vx+rbt.vx0)-1/hmn.vx;
-                    t_temp=env.L/abs(hmn.vx+rbt.vx0);
-                    x_temp=rbt.vx0*t_temp;
-                    % t_temp2=problem.bounds.finalTime.low-t_temp;
-    
-                    temp=[x_temp;y_temp;th_temp;0;0;0];
-                    % temp2=[rbt.xF;y_temp;th_temp;0;0;0]
-                    problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
-                    % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp1,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
-                    problem.guess.state = [problem.bounds.initialState.low,temp,problem.bounds.finalState.upp];
-                    % problem.guess.state = [problem.bounds.initialState.low,temp,temp2,problem.bounds.finalState.upp];
-                    problem.guess.control = [0,0,0;0,0,0;0,0,0];
-                    % problem.guess.control = [0,0,0,0;0,0,0,0;0,0,0,0];
-                    % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
-                    % problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.upp];
-                    % problem.guess.control = [0,0;0,0;0,0];
+                
+                % t_temp1=env.L/abs(hmn.vx+rbt.vx0)-1/hmn.vx;
+                t_temp=env.L/abs(hmn.vx+rbt.vx0);
+                t_temp1=t_temp-circle_r/abs(hmn.vx);
+                t_temp2=t_temp+circle_r/abs(hmn.vx);
+                x_temp=rbt.vx0*t_temp;
+                x_temp1=x_temp-circle_r;
+                x_temp2=x_temp+circle_r;
+                % t_temp2=problem.bounds.finalTime.low-t_temp;
+
+                temp=[x_temp;y_temp;th_temp;0;0;0];
+                temp1=[x_temp1;y_temp;th_temp;0;0;0];
+                temp2=[x_temp2;y_temp;th_temp;0;0;0];
+                % temp2=[rbt.xF;y_temp;th_temp;0;0;0]
+                % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp1,t_temp2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                % problem.guess.state = [problem.bounds.initialState.low,temp,problem.bounds.finalState.upp];
+                problem.guess.state = [problem.bounds.initialState.low,temp1,temp2,problem.bounds.finalState.upp];
+                % problem.guess.control = [0,0,0;0,0,0;0,0,0];
+                problem.guess.control = [0,0,0,0;0,0,0,0;0,0,0,0];
+                % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
+                % problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.upp];
+                % problem.guess.control = [0,0;0,0;0,0];
 
                     
                     % Solver options
