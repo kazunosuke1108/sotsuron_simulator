@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0
                 LRF_mode=0 % 0:d455 1:LRF
-                date="230121";
-                abst="no_geta";
-                detail="L25";
+                date="230122";
+                abst="L10";
+                detail="rungeKutta";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -91,7 +91,7 @@ function result=MAIN_func()
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
 
-                env.L=25;
+                env.L=10;
                 env.xmax=env.L;
                 env.roi.xmax=env.roi.xmin+env.L;
                 env.ymax=5;
@@ -102,7 +102,7 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
 
                 hmn.vx=-1.2;
-                hmn.y0=1.0;
+                hmn.y0=2.5;
 
                 rbt.vx0=0.11;
                 rbt.y0=2.5;
@@ -138,6 +138,7 @@ function result=MAIN_func()
                 
                 % 標準制御周波数の決定
                 problem.options.hermiteSimpson.nSegment=fix((env.estim_final_t*env.hz-1)/30);
+                problem.options.rungeKutta.nSegment=fix((env.estim_final_t*env.hz-1)/30);
 
 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -232,7 +233,10 @@ function result=MAIN_func()
                 'MaxFunEvals',1e7);
                 
                 % problem.options.method = 'trapezoid'; 
-                problem.options.method = 'hermiteSimpson';  
+                % problem.options.method = 'multiCheb'; 
+                problem.options.method = 'rungeKutta'; 
+                % problem.options.method = 'gpops'; 
+                % problem.options.method = 'hermiteSimpson';  
                 % problem.options.hermiteSimpson.nSegment=10;
                 
                 
