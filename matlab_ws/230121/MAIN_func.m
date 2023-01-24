@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230122";
+                date="230123";
                 abst="L20";
-                detail="xF5_22.5hz";
+                detail="xF5_soln_grid";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -111,7 +111,7 @@ function result=MAIN_func()
 
                 t_slack=0.35;
 
-                env.hz=22.5;%abs(hmn.vx)*50/3;
+                env.hz=abs(hmn.vx)*50/3;
                 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                 %                           seq.1  検知                                   %
@@ -246,9 +246,12 @@ function result=MAIN_func()
                 
                 % Display Solution
                 n = length(soln.grid.time);
-                t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
-                z = soln.interp.state(t);
-                u = soln.interp.control(t);
+                % t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
+                % z = soln.interp.state(t);
+                % u = soln.interp.control(t);
+                t = soln.grid.time;
+                z = soln.grid.state;
+                u = soln.grid.control;
 
                 z8= getz8(z,LRF_mode);
                 

@@ -1,9 +1,11 @@
 clc;clear;
 
-matpath="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230111\results\230115_constraint\230115_095850_1e3times_true\230115_095850_.mat"
-load(matpath)
+x = 0:pi/4:2*pi; 
+v = sin(x);
+xq = 0:pi/16:2*pi;
 
-J=objF_pdf(t,z,u,env,rbt,hmn,sns);
-
-[1,0]>0 & [1,1]>0
-%161を最後に突如0
+figure
+vq1 = interp1(x,v,xq,'spline');
+plot(x,v,'o',xq,vq1,':.');
+xlim([0 2*pi]);
+title('(Default) Linear Interpolation');
