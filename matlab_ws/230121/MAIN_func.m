@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230122";
-                abst="L20";
-                detail="xF5";
+                date="230124";
+                abst="07304";
+                detail="x6y3";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -91,27 +91,27 @@ function result=MAIN_func()
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
 
-                env.L=20;
+                env.L=6;
                 env.xmax=env.L;
                 env.roi.xmax=env.roi.xmin+env.L;
-                env.ymax=5;
+                env.ymax=3;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-1.2;
-                hmn.y0=2.5;
+                hmn.vx=-0.6;
+                hmn.y0=0.5;
 
                 rbt.vx0=0.11;
-                rbt.y0=2.5;
-                rbt.xF=5;
+                rbt.y0=0.5;
+                % rbt.xF=5;
                 rbt.yF=rbt.y0;
 
                 t_slack=0.35;
 
-                env.hz=abs(hmn.vx)*60/3;
+                env.hz=abs(hmn.vx)*50/3;
                 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                 %                           seq.1  検知                                   %
@@ -246,9 +246,12 @@ function result=MAIN_func()
                 
                 % Display Solution
                 n = length(soln.grid.time);
-                t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
-                z = soln.interp.state(t);
-                u = soln.interp.control(t);
+                % t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
+                % z = soln.interp.state(t);
+                % u = soln.interp.control(t);
+                t = soln.grid.time;
+                z = soln.grid.state;
+                u = soln.grid.control;
 
                 z8= getz8(z,LRF_mode);
                 
