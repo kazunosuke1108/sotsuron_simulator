@@ -16,11 +16,11 @@ function result=MAIN_func()
     %     for candidate2=[-0.5 -1.5 -2.5 -3.5]
             % try
                 %% experiment or simulation
-                exp_mode=0
-                LRF_mode=0 % 0:d455 1:LRF
-                date="230121";
-                abst="no_geta";
-                detail="y0_1_50hz";
+                exp_mode=0;
+                LRF_mode=0; % 0:d455 1:LRF
+                date="230122";
+                abst="L20";
+                detail="xF5";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -41,7 +41,7 @@ function result=MAIN_func()
 
                 %% load default variables
 
-                sns_name="" % d455,d435,zed,xtion
+                sns_name=""; % d455,d435,zed,xtion
 
                 env=getEnvironmentParams();
                 sns=getSensorParams();
@@ -102,11 +102,11 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
 
                 hmn.vx=-1.2;
-                hmn.y0=1.0;
+                hmn.y0=2.5;
 
                 rbt.vx0=0.11;
                 rbt.y0=2.5;
-                % rbt.xF=10;
+                rbt.xF=5;
                 rbt.yF=rbt.y0;
 
                 t_slack=0.35;
@@ -138,6 +138,7 @@ function result=MAIN_func()
                 
                 % 標準制御周波数の決定
                 problem.options.hermiteSimpson.nSegment=fix((env.estim_final_t*env.hz-1)/30);
+                problem.options.rungeKutta.nSegment=fix((env.estim_final_t*env.hz-1)/30);
 
 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
@@ -232,6 +233,9 @@ function result=MAIN_func()
                 'MaxFunEvals',1e7);
                 
                 % problem.options.method = 'trapezoid'; 
+                % problem.options.method = 'multiCheb'; 
+                % problem.options.method = 'rungeKutta'; 
+                % problem.options.method = 'gpops'; 
                 problem.options.method = 'hermiteSimpson';  
                 % problem.options.hermiteSimpson.nSegment=10;
                 
