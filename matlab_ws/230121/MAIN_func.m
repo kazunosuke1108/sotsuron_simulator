@@ -16,11 +16,11 @@ function result=MAIN_func()
     %     for candidate2=[-0.5 -1.5 -2.5 -3.5]
             % try
                 %% experiment or simulation
-                exp_mode=0
-                LRF_mode=0 % 0:d455 1:LRF
+                exp_mode=0;
+                LRF_mode=0; % 0:d455 1:LRF
                 date="230122";
-                abst="L10";
-                detail="rungeKutta";
+                abst="L20";
+                detail="xF5";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -41,7 +41,7 @@ function result=MAIN_func()
 
                 %% load default variables
 
-                sns_name="" % d455,d435,zed,xtion
+                sns_name=""; % d455,d435,zed,xtion
 
                 env=getEnvironmentParams();
                 sns=getSensorParams();
@@ -91,7 +91,7 @@ function result=MAIN_func()
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
 
-                env.L=10;
+                env.L=20;
                 env.xmax=env.L;
                 env.roi.xmax=env.roi.xmin+env.L;
                 env.ymax=5;
@@ -106,7 +106,7 @@ function result=MAIN_func()
 
                 rbt.vx0=0.11;
                 rbt.y0=2.5;
-                % rbt.xF=10;
+                rbt.xF=5;
                 rbt.yF=rbt.y0;
 
                 t_slack=0.35;
@@ -234,9 +234,9 @@ function result=MAIN_func()
                 
                 % problem.options.method = 'trapezoid'; 
                 % problem.options.method = 'multiCheb'; 
-                problem.options.method = 'rungeKutta'; 
+                % problem.options.method = 'rungeKutta'; 
                 % problem.options.method = 'gpops'; 
-                % problem.options.method = 'hermiteSimpson';  
+                problem.options.method = 'hermiteSimpson';  
                 % problem.options.hermiteSimpson.nSegment=10;
                 
                 
