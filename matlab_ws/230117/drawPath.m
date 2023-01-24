@@ -43,10 +43,10 @@ hold on
 % hold on
 
 %%%%% Robot path
-rbt_position = plot(plt_xR,plt_yR,'b');
+rbt_position = plot(plt_xR,plt_yR,'b','LineWidth',3);
 
 % % read odometory
-odom=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\20230117_d_060_1_Hayashide.csv")
+% odom=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\20230117_d_060_1_Hayashide.csv")
 % odom=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\odom_2022-12-16-19-32-43.csv")
 % odom=csvread("/home/hayashide/kazu_ws/sotsuron_experiment/sotsuron_experiment/scripts/monitor/odom_2022-12-11-18-54-07.csv")
 % odom_x=odom(:,1)-odom(1,1);
