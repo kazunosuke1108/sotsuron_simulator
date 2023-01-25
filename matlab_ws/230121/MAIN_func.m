@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230124";
                 abst="07304";
-                detail="x6y3";
+                detail="linear_interp";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -246,12 +246,18 @@ function result=MAIN_func()
                 
                 % Display Solution
                 n = length(soln.grid.time);
+                %% 元々
                 % t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
                 % z = soln.interp.state(t);
                 % u = soln.interp.control(t);
+                %% gridのまま
                 t = soln.grid.time;
                 z = soln.grid.state;
                 u = soln.grid.control;
+                % %% 線形補間
+                % t=linspace(soln.grid.time(1),soln.grid.time(end),15*(n-1)+1);
+                % z=interp1(soln.grid.time,soln.grid.state,t);
+                % u=interp1(soln.grid.time,soln.grid.control,t);
 
                 z8= getz8(z,LRF_mode);
                 
