@@ -10,6 +10,13 @@ for n = 3:length(dirlist)
         matpath = dir(fullpath+"\*.mat");
         fullmatpath=string(matpath.folder)+"\"+string(matpath.name);
         load(fullmatpath)
+
+        %% grid
+        t = soln.grid.time;
+        z = soln.grid.state;
+        u = soln.grid.control;
+
+
         footprint=getFootprint(t,z,u,env,rbt,hmn,sns);
         hmn_path=getHumanPath(t,hmn);
 
@@ -145,8 +152,8 @@ for n = 3:length(dirlist)
             if n ~= length(dirlist)
                hold on
             end
-            saveas(figure(1),motherdir+"\results.png");
-            writematrix(result_matrix,motherdir+"\results.csv",'WriteMode','append');
+            saveas(figure(1),motherdir+"\results_grid.png");
+            writematrix(result_matrix,motherdir+"\results_grid.csv",'WriteMode','append');
             clearvars -except motherdir dirlist matpath fullmatpath n;
             % catch
                 % disp(fullmatpath)
