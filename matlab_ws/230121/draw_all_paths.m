@@ -1,6 +1,6 @@
 clc;clear;
 
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230117\final_results";
+motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\2022h_230122_1800_parameter_study_d455_no_offset";
 dirlist=dir(motherdir);
 
 for n = 3:length(dirlist)
@@ -9,6 +9,11 @@ for n = 3:length(dirlist)
     matpath = dir(fullpath+"\*.mat");
     fullmatpath=string(matpath.folder)+"\"+string(matpath.name);
     load(fullmatpath)
+    n = length(soln.grid.time);
+    t=soln.grid.time;
+    z=soln.grid.state;
+    z8=getz8(z,0);
+    u=soln.grid.control;
     
     if hmn.vx<-1.1 || rem(abs(hmn.vx)*10,2)==0
         fig=figure('units','pixels','position',[0 0 400 200]); clf;

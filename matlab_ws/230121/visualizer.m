@@ -2,14 +2,14 @@ addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutoria
 addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230117\final_results';
 % addpath '/home/hayashide/kazu_ws/sotsuron_simulator/matlab_ws/tutorial/cartPole'
 
-matpath="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\230124_07304\230124_163848_x6y3\230124_163848_.mat";
+matpath="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\2022h_230122_1800_parameter_study_d455_no_offset\230124_012806_d_hmny0_3_vx0.6\230124_012806_.mat";
 % matpath="/home/hayashide/kazu_ws/sotsuron_simulator/matlab_ws/1210/results/1210_parastd4Hz/221210_140704_xmax10_ymin-2/221210_140704_test.mat"
 load(matpath)
 
 
-date="230121";
+date="230124";
 abst="visualizer";
-detail="230124_163848_";
+detail="230124_012806_";
 mkdir('results');
 savedir="results\"+date+"_"+abst;
 % savedir="results/"+date+"_"+abst;
@@ -26,6 +26,12 @@ savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
 % t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
 % z = soln.interp.state(t);
 % u = soln.interp.control(t);
+
+n = length(soln.grid.time);
+t=soln.grid.time;
+z=soln.grid.state;
+z8=getz8(z,0);
+u=soln.grid.control;
 
 % Plots
 %% add score to fig name

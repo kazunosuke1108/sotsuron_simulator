@@ -176,10 +176,17 @@ for i = 1:length(plt_xR)
     if footprint(i)==1
         hold on
         if success_yH(i)>0.1
-            plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
+            try
+                plot([success_old(1),success_xH(i)],[success_old(2),success_yH(i)],'r','LineWidth',2);%,'or','MarkerSize',5);
+                hold on
+                plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
+            catch
+                plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
+            end
+            success_old=[success_xH(i),success_yH(i)];
         end
     end
-    if (rem(i,30)==0 & i<=240) |i==1 | i==300 | i==400 | i==600 % rem(i,50)==0;
+    if (rem(i,5)==0 & i<=50) |i==1 | i==300 | i==400 | i==600 % rem(i,50)==0;
         hold on
         quiver(plt_xR(i),plt_yR(i),cos(plt_phR(i)+plt_thR(i)),sin(plt_phR(i)+plt_thR(i)),'g','LineWidth',0.5);
         % hold on
@@ -197,9 +204,9 @@ for i = 1:length(plt_xR)
     end
     drawnow;
     frames(i)=getframe(fig2);
-    % if (rem(i,30)==0 & i<=240) |i==1 | i==300 | i==400 | i==600
-    %     saveas(fig2,savename+"_"+string(t(i))+".png")
-    % end
+    if (rem(i,3)==0 & i<=50) |i==1 | i==300 | i==400 | i==600
+        saveas(fig2,savename+"_"+string(t(i))+".png")
+    end
 end
 
 video2=VideoWriter(savename_mp4,'MPEG-4');
