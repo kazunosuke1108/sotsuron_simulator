@@ -182,8 +182,8 @@ for i = 1:length(plt_xR)
                 plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
             catch
                 plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
+                success_old=[success_xH(i),success_yH(i)];
             end
-            success_old=[success_xH(i),success_yH(i)];
         end
     end
     if (rem(i,5)==0 & i<=50) |i==1 | i==300 | i==400 | i==600 % rem(i,50)==0;
@@ -204,9 +204,9 @@ for i = 1:length(plt_xR)
     end
     drawnow;
     frames(i)=getframe(fig2);
-    if (rem(i,3)==0 & i<=50) |i==1 | i==300 | i==400 | i==600
-        saveas(fig2,savename+"_"+string(t(i))+".png")
-    end
+    % if (rem(i,3)==0 & i<=50) |i==1 | i==300 | i==400 | i==600
+    %     saveas(fig2,savename+"_"+string(t(i))+".png")
+    % end
 end
 
 video2=VideoWriter(savename_mp4,'MPEG-4');

@@ -75,7 +75,7 @@ arc_right_helper=plot([plt_xR(1),arc_r1_x(1)],[plt_yR(1),arc_r1_y(1)],'--g');
 hold on
 arc_left_helper=plot([plt_xR(1),arc_r1_x(end)],[plt_yR(1),arc_r1_y(end)],'--g');
 hold on
-robot_path=plot(plt_xR(1),plt_yR(1),'b');
+robot_path=plot(plt_xR(1),plt_yR(1),'b','LineWidth',4);
 hold on
 human_path=plot(plt_xH(1),plt_yH(1),'r');
 
@@ -102,13 +102,13 @@ for i = 1:length(plt_xR)
         hold on
         if success_yH(i)>0.1
             try
-                plot([success_old(1),success_xH(i)],[success_old(2),success_yH(i)],'r','LineWidth',2);%,'or','MarkerSize',5);
+                plot([success_old(1),success_old(1)-measured_length],[success_old(2),success_yH(i)],'r','LineWidth',2);%,'or','MarkerSize',5);
                 hold on
                 plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
             catch
+                success_old=[success_xH(i),success_yH(i)];
                 plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
             end
-            success_old=[success_xH(i),success_yH(i)];
         end
     end
     if rem(i,5)==0;
