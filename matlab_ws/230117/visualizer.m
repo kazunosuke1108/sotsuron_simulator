@@ -2,11 +2,13 @@ addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutoria
 % addpath '/home/hayashide/kazu_ws/sotsuron_simulator/matlab_ws/tutorial/cartPole'
 
 matpath="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230117\results\230117_7F\230117_220927_vx060_y050\230117_220927_.mat";
+matpath="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230117\results\230117_7F\230117_220927_vx060_y050\230117_220927_.mat";
+
 % matpath="/home/hayashide/kazu_ws/sotsuron_simulator/matlab_ws/1210/results/1210_parastd4Hz/221210_140704_xmax10_ymin-2/221210_140704_test.mat"
 load(matpath)
 
 
-date="230123";
+date="230124";
 abst="visualizer";
 detail="230117_220927_";
 mkdir('results');
@@ -40,10 +42,10 @@ savename_png = savename+"_3_hist.png";
 saveas(figure(1),savename_png);
 
 %% Animation
-% figure(2); clf;
-% savename_3_anim=savename+"_3_anim";
+figure(2); clf;
+savename_3_anim=savename+"_3_anim";
 % % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
-% drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
 
 figure(3); clf;
 drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);

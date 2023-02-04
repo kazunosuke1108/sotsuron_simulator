@@ -27,6 +27,12 @@ savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
 % z = soln.interp.state(t);
 % u = soln.interp.control(t);
 
+n = length(soln.grid.time);
+t=soln.grid.time;
+z=soln.grid.state;
+z8=getz8(z,0);
+u=soln.grid.control;
+
 % Plots
 %% add score to fig name
 try

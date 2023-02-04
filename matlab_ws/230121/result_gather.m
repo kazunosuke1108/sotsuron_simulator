@@ -1,9 +1,10 @@
 clc;clear;
 
 motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\2022h_230122_1800_parameter_study_d455_no_offset";
+motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\2022h_230122_1800_parameter_study_d455_no_offset";
 dirlist=dir(motherdir);
 figure(1); clf;
-
+disp("here")
 for n = 3:length(dirlist)
     % try
         fullpath = fullfile(dirlist(n).folder, dirlist(n).name);
@@ -16,15 +17,28 @@ for n = 3:length(dirlist)
         z = soln.grid.state;
         u = soln.grid.control;
 
+        t_interp=linspace(t(1),t(end),15*(n-1)+1);
+        z_interp=[interp1(t,z(1,:),t_interp);...
+        interp1(t,z(2,:),t_interp);...
+        interp1(t,z(3,:),t_interp);...
+        interp1(t,z(4,:),t_interp);...
+        interp1(t,z(5,:),t_interp);...
+        interp1(t,z(6,:),t_interp)];
+        u_interp=[interp1(t,u(1,:),t_interp);...
+        interp1(t,u(2,:),t_interp);...
+        interp1(t,u(3,:),t_interp)];
 
+
+        footprint_interp=getFootprint(t_interp,z_interp,u_interp,env,rbt,hmn,sns);
+        hmn_path_interp=getHumanPath(t_interp,hmn);
         footprint=getFootprint(t,z,u,env,rbt,hmn,sns);
         hmn_path=getHumanPath(t,hmn);
 
         %%%%% how long measured?
-        success_list=find(footprint>0,nnz(footprint));
+        success_list=find(footprint_interp>0,nnz(footprint_interp));
         first_success_idx=success_list(1);
         last_success_idx=success_list(end);
-        continuous_check=all(footprint(first_success_idx:last_success_idx)>0);
+        continuous_check=all(footprint_interp(first_success_idx:last_success_idx)>0);
 
         i=1;
         for success = success_list(1:end-1)
@@ -36,7 +50,7 @@ for n = 3:length(dirlist)
             end
             i=i+1;
         end
-        measured_length=abs(hmn_path(1,first_success_idx)-hmn_path(1,last_success_idx));
+        measured_length=abs(hmn_path_interp(1,first_success_idx)-hmn_path_interp(1,last_success_idx));
         
         vec_HR=[hmn_path(1,:);hmn_path(2,:)]-[z(1,:);z(2,:)];
         e=[cos(z(3,:));sin(z(3,:))];

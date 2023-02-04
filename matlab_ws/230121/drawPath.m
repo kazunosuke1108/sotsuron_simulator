@@ -75,31 +75,12 @@ arc_right_helper=plot([plt_xR(1),arc_r1_x(1)],[plt_yR(1),arc_r1_y(1)],'--g');
 hold on
 arc_left_helper=plot([plt_xR(1),arc_r1_x(end)],[plt_yR(1),arc_r1_y(end)],'--g');
 hold on
-robot_path=plot(plt_xR(1),plt_yR(1),'b');
+robot_path=plot(plt_xR(1),plt_yR(1),'b','LineWidth',4);
 hold on
 human_path=plot(plt_xH(1),plt_yH(1),'r');
 
 %%%%% how long measured?
-try
-    success_list=find(footprint>0,nnz(footprint));
-    first_success_idx=success_list(1);
-    last_success_idx=success_list(end);
-    i=1;
-    for success = success_list(1:end-1)
-        if success+1==success_list(i+1)
-            last_success_idx=success;
-        else
-            last_success_idx=success;
-            break
-        end
-        i=i+1;
-    end
-catch
-    first_success_idx=1;
-    last_success_idx=1;
-end
-continuous_check=all(footprint(first_success_idx:last_success_idx)>0);
-measured_length=abs(hmn_path(1,first_success_idx)-hmn_path(1,last_success_idx));
+measured_length=measure_length(t,z,u,env,rbt,hmn,sns,soln);
 
 for i = 1:length(plt_xR)
 
@@ -118,12 +99,19 @@ for i = 1:length(plt_xR)
     set(robot_path,'XData',plt_xR(1:i),'YData',plt_yR(1:i));
     set(human_path,'XData',plt_xH(1:i),'YData',plt_yH(1:i));
     if footprint(i)==1
+        hold on
         if success_yH(i)>0.1
-            hold on
-            plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
+            try
+                plot([success_old(1),success_old(1)-measured_length],[success_old(2),success_yH(i)],'r','LineWidth',2);%,'or','MarkerSize',5);
+                hold on
+                plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
+            catch
+                success_old=[success_xH(i),success_yH(i)];
+                plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
+            end
         end
     end
-    if rem(i,50)==0;
+    if rem(i,5)==0;
         hold on
         quiver(plt_xR(i),plt_yR(i),cos(plt_phR(i)+plt_thR(i)),sin(plt_phR(i)+plt_thR(i)),'g','LineWidth',0.5);
     end
