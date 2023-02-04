@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230124";
-                abst="07304";
-                detail="linear_interp";
+                date="230204";
+                abst="faster";
+                detail="normal";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -91,10 +91,10 @@ function result=MAIN_func()
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
 
-                env.L=6;
+                env.L=20;
                 env.xmax=env.L;
                 env.roi.xmax=env.roi.xmin+env.L;
-                env.ymax=3;
+                env.ymax=5;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
@@ -102,16 +102,16 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
 
                 hmn.vx=-0.6;
-                hmn.y0=0.5;
+                hmn.y0=2.5;
 
                 rbt.vx0=0.11;
-                rbt.y0=0.5;
+                rbt.y0=2.5;
                 % rbt.xF=5;
                 rbt.yF=rbt.y0;
 
                 t_slack=0.35;
 
-                env.hz=abs(hmn.vx)*50/3;
+                env.hz=abs(hmn.vx)*40/3;
                 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                 %                           seq.1  検知                                   %
