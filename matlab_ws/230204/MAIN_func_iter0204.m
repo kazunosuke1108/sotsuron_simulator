@@ -1,4 +1,4 @@
-function result=MAIN_func_iter0122()
+function result=MAIN_func_iter0204()
     % MAIN.m
     %% initialization
     clc; clear;
@@ -19,12 +19,12 @@ function result=MAIN_func_iter0122()
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=candidate2 % 0:d455 1:LRF
-                    date="2022h_230122";
+                    date="2022h_230204";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1800_parameter_study_d455_no_offset";
+                        abst="1400_parameter_study_d455_xF5";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -47,7 +47,7 @@ function result=MAIN_func_iter0122()
 
                     %% load default variables
 
-                    sns_name="" % d455,d435,zed,xtion
+                    sns_name=""; % d455,d435,zed,xtion
 
                     env=getEnvironmentParams();
                     sns=getSensorParams();
@@ -96,7 +96,14 @@ function result=MAIN_func_iter0122()
                     % sns.phi=deg2rad(sns.phi)/2;
                     % sns.pitch=deg2rad(sns.pitch)/2;
                     % sns.r1=sns.h/tan(sns.pitch);
-                    
+
+                    env.L=20;
+                    env.xmax=env.L;
+                    env.roi.xmax=env.roi.xmin+env.L;
+                    env.ymax=5;
+                    env.kabe.ymax=env.ymax;
+                    env.roi.ymax=env.ymax;
+                
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
 
@@ -107,12 +114,12 @@ function result=MAIN_func_iter0122()
 
                     % rbt.vxmin=0;
                     % rbt.y0=1;
-                    % % rbt.xF=10;
+                    rbt.xF=5;
                     % rbt.yF=rbt.y0;
 
                     t_slack=0.35;
 
-                    env.hz=abs(hmn.vx)*60/3;
+                    env.hz=abs(hmn.vx)*40/3;
                     
                     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                     %                           seq.1  検知                                   %
@@ -243,9 +250,18 @@ function result=MAIN_func_iter0122()
                     
                     % Display Solution
                     n = length(soln.grid.time);
-                    t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
-                    z = soln.interp.state(t);
-                    u = soln.interp.control(t);
+                %% 元々
+                % t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
+                % z = soln.interp.state(t);
+                % u = soln.interp.control(t);
+                %% gridのまま
+                t = soln.grid.time;
+                z = soln.grid.state;
+                u = soln.grid.control;
+                % %% 線形補間
+                % t=linspace(soln.grid.time(1),soln.grid.time(end),15*(n-1)+1);
+                % z=interp1(soln.grid.time,soln.grid.state,t);
+                % u=interp1(soln.grid.time,soln.grid.control,t);
 
                     z8= getz8(z,LRF_mode);
                     

@@ -1,10 +1,9 @@
 clc;clear;
 
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\2022h_230122_1800_parameter_study_d455_no_offset";
-motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\2022h_230122_1800_parameter_study_d455_no_offset";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230204\results\230204_faster";
+% motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\2022h_230122_1800_parameter_study_d455_no_offset";
 dirlist=dir(motherdir);
 figure(1); clf;
-disp("here")
 for n = 3:length(dirlist)
     % try
         fullpath = fullfile(dirlist(n).folder, dirlist(n).name);

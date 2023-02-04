@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230204";
                 abst="faster";
-                detail="normal";
+                detail="xF5";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -106,7 +106,7 @@ function result=MAIN_func()
 
                 rbt.vx0=0.11;
                 rbt.y0=2.5;
-                % rbt.xF=5;
+                rbt.xF=5;
                 rbt.yF=rbt.y0;
 
                 t_slack=0.35;
