@@ -44,27 +44,28 @@ roi_checker12=plt_xH<=env.roi.xmax;
 roi_checker1=roi_checker11.*roi_checker12;
 fp_ratio=nnz(footprint)/nnz(roi_checker1);
 
-%%%%% how long measured?
-try
-    success_list=find(footprint>0,nnz(footprint));
-    first_success_idx=success_list(1);
-    last_success_idx=success_list(end);
-    i=1;
-    for success = success_list(1:end-1)
-        if success+1==success_list(i+1)
-            last_success_idx=success;
-        else
-            last_success_idx=success;
-            break
-        end
-        i=i+1;
-    end
-catch
-    first_success_idx=1;
-    last_success_idx=1;
-end
-continuous_check=all(footprint(first_success_idx:last_success_idx)>0);
-measured_length=abs(hmn_path(1,first_success_idx)-hmn_path(1,last_success_idx));
+% %%%%% how long measured?
+% try
+%     success_list=find(footprint>0,nnz(footprint));
+%     first_success_idx=success_list(1);
+%     last_success_idx=success_list(end);
+%     i=1;
+%     for success = success_list(1:end-1)
+%         if success+1==success_list(i+1)
+%             last_success_idx=success;
+%         else
+%             last_success_idx=success;
+%             break
+%         end
+%         i=i+1;
+%     end
+% catch
+%     first_success_idx=1;
+%     last_success_idx=1;
+% end
+% continuous_check=all(footprint(first_success_idx:last_success_idx)>0);
+% measured_length=abs(hmn_path(1,first_success_idx)-hmn_path(1,last_success_idx));
+measured_length=measure_length(t,z,u,env,rbt,hmn,sns,soln)
 
 %%%% minimum norm_HR
 vec_HR=[hmn_path(1,:);hmn_path(2,:)]-[z(1,:);z(2,:)];

@@ -24,7 +24,7 @@ function result=MAIN_func_iter0204()
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1400_parameter_study_d455_xF5_hz30";
+                        abst="1400_parameter_study_d455_xF5_hz20";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -97,12 +97,12 @@ function result=MAIN_func_iter0204()
                     % sns.pitch=deg2rad(sns.pitch)/2;
                     % sns.r1=sns.h/tan(sns.pitch);
 
-                    env.L=20;
-                    env.xmax=env.L;
-                    env.roi.xmax=env.roi.xmin+env.L;
-                    env.ymax=5;
-                    env.kabe.ymax=env.ymax;
-                    env.roi.ymax=env.ymax;
+                    % env.L=20;
+                    % env.xmax=env.L;
+                    % env.roi.xmax=env.roi.xmin+env.L;
+                    % env.ymax=5;
+                    % env.kabe.ymax=env.ymax;
+                    % env.roi.ymax=env.ymax;
                 
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
@@ -119,7 +119,7 @@ function result=MAIN_func_iter0204()
 
                     t_slack=0.35;
 
-                    env.hz=abs(hmn.vx)*30/3;
+                    env.hz=abs(hmn.vx)*20/3;
                     
                     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                     %                           seq.1  検知                                   %

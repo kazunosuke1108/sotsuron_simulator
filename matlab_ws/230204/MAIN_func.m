@@ -19,8 +19,8 @@ function result=MAIN_func()
                 exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230204";
-                abst="faster";
-                detail="xF5";
+                abst="roi";
+                detail="xmin_m10";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -91,12 +91,12 @@ function result=MAIN_func()
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
 
-                env.L=20;
-                env.xmax=env.L;
-                env.roi.xmax=env.roi.xmin+env.L;
-                env.ymax=5;
-                env.kabe.ymax=env.ymax;
-                env.roi.ymax=env.ymax;
+                % env.L=20;
+                % env.xmax=env.L;
+                % env.roi.xmax=env.roi.xmin+env.L;
+                % env.ymax=5;
+                % env.kabe.ymax=env.ymax;
+                % env.roi.ymax=env.ymax;
                 
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
@@ -111,7 +111,7 @@ function result=MAIN_func()
 
                 t_slack=0.35;
 
-                env.hz=abs(hmn.vx)*40/3;
+                env.hz=abs(hmn.vx)*20/3;
                 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                 %                           seq.1  検知                                   %
