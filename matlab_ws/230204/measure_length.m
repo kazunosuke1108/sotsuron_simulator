@@ -1,6 +1,6 @@
 function measured_length=measure_length(t,z,u,env,rbt,hmn,sns,soln)
     z8=getz8(z,0);
-    n=length(t)
+    n=length(t);
     t_interp=linspace(t(1),t(end),15*(n-1)+1);
     z_interp=[interp1(t,z(1,:),t_interp);...
     interp1(t,z(2,:),t_interp);...
@@ -31,5 +31,8 @@ function measured_length=measure_length(t,z,u,env,rbt,hmn,sns,soln)
         i=i+1;
     end
     measured_length=abs(hmn_path_interp(1,first_success_idx)-hmn_path_interp(1,last_success_idx));
+    % hmn_path_interp
+    % hmn_path_interp(1,first_success_idx)
+    % hmn_path_interp(1,last_success_idx)
     
 end

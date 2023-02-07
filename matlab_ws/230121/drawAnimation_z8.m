@@ -6,7 +6,7 @@ savename_mp4 = savename+".mp4";
 savename_avi = savename+".avi";
 
 %%%% Drawing preparation
-fig2 = figure('units','pixels','position',[0 0 400 200]); clf;
+fig2 = figure('units','pixels','position',[0 0 800 400]); clf;
 % fig2 = figure('units','pixels','position',[0 0 800,400]); clf;
 frames(length(z(1,:))) = struct('cdata',[],'colormap',[]);
 

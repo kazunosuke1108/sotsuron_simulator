@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230207";
-                abst="L";
-                detail="";
+                date="230206";
+                abst="7F";
+                detail="d060";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -91,27 +91,27 @@ function result=MAIN_func()
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
 
-                env.L=15;
+                env.L=10;
                 env.xmax=env.L;
-                env.roi.xmax=env.L;
-                env.ymax=5;
+                env.roi.xmax=env.xmax;
+                env.ymax=3;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-1.2;
-                hmn.y0=2.5;
+                hmn.vx=-0.6;
+                hmn.y0=0.5;
 
                 rbt.vx0=0.11;
-                rbt.y0=2.5;
-                rbt.xF=rbt.vx0*(env.L/(rbt.vx0+abs(hmn.vx)))+2*hmn.personal_r;
+                rbt.y0=0.5;
+                rbt.xF=10;
                 rbt.yF=rbt.y0;
 
                 t_slack=0.35;
 
-                env.hz=abs(hmn.vx)*20/3;
+                env.hz=abs(hmn.vx)*50/3;
                 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                 %                           seq.1  検知                                   %

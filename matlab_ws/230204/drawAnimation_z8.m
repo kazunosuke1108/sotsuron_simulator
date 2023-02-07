@@ -6,11 +6,12 @@ savename_mp4 = savename+".mp4";
 savename_avi = savename+".avi";
 
 %%%% Drawing preparation
-fig2 = figure('units','pixels','position',[0 0 400 200]); clf;
+fig2 = figure('units','pixels','position',[0 0 800 400]); clf;
 % fig2 = figure('units','pixels','position',[0 0 800,400]); clf;
 frames(length(z(1,:))) = struct('cdata',[],'colormap',[]);
 
 %%%% Get path info
+[t,z,z8,u]=linear_interp(t,z,z8,u);
 plt_xR=z8(1,:);
 plt_yR=z8(2,:);
 plt_thR=z8(3,:);
