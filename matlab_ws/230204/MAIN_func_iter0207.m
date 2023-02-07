@@ -19,7 +19,7 @@ function result=MAIN_func_iter0207()
                     %% experiment or simulation
                     exp_mode=0
                     LRF_mode=candidate2 % 0:d455 1:LRF
-                    date="2022h_230204";
+                    date="2022e_230207";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
@@ -97,12 +97,12 @@ function result=MAIN_func_iter0207()
                     % sns.pitch=deg2rad(sns.pitch)/2;
                     % sns.r1=sns.h/tan(sns.pitch);
 
-                    % env.L=20;
-                    % env.xmax=env.L;
-                    % env.roi.xmax=env.roi.xmin+env.L;
-                    % env.ymax=5;
-                    % env.kabe.ymax=env.ymax;
-                    % env.roi.ymax=env.ymax;
+                    env.L=15;
+                    env.xmax=env.L;
+                    env.roi.xmax=env.L;
+                    env.ymax=5;
+                    env.kabe.ymax=env.ymax;
+                    env.roi.ymax=env.ymax;
                 
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
@@ -114,7 +114,7 @@ function result=MAIN_func_iter0207()
 
                     % rbt.vxmin=0;
                     % rbt.y0=1;
-                    rbt.xF=5;
+                    rbt.xF=rbt.vx0*(env.L/(rbt.vx0+abs(hmn.vx)))+2*hmn.personal_r;
                     % rbt.yF=rbt.y0;
 
                     t_slack=0.35;
