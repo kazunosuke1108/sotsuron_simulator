@@ -4,7 +4,6 @@ function [position,velocity]=getHumanVelocity()
         %% load data
         try
             % data=readmatrix("path");
-            % data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\kalman\track_results_1216_090.csv");
             data=readmatrix("/home/hayashide/catkin_ws/src/ytlab_hsr/ytlab_hsr_modules/exp_data/zed.csv");
         catch
             disp("getHumanVelocity: csv not found")
@@ -35,10 +34,10 @@ function [position,velocity]=getHumanVelocity()
             t_lpf=t(cutframe:end-cutframe);
 
             %% Kalman Filter
-            Q=0.004;
-            R=1e-20;
+            Q=0.005;
+            R=1e-1;
             N=0;
-            pv0=0;
+            pv0=-0.9;
 
             po=z_lpf; % position_observed
             estm_list=kalman_filter_ohmori(po,pv0,Q,R,N,fps);

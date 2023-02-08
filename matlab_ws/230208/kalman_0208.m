@@ -6,6 +6,7 @@ dirlist=dir(motherdir);
 for n=3:length(dirlist);
     fullpath = fullfile(dirlist(n).folder, dirlist(n).name);
     % csvpath = dir(fullpath+"\*.csv");
+    fullpath="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\results\0207\csv\090\20230207_y050_v090_2_Hayashide.csv"
     data=readmatrix(fullpath);
     % data=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\results\0207\csv\20230207_y050_v000_8_pause_075_Hayashide.csv");
     % for i = 1:length(data(:,1))
@@ -17,11 +18,13 @@ for n=3:length(dirlist);
 
     estm_history=[];
 
-    data=data(160:end,:)
+    data=data(170:end,:)
     t=data(:,1);
     z=data(:,4);
     subplot(2,1,1)
     plot(t,z,"LineWidth",2)
+    % z_lpf=LPF(z,10,30)
+    % z=z_lpf
     hold on
 
     po=z;

@@ -16,7 +16,7 @@ function result=MAIN_func()
     %     for candidate2=[-0.5 -1.5 -2.5 -3.5]
             % try
                 %% experiment or simulation
-                exp_mode=0;
+                exp_mode=1;
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230207";
                 abst="L";
@@ -103,7 +103,14 @@ function result=MAIN_func()
 
                 hmn.vx=-1.2;
                 hmn.y0=2.5;
-
+                
+                if exp_mode
+                    [env.dist_zed_hmn,hmn.vx]=getHumanVelocity();
+                    tic;
+                    env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/abs(hmn.vx);
+                    % env.hz=abs(hmn.vx)*40/3;
+                end
+                
                 rbt.vx0=0.11;
                 rbt.y0=2.5;
                 rbt.xF=rbt.vx0*(env.L/(rbt.vx0+abs(hmn.vx)))+2*hmn.personal_r;
@@ -118,13 +125,6 @@ function result=MAIN_func()
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                 % 実機
                 %% jsonから人の位置・速度を取得
-                if exp_mode
-                    [env.dist_zed_hmn,hmn.vx]=getHumanVelocity();
-                    tic;
-                    env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/abs(hmn.vx);
-                    env.hz=5;
-                    % env.hz=abs(hmn.vx)*40/3;
-                end
 
                 % 計測所要時間の推定
                 %% ロボットの走行所要時間
@@ -176,7 +176,7 @@ function result=MAIN_func()
                 % Initial guess at trajectory
 
                 slack=0.3;
-                circle_r=hmn.personal_r+slack+rbt.sizer
+                circle_r=hmn.personal_r+slack+rbt.sizer;
                 if abs(env.ymax-hmn.y0)>=abs(hmn.y0-env.ymin)
                     disp("avoid upper")
                     y_temp=hmn.y0+circle_r;
@@ -267,7 +267,7 @@ function result=MAIN_func()
                 try
                     graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
                 catch
-                    graph_title=graph_title+" J= not bestfeasible"
+                    graph_title=graph_title+" J= not bestfeasible";
                 end
                 %% History
                 if exp_mode
