@@ -94,7 +94,7 @@ function result=MAIN_func()
                 env.L=15;
                 env.xmax=env.L;
                 env.roi.xmax=env.L;
-                env.ymax=5;
+                env.ymax=3;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
@@ -102,7 +102,7 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
 
                 hmn.vx=-1.2;
-                hmn.y0=2.5;
+                hmn.y0=0.5;
                 
                 if exp_mode
                     [env.dist_zed_hmn,hmn.vx]=getHumanVelocity();
@@ -112,7 +112,7 @@ function result=MAIN_func()
                 end
                 
                 rbt.vx0=0.11;
-                rbt.y0=2.5;
+                rbt.y0=0.5;
                 rbt.xF=rbt.vx0*(env.L/(rbt.vx0+abs(hmn.vx)))+2*hmn.personal_r;
                 rbt.yF=rbt.y0;
 
