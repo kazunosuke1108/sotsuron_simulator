@@ -18,7 +18,7 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=1;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230207";
+                date="230208";
                 abst="L";
                 detail="";
                 mkdir('results');
