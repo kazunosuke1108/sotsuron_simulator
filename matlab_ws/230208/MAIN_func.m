@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=1;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230208";
-                abst="L";
-                detail="";
+                date="230209";
+                abst="exp_prep";
+                detail="20230207_y100_v090_4_Hayashide";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -105,14 +105,14 @@ function result=MAIN_func()
                 hmn.y0=0.5;
                 
                 if exp_mode
-                    [env.dist_zed_hmn,hmn.vx]=getHumanVelocity();
+                    [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity();
                     tic;
-                    env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/abs(hmn.vx);
+                    env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/(abs(hmn.vx)+abs(rbt.vx0));
                     % env.hz=abs(hmn.vx)*40/3;
                 end
                 
                 rbt.vx0=0.11;
-                rbt.y0=0.5;
+                rbt.y0=1.0;
                 rbt.xF=rbt.vx0*(env.L/(rbt.vx0+abs(hmn.vx)))+2*hmn.personal_r;
                 rbt.yF=rbt.y0;
 
@@ -231,6 +231,7 @@ function result=MAIN_func()
                 'TolX',1e-10,... % x に関する許容誤差 (正のスカラー)
                 'TolCon',1e-12,... % 制約違反に関する許容誤差 (正のスカラー)
                 'MaxFunEvals',1e7);
+                % 'Display','final-detailed');
                 
                 % problem.options.method = 'trapezoid'; 
                 % problem.options.method = 'multiCheb'; 

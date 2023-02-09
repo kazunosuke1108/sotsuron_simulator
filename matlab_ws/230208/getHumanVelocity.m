@@ -1,4 +1,4 @@
-function [position,velocity]=getHumanVelocity()
+function [position_x,position_y,velocity]=getHumanVelocity()
     
     while 1
         %% load data
@@ -51,11 +51,14 @@ function [position,velocity]=getHumanVelocity()
             estm_vel=median(estm_list(2,[localmin_idx(1):localmin_idx(end)]));
 
             if z(end)<=1.5
-                position=z(end);
+                position_x=z(end);
+                position_y=abs(mean(data(:,2)))
                 velocity=estm_vel;
                 break
             else
-                disp("latest position: "+string(z(end)))
+                if mod(hasenoughdata,10)==0
+                    disp("latest position: "+string(z(end)))
+                end
             end
         end
     end
