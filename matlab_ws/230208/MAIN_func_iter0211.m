@@ -13,18 +13,18 @@ function result=MAIN_func_iter0207()
     addpath 'C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole'
     % addpath 'C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\tutorial\cartPole';
     for candidate2=[0]
-        for candidate3=0.5:0.5:2.5
-            for candidate=-0.6:-0.1:-1.21
+        for candidate3=0.5:0.25:4.51
+            for candidate=-0.6:-0.05:-1.21
                 try
                     %% experiment or simulation
-                    exp_mode=0
-                    LRF_mode=candidate2 % 0:d455 1:LRF
-                    date="2022e_230207";
+                    exp_mode=0;
+                    LRF_mode=candidate2; % 0:d455 1:LRF
+                    date="2022e_230211";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1400_parameter_study_d455_dynamic_L";
+                        abst="1900_parameter_study_d455_ymax_5";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -107,11 +107,17 @@ function result=MAIN_func_iter0207()
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
 
-                    rbt.vx0=0.11;
-                    
                     hmn.vx=candidate;
                     hmn.y0=candidate3;
-
+                    
+                    if exp_mode
+                        [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity();
+                        tic;
+                        % env.hz=abs(hmn.vx)*40/3;
+                    end
+                    env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/(abs(hmn.vx)+abs(rbt.vx0));
+                    
+                    rbt.vx0=0.11;
                     % rbt.vxmin=0;
                     % rbt.y0=1;
                     rbt.xF=rbt.vx0*(env.L/(rbt.vx0+abs(hmn.vx)))+2*hmn.personal_r;
@@ -126,14 +132,7 @@ function result=MAIN_func_iter0207()
                     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                     % 実機
                     %% jsonから人の位置・速度を取得
-                    if exp_mode
-                        [env.dist_zed_hmn,hmn.vx]=getHumanVelocity();
-                        tic;
-                        env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/abs(hmn.vx);
-                        env.hz=5;
-                        % env.hz=abs(hmn.vx)*40/3;
-                    end
-
+                    
                     % 計測所要時間の推定
                     %% ロボットの走行所要時間
                     % t_rbt=abs(env.L/rbt.vxmax);
@@ -173,17 +172,17 @@ function result=MAIN_func_iter0207()
                     problem.bounds.initialState.upp = [rbt.x0;rbt.y0;rbt.th0;rbt.vx0;rbt.vy0;rbt.omg0];
                     problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.vx0;rbt.vy0;rbt.omg0];
                     problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.vx0;rbt.vy0;rbt.omg0];
-                    
-                    problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.vxmin_actual;rbt.vymin_actual;rbt.omgmin_actual];
-                    problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.vxmax_actual;rbt.vymax_actual;rbt.omgmax_actual];
-                    
-                    problem.bounds.control.low = [rbt.axmin_actual;rbt.aymin_actual;rbt.aangmin_actual];
-                    problem.bounds.control.upp = [rbt.axmax_actual;rbt.aymax_actual;rbt.aangmax_actual];
-                    
+                
+                    problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
+                    problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
+    
+                    problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin];
+                    problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax];
+                        
                 % Initial guess at trajectory
 
                 slack=0.3;
-                circle_r=hmn.personal_r+slack+rbt.sizer
+                circle_r=hmn.personal_r+slack+rbt.sizer;
                 if abs(env.ymax-hmn.y0)>=abs(hmn.y0-env.ymin)
                     disp("avoid upper")
                     y_temp=hmn.y0+circle_r;
@@ -272,7 +271,7 @@ function result=MAIN_func_iter0207()
                     try
                         graph_title=graph_title+" J="+soln.info.bestfeasible.fval;
                     catch
-                        graph_title=graph_title+" J= not bestfeasible"
+                        graph_title=graph_title+" J= not bestfeasible";
                     end
                     %% History
                     if exp_mode
@@ -297,6 +296,7 @@ function result=MAIN_func_iter0207()
                     end
                     result.z=z;
                     result.z8=z8;
+                    result.u4=u4;
                     result.t=t;
                     
                     save(savename+".mat");
