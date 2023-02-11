@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=1;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230209";
-                abst="exp_prep";
-                detail="20230207_y050_v120_3_Hayashide";
+                date="230211";
+                abst="coding_maintainance";
+                detail="DEV";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -293,6 +293,7 @@ function result=MAIN_func()
                 end
                 result.z=z;
                 result.z8=z8;
+                result.u=u;
                 result.t=t;
                 
                 save(savename+".mat");
