@@ -242,7 +242,7 @@ function result=MAIN_func_iter_rapid()
                     z = soln.interp.state(t);
                     u = soln.interp.control(t);
 
-                    z8= getz8(z,LRF_mode);
+                    [z8,u4]=getz8(z,u,LRF_mode);
                     
                     save(savename+".mat");
                     % Plots

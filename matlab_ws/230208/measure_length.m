@@ -1,5 +1,5 @@
 function measured_length=measure_length(t,z,u,env,rbt,hmn,sns,soln)
-    z8=getz8(z,0);
+    [z8,u4]=getz8(z,u,0);
     n=length(t);
     t_interp=linspace(t(1),t(end),15*(n-1)+1);
     z_interp=[interp1(t,z(1,:),t_interp);...

@@ -30,8 +30,8 @@ savename=string(savedir+"\"+datestr(now,'yymmdd_hhMMss')+"_"+graph_title);
 n = length(soln.grid.time);
 t=soln.grid.time;
 z=soln.grid.state;
-z8=getz8(z,0);
 u=soln.grid.control;
+[z8,u4]=getz8(z,u,0);
 
 % Plots
 %% add score to fig name

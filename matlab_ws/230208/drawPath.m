@@ -7,7 +7,7 @@ arc_resolution=100;
 %%%% Get path info
 plt_xR=z(1,:);
 plt_yR=z(2,:);
-z8=getz8(z,0);
+[z8,u4]=getz8(z,u,0);
 plt_thR=z8(3,:);
 plt_phR=z8(4,:);
 
