@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230211";
                 abst="coding_maintainance";
-                detail="hmn_y0_vx";
+                detail="20230207_y050_v090_2_Hayashide";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -260,7 +260,8 @@ function result=MAIN_func()
                 % z=interp1(soln.grid.time,soln.grid.state,t);
                 % u=interp1(soln.grid.time,soln.grid.control,t);
 
-                z8= getz8(z,LRF_mode);
+                [z8,u4]=getz8(z,u,LRF_mode);
+
                 
                 save(savename+".mat");
                 % Plots
@@ -293,7 +294,7 @@ function result=MAIN_func()
                 end
                 result.z=z;
                 result.z8=z8;
-                result.u=u;
+                result.u4=u4;
                 result.t=t;
                 
                 save(savename+".mat");

@@ -12,7 +12,8 @@ for n = 3:length(dirlist)
 %    n = length(soln.grid.time);
     t=soln.grid.time;
     z=soln.grid.state;
-    z8=getz8(z,0);
+    u=soln.grid.control;
+    [z8,u4]=getz8(z,u,0);
     u=soln.grid.control;
     
     if hmn.vx<-1.1 || (hmn.vx<-0.8 && hmn.vx>-1.0) || hmn.vx>-0.7
