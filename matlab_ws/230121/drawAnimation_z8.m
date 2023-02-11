@@ -6,7 +6,8 @@ savename_mp4 = savename+".mp4";
 savename_avi = savename+".avi";
 
 %%%% Drawing preparation
-fig2 = figure('units','pixels','position',[0 0 400 200]); clf;
+fig2 = figure('units','pixels','position',[0 0 800 400]); clf;
+% fig2 = figure('units','pixels','position',[0 0 800,400]); clf;
 frames(length(z(1,:))) = struct('cdata',[],'colormap',[]);
 
 %%%% Get path info
@@ -111,18 +112,18 @@ arc_r2_x = sns.r2*cos(arc_rad)+plt_xR(1);
 arc_r2_y = sns.r2*sin(arc_rad)+plt_yR(1);
 
 
-arc_r1 = plot(arc_r1_x,arc_r1_y,'g');
-arc_r2 = plot(arc_r2_x,arc_r2_y,'g');
+arc_r1 = plot(arc_r1_x,arc_r1_y,'g','LineWidth',2.5);
+arc_r2 = plot(arc_r2_x,arc_r2_y,'g','LineWidth',2.5);
 
-arc_right = plot([arc_r1_x(1),arc_r2_x(1)],[arc_r1_y(1),arc_r2_y(1)],'g');
+arc_right = plot([arc_r1_x(1),arc_r2_x(1)],[arc_r1_y(1),arc_r2_y(1)],'g','LineWidth',2.5);
 hold on
-arc_left = plot([arc_r1_x(end),arc_r2_x(end)],[arc_r1_y(end),arc_r2_y(end)],'g');
+arc_left = plot([arc_r1_x(end),arc_r2_x(end)],[arc_r1_y(end),arc_r2_y(end)],'g','LineWidth',2.5);
 hold on
-arc_right_helper=plot([plt_xR(1),arc_r1_x(1)],[plt_yR(1),arc_r1_y(1)],'--g');
+arc_right_helper=plot([plt_xR(1),arc_r1_x(1)],[plt_yR(1),arc_r1_y(1)],'--g','LineWidth',2.5);
 hold on
-arc_left_helper=plot([plt_xR(1),arc_r1_x(end)],[plt_yR(1),arc_r1_y(end)],'--g');
+arc_left_helper=plot([plt_xR(1),arc_r1_x(end)],[plt_yR(1),arc_r1_y(end)],'--g','LineWidth',2.5);
 hold on
-robot_path=plot(plt_xR(1),plt_yR(1),'b');
+robot_path=plot(plt_xR(1),plt_yR(1),'b','LineWidth',5);
 hold on
 human_path=plot(plt_xH(1),plt_yH(1),'r');
 

@@ -1,0 +1,38 @@
+function measured_length=measure_length(t,z,u,env,rbt,hmn,sns,soln)
+    z8=getz8(z,0);
+    n=length(t);
+    t_interp=linspace(t(1),t(end),15*(n-1)+1);
+    z_interp=[interp1(t,z(1,:),t_interp);...
+    interp1(t,z(2,:),t_interp);...
+    interp1(t,z(3,:),t_interp);...
+    interp1(t,z(4,:),t_interp);...
+    interp1(t,z(5,:),t_interp);...
+    interp1(t,z(6,:),t_interp)];
+    u_interp=[interp1(t,u(1,:),t_interp);...
+    interp1(t,u(2,:),t_interp);...
+    interp1(t,u(3,:),t_interp)];
+    footprint_interp=getFootprint(t_interp,z_interp,u_interp,env,rbt,hmn,sns);
+    hmn_path_interp=getHumanPath(t_interp,hmn);
+
+    %%%%% how long measured?
+    success_list=find(footprint_interp>0,nnz(footprint_interp));
+    first_success_idx=success_list(1);
+    last_success_idx=success_list(end);
+    continuous_check=all(footprint_interp(first_success_idx:last_success_idx)>0);
+
+    i=1;
+    for success = success_list(1:end-1)
+        if success+1==success_list(i+1)
+            last_success_idx=success;
+        else
+            last_success_idx=success;
+            break
+        end
+        i=i+1;
+    end
+    measured_length=abs(hmn_path_interp(1,first_success_idx)-hmn_path_interp(1,last_success_idx));
+    % hmn_path_interp
+    % hmn_path_interp(1,first_success_idx)
+    % hmn_path_interp(1,last_success_idx)
+    
+end
