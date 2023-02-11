@@ -1,0 +1,36 @@
+clc;clear;
+
+matpath="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230208\results\230211_coding_maintainance\230211_152105_hmn_y0_vx\230211_152105_.mat";
+load(matpath);
+
+e_vx_list=linspace(-0.1,0.1,11);
+e_y0_list=linspace(-0.5,0.5,11);
+
+length_mtx=zeros(length(e_vx_list),length(e_y0_list));
+
+i=1;
+j=1;
+for e_y0=e_y0_list
+    i=1;
+    for e_vx=e_vx_list
+        hmn.e_y0=e_y0;
+        hmn.e_vx=e_vx;
+        hmn.x0=env.xmax+hmn.e_vx*env.publish_time;
+        length_mtx(i,j)=measure_length(t,z,u,env,rbt,hmn,sns,soln);
+        i=i+1;
+    end
+    j=j+1;
+end
+
+
+[X,Y]=meshgrid(e_vx_list,e_y0_list);
+len_ok_idx=find(length_mtx>=5);
+len_ng_idx=find(length_mtx<5);
+plot3(X(len_ok_idx),Y(len_ok_idx),length_mtx(len_ok_idx),'ob')
+hold on
+plot3(X(ng_idx),Y(ng_idx),length_mtx(ng_idx),'or')
+xlabel("error in vx [m/s]")
+ylabel("error in y0 [m]")
+zlabel("measured length [m]")
+title("measured length: vx:"+string(hmn.vx)+"[m/s] y0:"+string(hmn.y0)+" [m]")
+grid on

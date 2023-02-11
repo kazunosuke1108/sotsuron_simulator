@@ -16,11 +16,11 @@ function result=MAIN_func()
     %     for candidate2=[-0.5 -1.5 -2.5 -3.5]
             % try
                 %% experiment or simulation
-                exp_mode=1;
+                exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230211";
                 abst="coding_maintainance";
-                detail="DEV";
+                detail="hmn_y0_vx";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -107,9 +107,9 @@ function result=MAIN_func()
                 if exp_mode
                     [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity();
                     tic;
-                    env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/(abs(hmn.vx)+abs(rbt.vx0));
                     % env.hz=abs(hmn.vx)*40/3;
                 end
+                env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/(abs(hmn.vx)+abs(rbt.vx0));
                 
                 rbt.vx0=0.11;
                 rbt.y0=1.0;
@@ -167,11 +167,11 @@ function result=MAIN_func()
                 problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.vx0;rbt.vy0;rbt.omg0];
                 problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.vx0;rbt.vy0;rbt.omg0];
                 
-                problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.vxmin_actual;rbt.vymin_actual;rbt.omgmin_actual];
-                problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.vxmax_actual;rbt.vymax_actual;rbt.omgmax_actual];
+                problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
+                problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
 
-                problem.bounds.control.low = [rbt.axmin_actual;rbt.aymin_actual;rbt.aangmin_actual];
-                problem.bounds.control.upp = [rbt.axmax_actual;rbt.aymax_actual;rbt.aangmax_actual];
+                problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin];
+                problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax];
                 
                 % Initial guess at trajectory
 

@@ -16,6 +16,9 @@ hmn.vx_err=0.1;
 hmn.vy=0;
 hmn.omg=0;
 
+hmn.e_y0=0;
+hmn.e_vx=0;
+
 % hmn.xF=0;
 % hmn.yF=1;
 % hmn.thF=pi;
