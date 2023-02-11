@@ -102,7 +102,7 @@ for i = 1:length(plt_xR)
         hold on
         if success_yH(i)>0.1
             try
-                plot([success_old(1),success_old(1)-measured_length],[success_old(2),success_yH(i)],'r','LineWidth',2);%,'or','MarkerSize',5);
+                plot([success_old(1),success_old(1)-measured_length],[success_old(2),success_yH(i)],'r','LineWidth',4);%,'or','MarkerSize',5);
                 hold on
                 plot(success_xH(i),success_yH(i),'or','MarkerSize',5);
             catch
