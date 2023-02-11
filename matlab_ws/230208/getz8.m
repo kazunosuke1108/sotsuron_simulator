@@ -10,7 +10,7 @@ function [z8,u4]=getz8(z,u,LRF_mode)
     % th=0.*(1-morethan90deg)+(th-pi/2).*morethan90deg;
     theta=z(3,:);
     omega=z(6,:);
-    acc_angle=u(3,:);
+    acc_th=u(3,:);
     morethan90deg=theta>pi/2;
     morethan_m_90deg=theta<-pi/2;
     % morethan90deg=th>pi/2;
@@ -23,7 +23,7 @@ function [z8,u4]=getz8(z,u,LRF_mode)
         ph=zeros(1,length(th));
         omega=omega;
         ph_d=zeros(1,length(omega));
-        acc_th=acc_angle;
+        acc_th=acc_th;
         acc_ph=zeros(1,length(acc_th));
     else
         ph=theta.*(1-morethan90deg).*(1-morethan_m_90deg)+pi/2.*morethan90deg-pi/2.*morethan_m_90deg;

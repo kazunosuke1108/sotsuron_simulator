@@ -260,7 +260,7 @@ function result=MAIN_func()
                 % z=interp1(soln.grid.time,soln.grid.state,t);
                 % u=interp1(soln.grid.time,soln.grid.control,t);
 
-            [z8,u4]=getz8(z,u,LRF_mode);
+                [z8,u4]=getz8(z,u,LRF_mode);
 
                 
                 save(savename+".mat");
@@ -294,7 +294,7 @@ function result=MAIN_func()
                 end
                 result.z=z;
                 result.z8=z8;
-                result.u=u;
+                result.u4=u4;
                 result.t=t;
                 
                 save(savename+".mat");
