@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230209";
                 abst="exp_prep";
-                detail="20230207_y100_v090_4_Hayashide";
+                detail="20230207_y050_v120_3_Hayashide";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
