@@ -100,7 +100,7 @@ function result=MAIN_func_iter0207()
                     env.L=15;
                     env.xmax=env.L;
                     env.roi.xmax=env.L;
-                    env.ymax=4;
+                    env.ymax=3;
                     env.kabe.ymax=env.ymax;
                     env.roi.ymax=env.ymax;
                 
