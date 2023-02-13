@@ -51,4 +51,4 @@ ylabel("error in y0 [m]")
 zlabel("minimum distance between hmn & rbt [m]")
 title("minimum distance hmn <--> rbt: vx:"+string(hmn.vx)+"[m/s] y0:"+string(hmn.y0)+" [m]")
 grid on
-
+saveas("")
