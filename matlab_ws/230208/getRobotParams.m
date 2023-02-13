@@ -14,8 +14,8 @@ rbt.thmax=pi;
 
 rbt.vmax=0.22
 rbt.vxmax=rbt.vmax;
-rbt.vxmin=0;
-% rbt.vxmin=-rbt.vxmax;
+% rbt.vxmin=0;
+rbt.vxmin=-rbt.vxmax/2;
 rbt.vymax=rbt.vmax;
 rbt.vymin=-rbt.vymax;
 rbt.omgmax=pi/8;
