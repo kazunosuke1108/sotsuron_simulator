@@ -3,7 +3,7 @@ clc;clear;
 motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230208\results\2022e_230211_1900_parameter_study_d455_ymax_5";
 % motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\2022h_230122_1800_parameter_study_d455_no_offset";
 dirlist=dir(motherdir);
-figure(1); clf;
+fig=figure(1); clf;
 
 
 for n = 3:length(dirlist)
@@ -51,7 +51,7 @@ for n = 3:length(dirlist)
             end
             i=i+1;
         end
-        measured_length=abs(hmn_path_interp(1,first_success_idx)-hmn_path_interp(1,last_success_idx));
+        measured_length=measure_length(t,z,u,env,rbt,hmn,sns,soln);
         
         vec_HR=[hmn_path(1,:);hmn_path(2,:)]-[z(1,:);z(2,:)];
         e=[cos(z(3,:));sin(z(3,:))];
@@ -182,9 +182,13 @@ end
 
 results=readmatrix(motherdir+"\results_grid.csv");
 list_y0=results(:,61);
-list_vx=results(:,60);
+list_vx=results(:,60)
 list_length=results(:,56);
+list_length=reshape(list_length,length(unique(list_y0)),[]);
+list_length=transpose(list_length);
 list_avoid=results(:,55);
+list_avoid=reshape(list_avoid,length(unique(list_y0)),[]);
+list_avoid=transpose(list_avoid);
 
 len_ok_idx=find(list_length>=5);
 len_ng_idx=find(list_length<5);
@@ -192,9 +196,13 @@ avoid_ok_idx=find(list_avoid>=hmn.personal_r);
 avoid_ng_idx=find(list_avoid<hmn.personal_r);
 
 
-[X,Y]=meshgrid(list_vx,list_y0);
+[X,Y]=meshgrid(unique(list_vx),unique(list_y0));
 subplot(1,2,1)
 % surf(X,Y,list_length)
+unique(list_vx)
+size(X)
+size(Y)
+size(list_length)
 plot3(X(len_ok_idx),Y(len_ok_idx),list_length(len_ok_idx),'ob')
 hold on
 plot3(X(len_ng_idx),Y(len_ng_idx),list_length(len_ng_idx),'or')
@@ -213,3 +221,4 @@ ylabel("y0 [m]")
 zlabel("minimum distance between hmn & rbt [m]")
 title("minimum distance hmn <--> rbt: vx:"+string(hmn.vx)+"[m/s] y0:"+string(hmn.y0)+" [m]")
 grid on
+saveas(fig,motherdir+"\results.fig")
