@@ -7,7 +7,7 @@ fig=figure(1); clf;
 
 
 for n = 3:length(dirlist)
-    try
+    % try
         fullpath = fullfile(dirlist(n).folder, dirlist(n).name);
         matpath = dir(fullpath+"\*.mat");
         fullmatpath=string(matpath.folder)+"\"+string(matpath.name);
@@ -165,60 +165,63 @@ for n = 3:length(dirlist)
             
             % pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
 
-            if n ~= length(dirlist)
-               hold on
-            end
-            % saveas(figure(1),motherdir+"\results_grid.png");
-            writematrix(result_matrix,motherdir+"\results_grid.csv",'WriteMode','append');
-            if n==length(dirlist)
-                clearvars -except motherdir dirlist matpath fullmatpath n;
-            end
-            catch
-                disp(fullmatpath)
-                continue
-            end
+        if measured_length<5
+            figure(2); clf;
+            savename_3_anim=savename+"_3_anim";
+            % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+            drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+        end
+        if n ~= length(dirlist)
+            hold on
+        end
+        % saveas(figure(1),motherdir+"\results_grid.png");
+        writematrix(result_matrix,motherdir+"\results_grid.csv",'WriteMode','append');
+        if n==length(dirlist)
+            clearvars -except motherdir dirlist matpath fullmatpath n;
+        end
+        % catch
+        %     disp(fullmatpath)
+        %     continue
+        % end
+        disp("iter")
             
 end
 
-results=readmatrix(motherdir+"\results_grid.csv");
-list_y0=results(:,61);
-list_vx=results(:,60)
-list_length=results(:,56);
-list_length=reshape(list_length,length(unique(list_y0)),[]);
-list_length=transpose(list_length);
-list_avoid=results(:,55);
-list_avoid=reshape(list_avoid,length(unique(list_y0)),[]);
-list_avoid=transpose(list_avoid);
+% results=readmatrix(motherdir+"\results_grid.csv");
+% list_y0=results(:,61);
+% list_vx=results(:,60)
+% list_length=results(:,56);
+% list_length=reshape(list_length,length(unique(list_y0)),[]);
+% list_length=transpose(list_length);
+% list_avoid=results(:,55);
+% list_avoid=reshape(list_avoid,length(unique(list_y0)),[]);
+% list_avoid=transpose(list_avoid);
 
-len_ok_idx=find(list_length>=5);
-len_ng_idx=find(list_length<5);
-avoid_ok_idx=find(list_avoid>=hmn.personal_r);
-avoid_ng_idx=find(list_avoid<hmn.personal_r);
+% len_ok_idx=find(list_length>=5);
+% len_ng_idx=find(list_length<5);
+% avoid_ok_idx=find(list_avoid>=hmn.personal_r);
+% avoid_ng_idx=find(list_avoid<hmn.personal_r);
 
 
-[X,Y]=meshgrid(unique(list_vx),unique(list_y0));
-subplot(1,2,1)
-% surf(X,Y,list_length)
-unique(list_vx)
-size(X)
-size(Y)
-size(list_length)
-plot3(X(len_ok_idx),Y(len_ok_idx),list_length(len_ok_idx),'ob')
-hold on
-plot3(X(len_ng_idx),Y(len_ng_idx),list_length(len_ng_idx),'or')
-xlabel("vx [m/s]")
-ylabel("y0 [m]")
-zlabel("measured length [m]")
-title("measured length: vx:"+string(hmn.vx)+"[m/s] y0:"+string(hmn.y0)+" [m]")
-grid on
+% [X,Y]=meshgrid(unique(list_vx),unique(list_y0));
+% subplot(1,2,1)
+% % surf(X,Y,list_length)
+% plot3(X(len_ok_idx),Y(len_ok_idx),list_length(len_ok_idx),'ob')
+% hold on
+% plot3(X(len_ng_idx),Y(len_ng_idx),list_length(len_ng_idx),'or')
+% xlabel("vx [m/s]")
+% ylabel("y0 [m]")
+% zlabel("measured length [m]")
+% title("measured length: vx:"+string(hmn.vx)+"[m/s] y0:"+string(hmn.y0)+" [m]")
+% grid on
 
-subplot(1,2,2)
-plot3(X(avoid_ok_idx),Y(avoid_ok_idx),list_avoid(avoid_ok_idx),'ob')
-hold on
-plot3(X(avoid_ng_idx),Y(avoid_ng_idx),list_avoid(avoid_ng_idx),'or')
-xlabel("vx [m/s]")
-ylabel("y0 [m]")
-zlabel("minimum distance between hmn & rbt [m]")
-title("minimum distance hmn <--> rbt: vx:"+string(hmn.vx)+"[m/s] y0:"+string(hmn.y0)+" [m]")
-grid on
-saveas(fig,motherdir+"\results.fig")
+% subplot(1,2,2)
+% plot3(X(avoid_ok_idx),Y(avoid_ok_idx),list_avoid(avoid_ok_idx),'ob')
+% hold on
+% plot3(X(avoid_ng_idx),Y(avoid_ng_idx),list_avoid(avoid_ng_idx),'or')
+% xlabel("vx [m/s]")
+% ylabel("y0 [m]")
+% zlabel("minimum distance between hmn & rbt [m]")
+% title("minimum distance hmn <--> rbt: vx:"+string(hmn.vx)+"[m/s] y0:"+string(hmn.y0)+" [m]")
+% grid on
+% saveas(fig,motherdir+"\results.fig")
