@@ -1,6 +1,6 @@
 clc;clear;
 
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230208\results\2022h_230211_1900_parameter_study_d455_ymax_4";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230208\results\2022e_230213_1800_parameter_study_d455_ymax_4_back";
 % motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\2022h_230122_1800_parameter_study_d455_no_offset";
 dirlist=dir(motherdir);
 fig=figure(1); clf;
@@ -165,12 +165,12 @@ for n = 3:length(dirlist)
             
             % pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
 
-        if measured_length<5
-            figure(2); clf;
-            savename_3_anim=savename+"_3_anim";
-            % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
-            drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
-        end
+        % if measured_length<5
+        %     figure(2); clf;
+        %     savename_3_anim=savename+"_3_anim";
+        %     % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+        %     drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+        % end
         if n ~= length(dirlist)
             hold on
         end
