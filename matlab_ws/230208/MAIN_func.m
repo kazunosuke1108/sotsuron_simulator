@@ -16,11 +16,11 @@ function result=MAIN_func()
     %     for candidate2=[-0.5 -1.5 -2.5 -3.5]
             % try
                 %% experiment or simulation
-                exp_mode=0;
+                exp_mode=1;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230211";
-                abst="coding_maintainance";
-                detail="20230207_y050_v090_2_Hayashide";
+                date="230214";
+                abst="exp_rosbag";
+                detail="20230214_y075_v000_01_EtoE";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -94,7 +94,7 @@ function result=MAIN_func()
                 env.L=15;
                 env.xmax=env.L;
                 env.roi.xmax=env.L;
-                env.ymax=3;
+                env.ymax=2.8;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
