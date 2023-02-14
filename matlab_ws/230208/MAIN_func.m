@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230214";
                 abst="exp";
-                detail="20230214_y075_v000_02_EtoE";
+                detail="20230214_y075_v000_09_EtoE";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -94,7 +94,7 @@ function result=MAIN_func()
                 env.L=15;
                 env.xmax=env.L;
                 env.roi.xmax=env.L;
-                env.ymax=2.8;
+                env.ymax=2.7;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
