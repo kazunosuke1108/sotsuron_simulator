@@ -19,8 +19,8 @@ function result=MAIN_func()
                 exp_mode=1;
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230214";
-                abst="exp_rosbag";
-                detail="20230214_y075_v000_01_EtoE";
+                abst="exp";
+                detail="20230214_y075_v000_02_EtoE";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
