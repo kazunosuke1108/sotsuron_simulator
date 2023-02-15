@@ -19,12 +19,12 @@ function result=MAIN_func_iter0207()
                     %% experiment or simulation
                     exp_mode=0;
                     LRF_mode=candidate2; % 0:d455 1:LRF
-                    date="2022e_230213";
+                    date="2021i_230214";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1800_parameter_study_d455_ymax_3.5";
+                        abst="1700_parameter_study_d455_ymax_4";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -100,7 +100,7 @@ function result=MAIN_func_iter0207()
                     env.L=15;
                     env.xmax=env.L;
                     env.roi.xmax=env.L;
-                    env.ymax=3.5;
+                    env.ymax=4;
                     env.kabe.ymax=env.ymax;
                     env.roi.ymax=env.ymax;
                 
