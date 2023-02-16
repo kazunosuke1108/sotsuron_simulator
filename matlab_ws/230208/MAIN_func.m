@@ -16,11 +16,11 @@ function result=MAIN_func()
     %     for candidate2=[-0.5 -1.5 -2.5 -3.5]
             % try
                 %% experiment or simulation
-                exp_mode=1;
+                exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230214";
-                abst="exp";
-                detail="20230214_y075_v000_09_EtoE";
+                date="230216";
+                abst="debug";
+                detail="y0_2_vx_065";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -94,15 +94,15 @@ function result=MAIN_func()
                 env.L=15;
                 env.xmax=env.L;
                 env.roi.xmax=env.L;
-                env.ymax=2.7;
+                env.ymax=4;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-1.2;
-                hmn.y0=0.5;
+                hmn.vx=-0.65;
+                hmn.y0=2;
                 
                 if exp_mode
                     [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity();
@@ -112,7 +112,7 @@ function result=MAIN_func()
                 env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/(abs(hmn.vx)+abs(rbt.vx0));
                 
                 rbt.vx0=0.11;
-                rbt.y0=1.0;
+                rbt.y0=2.0;
                 rbt.xF=rbt.vx0*(env.L/(rbt.vx0+abs(hmn.vx)))+2*hmn.personal_r;
                 rbt.yF=rbt.y0;
 
@@ -175,7 +175,7 @@ function result=MAIN_func()
                 
                 % Initial guess at trajectory
 
-                slack=0.3;
+                slack=0;
                 circle_r=hmn.personal_r+slack+rbt.sizer;
                 if abs(env.ymax-hmn.y0)>=abs(hmn.y0-env.ymin)
                     disp("avoid upper")
@@ -313,6 +313,9 @@ function result=MAIN_func()
                         end
                     end
                 end
+                norm_vel=sqrt(z(4,:).^2+z(5,:).^2);
+                disp(max(norm_vel)<rbt.vmax)
+                
                 % writeCSV(problem,env,rbt,hmn,sns,soln,savename);
         %     catch
         %         save(savename+".mat");
