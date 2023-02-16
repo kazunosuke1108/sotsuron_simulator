@@ -19,12 +19,12 @@ function result=MAIN_func_iter0207()
                     %% experiment or simulation
                     exp_mode=0;
                     LRF_mode=candidate2; % 0:d455 1:LRF
-                    date="230216_2021i";
+                    date="230216_2022e";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1000_parameter_study_d455_ymax_4";
+                        abst="1000_parameter_study_d455_ymax_4_slack0";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -181,7 +181,7 @@ function result=MAIN_func_iter0207()
                         
                 % Initial guess at trajectory
 
-                slack=0.3;
+                slack=0;
                 circle_r=hmn.personal_r+slack+rbt.sizer;
                 if abs(env.ymax-hmn.y0)>=abs(hmn.y0-env.ymin)
                     disp("avoid upper")
