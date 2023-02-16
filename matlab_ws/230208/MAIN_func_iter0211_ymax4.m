@@ -24,7 +24,7 @@ function result=MAIN_func_iter0207()
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1000_parameter_study_d455_ymax_4_slack0";
+                        abst="1400_parameter_study_d455_ymax_4_slack0_10x";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
