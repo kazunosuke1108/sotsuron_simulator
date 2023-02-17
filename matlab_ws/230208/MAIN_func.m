@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230217";
                 abst="debug";
-                detail="y0_2_vx_065";
+                detail="y0_2_vx_070";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -101,7 +101,7 @@ function result=MAIN_func()
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-0.65;
+                hmn.vx=-0.7;
                 hmn.y0=2;
                 
                 if exp_mode
