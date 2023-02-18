@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230218";
                 abst="fix_read_y0";
-                detail="20230214_01_EtoE";
+                detail="20230214_06_EtoE";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -105,7 +105,7 @@ function result=MAIN_func()
                 hmn.y0=2;
                 
                 if exp_mode
-                    [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity();
+                    [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity(env);
                     tic;
                     % env.hz=abs(hmn.vx)*40/3;
                 end

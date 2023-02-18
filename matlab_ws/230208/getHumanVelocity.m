@@ -1,4 +1,4 @@
-function [position_x,position_y,velocity]=getHumanVelocity()
+function [position_x,position_y,velocity]=getHumanVelocity(env)
     
     while 1
         %% load data
@@ -58,9 +58,8 @@ function [position_x,position_y,velocity]=getHumanVelocity()
             end
             if z(end)<=1.5
                 position_x=z(end);
-                position_y=abs(mean(y))
+                position_y=abs(median(y))+env.dist_zed_wall;
                 velocity=estm_vel;
-                disp(y);
                 break
             else
                 % if mod(hasenoughdata,10)==0
