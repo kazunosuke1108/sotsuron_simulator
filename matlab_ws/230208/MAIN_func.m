@@ -16,11 +16,11 @@ function result=MAIN_func()
     %     for candidate2=[-0.5 -1.5 -2.5 -3.5]
             % try
                 %% experiment or simulation
-                exp_mode=0;
+                exp_mode=1;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230216";
-                abst="debug";
-                detail="y0_2_vx_065";
+                date="230219";
+                abst="7F_zed_thre1.8";
+                detail="20230219_y200_v090_01";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -94,25 +94,25 @@ function result=MAIN_func()
                 env.L=15;
                 env.xmax=env.L;
                 env.roi.xmax=env.L;
-                env.ymax=4;
+                env.ymax=2.8;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-0.65;
+                hmn.vx=-0.9;
                 hmn.y0=2;
                 
                 if exp_mode
-                    [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity();
+                    [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity(env);
                     tic;
                     % env.hz=abs(hmn.vx)*40/3;
                 end
                 env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/(abs(hmn.vx)+abs(rbt.vx0));
                 
                 rbt.vx0=0.11;
-                rbt.y0=2.0;
+                rbt.y0=1.0;
                 rbt.xF=rbt.vx0*(env.L/(rbt.vx0+abs(hmn.vx)))+2*hmn.personal_r;
                 rbt.yF=rbt.y0;
 
@@ -307,7 +307,7 @@ function result=MAIN_func()
                             disp("Publish. current time:"+string(toc)+" publish time:"+string(env.publish_time)+" calc time:"+string(soln.info.nlpTime)+" start waiting since:"+string(start_waiting))
                             break
                         else
-                            if mod(toc,0.01)==0
+                            if mod(toc,0.1)==0
                                 disp("Waiting for publish. current time:"+string(toc)+" publish time:"+string(env.publish_time))
                             end
                         end

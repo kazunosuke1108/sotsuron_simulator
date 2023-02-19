@@ -88,17 +88,21 @@ roi_rectangle = rectangle('Position', [env.roi.xmin env.roi.ymin env.roi.xmax-en
 
 %%%%% Robot
 % rbt_position = plot(plt_xR(1),plt_yR(1),'ob','MarkerSize',15);
-rbt_position=plot(plt_xR(1)+rbt.sizer*cos(0:0.01:2*pi),plt_yR(1)+rbt.sizer*sin(0:0.01:2*pi),'b');
+% rbt_position=plot(plt_xR(1)+rbt.sizer*cos(0:0.01:2*pi),plt_yR(1)+rbt.sizer*sin(0:0.01:2*pi),'b');
+rbt_position=rectangle('Position',[plt_xR(1)-rbt.sizer,plt_yR(1)-rbt.sizer,2*rbt.sizer,2*rbt.sizer],'Curvature',[1 1],'FaceColor','w','EdgeColor','b');
 hold on
-rbt_base_direction = quiver(plt_xR(1),plt_yR(1),cos(plt_thR(1)),sin(plt_thR(1)),'k');
+% rbt_base_direction = quiver(plt_xR(1),plt_yR(1),cos(plt_thR(1)),sin(plt_thR(1)),'k');
+rbt_direction = plot([plt_xR(1),plt_xR(1)+rbt.sizer*cos(plt_thR(1)+plt_phR(1))],[plt_yR(1),plt_yR(1)+rbt.sizer*sin(plt_thR(1)+plt_phR(1))],'b','LineWidth',2);
 hold on
 rbt_vel_direction = quiver(plt_xR(1),plt_yR(1),plt_vxR(1),plt_vyR(1),'b');
 hold on
 %%%%% Human
 % hmn_position = plot(plt_xH(1),plt_yH(1),'or','MarkerSize',15);
-hmn_position=plot(plt_xH(1)+hmn.sizer*cos(0:0.01:2*pi),plt_yH(1)+hmn.sizer*sin(0:0.01:2*pi),'r');
+% hmn_position=plot(plt_xH(1)+hmn.sizer*cos(0:0.01:2*pi),plt_yH(1)+hmn.sizer*sin(0:0.01:2*pi),'r');
+hmn_position=rectangle('Position',[plt_xH(1)-hmn.sizer,plt_yH(1)-hmn.sizer,2*hmn.sizer,2*hmn.sizer],'Curvature',[1 1],'FaceColor','r','EdgeColor','r');
 hold on
-hmn_direction = quiver(plt_xH(1),plt_yH(1),plt_vxH(1),plt_vyH(1),'r');
+% hmn_direction = quiver(plt_xH(1),plt_yH(1),plt_vxH(1),plt_vyH(1),'r');
+hmn_direction = plot([plt_xH(1),plt_xH(1)+hmn.sizer*cos(plt_thH(1))],[plt_yR(1),plt_yR(1)+hmn.sizer*sin(plt_thH(1))],'w','LineWidth',2);
 hold on
 % hmn_position_err_fast=plot(plt_xH(1),plt_yH(1),'xr','MarkerSize',15);
 % hold on
@@ -125,7 +129,7 @@ arc_right_helper=plot([plt_xR(1),arc_r1_x(1)],[plt_yR(1),arc_r1_y(1)],'--g','Lin
 hold on
 arc_left_helper=plot([plt_xR(1),arc_r1_x(end)],[plt_yR(1),arc_r1_y(end)],'--g','LineWidth',2.5);
 hold on
-robot_path=plot(plt_xR(1),plt_yR(1),'b','LineWidth',5);
+robot_path=plot(plt_xR(1),plt_yR(1),'b','LineWidth',2.5);
 hold on
 human_path=plot(plt_xH(1),plt_yH(1),'r');
 
@@ -152,13 +156,17 @@ saveas(fig2,savename+"_"+string(t(1))+".png")
 
 for i = 1:length(plt_xR)
     % title("frame: "+i+" "+graph_title+" L="+measured_length+"m"+" continuous="+continuous_check+" min gap"+min(norm_HR)+" m")
-    set(rbt_position,'XData',plt_xR(i)+rbt.sizer*cos(0:0.01:2*pi),'YData',plt_yR(i)+rbt.sizer*sin(0:0.01:2*pi));
-    set(hmn_position,'XData',plt_xH(i)+hmn.sizer*cos(0:0.01:2*pi),'YData',plt_yH(i)+hmn.sizer*sin(0:0.01:2*pi));
+    % set(rbt_position,'XData',plt_xR(i)+rbt.sizer*cos(0:0.01:2*pi),'YData',plt_yR(i)+rbt.sizer*sin(0:0.01:2*pi));
+    set(rbt_position,'Position',[plt_xR(i)-rbt.sizer,plt_yR(i)-rbt.sizer,2*rbt.sizer,2*rbt.sizer]);
+    % set(hmn_position,'XData',plt_xH(i)+hmn.sizer*cos(0:0.01:2*pi),'YData',plt_yH(i)+hmn.sizer*sin(0:0.01:2*pi));
+    set(hmn_position,'Position',[plt_xH(i)-hmn.sizer,plt_yH(i)-hmn.sizer,2*hmn.sizer,2*hmn.sizer]);
     % set(hmn_position_err_fast,'XData',plt_xH(i)-hmn.vx_err*t(i),'YData',plt_yH(i))
     % set(hmn_position_err_slow,'XData',plt_xH(i)+hmn.vx_err*t(i),'YData',plt_yH(i))
-    set(rbt_base_direction,'XData',plt_xR(i),'YData',plt_yR(i),'UData',cos(plt_thR(i)),'VData',sin(plt_thR(i)));
+    % set(rbt_direction,'XData',plt_xR(i),'YData',plt_yR(i),'UData',cos(plt_thR(i)),'VData',sin(plt_thR(i)));
+    set(rbt_direction,'XData',[plt_xR(i),plt_xR(i)+rbt.sizer*cos(plt_thR(i)+plt_phR(i))],'YData',[plt_yR(i),plt_yR(i)+rbt.sizer*sin(plt_thR(i)+plt_phR(i))]);    
     set(rbt_vel_direction,'XData',plt_xR(i),'YData',plt_yR(i),'UData',plt_vxR(i),'VData',plt_vyR(i));
-    set(hmn_direction,'XData',plt_xH(i),'YData',plt_yH(i),'UData',plt_vxH(i),'VData',plt_vyH(i));
+    % set(hmn_direction,'XData',plt_xH(i),'YData',plt_yH(i),'UData',plt_vxH(i),'VData',plt_vyH(i));
+    set(hmn_direction,'XData',[plt_xH(i),plt_xH(i)+hmn.sizer*cos(plt_thH(i))],'YData',[plt_yH(i),plt_yH(i)+hmn.sizer*sin(plt_thH(i))]);    
     set(hmn_personal_area,'XData',plt_xH(i)+hmn.personal_r*cos(0:0.01:2*pi),'YData',plt_yH(i)+hmn.personal_r*sin(0:0.01:2*pi));
     % set(odom_path,'XData',odom_x(1:round(i*ratio)),'YData',odom_y(1:round(i*ratio)))
 
@@ -207,7 +215,7 @@ for i = 1:length(plt_xR)
     end
     drawnow;
     frames(i)=getframe(fig2);
-    % if (rem(i,3)==0 & i<=50) |i==1 | i==300 | i==400 | i==600
+    % if (rem(i,10)==0)% & i<=50) |i==1 | i==300 | i==400 | i==600
     %     saveas(fig2,savename+"_"+string(t(i))+".png")
     % end
 end
