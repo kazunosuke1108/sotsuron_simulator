@@ -7,8 +7,8 @@ matpath="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\2302
 load(matpath)
 
 
-date="230217";
-abst="visualizer";
+date="230218";
+abst="visualizer_anim_test";
 detail="230211_185130_";
 mkdir('results');
 savedir="results\"+date+"_"+abst;
