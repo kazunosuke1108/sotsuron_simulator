@@ -16,11 +16,11 @@ function result=MAIN_func()
     %     for candidate2=[-0.5 -1.5 -2.5 -3.5]
             % try
                 %% experiment or simulation
-                exp_mode=1;
+                exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230218";
-                abst="fix_read_y0";
-                detail="20230214_06_EtoE";
+                date="230219";
+                abst="7Fsim";
+                detail="y0_100m";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -94,15 +94,15 @@ function result=MAIN_func()
                 env.L=15;
                 env.xmax=env.L;
                 env.roi.xmax=env.L;
-                env.ymax=4;
+                env.ymax=2.8;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
 
-                hmn.vx=-0.7;
-                hmn.y0=2;
+                hmn.vx=-0.9;
+                hmn.y0=1;
                 
                 if exp_mode
                     [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity(env);
@@ -112,7 +112,7 @@ function result=MAIN_func()
                 env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/(abs(hmn.vx)+abs(rbt.vx0));
                 
                 rbt.vx0=0.11;
-                rbt.y0=2.0;
+                rbt.y0=1.0;
                 rbt.xF=rbt.vx0*(env.L/(rbt.vx0+abs(hmn.vx)))+2*hmn.personal_r;
                 rbt.yF=rbt.y0;
 
