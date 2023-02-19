@@ -16,11 +16,11 @@ function result=MAIN_func()
     %     for candidate2=[-0.5 -1.5 -2.5 -3.5]
             % try
                 %% experiment or simulation
-                exp_mode=0;
+                exp_mode=1;
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230219";
-                abst="7Fsim";
-                detail="y0_225m";
+                abst="7F_zed_thre1.8";
+                detail="20230219_y025_v090_01";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -307,7 +307,7 @@ function result=MAIN_func()
                             disp("Publish. current time:"+string(toc)+" publish time:"+string(env.publish_time)+" calc time:"+string(soln.info.nlpTime)+" start waiting since:"+string(start_waiting))
                             break
                         else
-                            if mod(toc,0.01)==0
+                            if mod(toc,0.1)==0
                                 disp("Waiting for publish. current time:"+string(toc)+" publish time:"+string(env.publish_time))
                             end
                         end
