@@ -16,11 +16,11 @@ function result=MAIN_func()
     %     for candidate2=[-0.5 -1.5 -2.5 -3.5]
             % try
                 %% experiment or simulation
-                exp_mode=0;
+                exp_mode=1;
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230219";
-                abst="7Fsim";
-                detail="y0_100m";
+                abst="7F_zed";
+                detail="20230219_y220_v090_01";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;

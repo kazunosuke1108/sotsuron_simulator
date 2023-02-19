@@ -56,7 +56,7 @@ function [position_x,position_y,velocity]=getHumanVelocity(env)
             catch
                 continue
             end
-            if z(end)<=1.5
+            if z(end)<=1.8
                 position_x=z(end);
                 position_y=abs(median(y))+env.dist_zed_wall;
                 velocity=estm_vel;
