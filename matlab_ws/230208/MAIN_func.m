@@ -16,11 +16,11 @@ function result=MAIN_func()
     %     for candidate2=[-0.5 -1.5 -2.5 -3.5]
             % try
                 %% experiment or simulation
-                exp_mode=0;
+                exp_mode=1;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230217";
-                abst="debug";
-                detail="y0_2_vx_070";
+                date="230218";
+                abst="fix_read_y0";
+                detail="20230214_06_EtoE";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -105,7 +105,7 @@ function result=MAIN_func()
                 hmn.y0=2;
                 
                 if exp_mode
-                    [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity();
+                    [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity(env);
                     tic;
                     % env.hz=abs(hmn.vx)*40/3;
                 end

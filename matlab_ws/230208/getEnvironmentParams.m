@@ -31,5 +31,5 @@ env.roi.ymax=env.ymax;
 env.dist_hsr_zed=30;
 env.dist_zed_hmn=1.5;
 env.publish_time=10;
-
+env.dist_zed_wall=0.3;
 end

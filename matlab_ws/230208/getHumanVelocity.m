@@ -1,4 +1,4 @@
-function [position_x,position_y,velocity]=getHumanVelocity()
+function [position_x,position_y,velocity]=getHumanVelocity(env)
     
     while 1
         %% load data
@@ -23,10 +23,13 @@ function [position_x,position_y,velocity]=getHumanVelocity()
         %% estimation start criterias
         %% 位置が10m以内であるか
         isbelow10m=z(end)<=10;
-        %% データ数が100個以上あるか
-        hasenoughdata=length(z)>=100;
+        %% データ数が50個以上あるか
+        num_data=50;
+        hasenoughdata=length(z)>num_data;
 
         if isbelow10m && hasenoughdata
+            y=data([end-num_data:end],2);
+            z=data([end-num_data:end],4);
             %% LPF
             % cutoff=0.001;
             fps=15;
@@ -48,17 +51,20 @@ function [position_x,position_y,velocity]=getHumanVelocity()
 
             localmin=islocalmin(estm_list(2,:));
             localmin_idx=find(localmin>0.5);
-            estm_vel=median(estm_list(2,[localmin_idx(1):localmin_idx(end)]));
-
+            try
+                estm_vel=median(estm_list(2,[localmin_idx(1):localmin_idx(end)]));
+            catch
+                continue
+            end
             if z(end)<=1.5
                 position_x=z(end);
-                position_y=abs(mean(data(:,2)))
+                position_y=abs(median(y))+env.dist_zed_wall;
                 velocity=estm_vel;
                 break
             else
-                if mod(hasenoughdata,10)==0
+                % if mod(hasenoughdata,10)==0
                     disp("latest position: "+string(z(end)))
-                end
+                % end
             end
         end
     end
