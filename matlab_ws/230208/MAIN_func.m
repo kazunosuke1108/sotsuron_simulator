@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=1;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230219";
-                abst="7F_zed_thre1.8";
-                detail="20230219_y200_v090_01";
+                date="230220";
+                abst="shingo";
+                detail="20230220_y040_v000_30";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
