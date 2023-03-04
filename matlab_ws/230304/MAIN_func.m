@@ -16,11 +16,11 @@ function result=MAIN_func()
     %     for candidate2=[-0.5 -1.5 -2.5 -3.5]
             % try
                 %% experiment or simulation
-                exp_mode=1;
+                exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230220";
-                abst="shingo";
-                detail="20230220_y040_v000_30";
+                date="230304";
+                abst="DEV_tilt";
+                detail="tate";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -73,6 +73,15 @@ function result=MAIN_func()
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
 
+                % RealSense D455縦 
+                sns.phi=57;
+                sns.pitch=86;
+                sns.r0=6.0;
+                sns.r2=6.0;
+                sns.phi=deg2rad(sns.phi)/2;
+                sns.pitch=deg2rad(sns.pitch)/2;
+                sns.r1=sns.h/tan(sns.pitch);
+                
                 % Xtion PRO LIVE 
                 % sns.phi=58;
                 % sns.pitch=45;
@@ -94,12 +103,13 @@ function result=MAIN_func()
                 env.L=15;
                 env.xmax=env.L;
                 env.roi.xmax=env.L;
-                env.ymax=2.8;
+                env.ymax=2.0;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
+                hmn.personal_r=0.6;
 
                 hmn.vx=-0.9;
                 hmn.y0=2;
@@ -138,7 +148,7 @@ function result=MAIN_func()
                 
                 % 標準制御周波数の決定
                 problem.options.hermiteSimpson.nSegment=fix((env.estim_final_t*env.hz-1)/30);
-                problem.options.rungeKutta.nSegment=fix((env.estim_final_t*env.hz-1)/30);
+                % problem.options.rungeKutta.nSegment=fix((env.estim_final_t*env.hz-1)/30);
 
 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
