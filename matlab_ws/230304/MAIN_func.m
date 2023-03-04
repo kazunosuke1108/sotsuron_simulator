@@ -20,7 +20,7 @@ function result=MAIN_func()
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230304";
                 abst="DEV_tilt";
-                detail="tate";
+                detail="yoko";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -74,13 +74,13 @@ function result=MAIN_func()
                 % sns.r1=sns.h/tan(sns.pitch);
 
                 % RealSense D455縦 
-                sns.phi=57;
-                sns.pitch=86;
-                sns.r0=6.0;
-                sns.r2=6.0;
-                sns.phi=deg2rad(sns.phi)/2;
-                sns.pitch=deg2rad(sns.pitch)/2;
-                sns.r1=sns.h/tan(sns.pitch);
+                % sns.phi=57;
+                % sns.pitch=86;
+                % sns.r0=6.0;
+                % sns.r2=6.0;
+                % sns.phi=deg2rad(sns.phi)/2;
+                % sns.pitch=deg2rad(sns.pitch)/2;
+                % sns.r1=sns.h/tan(sns.pitch);
                 
                 % Xtion PRO LIVE 
                 % sns.phi=58;
