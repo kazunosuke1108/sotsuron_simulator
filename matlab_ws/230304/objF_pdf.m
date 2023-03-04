@@ -25,17 +25,17 @@ function J=objF_pdf(t,z,u,env,rbt,hmn,sns)
     r1=getr1(t,z,u,env,rbt,hmn,sns);
     mu_r=(r1+sns.r2)/2;
     sgm_r=1/6*(sns.r2-r1);
-    score_r=pdf('Normal',norm_HR,mu_r,sgm_r);
+    score_r=pdf('Normal',norm_HR,mu_r,sgm_r)
 
     %% phi normal_distribution
     mu_phi=0;
     sgm_phi=1/6*2*sns.phi;
-    score_phi=pdf('Normal',deg_diff,mu_phi,sgm_phi);
+    score_phi=pdf('Normal',deg_diff,mu_phi,sgm_phi)
 
     %% phi normal_distribution
     mu_th_tlt=0;
     sgm_th_tlt=1/6*2*0.25;%1/6*0.5;%2*sns.pitch/8;
-    score_pitch=pdf('Normal',pitch_diff,mu_th_tlt,sgm_th_tlt);
+    score_pitch=pdf('Normal',pitch_diff,mu_th_tlt,sgm_th_tlt)
 
     J_kari=score_r.*score_phi.*score_pitch;
     J=-J_kari;
