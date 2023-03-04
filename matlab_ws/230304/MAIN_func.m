@@ -112,7 +112,7 @@ function result=MAIN_func()
                 hmn.personal_r=0.6;
 
                 hmn.vx=-0.9;
-                hmn.y0=2;
+                hmn.y0=1.5;
                 
                 if exp_mode
                     [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity(env);
