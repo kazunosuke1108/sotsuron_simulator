@@ -20,7 +20,7 @@ function J=objF_pdf(t,z,u,env,rbt,hmn,sns)
     deg_HR=deg_HR+pi*deg_compensate1-pi*deg_compensate2;
     deg_diff=deg_HR-z(3,:);
 
-    pitch_diff=z(4,:)-atan((sns.h-hmn.h/2)./norm_HR);
+    pitch_diff=z(4,:)-atan((sns.h-hmn.h/2)./norm_HR)
 
     r1=getr1(t,z,u,env,rbt,hmn,sns);
     mu_r=(r1+sns.r2)/2;
@@ -35,7 +35,7 @@ function J=objF_pdf(t,z,u,env,rbt,hmn,sns)
     %% phi normal_distribution
     mu_th_tlt=0;
     sgm_th_tlt=1/6*0.5;%2*sns.pitch/8;
-    score_pitch=pdf('Normal',pitch_diff,mu_th_tlt,sgm_th_tlt)
+    score_pitch=pdf('Normal',pitch_diff,mu_th_tlt,sgm_th_tlt);
 
     J_kari=score_r.*score_phi.*score_pitch;
     J=-J_kari;
