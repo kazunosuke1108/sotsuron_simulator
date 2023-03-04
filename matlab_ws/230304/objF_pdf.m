@@ -41,4 +41,5 @@ function J=objF_pdf(t,z,u,env,rbt,hmn,sns)
     % J_kari=score_pitch;
     J=-J_kari;
 
+    
 end
