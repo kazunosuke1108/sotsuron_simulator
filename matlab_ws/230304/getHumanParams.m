@@ -2,7 +2,7 @@ function hmn=getHumanParams(env,sns)
 
 hmn.sizer=0.3;
 hmn.sizep=atan(hmn.sizer/(sns.r1+hmn.sizer));
-hmn.h=1.7
+hmn.h=1.5;
 hmn.personal_r=1.2;
 
 hmn.x0=env.xmax;
