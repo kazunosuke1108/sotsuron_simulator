@@ -103,7 +103,7 @@ function result=MAIN_func()
                 env.L=15;
                 env.xmax=env.L;
                 env.roi.xmax=env.L;
-                env.ymax=2.0;
+                env.ymax=4.0;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
