@@ -38,6 +38,7 @@ function J=objF_pdf(t,z,u,env,rbt,hmn,sns)
     score_pitch=pdf('Normal',pitch_diff,mu_th_tlt,sgm_th_tlt)
 
     J_kari=score_r.*score_phi.*score_pitch;
+    J_kari=score_pitch;
     J=-J_kari;
 
 end
