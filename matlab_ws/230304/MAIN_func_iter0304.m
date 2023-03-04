@@ -1,4 +1,4 @@
-function result=MAIN_func_iter0207()
+function result=MAIN_func_iter0304()
     % MAIN.m
     %% initialization
     clc; clear;
@@ -19,12 +19,12 @@ function result=MAIN_func_iter0207()
                     %% experiment or simulation
                     exp_mode=0;
                     LRF_mode=candidate2; % 0:d455 1:LRF
-                    date="230219_2022e";
+                    date="230304_2022e";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="2100_parameter_study_d455_vmax_018";
+                        abst="1100_parameter_study_d455_tate_personalr_060";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -78,6 +78,15 @@ function result=MAIN_func_iter0207()
                     % sns.phi=deg2rad(sns.phi)/2;
                     % sns.pitch=deg2rad(sns.pitch)/2;
                     % sns.r1=sns.h/tan(sns.pitch);
+                    
+                    % RealSense D455縦 
+                    sns.phi=57;
+                    sns.pitch=86;
+                    sns.r0=6.0;
+                    sns.r2=6.0;
+                    sns.phi=deg2rad(sns.phi)/2;
+                    sns.pitch=deg2rad(sns.pitch)/2;
+                    sns.r1=sns.h/tan(sns.pitch);
 
                     % Xtion PRO LIVE 
                     % sns.phi=58;
@@ -100,12 +109,13 @@ function result=MAIN_func_iter0207()
                     env.L=15;
                     env.xmax=env.L;
                     env.roi.xmax=env.L;
-                    env.ymax=2.8;
+                    env.ymax=2.0;
                     env.kabe.ymax=env.ymax;
                     env.roi.ymax=env.ymax;
                 
                     rbt=getRobotParams(env);
                     hmn=getHumanParams(env,sns);
+                    hmn.personal_r=0.6;
 
                     hmn.vx=candidate;
                     hmn.y0=candidate3;

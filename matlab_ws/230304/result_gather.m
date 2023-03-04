@@ -163,7 +163,7 @@ for n = 3:length(dirlist)
             hmn.y0
             ];
             
-            pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+            % pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
 
         % if measured_length<5
         %     figure(2); clf;
@@ -174,8 +174,8 @@ for n = 3:length(dirlist)
         if n ~= length(dirlist)
             hold on
         end
-        saveas(figure(1),motherdir+"\results_grid.png");
-        writematrix(result_matrix,motherdir+"\results_grid.csv",'WriteMode','append');
+        % saveas(figure(1),motherdir+"\results_grid.png");
+        % writematrix(result_matrix,motherdir+"\results_grid.csv",'WriteMode','append');
         if n==length(dirlist)
             clearvars -except motherdir dirlist matpath fullmatpath n;
         end
@@ -195,6 +195,7 @@ list_length=results(:,56);
 list_avoid=results(:,55);
 % list_avoid=reshape(list_avoid,length(unique(list_y0)),[]);
 % list_avoid=transpose(list_avoid);
+list_nlptime=results(:,58);
 
 len_ok_idx=find(list_length>=5);
 len_ng_idx=find(list_length<5);
@@ -203,7 +204,7 @@ avoid_ng_idx=find(list_avoid<1.2);
 
 
 % [X,Y]=meshgrid(unique(list_vx),unique(list_y0));
-subplot(1,2,1)
+subplot(1,3,1)
 % surf(X,Y,list_length)
 % plot3(X(len_ok_idx),Y(len_ok_idx),list_length(len_ok_idx),'ob')
 plot3(list_vx(len_ok_idx),list_y0(len_ok_idx),list_length(len_ok_idx),'or')
@@ -216,7 +217,7 @@ zlabel("measured length [m]")
 % title("measured length: vx:"+string(hmn.vx)+"[m/s] y0:"+string(hmn.y0)+" [m]")
 grid on
 
-subplot(1,2,2)
+subplot(1,3,2)
 plot3(list_vx(avoid_ok_idx),list_y0(avoid_ok_idx),list_avoid(avoid_ok_idx),'or')
 hold on
 plot3(list_vx(avoid_ng_idx),list_y0(avoid_ng_idx),list_avoid(avoid_ng_idx),'xb')
@@ -225,4 +226,15 @@ ylabel("y0 [m]")
 zlabel("minimum distance between hmn & rbt [m]")
 % title("minimum distance hmn <--> rbt: vx:"+string(hmn.vx)+"[m/s] y0:"+string(hmn.y0)+" [m]")
 grid on
+
+subplot(1,3,3)
+plot3(list_vx,list_y0,list_nlptime,'or')
+xlabel("vx [m/s]")
+ylabel("y0 [m]")
+zlabel("nlpTime [s]")
+grid on
+corrcoef(list_y0,list_nlptime)
+corrcoef(list_vx,list_nlptime)
+
+
 saveas(fig,motherdir+"\results.fig")
