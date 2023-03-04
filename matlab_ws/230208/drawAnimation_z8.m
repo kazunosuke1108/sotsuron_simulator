@@ -84,7 +84,7 @@ wall_right = plot([env.xmin,env.xmax],[env.kabe.ymax,env.kabe.ymax],'k');
 hold on
 
 %%%%% ROI borders
-roi_rectangle = rectangle('Position', [env.roi.xmin env.roi.ymin env.roi.xmax-env.roi.xmin env.roi.ymax-env.roi.ymin],'EdgeColor','c');
+roi_rectangle = rectangle('Position', [env.roi.xmin env.roi.ymin env.roi.xmax-env.roi.xmin env.roi.ymax-env.roi.ymin],'EdgeColor','k');
 
 %%%%% Robot
 % rbt_position = plot(plt_xR(1),plt_yR(1),'ob','MarkerSize',15);
@@ -134,10 +134,11 @@ hold on
 human_path=plot(plt_xH(1),plt_yH(1),'r');
 
 % title(graph_title);
-xlim([env.xmin,env.xmax]);
+% xlim([env.xmin,env.xmax]);
+xlim([-5,15]);
 ylim([env.kabe.ymin-1,env.kabe.ymax+1]);
-xlabel("x [m]")
-ylabel("y [m]")
+% xlabel("x [m]")
+% ylabel("y [m]")
 daspect([1,1,1]);
 % odom=readmatrix("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\20230117_d_060_1_Hayashide.csv")
 % % odom=csvread("C:\Users\hayashide\Desktop\kazu_ws\sotsuron_experiment\sotsuron_experiment\scripts\monitor\odom_2022-12-16-19-32-43.csv")
@@ -197,22 +198,22 @@ for i = 1:length(plt_xR)
             end
         end
     end
-    if (rem(i,5)==0 & i<=50) |i==1 | i==300 | i==400 | i==600 % rem(i,50)==0;
-        hold on
-        quiver(plt_xR(i),plt_yR(i),cos(plt_phR(i)+plt_thR(i)),sin(plt_phR(i)+plt_thR(i)),'g','LineWidth',0.5);
-        % hold on
-        % plot(arc_r1_x,arc_r1_y,'g');
-        % hold on
-        % plot(arc_r2_x,arc_r2_y,'g');
-        % hold on
-        % plot([arc_r1_x(1),arc_r2_x(1)],[arc_r1_y(1),arc_r2_y(1)],'g');
-        % hold on
-        % plot([arc_r1_x(end),arc_r2_x(end)],[arc_r1_y(end),arc_r2_y(end)],'g');
-        % hold on
-        % plot([plt_xR(1),arc_r1_x(1)],[plt_yR(1),arc_r1_y(1)],'--g');
-        % hold on
-        % plot([plt_xR(1),arc_r1_x(end)],[plt_yR(1),arc_r1_y(end)],'--g');
-    end
+    % if (rem(i,5)==0 & i<=50) |i==1 | i==300 | i==400 | i==600 % rem(i,50)==0;
+    %     hold on
+    %     quiver(plt_xR(i),plt_yR(i),cos(plt_phR(i)+plt_thR(i)),sin(plt_phR(i)+plt_thR(i)),'g','LineWidth',0.5);
+    %     % hold on
+    %     % plot(arc_r1_x,arc_r1_y,'g');
+    %     % hold on
+    %     % plot(arc_r2_x,arc_r2_y,'g');
+    %     % hold on
+    %     % plot([arc_r1_x(1),arc_r2_x(1)],[arc_r1_y(1),arc_r2_y(1)],'g');
+    %     % hold on
+    %     % plot([arc_r1_x(end),arc_r2_x(end)],[arc_r1_y(end),arc_r2_y(end)],'g');
+    %     % hold on
+    %     % plot([plt_xR(1),arc_r1_x(1)],[plt_yR(1),arc_r1_y(1)],'--g');
+    %     % hold on
+    %     % plot([plt_xR(1),arc_r1_x(end)],[plt_yR(1),arc_r1_y(end)],'--g');
+    % end
     drawnow;
     frames(i)=getframe(fig2);
     % if (rem(i,10)==0)% & i<=50) |i==1 | i==300 | i==400 | i==600
