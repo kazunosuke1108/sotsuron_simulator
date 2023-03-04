@@ -58,7 +58,7 @@ hold on
 plot(t,rbt.th_tlt_min*ones(size(t)),'r');
 hold on
 plot(t,rbt.th_tlt_max*ones(size(t)),'r');
-ylim([rbt.th_tlt_min-pi/10,rbt.th_tlt_min+pi/10]);
+ylim([rbt.th_tlt_min-pi/10,rbt.th_tlt_max+pi/10]);
 xlabel('t [s]');
 ylabel('theta tilt [rad]');
 

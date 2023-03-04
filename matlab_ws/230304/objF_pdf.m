@@ -22,7 +22,7 @@ function J=objF_pdf(t,z,u,env,rbt,hmn,sns)
 
     pitch_diff=z(4,:)-atan((sns.h-hmn.h/2)./norm_HR);
 
-    r1=getr1(t,z,u,env,rbt,hmn,sns);
+    r1=getr1(t,z,u,env,rbt,hmn,sns)
     mu_r=(r1+sns.r2)/2;
     sgm_r=1/6*(sns.r2-r1);
     score_r=pdf('Normal',norm_HR,mu_r,sgm_r);
