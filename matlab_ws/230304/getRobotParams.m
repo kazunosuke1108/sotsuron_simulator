@@ -24,7 +24,7 @@ rbt.vymax=rbt.vmax;
 rbt.vymin=-rbt.vymax;
 rbt.omgmax=pi/8;
 rbt.omgmin=-rbt.omgmax;
-rbt.omg_tlt_max=pi/4;
+rbt.omg_tlt_max=pi/2;
 rbt.omg_tlt_min=-rbt.omg_tlt_max;
 
 % rbt.vmax_actual=rbt.vmax%-0.05;
