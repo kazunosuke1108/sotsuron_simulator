@@ -5,14 +5,18 @@ rbt.sizer=0.3;
 rbt.x0=0;
 rbt.y0=2.5;
 rbt.th0=0;
+rbt.th_tlt0=0;
 rbt.vx0=0.15;
 rbt.vy0=0;
 rbt.omg0=0;
+rbt.omg_tlt0=0;
 
-rbt.thmin=-pi;
 rbt.thmax=pi;
+rbt.thmin=-pi;
+rbt.th_tlt_max=pi/3;
+rbt.th_tlt_min=-rbt.th_tlt_max;
 
-rbt.vmax=0.17;
+rbt.vmax=0.22;
 rbt.vxmax=rbt.vmax;
 rbt.vxmin=0;
 % rbt.vxmin=-rbt.vxmax/2;
@@ -20,6 +24,8 @@ rbt.vymax=rbt.vmax;
 rbt.vymin=-rbt.vymax;
 rbt.omgmax=pi/8;
 rbt.omgmin=-rbt.omgmax;
+rbt.omg_tlt_max=pi/4;
+rbt.omg_tlt_min=-rbt.omg_tlt_max;
 
 % rbt.vmax_actual=rbt.vmax%-0.05;
 % rbt.vxmax_actual=rbt.vmax%-0.05;
@@ -37,9 +43,11 @@ rbt.omgmin=-rbt.omgmax;
 rbt.xF=env.xmax;
 rbt.yF=2.5;
 rbt.thF=0;
+rbt.th_tltF=0;
 rbt.vxF=0;
 rbt.vyF=0;
 rbt.omgF=0;
+rbt.omg_tltF=0;
 
 rbt.thFmin=0;
 rbt.thFmax=0;
@@ -52,6 +60,8 @@ rbt.aymin=-rbt.aymax;
 % rbt.aangmax=ax_scale*rbt.omgmax;
 rbt.aangmax=rbt.omgmax;
 rbt.aangmin=-rbt.aangmax;
+rbt.aang_tlt_max=rbt.omg_tlt_max;
+rbt.aang_tlt_min=rbt.omg_tlt_min;
 
 % rbt.axmax_actual=rbt.axmax%-0.03;
 % rbt.axmin_actual=-rbt.axmax_actual;

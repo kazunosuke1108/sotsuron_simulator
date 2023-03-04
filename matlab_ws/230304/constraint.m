@@ -15,22 +15,22 @@ function [c, ceq, cGrad, ceqGrad]=constraint(t,z,u,env,rbt,hmn,sns)
     % c1=-(norm_HR-0.5).';
     % c1=-1;
     % 速度制約
-    v=sqrt(rbt_path(4,:).^2+rbt_path(5,:).^2);
+    v=sqrt(rbt_path(5,:).^2+rbt_path(6,:).^2);
     norm_vel=100*(v-(rbt.vmax)).';
 
     c=[c1;
     norm_vel];
     % c=[norm_vel];
     ceq=[];
-
+    
     nCst=2;
-    nGrad=10;
+    nGrad=13;% time+z+u=1+8+4=13
     nTime=size(z,2);
     cGrad=zeros(nCst,nGrad,nTime);
     cGrad(1,2,:)=(hmn_path(1,:)-rbt_path(1,:))./norm_HR;
     cGrad(1,3,:)=(hmn_path(2,:)-rbt_path(2,:))./norm_HR;
-    cGrad(2,5,:)=(rbt_path(4,:))./v;
     cGrad(2,6,:)=(rbt_path(5,:))./v;
+    cGrad(2,7,:)=(rbt_path(6,:))./v;
     cGrad=cGrad;
     ceqGrad=[];
 end

@@ -172,16 +172,16 @@ function result=MAIN_func()
                 problem.bounds.finalTime.low = env.final_tmin;
                 problem.bounds.finalTime.upp = env.final_tmax;
                 
-                problem.bounds.initialState.low = [rbt.x0;rbt.y0;rbt.th0;rbt.vx0;rbt.vy0;rbt.omg0];
-                problem.bounds.initialState.upp = [rbt.x0;rbt.y0;rbt.th0;rbt.vx0;rbt.vy0;rbt.omg0];
-                problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.vx0;rbt.vy0;rbt.omg0];
-                problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.vx0;rbt.vy0;rbt.omg0];
-                
-                problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.vxmin;rbt.vymin;rbt.omgmin];
-                problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.vxmax;rbt.vymax;rbt.omgmax];
+                problem.bounds.initialState.low = [rbt.x0;rbt.y0;rbt.th0;rbt.th_tlt0;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tlt0];
+                problem.bounds.initialState.upp = [rbt.x0;rbt.y0;rbt.th0;rbt.th_tlt0;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tlt0];
+                problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.th_tltF;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tltF];
+                problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.th_tltF;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tltF];
+            
+                problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.th_tlt_min;rbt.vxmin;rbt.vymin;rbt.omgmin;rbt.omg_tlt_min];
+                problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.th_tlt_max;rbt.vxmax;rbt.vymax;rbt.omgmax;rbt.omg_tlt_max];
 
-                problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin];
-                problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax];
+                problem.bounds.control.low = [rbt.axmin;rbt.aymin;rbt.aangmin;rbt.aang_tlt_min];
+                problem.bounds.control.upp = [rbt.axmax;rbt.aymax;rbt.aangmax;rbt.aang_tlt_max];
                 
                 % Initial guess at trajectory
 
@@ -218,16 +218,16 @@ function result=MAIN_func()
                 x_temp2=x_temp+circle_r;
                 % t_temp2=problem.bounds.finalTime.low-t_temp;
 
-                temp=[x_temp;y_temp;th_temp;0;0;0];
-                temp1=[x_temp1;y_temp;th_temp;0;0;0];
-                temp2=[x_temp2;y_temp;th_temp;0;0;0];
+                temp=[x_temp;y_temp;th_temp;0;0;0;0;0];
+                temp1=[x_temp1;y_temp;th_temp;0;0;0;0;0];
+                temp2=[x_temp2;y_temp;th_temp;0;0;0;0;0];
                 % temp2=[rbt.xF;y_temp;th_temp;0;0;0]
                 % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                 problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp1,t_temp2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                 % problem.guess.state = [problem.bounds.initialState.low,temp,problem.bounds.finalState.upp];
                 problem.guess.state = [problem.bounds.initialState.low,temp1,temp2,problem.bounds.finalState.upp];
                 % problem.guess.control = [0,0,0;0,0,0;0,0,0];
-                problem.guess.control = [0,0,0,0;0,0,0,0;0,0,0,0];
+                problem.guess.control = [0,0,0,0;0,0,0,0;0,0,0,0;0,0,0,0];
                 % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                 % problem.guess.state = [problem.bounds.initialState.low, problem.bounds.finalState.upp];
                 % problem.guess.control = [0,0;0,0;0,0];
@@ -327,9 +327,9 @@ function result=MAIN_func()
                 disp(max(norm_vel)<rbt.vmax)
                 
                 % writeCSV(problem,env,rbt,hmn,sns,soln,savename);
-        %     catch
-        %         save(savename+".mat");
-        %         continue
-        %     end
+            % catch
+            %     save(savename+".mat");
+            % end
         % end
     % end
+end
