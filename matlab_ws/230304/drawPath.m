@@ -7,9 +7,9 @@ arc_resolution=100;
 %%%% Get path info
 plt_xR=z(1,:);
 plt_yR=z(2,:);
-[z8,u4]=getz8(z,u,0);
-plt_thR=z8(3,:);
-plt_phR=z8(4,:);
+[z10,u5]=getz10(z,u,0);
+plt_thR=z10(3,:);
+plt_phR=z10(4,:);
 
 hmn_path=getHumanPath(t,hmn);
 

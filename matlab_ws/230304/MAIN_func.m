@@ -270,7 +270,7 @@ function result=MAIN_func()
                 % z=interp1(soln.grid.time,soln.grid.state,t);
                 % u=interp1(soln.grid.time,soln.grid.control,t);
 
-                [z8,u4]=getz8(z,u,LRF_mode);
+                [z10,u5]=getz10(z,u,LRF_mode);
 
                 
                 save(savename+".mat");
@@ -294,7 +294,8 @@ function result=MAIN_func()
                     figure(2); clf;
                     savename_3_anim=savename+"_3_anim";
                     % drawAnimation(t,z,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
-                    drawAnimation_z8(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+                    % drawAnimation_z10(t,z,z8,u,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
+                    drawAnimation_z10(t,z,z10,u,u5,env,rbt,hmn,sns,soln,savename_3_anim,graph_title);
                     
                     figure(3); clf;
                     drawPath(t,z,u,env,rbt,hmn,sns,soln,savename,graph_title);
@@ -303,8 +304,8 @@ function result=MAIN_func()
                     disp("exp_mode:0")
                 end
                 result.z=z;
-                result.z8=z8;
-                result.u4=u4;
+                result.z10=z10;
+                result.u5=u5;
                 result.t=t;
                 
                 save(savename+".mat");
