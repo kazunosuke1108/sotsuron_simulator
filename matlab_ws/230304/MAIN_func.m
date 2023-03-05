@@ -18,7 +18,7 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230304";
+                date="230305";
                 abst="DEV_tilt";
                 detail="yoko";
                 mkdir('results');
@@ -103,12 +103,13 @@ function result=MAIN_func()
                 env.L=15;
                 env.xmax=env.L;
                 env.roi.xmax=env.L;
-                env.ymax=1.8;
+                env.ymax=2.5;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
                 rbt=getRobotParams(env);
-                hmn=getHumanParams(env,sns);
+                [hmn,sns]=getHumanParams(env,sns);
+                rbt.th_tlt_min=-(atan(sns.h/sns.r1)-sns.pitch)
                 hmn.personal_r=0.6;
 
                 hmn.vx=-0.9;
@@ -174,8 +175,8 @@ function result=MAIN_func()
                 
                 problem.bounds.initialState.low = [rbt.x0;rbt.y0;rbt.th0;rbt.th_tlt0;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tlt0];
                 problem.bounds.initialState.upp = [rbt.x0;rbt.y0;rbt.th0;rbt.th_tlt0;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tlt0];
-                problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.th_tltF;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tltF];
-                problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.th_tltF;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tltF];
+                problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.th_tltF_min;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tltF];
+                problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.th_tltF_max;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tltF];
             
                 problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.th_tlt_min;rbt.vxmin;rbt.vymin;rbt.omgmin;rbt.omg_tlt_min];
                 problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.th_tlt_max;rbt.vxmax;rbt.vymax;rbt.omgmax;rbt.omg_tlt_max];
@@ -218,9 +219,9 @@ function result=MAIN_func()
                 x_temp2=x_temp+circle_r;
                 % t_temp2=problem.bounds.finalTime.low-t_temp;
 
-                temp=[x_temp;y_temp;th_temp;0;0;0;0;0];
-                temp1=[x_temp1;y_temp;th_temp;0;0;0;0;0];
-                temp2=[x_temp2;y_temp;th_temp;0;0;0;0;0];
+                temp=[x_temp;y_temp;th_temp;-pi/4;0;0;0;0];
+                temp1=[x_temp1;y_temp;th_temp;-pi/4;0;0;0;0];
+                temp2=[x_temp2;y_temp;th_temp;-pi/4;0;0;0;0];
                 % temp2=[rbt.xF;y_temp;th_temp;0;0;0]
                 % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                 problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp1,t_temp2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];

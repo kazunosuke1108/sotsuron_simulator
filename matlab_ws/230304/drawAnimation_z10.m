@@ -115,8 +115,8 @@ hmn_personal_area=plot(plt_xH(1)+hmn.personal_r*cos(0:0.01:2*pi),plt_yH(1)+hmn.p
 hold on
 %%%%% arc
 arc_rad = linspace(plt_phR(1)+plt_thR(1)-sns.phi,plt_phR(1)+plt_thR(1)+sns.phi,arc_resolution);
-arc_r1_x = r1(1)*cos(arc_rad)+plt_xR(1);
-arc_r1_y = r1(1)*sin(arc_rad)+plt_yR(1);
+arc_r1_x = sns.r1*cos(arc_rad)+plt_xR(1);
+arc_r1_y = sns.r1*sin(arc_rad)+plt_yR(1);
 arc_r2_x = sns.r2*cos(arc_rad)+plt_xR(1);
 arc_r2_y = sns.r2*sin(arc_rad)+plt_yR(1);
 
@@ -175,8 +175,8 @@ for i = 1:length(plt_xR)
     % set(odom_path,'XData',odom_x(1:round(i*ratio)),'YData',odom_y(1:round(i*ratio)))
 
     arc_rad = linspace(plt_phR(i)+plt_thR(i)-sns.phi,plt_phR(i)+plt_thR(i)+sns.phi,arc_resolution);
-    arc_r1_x = r1(i)*cos(arc_rad)+plt_xR(i);
-    arc_r1_y = r1(i)*sin(arc_rad)+plt_yR(i);
+    arc_r1_x = sns.r1*cos(arc_rad)+plt_xR(i);
+    arc_r1_y = sns.r1*sin(arc_rad)+plt_yR(i);
     arc_r2_x = sns.r2*cos(arc_rad)+plt_xR(i);
     arc_r2_y = sns.r2*sin(arc_rad)+plt_yR(i);
     set(arc_r1,'XData',arc_r1_x,'YData',arc_r1_y);

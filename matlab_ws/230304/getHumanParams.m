@@ -1,8 +1,9 @@
-function hmn=getHumanParams(env,sns)
+function [hmn,sns]=getHumanParams(env,sns)
 
 hmn.sizer=0.3;
+hmn.h=1.0;
+sns.r1=(hmn.h/tan(2*sns.pitch)+sqrt(hmn.h^2/(tan(2*sns.pitch))^2-4*sns.h*(sns.h-hmn.h)))/2
 hmn.sizep=atan(hmn.sizer/(sns.r1+hmn.sizer));
-hmn.h=1.7;
 hmn.personal_r=1.2;
 
 hmn.x0=env.xmax;
