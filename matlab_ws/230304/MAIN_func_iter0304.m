@@ -19,12 +19,12 @@ function result=MAIN_func_iter0304()
                     %% experiment or simulation
                     exp_mode=0;
                     LRF_mode=candidate2; % 0:d455 1:LRF
-                    date="230304_2022e";
+                    date="230305_2022e";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1100_parameter_study_d455_tate_personalr_060";
+                        abst="1600_parameter_study_d455_tilt";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -80,13 +80,13 @@ function result=MAIN_func_iter0304()
                     % sns.r1=sns.h/tan(sns.pitch);
                     
                     % RealSense D455縦 
-                    sns.phi=57;
-                    sns.pitch=86;
-                    sns.r0=6.0;
-                    sns.r2=6.0;
-                    sns.phi=deg2rad(sns.phi)/2;
-                    sns.pitch=deg2rad(sns.pitch)/2;
-                    sns.r1=sns.h/tan(sns.pitch);
+                    % sns.phi=57;
+                    % sns.pitch=86;
+                    % sns.r0=6.0;
+                    % sns.r2=6.0;
+                    % sns.phi=deg2rad(sns.phi)/2;
+                    % sns.pitch=deg2rad(sns.pitch)/2;
+                    % sns.r1=sns.h/tan(sns.pitch);
 
                     % Xtion PRO LIVE 
                     % sns.phi=58;
@@ -109,13 +109,14 @@ function result=MAIN_func_iter0304()
                     env.L=15;
                     env.xmax=env.L;
                     env.roi.xmax=env.L;
-                    env.ymax=2.0;
+                    env.ymax=4.0;
                     env.kabe.ymax=env.ymax;
                     env.roi.ymax=env.ymax;
                 
                     rbt=getRobotParams(env);
-                    hmn=getHumanParams(env,sns);
-                    hmn.personal_r=0.6;
+                    [hmn,sns]=getHumanParams(env,sns);
+                    rbt.th_tlt_min=-(atan(sns.h/sns.r1)-sns.pitch)
+                    hmn.personal_r=1.2;
 
                     hmn.vx=candidate;
                     hmn.y0=candidate3;
@@ -180,8 +181,8 @@ function result=MAIN_func_iter0304()
                     
                     problem.bounds.initialState.low = [rbt.x0;rbt.y0;rbt.th0;rbt.th_tlt0;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tlt0];
                     problem.bounds.initialState.upp = [rbt.x0;rbt.y0;rbt.th0;rbt.th_tlt0;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tlt0];
-                    problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.th_tltF;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tltF];
-                    problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.th_tltF;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tltF];
+                problem.bounds.finalState.low = [rbt.xF;rbt.yF;rbt.thFmin;rbt.th_tltF_min;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tltF];
+                problem.bounds.finalState.upp = [rbt.xF;rbt.yF;rbt.thFmax;rbt.th_tltF_max;rbt.vx0;rbt.vy0;rbt.omg0;rbt.omg_tltF];
                 
                     problem.bounds.state.low = [rbt.x0;env.ymin+rbt.sizer;rbt.thmin;rbt.th_tlt_min;rbt.vxmin;rbt.vymin;rbt.omgmin;rbt.omg_tlt_min];
                     problem.bounds.state.upp = [rbt.xF;env.ymax-rbt.sizer;rbt.thmax;rbt.th_tlt_max;rbt.vxmax;rbt.vymax;rbt.omgmax;rbt.omg_tlt_max];
@@ -224,9 +225,9 @@ function result=MAIN_func_iter0304()
                 x_temp2=x_temp+circle_r;
                 % t_temp2=problem.bounds.finalTime.low-t_temp;
 
-                temp=[x_temp;y_temp;th_temp;0;0;0;0;0];
-                temp1=[x_temp1;y_temp;th_temp;0;0;0;0;0];
-                temp2=[x_temp2;y_temp;th_temp;0;0;0;0;0];
+                temp=[x_temp;y_temp;th_temp;-pi/4;0;0;0;0];
+                temp1=[x_temp1;y_temp;th_temp;-pi/4;0;0;0;0];
+                temp2=[x_temp2;y_temp;th_temp;-pi/4;0;0;0;0];
                 % temp2=[rbt.xF;y_temp;th_temp;0;0;0]
                 % problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
                 problem.guess.time = [(problem.bounds.initialTime.low+problem.bounds.initialTime.upp)/2,t_temp1,t_temp2,(problem.bounds.finalTime.low+problem.bounds.finalTime.upp)/2];
@@ -259,20 +260,20 @@ function result=MAIN_func_iter0304()
                     
                     % Display Solution
                     n = length(soln.grid.time);
-                %% 元々
-                % t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
-                % z = soln.interp.state(t);
-                % u = soln.interp.control(t);
-                %% gridのまま
-                t = soln.grid.time;
-                z = soln.grid.state;
-                u = soln.grid.control;
-                % %% 線形補間
-                % t=linspace(soln.grid.time(1),soln.grid.time(end),15*(n-1)+1);
-                % z=interp1(soln.grid.time,soln.grid.state,t);
-                % u=interp1(soln.grid.time,soln.grid.control,t);
+                    %% 元々
+                    % t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
+                    % z = soln.interp.state(t);
+                    % u = soln.interp.control(t);
+                    %% gridのまま
+                    t = soln.grid.time;
+                    z = soln.grid.state;
+                    u = soln.grid.control;
+                    % %% 線形補間
+                    % t=linspace(soln.grid.time(1),soln.grid.time(end),15*(n-1)+1);
+                    % z=interp1(soln.grid.time,soln.grid.state,t);
+                    % u=interp1(soln.grid.time,soln.grid.control,t);
 
-                    [z8,u4]=getz8(z,u,LRF_mode);
+                    [z10,u5]=getz10(z,u,LRF_mode);
 
                     
                     save(savename+".mat");
@@ -305,8 +306,8 @@ function result=MAIN_func_iter0304()
                         disp("exp_mode:0")
                     end
                     result.z=z;
-                    result.z8=z8;
-                    result.u4=u4;
+                    result.z10=z10;
+                    result.u5=u5;
                     result.t=t;
                     
                     save(savename+".mat");
