@@ -16,11 +16,11 @@ function result=MAIN_func()
     %     for candidate2=[-0.5 -1.5 -2.5 -3.5]
             % try
                 %% experiment or simulation
-                exp_mode=1;
+                exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230220";
-                abst="shingo";
-                detail="20230220_y040_v000_30";
+                date="230305";
+                abst="test";
+                detail="";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -73,6 +73,15 @@ function result=MAIN_func()
                 % sns.pitch=deg2rad(sns.pitch)/2;
                 % sns.r1=sns.h/tan(sns.pitch);
 
+                % RealSense D455縦 
+                sns.phi=57;
+                sns.pitch=86;
+                sns.r0=6.0;
+                sns.r2=6.0;
+                sns.phi=deg2rad(sns.phi)/2;
+                sns.pitch=deg2rad(sns.pitch)/2;
+                sns.r1=sns.h/tan(sns.pitch);
+
                 % Xtion PRO LIVE 
                 % sns.phi=58;
                 % sns.pitch=45;
@@ -94,7 +103,7 @@ function result=MAIN_func()
                 env.L=15;
                 env.xmax=env.L;
                 env.roi.xmax=env.L;
-                env.ymax=2.8;
+                env.ymax=4;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
@@ -102,7 +111,7 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
 
                 hmn.vx=-0.9;
-                hmn.y0=2;
+                hmn.y0=1;
                 
                 if exp_mode
                     [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity(env);
@@ -112,7 +121,7 @@ function result=MAIN_func()
                 env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/(abs(hmn.vx)+abs(rbt.vx0));
                 
                 rbt.vx0=0.11;
-                rbt.y0=1.0;
+                rbt.y0=2.0;
                 rbt.xF=rbt.vx0*(env.L/(rbt.vx0+abs(hmn.vx)))+2*hmn.personal_r;
                 rbt.yF=rbt.y0;
 

@@ -1,4 +1,4 @@
-function result=MAIN_func_iter0207()
+function result=MAIN_func_iter0305()
     % MAIN.m
     %% initialization
     clc; clear;
@@ -19,12 +19,12 @@ function result=MAIN_func_iter0207()
                     %% experiment or simulation
                     exp_mode=0;
                     LRF_mode=candidate2; % 0:d455 1:LRF
-                    date="2022e_230211";
+                    date="230305_2022e";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1900_parameter_study_d455_ymax_5";
+                        abst="1800_parameter_study_d455_tate";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -79,6 +79,15 @@ function result=MAIN_func_iter0207()
                     % sns.pitch=deg2rad(sns.pitch)/2;
                     % sns.r1=sns.h/tan(sns.pitch);
 
+                    % RealSense D455縦 
+                    sns.phi=57;
+                    sns.pitch=86;
+                    sns.r0=6.0;
+                    sns.r2=6.0;
+                    sns.phi=deg2rad(sns.phi)/2;
+                    sns.pitch=deg2rad(sns.pitch)/2;
+                    sns.r1=sns.h/tan(sns.pitch);
+
                     % Xtion PRO LIVE 
                     % sns.phi=58;
                     % sns.pitch=45;
@@ -100,7 +109,7 @@ function result=MAIN_func_iter0207()
                     env.L=15;
                     env.xmax=env.L;
                     env.roi.xmax=env.L;
-                    env.ymax=5;
+                    env.ymax=4;
                     env.kabe.ymax=env.ymax;
                     env.roi.ymax=env.ymax;
                 
@@ -111,7 +120,7 @@ function result=MAIN_func_iter0207()
                     hmn.y0=candidate3;
                     
                     if exp_mode
-                        [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity();
+                        [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity(env);
                         tic;
                         % env.hz=abs(hmn.vx)*40/3;
                     end
@@ -181,7 +190,7 @@ function result=MAIN_func_iter0207()
                         
                 % Initial guess at trajectory
 
-                slack=0.3;
+                slack=0;
                 circle_r=hmn.personal_r+slack+rbt.sizer;
                 if abs(env.ymax-hmn.y0)>=abs(hmn.y0-env.ymin)
                     disp("avoid upper")
