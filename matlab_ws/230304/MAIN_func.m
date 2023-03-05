@@ -103,17 +103,17 @@ function result=MAIN_func()
                 env.L=15;
                 env.xmax=env.L;
                 env.roi.xmax=env.L;
-                env.ymax=2.5;
+                env.ymax=4.0;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
                 rbt=getRobotParams(env);
                 [hmn,sns]=getHumanParams(env,sns);
                 rbt.th_tlt_min=-(atan(sns.h/sns.r1)-sns.pitch)
-                hmn.personal_r=0.6;
+                hmn.personal_r=1.2;
 
-                hmn.vx=-0.9;
-                hmn.y0=1;
+                hmn.vx=-0.85;
+                hmn.y0=2;
                 
                 if exp_mode
                     [env.dist_zed_hmn,hmn.y0,hmn.vx]=getHumanVelocity(env);
