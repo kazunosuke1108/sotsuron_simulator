@@ -114,7 +114,7 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
                 hmn.personal_r=1.2;
 
-                hmn.vx=-0.65;
+                hmn.vx=-0.9;
                 hmn.y0=1;
                 
                 if exp_mode
@@ -131,7 +131,7 @@ function result=MAIN_func()
 
                 t_slack=0.35;
 
-                env.hz=abs(hmn.vx)*20/3;
+                env.hz=abs(hmn.vx)*40/3;
                 
                 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                 %                           seq.1  検知                                   %
@@ -238,8 +238,7 @@ function result=MAIN_func()
                 
                 % Solver options
                 problem.options.nlpOpt = optimset(...
-                'Algorithm','interior-point',...
-                'SubproblemAlgorithm','cg',...
+                'Algorithm','sqp',...
                 'Display','iter',...
                 'MaxIter',500,... % 可能な反復の最大数 (正の整数)
                 'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
@@ -247,6 +246,7 @@ function result=MAIN_func()
                 'TolCon',1e-12,... % 制約違反に関する許容誤差 (正のスカラー)
                 'MaxFunEvals',1e7);
                 % 'Display','final-detailed');
+                % 'SubproblemAlgorithm','cg',...
                 
                 % problem.options.method = 'trapezoid'; 
                 % problem.options.method = 'multiCheb'; 

@@ -24,7 +24,7 @@ function result=MAIN_func_iter0305()
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1100_parameter_study_d455_ZED_tate_feasibility";
+                        abst="1100_parameter_study_d455_ZED_tate_40_sqp";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -137,7 +137,7 @@ function result=MAIN_func_iter0305()
 
                     t_slack=0.35;
 
-                    env.hz=abs(hmn.vx)*20/3;
+                    env.hz=abs(hmn.vx)*40/3;
                     
                     %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%
                     %                           seq.1  検知                                   %
@@ -243,14 +243,16 @@ function result=MAIN_func_iter0305()
                     
                     % Solver options
                     problem.options.nlpOpt = optimset(...
-                    'Algorithm','interior-point',...
-                    'SubproblemAlgorithm','cg',...
+                    'Algorithm','sqp',...
                     'Display','iter',...
                     'MaxIter',500,... % 可能な反復の最大数 (正の整数)
                     'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
                     'TolX',1e-10,... % x に関する許容誤差 (正のスカラー)
                     'TolCon',1e-12,... % 制約違反に関する許容誤差 (正のスカラー)
                     'MaxFunEvals',1e7);
+
+                    % 'Algorithm','interior-point',...
+                    % 'SubproblemAlgorithm','cg',...
                     
                     % problem.options.method = 'trapezoid'; 
                     problem.options.method = 'hermiteSimpson';  
