@@ -1,6 +1,6 @@
 clc;clear;
 
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230305\results\230308_2022h_0000_parameter_study_d455_tate_sqp";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230305\results\230308_2020e_0000_parameter_study_ZED_yoko_sqp";
 % motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\2022h_230122_1800_parameter_study_d455_no_offset";
 dirlist=dir(motherdir);
 fig=figure(1); clf;

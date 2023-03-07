@@ -19,12 +19,12 @@ function result=MAIN_func_iter0305()
                     %% experiment or simulation
                     exp_mode=0;
                     LRF_mode=candidate2; % 0:d455 1:LRF
-                    date="230308_2022h";
+                    date="230308_2020e";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="0000_parameter_study_d455_tate_sqp";
+                        abst="0000_parameter_study_ZED_yoko_sqp";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -80,13 +80,13 @@ function result=MAIN_func_iter0305()
                     % sns.r1=sns.h/tan(sns.pitch);
 
                     % RealSense D455縦 
-                    sns.phi=57;
-                    sns.pitch=86;
-                    sns.r0=6.0;
-                    sns.r2=6.0;
-                    sns.phi=deg2rad(sns.phi)/2;
-                    sns.pitch=deg2rad(sns.pitch)/2;
-                    sns.r1=sns.h/tan(sns.pitch);
+                    % sns.phi=57;
+                    % sns.pitch=86;
+                    % sns.r0=6.0;
+                    % sns.r2=6.0;
+                    % sns.phi=deg2rad(sns.phi)/2;
+                    % sns.pitch=deg2rad(sns.pitch)/2;
+                    % sns.r1=sns.h/tan(sns.pitch);
 
                     % Xtion PRO LIVE 
                     % sns.phi=58;
@@ -98,16 +98,16 @@ function result=MAIN_func_iter0305()
                     % sns.r1=sns.h/tan(sns.pitch);
 
                     % ZED 
-                    % sns.phi=110;
-                    % sns.pitch=70;
+                    sns.phi=110;
+                    sns.pitch=70;
                     % 縦
                     % sns.phi=70;
                     % sns.pitch=110;
-                    % sns.r0=8.0;
-                    % sns.r2=8.0;
-                    % sns.phi=deg2rad(sns.phi)/2;
-                    % sns.pitch=deg2rad(sns.pitch)/2;
-                    % sns.r1=sns.h/tan(sns.pitch);
+                    sns.r0=8.0;
+                    sns.r2=8.0;
+                    sns.phi=deg2rad(sns.phi)/2;
+                    sns.pitch=deg2rad(sns.pitch)/2;
+                    sns.r1=sns.h/tan(sns.pitch);
 
                     env.L=15;
                     env.xmax=env.L;
