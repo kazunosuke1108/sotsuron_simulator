@@ -19,7 +19,7 @@ function result=MAIN_func()
                 exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230307";
-                abst="ZED";
+                abst="SQP";
                 detail="yoko";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
@@ -74,13 +74,13 @@ function result=MAIN_func()
                 % sns.r1=sns.h/tan(sns.pitch);
 
                 % RealSense D455縦 
-                % sns.phi=57;
-                % sns.pitch=86;
-                % sns.r0=6.0;
-                % sns.r2=6.0;
-                % sns.phi=deg2rad(sns.phi)/2;
-                % sns.pitch=deg2rad(sns.pitch)/2;
-                % sns.r1=sns.h/tan(sns.pitch);
+                sns.phi=57;
+                sns.pitch=86;
+                sns.r0=6.0;
+                sns.r2=6.0;
+                sns.phi=deg2rad(sns.phi)/2;
+                sns.pitch=deg2rad(sns.pitch)/2;
+                sns.r1=sns.h/tan(sns.pitch);
 
                 % Xtion PRO LIVE 
                 % sns.phi=58;
@@ -92,23 +92,27 @@ function result=MAIN_func()
                 % sns.r1=sns.h/tan(sns.pitch);
 
                 % ZED 
-                sns.phi=110;
-                sns.pitch=70;
-                sns.r0=8.0;
-                sns.r2=8.0;
-                sns.phi=deg2rad(sns.phi)/2;
-                sns.pitch=deg2rad(sns.pitch)/2;
-                sns.r1=sns.h/tan(sns.pitch);
+                % sns.phi=110;
+                % sns.pitch=70;
+                % % tate
+                % % sns.phi=70;
+                % % sns.pitch=110;
+                % sns.r0=8.0;
+                % sns.r2=8.0;
+                % sns.phi=deg2rad(sns.phi)/2;
+                % sns.pitch=deg2rad(sns.pitch)/2;
+                % sns.r1=sns.h/tan(sns.pitch);
 
                 env.L=15;
                 env.xmax=env.L;
                 env.roi.xmax=env.L;
-                env.ymax=4;
+                env.ymax=2;
                 env.kabe.ymax=env.ymax;
                 env.roi.ymax=env.ymax;
                 
                 rbt=getRobotParams(env);
                 hmn=getHumanParams(env,sns);
+                hmn.personal_r=1.2;
 
                 hmn.vx=-0.9;
                 hmn.y0=1;
@@ -121,7 +125,7 @@ function result=MAIN_func()
                 env.publish_time=(env.dist_hsr_zed+env.dist_zed_hmn-env.L)/(abs(hmn.vx)+abs(rbt.vx0));
                 
                 rbt.vx0=0.11;
-                rbt.y0=2.0;
+                rbt.y0=1.0;
                 rbt.xF=rbt.vx0*(env.L/(rbt.vx0+abs(hmn.vx)))+2*hmn.personal_r;
                 rbt.yF=rbt.y0;
 
@@ -234,6 +238,7 @@ function result=MAIN_func()
                 
                 % Solver options
                 problem.options.nlpOpt = optimset(...
+                'Algorithm','sqp',...
                 'Display','iter',...
                 'MaxIter',500,... % 可能な反復の最大数 (正の整数)
                 'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
