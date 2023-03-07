@@ -128,9 +128,9 @@ function result=MAIN_func_iter0305()
                     
                     rbt.vx0=0.11;
                     % rbt.vxmin=0;
-                    % rbt.y0=1;
+                    rbt.y0=1;
                     rbt.xF=rbt.vx0*(env.L/(rbt.vx0+abs(hmn.vx)))+2*hmn.personal_r;
-                    % rbt.yF=rbt.y0;
+                    rbt.yF=rbt.y0;
 
                     t_slack=0.35;
 

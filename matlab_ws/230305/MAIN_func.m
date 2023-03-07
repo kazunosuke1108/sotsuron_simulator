@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230305";
-                abst="test";
-                detail="";
+                date="230307";
+                abst="ZED";
+                detail="yoko";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -74,13 +74,13 @@ function result=MAIN_func()
                 % sns.r1=sns.h/tan(sns.pitch);
 
                 % RealSense D455縦 
-                sns.phi=57;
-                sns.pitch=86;
-                sns.r0=6.0;
-                sns.r2=6.0;
-                sns.phi=deg2rad(sns.phi)/2;
-                sns.pitch=deg2rad(sns.pitch)/2;
-                sns.r1=sns.h/tan(sns.pitch);
+                % sns.phi=57;
+                % sns.pitch=86;
+                % sns.r0=6.0;
+                % sns.r2=6.0;
+                % sns.phi=deg2rad(sns.phi)/2;
+                % sns.pitch=deg2rad(sns.pitch)/2;
+                % sns.r1=sns.h/tan(sns.pitch);
 
                 % Xtion PRO LIVE 
                 % sns.phi=58;
@@ -92,13 +92,13 @@ function result=MAIN_func()
                 % sns.r1=sns.h/tan(sns.pitch);
 
                 % ZED 
-                % sns.phi=110;
-                % sns.pitch=70;
-                % sns.r0=8.0;
-                % sns.r2=8.0;
-                % sns.phi=deg2rad(sns.phi)/2;
-                % sns.pitch=deg2rad(sns.pitch)/2;
-                % sns.r1=sns.h/tan(sns.pitch);
+                sns.phi=110;
+                sns.pitch=70;
+                sns.r0=8.0;
+                sns.r2=8.0;
+                sns.phi=deg2rad(sns.phi)/2;
+                sns.pitch=deg2rad(sns.pitch)/2;
+                sns.r1=sns.h/tan(sns.pitch);
 
                 env.L=15;
                 env.xmax=env.L;
