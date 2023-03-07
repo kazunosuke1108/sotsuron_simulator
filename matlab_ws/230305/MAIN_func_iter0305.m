@@ -19,12 +19,12 @@ function result=MAIN_func_iter0305()
                     %% experiment or simulation
                     exp_mode=0;
                     LRF_mode=candidate2; % 0:d455 1:LRF
-                    date="230308_2020e";
+                    date="230308_2020d";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="0000_parameter_study_ZED_yoko_sqp";
+                        abst="0000_parameter_study_ZED_tate_sqp";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -98,11 +98,11 @@ function result=MAIN_func_iter0305()
                     % sns.r1=sns.h/tan(sns.pitch);
 
                     % ZED 
-                    sns.phi=110;
-                    sns.pitch=70;
+                    % sns.phi=110;
+                    % sns.pitch=70;
                     % 縦
-                    % sns.phi=70;
-                    % sns.pitch=110;
+                    sns.phi=70;
+                    sns.pitch=110;
                     sns.r0=8.0;
                     sns.r2=8.0;
                     sns.phi=deg2rad(sns.phi)/2;
