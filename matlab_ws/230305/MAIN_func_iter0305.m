@@ -24,7 +24,7 @@ function result=MAIN_func_iter0305()
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1200_parameter_study_d455_ZED_tate_40_interior";
+                        abst="1800_parameter_study_d455_ZED_tate_40_sqp";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -243,7 +243,7 @@ function result=MAIN_func_iter0305()
                     
                     % Solver options
                     problem.options.nlpOpt = optimset(...
-                    'Algorithm','interior-point',...
+                    'Algorithm','sqp',...
                     'Display','iter',...
                     'MaxIter',500,... % 可能な反復の最大数 (正の整数)
                     'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
