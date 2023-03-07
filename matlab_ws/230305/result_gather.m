@@ -1,6 +1,6 @@
 clc;clear;
 
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230305\results\230307_2022e_1000_parameter_study_d455_ZED_tate";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230305\results\230307_2022h_1000_parameter_study_d455_ZED_tate_SQP";
 % motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\2022h_230122_1800_parameter_study_d455_no_offset";
 dirlist=dir(motherdir);
 fig=figure(1); clf;
@@ -163,7 +163,7 @@ for n = 3:length(dirlist)
             hmn.y0
             ];
             
-            % pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+            pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
 
         % if measured_length<5
         %     figure(2); clf;
@@ -174,8 +174,8 @@ for n = 3:length(dirlist)
         if n ~= length(dirlist)
             hold on
         end
-        % saveas(figure(1),motherdir+"\results_grid.png");
-        % writematrix(result_matrix,motherdir+"\results_grid.csv",'WriteMode','append');
+        saveas(figure(1),motherdir+"\results_grid.png");
+        writematrix(result_matrix,motherdir+"\results_grid.csv",'WriteMode','append');
         if n==length(dirlist)
             clearvars -except motherdir dirlist matpath fullmatpath n;
         end
