@@ -19,12 +19,12 @@ function result=MAIN_func_iter0305()
                     %% experiment or simulation
                     exp_mode=0;
                     LRF_mode=candidate2; % 0:d455 1:LRF
-                    date="230307_2022e";
+                    date="230308_2022e";
                     if LRF_mode
                         abst="0000_parameter_study_LRF";
                         detail="L_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     else
-                        abst="1200_parameter_study_d455_ZED_tate_40_interior";
+                        abst="0000_parameter_study_d455_yoko_sqp";
                         detail="d_hmny0_"+string(abs(candidate3))+"_vx"+string(abs(candidate));
                     end
                     mkdir('results');
@@ -101,13 +101,13 @@ function result=MAIN_func_iter0305()
                     % sns.phi=110;
                     % sns.pitch=70;
                     % 縦
-                    sns.phi=70;
-                    sns.pitch=110;
-                    sns.r0=8.0;
-                    sns.r2=8.0;
-                    sns.phi=deg2rad(sns.phi)/2;
-                    sns.pitch=deg2rad(sns.pitch)/2;
-                    sns.r1=sns.h/tan(sns.pitch);
+                    % sns.phi=70;
+                    % sns.pitch=110;
+                    % sns.r0=8.0;
+                    % sns.r2=8.0;
+                    % sns.phi=deg2rad(sns.phi)/2;
+                    % sns.pitch=deg2rad(sns.pitch)/2;
+                    % sns.r1=sns.h/tan(sns.pitch);
 
                     env.L=15;
                     env.xmax=env.L;
@@ -243,7 +243,7 @@ function result=MAIN_func_iter0305()
                     
                     % Solver options
                     problem.options.nlpOpt = optimset(...
-                    'Algorithm','interior-point',...
+                    'Algorithm','sqp',...
                     'Display','iter',...
                     'MaxIter',500,... % 可能な反復の最大数 (正の整数)
                     'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
@@ -265,18 +265,18 @@ function result=MAIN_func_iter0305()
                     
                     % Display Solution
                     n = length(soln.grid.time);
-                %% 元々
-                % t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
-                % z = soln.interp.state(t);
-                % u = soln.interp.control(t);
-                %% gridのまま
-                t = soln.grid.time;
-                z = soln.grid.state;
-                u = soln.grid.control;
-                % %% 線形補間
-                % t=linspace(soln.grid.time(1),soln.grid.time(end),15*(n-1)+1);
-                % z=interp1(soln.grid.time,soln.grid.state,t);
-                % u=interp1(soln.grid.time,soln.grid.control,t);
+                    %% 元々
+                    % t = linspace(soln.grid.time(1), soln.grid.time(end), 15*(n-1)+1);
+                    % z = soln.interp.state(t);
+                    % u = soln.interp.control(t);
+                    %% gridのまま
+                    t = soln.grid.time;
+                    z = soln.grid.state;
+                    u = soln.grid.control;
+                    % %% 線形補間
+                    % t=linspace(soln.grid.time(1),soln.grid.time(end),15*(n-1)+1);
+                    % z=interp1(soln.grid.time,soln.grid.state,t);
+                    % u=interp1(soln.grid.time,soln.grid.control,t);
 
                     [z8,u4]=getz8(z,u,LRF_mode);
 
