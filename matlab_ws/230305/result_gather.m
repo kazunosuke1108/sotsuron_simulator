@@ -163,7 +163,7 @@ for n = 3:length(dirlist)
             hmn.y0
             ];
             
-            % pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+            pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
 
         % if measured_length<5
         %     figure(2); clf;
@@ -174,8 +174,8 @@ for n = 3:length(dirlist)
         if n ~= length(dirlist)
             hold on
         end
-        % saveas(figure(1),motherdir+"\results_grid.png");
-        % writematrix(result_matrix,motherdir+"\results_grid.csv",'WriteMode','append');
+        saveas(figure(1),motherdir+"\results_grid.png");
+        writematrix(result_matrix,motherdir+"\results_grid.csv",'WriteMode','append');
         if n==length(dirlist)
             clearvars -except motherdir dirlist matpath fullmatpath n;
         end
