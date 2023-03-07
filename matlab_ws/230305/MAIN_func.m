@@ -74,13 +74,13 @@ function result=MAIN_func()
                 % sns.r1=sns.h/tan(sns.pitch);
 
                 % RealSense D455縦 
-                sns.phi=57;
-                sns.pitch=86;
-                sns.r0=6.0;
-                sns.r2=6.0;
-                sns.phi=deg2rad(sns.phi)/2;
-                sns.pitch=deg2rad(sns.pitch)/2;
-                sns.r1=sns.h/tan(sns.pitch);
+                % sns.phi=57;
+                % sns.pitch=86;
+                % sns.r0=6.0;
+                % sns.r2=6.0;
+                % sns.phi=deg2rad(sns.phi)/2;
+                % sns.pitch=deg2rad(sns.pitch)/2;
+                % sns.r1=sns.h/tan(sns.pitch);
 
                 % Xtion PRO LIVE 
                 % sns.phi=58;
@@ -94,14 +94,14 @@ function result=MAIN_func()
                 % ZED 
                 % sns.phi=110;
                 % sns.pitch=70;
-                % % tate
-                % % sns.phi=70;
-                % % sns.pitch=110;
-                % sns.r0=8.0;
-                % sns.r2=8.0;
-                % sns.phi=deg2rad(sns.phi)/2;
-                % sns.pitch=deg2rad(sns.pitch)/2;
-                % sns.r1=sns.h/tan(sns.pitch);
+                % tate
+                sns.phi=70;
+                sns.pitch=110;
+                sns.r0=8.0;
+                sns.r2=8.0;
+                sns.phi=deg2rad(sns.phi)/2;
+                sns.pitch=deg2rad(sns.pitch)/2;
+                sns.r1=sns.h/tan(sns.pitch);
 
                 env.L=15;
                 env.xmax=env.L;
@@ -114,7 +114,7 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
                 hmn.personal_r=1.2;
 
-                hmn.vx=-0.9;
+                hmn.vx=-0.65;
                 hmn.y0=1;
                 
                 if exp_mode
