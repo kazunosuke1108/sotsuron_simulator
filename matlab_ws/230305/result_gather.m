@@ -1,6 +1,6 @@
 clc;clear;
 
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230305\results\230307_2022e_1200_parameter_study_d455_ZED_tate_40_interior";
+motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230305\results\230307_2022h_1200_parameter_study_d455_ZED_tate_40_sqp";
 % motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\2022h_230122_1800_parameter_study_d455_no_offset";
 dirlist=dir(motherdir);
 fig=figure(1); clf;
@@ -32,15 +32,21 @@ for n = 3:length(dirlist)
 
         footprint_interp=getFootprint(t_interp,z_interp,u_interp,env,rbt,hmn,sns);
         hmn_path_interp=getHumanPath(t_interp,hmn);
-        footprint=getFootprint(t,z,u,env,rbt,hmn,sns);
+        % footprint=getFootprint(t,z,u,env,rbt,hmn,sns);
         hmn_path=getHumanPath(t,hmn);
 
         %%%%% how long measured?
-        success_list=find(footprint_interp>0,nnz(footprint_interp));
-        first_success_idx=success_list(1);
-        last_success_idx=success_list(end);
-        continuous_check=all(footprint_interp(first_success_idx:last_success_idx)>0);
-
+        if nnz(footprint_interp)~=0
+            success_list=find(footprint_interp>0,nnz(footprint_interp));
+            first_success_idx=success_list(1);
+            last_success_idx=success_list(end);
+            continuous_check=all(footprint_interp(first_success_idx:last_success_idx)>0);
+        else
+            success_list=[0];
+            first_success_idx=success_list(1);
+            last_success_idx=success_list(end);
+            continuous_check=false;
+        end
         i=1;
         for success = success_list(1:end-1)
             if success+1==success_list(i+1)
@@ -163,7 +169,7 @@ for n = 3:length(dirlist)
             hmn.y0
             ];
             
-            pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+            % pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
 
         % if measured_length<5
         %     figure(2); clf;
@@ -174,8 +180,11 @@ for n = 3:length(dirlist)
         if n ~= length(dirlist)
             hold on
         end
-        saveas(figure(1),motherdir+"\results_grid.png");
+        % saveas(figure(1),motherdir+"\results_grid.png");
         writematrix(result_matrix,motherdir+"\results_grid.csv",'WriteMode','append');
+        if soln.info.exitFlag~=-2
+            writematrix(result_matrix,motherdir+"\results_valid.csv",'WriteMode','append');
+        end
         if n==length(dirlist)
             clearvars -except motherdir dirlist matpath fullmatpath n;
         end

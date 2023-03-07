@@ -15,10 +15,17 @@ function measured_length=measure_length(t,z,u,env,rbt,hmn,sns,soln)
     hmn_path_interp=getHumanPath(t_interp,hmn);
 
     %%%%% how long measured?
-    success_list=find(footprint_interp>0,nnz(footprint_interp));
-    first_success_idx=success_list(1);
-    last_success_idx=success_list(end);
-    continuous_check=all(footprint_interp(first_success_idx:last_success_idx)>0);
+    if nnz(footprint_interp)~=0
+        success_list=find(footprint_interp>0,nnz(footprint_interp));
+        first_success_idx=success_list(1);
+        last_success_idx=success_list(end);
+        continuous_check=all(footprint_interp(first_success_idx:last_success_idx)>0);
+    else
+        success_list=[0];
+        first_success_idx=success_list(1);
+        last_success_idx=success_list(end);
+        continuous_check=false;
+    end
 
     i=1;
     for success = success_list(1:end-1)
@@ -30,8 +37,13 @@ function measured_length=measure_length(t,z,u,env,rbt,hmn,sns,soln)
         end
         i=i+1;
     end
-    measured_length=abs(hmn_path_interp(1,first_success_idx)-hmn_path_interp(1,last_success_idx));
-    % hmn_path_interp
+    
+    if nnz(footprint_interp)~=0
+        measured_length=abs(hmn_path_interp(1,first_success_idx)-hmn_path_interp(1,last_success_idx));
+    else
+        measured_length=0;
+    end
+        % hmn_path_interp
     % hmn_path_interp(1,first_success_idx)
     % hmn_path_interp(1,last_success_idx)
     

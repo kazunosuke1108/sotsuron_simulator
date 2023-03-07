@@ -19,7 +19,7 @@ function result=MAIN_func()
                 exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
                 date="230307";
-                abst="EnableFeasibilityMode";
+                abst="why_fail_draw";
                 detail="yoko";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
@@ -238,7 +238,7 @@ function result=MAIN_func()
                 
                 % Solver options
                 problem.options.nlpOpt = optimset(...
-                'Algorithm','sqp',...
+                'Algorithm','interior-point',...
                 'Display','iter',...
                 'MaxIter',500,... % 可能な反復の最大数 (正の整数)
                 'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
