@@ -1,6 +1,6 @@
 clc;clear;
 
-motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230305\results\230308_2022h_0000_parameter_study_d455_tate_sqp";
+motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230305\results\230308_2022h_0000_parameter_study_d455_tate_sqp";
 % motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\2022h_230122_1800_parameter_study_d455_no_offset";
 dirlist=dir(motherdir);
 fig=figure('OuterPosition',[593 1653 805 404]); clf;
@@ -181,9 +181,9 @@ for n = 3:length(dirlist)
             hold on
         end
         % saveas(figure(1),motherdir+"\results_grid.png");
-        % writematrix(result_matrix,motherdir+"\results_grid.csv",'WriteMode','append');
+        writematrix(result_matrix,motherdir+"\results_grid.csv",'WriteMode','append');
         if soln.info.exitFlag~=-2
-            % writematrix(result_matrix,motherdir+"\results_valid.csv",'WriteMode','append');
+            writematrix(result_matrix,motherdir+"\results_valid.csv",'WriteMode','append');
         end
         if n==length(dirlist)
             clearvars -except motherdir dirlist matpath fullmatpath n;
