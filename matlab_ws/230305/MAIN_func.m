@@ -18,9 +18,9 @@ function result=MAIN_func()
                 %% experiment or simulation
                 exp_mode=0;
                 LRF_mode=0; % 0:d455 1:LRF
-                date="230307";
-                abst="why_fail_draw";
-                detail="yoko";
+                date="230308";
+                abst="measure_length";
+                detail="";
                 mkdir('results');
                 % savedir="results\"+date+"_"+abst;
                 savedir="results/"+date+"_"+abst;
@@ -114,7 +114,7 @@ function result=MAIN_func()
                 hmn=getHumanParams(env,sns);
                 hmn.personal_r=1.2;
 
-                hmn.vx=-0.9;
+                hmn.vx=-1.05;
                 hmn.y0=1;
                 
                 if exp_mode
@@ -238,7 +238,7 @@ function result=MAIN_func()
                 
                 % Solver options
                 problem.options.nlpOpt = optimset(...
-                'Algorithm','interior-point',...
+                'Algorithm','sqp',...
                 'Display','iter',...
                 'MaxIter',500,... % 可能な反復の最大数 (正の整数)
                 'TolFun',1e-12,... % 1 次の最適性に関する終了許容誤差 (正のスカラー)
@@ -328,8 +328,7 @@ function result=MAIN_func()
                         end
                     end
                 end
-                norm_vel=sqrt(z(4,:).^2+z(5,:).^2);
-                disp(max(norm_vel)<rbt.vmax)
+                measure_length(t,z,u,env,rbt,hmn,sns,soln)
                 
                 % writeCSV(problem,env,rbt,hmn,sns,soln,savename);
         %     catch
