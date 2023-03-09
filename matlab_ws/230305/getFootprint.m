@@ -36,6 +36,9 @@ function footprint=getFootprint(t,z,u,env,rbt,hmn,sns)
     norm_checker1=norm_checker11.*norm_checker12;
     deg_checker11=deg_diff>=-sns.phi+hmn.sizep;
     deg_checker12=deg_diff<=sns.phi-hmn.sizep;
+    sns.phi
+    hmn.sizep% おかしい？
+    sns.phi-hmn.sizep
     deg_checker1=deg_checker11.*deg_checker12;
     roi_checker11=hmn_path(1,:)>=env.roi.xmin;
     roi_checker12=hmn_path(1,:)<=env.roi.xmax;
