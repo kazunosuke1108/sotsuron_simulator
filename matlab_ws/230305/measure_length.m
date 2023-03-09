@@ -11,7 +11,7 @@ function measured_length=measure_length(t,z,u,env,rbt,hmn,sns,soln)
     u_interp=[interp1(t,u(1,:),t_interp);...
     interp1(t,u(2,:),t_interp);...
     interp1(t,u(3,:),t_interp)];
-    footprint_interp=getFootprint(t_interp,z_interp,u_interp,env,rbt,hmn,sns)
+    footprint_interp=getFootprint(t_interp,z_interp,u_interp,env,rbt,hmn,sns);
     hmn_path_interp=getHumanPath(t_interp,hmn);
 
     %%%%% how long measured?
