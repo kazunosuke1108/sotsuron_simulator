@@ -1,9 +1,9 @@
 clc;clear;
 
-motherdir="C:\Users\hayashide\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230305\results\230308_2020d_0000_parameter_study_ZED_tate_sqp";
+motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230305\results\230308_2022h_0000_parameter_study_d455_tate_sqp";
 % motherdir="C:\Users\林出和之\Desktop\kazu_ws\sotsuron_simulator\matlab_ws\230121\results\2022h_230122_1800_parameter_study_d455_no_offset";
 dirlist=dir(motherdir);
-fig=figure(1); clf;
+fig=figure('OuterPosition',[593 1653 805 404]); clf;
 
 
 for n = 3:length(dirlist)
@@ -169,7 +169,7 @@ for n = 3:length(dirlist)
             hmn.y0
             ];
             
-            pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
+            % pltHistory(t,z,u,env,rbt,hmn,sns,soln,graph_title);
 
         % if measured_length<5
         %     figure(2); clf;
@@ -180,10 +180,10 @@ for n = 3:length(dirlist)
         if n ~= length(dirlist)
             hold on
         end
-        saveas(figure(1),motherdir+"\results_grid.png");
-        writematrix(result_matrix,motherdir+"\results_grid.csv",'WriteMode','append');
+        % saveas(figure(1),motherdir+"\results_grid.png");
+        % writematrix(result_matrix,motherdir+"\results_grid.csv",'WriteMode','append');
         if soln.info.exitFlag~=-2
-            writematrix(result_matrix,motherdir+"\results_valid.csv",'WriteMode','append');
+            % writematrix(result_matrix,motherdir+"\results_valid.csv",'WriteMode','append');
         end
         if n==length(dirlist)
             clearvars -except motherdir dirlist matpath fullmatpath n;
@@ -212,7 +212,7 @@ avoid_ng_idx=find(list_avoid<1.2);
 
 
 % [X,Y]=meshgrid(unique(list_vx),unique(list_y0));
-subplot(1,2,1)
+subplot1=subplot(1,2,1)
 % surf(X,Y,list_length)
 % plot3(X(len_ok_idx),Y(len_ok_idx),list_length(len_ok_idx),'ob')
 plot3(list_vx(len_ok_idx),list_y0(len_ok_idx),list_length(len_ok_idx),'or')
@@ -223,9 +223,10 @@ xlabel("vx [m/s]")
 ylabel("y0 [m]")
 zlabel("measured length [m]")
 % title("measured length: vx:"+string(hmn.vx)+"[m/s] y0:"+string(hmn.y0)+" [m]")
+view(subplot1,[-62.1324323078339 13.8640103172112]);
 grid on
 
-subplot(1,2,2)
+subplot2=subplot(1,2,2)
 plot3(list_vx(avoid_ok_idx),list_y0(avoid_ok_idx),list_avoid(avoid_ok_idx),'or')
 hold on
 plot3(list_vx(avoid_ng_idx),list_y0(avoid_ng_idx),list_avoid(avoid_ng_idx),'xb')
@@ -233,5 +234,6 @@ xlabel("vx [m/s]")
 ylabel("y0 [m]")
 zlabel("minimum distance between hmn & rbt [m]")
 % title("minimum distance hmn <--> rbt: vx:"+string(hmn.vx)+"[m/s] y0:"+string(hmn.y0)+" [m]")
+view(subplot2,[-62.1324323078339 13.8640103172112]);
 grid on
 saveas(fig,motherdir+"\results.fig")
