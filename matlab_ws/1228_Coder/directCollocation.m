@@ -81,6 +81,7 @@ P.solver = 'fmincon';
 
 %%%% Call fmincon to solve the non-linear program (NLP)
 tic;
+disp(P.x0)
 [zSoln, objVal,exitFlag,output] = fmincon(P);
 [tSoln,xSoln,uSoln] = unPackDecVar(zSoln,pack);
 nlpTime = toc;

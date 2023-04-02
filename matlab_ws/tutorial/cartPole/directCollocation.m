@@ -78,7 +78,6 @@ P.Aineq = []; P.bineq = [];
 P.Aeq = []; P.beq = [];
 P.options = Opt.nlpOpt;
 P.solver = 'fmincon';
-
 %%%% Call fmincon to solve the non-linear program (NLP)
 tic;
 [zSoln, objVal,exitFlag,output] = fmincon(P);
